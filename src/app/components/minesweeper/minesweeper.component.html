@@ -1,0 +1,9 @@
+<div class="minesweeper">
+    <div class="container">
+        <div class="field">
+            <section *ngFor="let row of counter(rowAmount)" class="row">
+                <app-cell *ngFor="let cell of counter(cellsPerRow)"></app-cell>
+            </section>
+        </div>
+    </div>
+</div>
