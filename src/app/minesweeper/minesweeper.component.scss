@@ -1,0 +1,19 @@
+.minesweeper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container {
+    height: 92vh;
+    width: 92vh;
+    background-color: red;
+}
+
+.field {
+    height: 90vh;
+    width: 90vh;
+    background-color: #D8D8D8;
+    margin: 1vh;
+}
