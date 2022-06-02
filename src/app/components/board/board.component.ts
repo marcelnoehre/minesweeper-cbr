@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-minesweeper',
-  templateUrl: './minesweeper.component.html',
-  styleUrls: ['./minesweeper.component.scss']
+  selector: 'app-board',
+  templateUrl: './board.component.html',
+  styleUrls: ['./board.component.scss']
 })
-export class MinesweeperComponent implements OnInit {
+export class BoardComponent implements OnInit {
   public rowAmount: number = 10;
   public cellsPerRow: number = 10;
 
