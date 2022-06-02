@@ -11,6 +11,8 @@ export class SettingsComponent implements OnInit {
   public selectedLanguage:string = '';
   public languagesDefault:string[] = ['de', 'en', 'fr', 'es']
   public languages:string[] = [];
+  public selectedDifficulty:string = 'easy';
+  public difficulties: string[] = ['easy', 'medium', 'hard'];
 
 
   constructor(
@@ -21,6 +23,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.selectedLanguage = this.storage.getSessionEntry('lang');
     this.getLanguages();
+    this.setupDifficulty();
   }
 
   newLanguage(lang:string): void {
@@ -37,5 +40,20 @@ export class SettingsComponent implements OnInit {
         this.languages.push(this.languagesDefault[i]);
       }
     }
+  }
+
+  setupDifficulty() {
+    let diff = null;
+    try {
+      diff = this.storage.getSessionEntry('difficulty');
+    } catch(err) {}
+    diff = diff? diff : 'easy';
+    this.selectedDifficulty = diff;
+    this.storage.setSessionEntry('difficulty', this.selectedDifficulty);
+  }
+
+  newDifficulty(difficulty:string): void {
+    this.selectedDifficulty = difficulty;
+    this.storage.setSessionEntry('difficulty', this.selectedDifficulty);
   }
 }

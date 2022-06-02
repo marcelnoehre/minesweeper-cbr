@@ -13,13 +13,68 @@
     padding-top: 3rem;
     font-size: 2rem;
     font-family: fantasy;
-    color: white;
+    color: lightgreen;
 }
 
-.game-settings {
-    margin: 1vh;
+.game-stats {
+    width: 18vw;
     height: 50vh;
-    border: 1px dashed gold;
+    margin: 1vw;
+    border: 2px dashed lightgreen;
+}
+
+.active-difficulty {
+    width: 18vw;
+    text-align: center;
+    padding-top: 0.5rem;
+    font-size: 1.5rem;
+    font-family: fantasy;
+    color: lightgreen;
+    text-transform: uppercase;
+}
+
+span {
+    width: 20vw;
+    color: white;
+    text-align: center;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+ul {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li:hover {
+    background-color: lightgreen;
+}
+
+.clickable {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.clickable>img {
+    width: 2.5rem;
+    height: auto;
+}
+
+.selected {
+    background-color: lightgreen;
+}
+
+.difficulty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 20vw;
+    height: 10vh;
 }
 
 .language-selector {
@@ -28,25 +83,5 @@
     justify-content: center;
     width: 20vw;
     height: 10vh;
-}
-
-.languages {
-    display: flex;
-    justify-content: space-around;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.languages>li:hover {
-    background-color: orange;
-}
-
-.clickable {
-    padding: 1rem;
-}
-
-.flag {
-    width: 2.5rem;
-    height: auto;
+    margin-bottom: 0.5rem;
 }
