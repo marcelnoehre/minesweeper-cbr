@@ -2,8 +2,8 @@
     <div class="vertical-container">
         <div class="board">
             <div class="field">
-                <section *ngFor="let row of counter(rowAmount)" class="row">
-                    <app-cell *ngFor="let cell of counter(cellsPerRow)"></app-cell>
+                <section *ngFor="let row of counter(rowAmount)" class="row" [ngClass]="difficulty">
+                    <app-cell *ngFor="let cell of counter(cellsPerRow)" [difficulty]="difficulty"></app-cell>
                 </section>
             </div>
         </div>

@@ -22,5 +22,11 @@ export class AppComponent {
     lang = lang? lang : 'de';
     storage.setSessionEntry('lang', lang);
     translate.use(lang);
+    let diff = null;
+    try {
+      diff = this.storage.getSessionEntry('difficulty');
+    } catch(err) {}
+    diff = diff? diff : 'BEGINNER';
+    storage.setSessionEntry('difficulty', diff)
   }
 }

@@ -53,6 +53,14 @@ li:hover {
     background-color: lightgreen;
 }
 
+.selected {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem;
+    background-color: lightgreen;
+}
+
 .clickable {
     display: flex;
     flex-direction: column;
@@ -60,13 +68,10 @@ li:hover {
     padding: 0.5rem;
 }
 
-.clickable>img {
+.clickable>img,
+.selected>img {
     width: 2.5rem;
     height: auto;
-}
-
-.selected {
-    background-color: lightgreen;
 }
 
 .difficulty {

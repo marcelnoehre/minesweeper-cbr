@@ -13,20 +13,20 @@
         <span>{{'SETTINGS.DIFFICULTIES'|translate}}</span>
         <ul class="difficulties">
             <li *ngFor="let difficulty of difficulties">
-                <div *ngIf="difficulty == selectedDifficulty" class="clickable selected" (click)="newDifficulty(difficulty) ">
+                <div *ngIf="difficulty == selectedDifficulty" class="selected">
                     <img src="{{ 'assets/images/difficulties/' + difficulty + '.png'}} " />
                 </div>
-                <div *ngIf="difficulty != selectedDifficulty" class="clickable" (click)="newDifficulty(difficulty) ">
+                <div *ngIf="difficulty != selectedDifficulty " class="clickable" (click)="setDifficulty(difficulty) ">
                     <img src="{{ 'assets/images/difficulties/' + difficulty + '.png'}} " />
                 </div>
             </li>
         </ul>
     </div>
-    <div class="language-selector">
+    <div class="language-selector ">
         <span>{{'SETTINGS.LANGUAGES'|translate}}</span>
-        <ul class="languages">
+        <ul class="languages ">
             <li *ngFor="let language of languages ">
-                <div class="clickable" (click)="newLanguage(language) ">
+                <div class="clickable " (click)="newLanguage(language) ">
                     <img src="{{ 'assets/images/flags/' + language + '.png'}} " />
                 </div>
             </li>
