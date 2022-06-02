@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { filter, Observable, pluck } from 'rxjs';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -7,6 +8,7 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
+  DifficultyChange$!: Observable<string>;
   public difficulty: string = ''
   public rowAmount: number = 0;
   public cellsPerRow: number = 0;
@@ -15,7 +17,15 @@ export class BoardComponent implements OnInit {
     private storage:StorageService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+      this.DifficultyChange$ = this.storage.storageChange$.pipe(
+        filter(({ key }) => key === "difficulty"),
+        pluck("id")
+      );
+      this.DifficultyChange$.subscribe(newDifficulty => {
+        this.difficulty = newDifficulty;
+        this.setupBoard();
+      });
     this.setupBoard();
   }
 
