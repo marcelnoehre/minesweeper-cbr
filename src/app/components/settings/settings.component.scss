@@ -1,0 +1,21 @@
+.container {
+    height: 100vh;
+    width: 20vw;
+    border-right: 1px solid #D8D8D8;
+}
+
+.header {
+    width: 20vw;
+    text-align: center;
+    padding-top: 3rem;
+    font-size: 2rem;
+    font-family: fantasy;
+    color: white;
+}
+
+app-language-selector {
+    position: absolute;
+    bottom: 0;
+    width: 20vw;
+    height: 20vh;
+}

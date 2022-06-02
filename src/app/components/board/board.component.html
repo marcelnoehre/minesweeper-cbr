@@ -1,9 +1,11 @@
-<div class="container">
-    <div class="board">
-        <div class="field">
-            <section *ngFor="let row of counter(rowAmount)" class="row">
-                <app-cell *ngFor="let cell of counter(cellsPerRow)"></app-cell>
-            </section>
+<div class="horizontal-container">
+    <div class="vertical-container">
+        <div class="board">
+            <div class="field">
+                <section *ngFor="let row of counter(rowAmount)" class="row">
+                    <app-cell *ngFor="let cell of counter(cellsPerRow)"></app-cell>
+                </section>
+            </div>
         </div>
     </div>
 </div>
