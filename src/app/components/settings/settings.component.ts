@@ -9,9 +9,8 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class SettingsComponent implements OnInit {
   public selectedLanguage:string = '';
-  public languagesDefault:string[] = ['de', 'en', 'fr', 'es']
-  public languages:string[] = [];
-  public selectedDifficulty:string = 'easy';
+  public languages:string[] = ['de', 'en', 'fr', 'es'];
+  public selectedDifficulty:string = '';
   public difficulties: string[] = ['BEGINNER', 'ADVANCED', 'EXTREME'];
   public revealedCells: number = 25;
   public totalCells: number = 50;
@@ -26,24 +25,13 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedLanguage = this.storage.getSessionEntry('lang');
-    this.getLanguages();
     this.setDifficulty(this.storage.getSessionEntry('difficulty'));
   }
 
-  newLanguage(lang:string): void {
+  setLanguage(lang:string): void {
     this.storage.setSessionEntry('lang', lang);
     this.selectedLanguage = lang;
     this.translate.use(lang);
-    this.getLanguages();
-  }
-
-  public getLanguages(): void {
-    this.languages = [];
-    for(let i = 0; i < 4; i++) {
-      if(this.selectedLanguage != this.languagesDefault[i]) {
-        this.languages.push(this.languagesDefault[i]);
-      }
-    }
   }
 
   setDifficulty(difficulty:string): void {

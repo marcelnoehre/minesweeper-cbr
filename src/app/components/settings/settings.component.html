@@ -50,8 +50,11 @@
         <span>{{'SETTINGS.LANGUAGES'|translate}}</span>
         <ul class="languages ">
             <li *ngFor="let language of languages ">
-                <div class="clickable " (click)="newLanguage(language) ">
-                    <img src="{{ 'assets/images/flags/' + language + '.png'}} " />
+                <div *ngIf="language == selectedLanguage" class="selected">
+                    <img src="{{ 'assets/images/flags/' + language + '.png'}}" />
+                </div>
+                <div *ngIf="language != selectedLanguage" class="clickable" (click)="setLanguage(language)">
+                    <img src="{{ 'assets/images/flags/' + language + '.png'}}" />
                 </div>
             </li>
         </ul>
