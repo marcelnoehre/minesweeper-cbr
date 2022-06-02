@@ -11,5 +11,8 @@
         "BEGINNER": "Beginner",
         "ADVANCED": "Fortgeschritten",
         "EXTREME": "Extrem"
+    },
+    "HINTS": {
+        "HEADER": "Hinweise"
     }
 }

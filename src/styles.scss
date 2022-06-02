@@ -1,5 +1,6 @@
 html,
 body {
+    height: 100%;
     /* Safari */
     -webkit-user-select: none;
     /* Firefox */
@@ -12,6 +13,7 @@ body {
     -ms-overflow-style: none;
     padding: 0;
     margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 body::-webkit-scrollbar {

@@ -13,6 +13,10 @@ export class SettingsComponent implements OnInit {
   public languages:string[] = [];
   public selectedDifficulty:string = 'easy';
   public difficulties: string[] = ['BEGINNER', 'ADVANCED', 'EXTREME'];
+  public revealedCells: number = 25;
+  public totalCells: number = 50;
+  public flags: number = 10;
+  public bombs: number = 10;
 
 
   constructor(

@@ -11,5 +11,8 @@
         "BEGINNER": "Débutant",
         "ADVANCED": "Avancé",
         "EXTREME": "Extrême"
+    },
+    "HINTS": {
+        "HEADER": "Remarques"
     }
 }

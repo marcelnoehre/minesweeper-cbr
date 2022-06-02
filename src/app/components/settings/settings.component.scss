@@ -17,6 +17,9 @@
 }
 
 .game-stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 18vw;
     height: 50vh;
     margin: 1vw;
@@ -31,6 +34,92 @@
     font-family: fantasy;
     color: lightgreen;
     text-transform: uppercase;
+}
+
+.timer {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    margin-left: 3.5vw;
+    margin-right: 3.5vw;
+    height: 5vh;
+    color: white;
+    border: 1px dashed white;
+}
+
+.time {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: monospace;
+    font-size: 2rem;
+}
+
+.progress {
+    display: flex;
+    justify-content: center;
+}
+
+progress::-moz-progress-bar {
+    background: lightgreen;
+}
+
+progress::-webkit-progress-value {
+    background: lightgreen;
+}
+
+progress {
+    background-color: lightgreen;
+}
+
+.amount-stats {
+    display: block;
+    justify-content: center;
+}
+
+.flags,
+.bombs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+pre {
+    margin: 0;
+}
+
+.stat-container {
+    display: flex;
+    justify-content: center;
+}
+
+p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 2rem;
+}
+
+.amount-stats>div>div>img {
+    width: 3rem;
+    height: auto;
+}
+
+.restart {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.5rem;
+}
+
+.restart>button {
+    background-color: lightgreen;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 span {

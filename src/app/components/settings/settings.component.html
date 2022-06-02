@@ -4,10 +4,34 @@
         <div class="active-difficulty">
             {{'DIFFICULTIES.' + selectedDifficulty|translate}}
         </div>
-        <div class="timer"></div>
-        <div class="score"></div>
-        <div class="flags"></div>
-        <div class="restart"></div>
+        <div class="progress-stats">
+            <div class="timer">
+                <div class="time">00:00</div>
+            </div>
+            <div class="progress">
+                <progress id="prgoress" [value]="revealedCells" [max]="totalCells"></progress>
+            </div>
+        </div>
+        <div class="amount-stats">
+            <div class="flags">
+                <div class="stat-container">
+                    <img src="assets/images/game_icons/flagged.png">
+                    <pre>&nbsp;</pre>
+                    <p>{{flags}}</p>
+                </div>
+            </div>
+            <pre>&nbsp;</pre>
+            <div class="bombs">
+                <div class="stat-container">
+                    <img src="assets/images/game_icons/bomb.png">
+                    <pre>&nbsp;</pre>
+                    <p>{{bombs}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="restart">
+            <button mat-raised-button type="button">{{'APP.RESTART'|translate}}</button>
+        </div>
     </div>
     <div class="difficulty">
         <span>{{'SETTINGS.DIFFICULTIES'|translate}}</span>
