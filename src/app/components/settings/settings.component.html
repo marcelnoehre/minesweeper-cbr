@@ -1,5 +1,13 @@
 <div class="container">
     <div class="header">MINESWEEPER</div>
     <div class="game-settings"></div>
-    <app-language-selector></app-language-selector>
+    <div class="language-selector">
+        <ul class="languages">
+            <li *ngFor="let language of languages ">
+                <div class="clickable" (click)="newLanguage(language) ">
+                    <img class="flag " src="{{ 'assets/images/flags/' + language + '.png'}} " />
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>

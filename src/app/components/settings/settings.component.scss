@@ -1,4 +1,7 @@
 .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     height: 100vh;
     width: 20vw;
     border-right: 1px solid #D8D8D8;
@@ -13,9 +16,37 @@
     color: white;
 }
 
-app-language-selector {
-    position: absolute;
-    bottom: 0;
+.game-settings {
+    margin: 1vh;
+    height: 50vh;
+    border: 1px dashed gold;
+}
+
+.language-selector {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 20vw;
-    height: 20vh;
+    height: 10vh;
+}
+
+.languages {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.languages>li:hover {
+    background-color: orange;
+}
+
+.clickable {
+    padding: 1rem;
+}
+
+.flag {
+    width: 2.5rem;
+    height: auto;
 }
