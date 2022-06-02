@@ -1,0 +1,15 @@
+{
+    "APP": {
+        "RESTART": "Reiniciar",
+        "CANCEL": "Cancelar"
+    },
+    "SETTINGS": {
+        "LANGUAGES": "Lenguas:",
+        "DIFFICULTIES": "Niveles de dificultad:"
+    },
+    "DIFFICULTIES": {
+        "BEGINNER": "Principiante",
+        "ADVANCED": "Avanzado",
+        "EXTREME": "Extremo"
+    }
+}

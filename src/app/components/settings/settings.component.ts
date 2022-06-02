@@ -12,7 +12,7 @@ export class SettingsComponent implements OnInit {
   public languagesDefault:string[] = ['de', 'en', 'fr', 'es']
   public languages:string[] = [];
   public selectedDifficulty:string = 'easy';
-  public difficulties: string[] = ['easy', 'medium', 'hard'];
+  public difficulties: string[] = ['BEGINNER', 'ADVANCED', 'EXTREME'];
 
 
   constructor(
@@ -47,7 +47,7 @@ export class SettingsComponent implements OnInit {
     try {
       diff = this.storage.getSessionEntry('difficulty');
     } catch(err) {}
-    diff = diff? diff : 'easy';
+    diff = diff? diff : 'BEGINNER';
     this.selectedDifficulty = diff;
     this.storage.setSessionEntry('difficulty', this.selectedDifficulty);
   }

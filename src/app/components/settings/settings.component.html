@@ -1,14 +1,16 @@
 <div class="container">
     <div class="header">MINESWEEPER</div>
     <div class="game-stats">
-        <div class="active-difficulty">{{selectedDifficulty}}</div>
+        <div class="active-difficulty">
+            {{'DIFFICULTIES.' + selectedDifficulty|translate}}
+        </div>
         <div class="timer"></div>
         <div class="score"></div>
         <div class="flags"></div>
         <div class="restart"></div>
     </div>
     <div class="difficulty">
-        <span>Schwierigkeitsgrad: </span>
+        <span>{{'SETTINGS.DIFFICULTIES'|translate}}</span>
         <ul class="difficulties">
             <li *ngFor="let difficulty of difficulties">
                 <div *ngIf="difficulty == selectedDifficulty" class="clickable selected" (click)="newDifficulty(difficulty) ">
@@ -21,7 +23,7 @@
         </ul>
     </div>
     <div class="language-selector">
-        <span>Sprache: </span>
+        <span>{{'SETTINGS.LANGUAGES'|translate}}</span>
         <ul class="languages">
             <li *ngFor="let language of languages ">
                 <div class="clickable" (click)="newLanguage(language) ">
