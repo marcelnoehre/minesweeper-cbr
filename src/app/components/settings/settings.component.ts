@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -14,8 +14,13 @@ export class SettingsComponent implements OnInit {
   public difficulties: string[] = ['BEGINNER', 'ADVANCED', 'EXTREME'];
   public revealedCells: number = 25;
   public totalCells: number = 50;
+  public minutes: string = '00';
+  public seconds: string = '00';
+  public time: number = 0;
+  public gameTime: number = 0;
   public flags: number = 10;
   public bombs: number = 10;
+  private interval: any;
 
 
   constructor(
@@ -37,5 +42,21 @@ export class SettingsComponent implements OnInit {
   setDifficulty(difficulty:string): void {
     this.selectedDifficulty = difficulty;
     this.storage.setSessionEntry('difficulty', this.selectedDifficulty);
+  }
+
+  startTimer() {
+    this.interval = setInterval(() => {
+      this.time++;
+      let minutes = Math.floor(this.time / 60);
+      let seconds = this.time % 60;
+      this.minutes = minutes < 10 ? '0' + minutes : '' + minutes;
+      this.seconds = seconds < 10 ? '0' + seconds : '' + seconds; 
+    },1000)
+  }
+
+  stopTimer() {
+    this.gameTime = this.time
+    this.time = 0;
+    clearInterval(this.interval);
   }
 }
