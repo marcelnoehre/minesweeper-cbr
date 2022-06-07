@@ -2,14 +2,14 @@
     <div class="header">MINESWEEPER</div>
     <div class="game-stats">
         <div class="active-difficulty">
-            {{'DIFFICULTIES.' + selectedDifficulty|translate}}
+            {{'DIFFICULTIES.' + board.gameStats.difficulty|translate}}
         </div>
         <div class="progress-stats">
             <div class="timer">
                 <div class="time">{{minutes}}:{{seconds}}</div>
             </div>
             <div class="progress">
-                <progress id="prgoress" [value]="revealedCells" [max]="totalCells"></progress>
+                <progress id="prgoress" [value]="board.gameStats.revealedCells" [max]="board.gameStats.totalCells"></progress>
             </div>
         </div>
         <div class="amount-stats">
@@ -17,7 +17,7 @@
                 <div class="stat-container">
                     <img src="assets/images/game_icons/flagged.png">
                     <pre>&nbsp;</pre>
-                    <p>{{flags}}</p>
+                    <p>{{board.gameStats.remainingFlags}}</p>
                 </div>
             </div>
             <pre>&nbsp;</pre>
@@ -25,7 +25,7 @@
                 <div class="stat-container">
                     <img src="assets/images/game_icons/bomb.png">
                     <pre>&nbsp;</pre>
-                    <p>{{bombs}}</p>
+                    <p>{{board.gameStats.remainingBombs}}</p>
                 </div>
             </div>
         </div>
@@ -37,10 +37,10 @@
         <span>{{'SETTINGS.DIFFICULTIES'|translate}}</span>
         <ul class="difficulties">
             <li *ngFor="let difficulty of difficulties">
-                <div *ngIf="difficulty == selectedDifficulty" class="selected">
+                <div *ngIf="difficulty == board.gameStats.difficulty" class="selected">
                     <img src="{{ 'assets/images/difficulties/' + difficulty + '.png'}} " />
                 </div>
-                <div *ngIf="difficulty != selectedDifficulty " class="clickable" (click)="setDifficulty(difficulty) ">
+                <div *ngIf="difficulty != board.gameStats.difficulty " class="clickable" (click)="setDifficulty(difficulty) ">
                     <img src="{{ 'assets/images/difficulties/' + difficulty + '.png'}} " />
                 </div>
             </li>

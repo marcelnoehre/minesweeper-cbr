@@ -1,6 +1,8 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { GameStats } from 'src/app/interfaces/game-stats';
 import { StorageService } from 'src/app/services/storage.service';
+import { BoardComponent } from '../board/board.component';
 
 @Component({
   selector: 'app-settings',
@@ -8,20 +10,26 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  @ViewChildren(BoardComponent) board!: BoardComponent;
+  public gameStats: GameStats = {
+    difficulty: '',
+    revealedCells: 0,
+    totalCells: 81,
+    rowAmount: 9,
+    cellsPerRow: 9,
+    flagAmount: 10,
+    remainingFlags: 10,
+    bombsAmount: 10,
+    remainingBombs: 10
+  }
   public selectedLanguage:string = '';
   public languages:string[] = ['de', 'en', 'fr', 'es'];
-  public selectedDifficulty:string = '';
   public difficulties: string[] = ['BEGINNER', 'ADVANCED', 'EXTREME'];
-  public revealedCells: number = 25;
-  public totalCells: number = 50;
   public minutes: string = '00';
   public seconds: string = '00';
   public time: number = 0;
   public gameTime: number = 0;
-  public flags: number = 10;
-  public bombs: number = 10;
   private interval: any;
-
 
   constructor(
     private storage: StorageService,
@@ -40,8 +48,7 @@ export class SettingsComponent implements OnInit {
   }
 
   setDifficulty(difficulty:string): void {
-    this.selectedDifficulty = difficulty;
-    this.storage.setSessionEntry('difficulty', this.selectedDifficulty);
+    this.storage.setSessionEntry('difficulty', difficulty);
   }
 
   startTimer() {

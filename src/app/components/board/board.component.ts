@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { filter, Observable, pluck } from 'rxjs';
 import { StorageService } from 'src/app/services/storage.service';
+import { GameStats } from 'src/app/interfaces/game-stats';
 
 @Component({
   selector: 'app-board',
@@ -9,9 +10,17 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class BoardComponent implements OnInit {
   DifficultyChange$!: Observable<string>;
-  public difficulty: string = ''
-  public rowAmount: number = 0;
-  public cellsPerRow: number = 0;
+  public gameStats: GameStats = {
+    difficulty: '',
+    revealedCells: 0,
+    totalCells: 81,
+    rowAmount: 9,
+    cellsPerRow: 9,
+    flagAmount: 10,
+    remainingFlags: 10,
+    bombsAmount: 10,
+    remainingBombs: 10
+  }
 
   constructor(
     private storage:StorageService
@@ -23,23 +32,29 @@ export class BoardComponent implements OnInit {
         pluck("id")
       );
       this.DifficultyChange$.subscribe(newDifficulty => {
-        this.difficulty = newDifficulty;
+        this.gameStats.difficulty = newDifficulty;
         this.setupBoard();
       });
     this.setupBoard();
   }
 
   setupBoard() {
-    this.difficulty = this.storage.getSessionEntry('difficulty');
-    if(this.difficulty == 'BEGINNER') {
-      this.rowAmount = 9; 
-      this.cellsPerRow = 9;
-    } else if (this.difficulty == 'ADVANCED') {
-      this.rowAmount = 16;
-      this.cellsPerRow = 16;
+    this.gameStats.difficulty = this.storage.getSessionEntry('difficulty');
+    if(this.gameStats.difficulty == 'BEGINNER') {
+      this.gameStats.totalCells = 81;
+      this.gameStats.revealedCells = 0;
+      this.gameStats.rowAmount = 9; 
+      this.gameStats.cellsPerRow = 9;
+    } else if (this.gameStats.difficulty == 'ADVANCED') {
+      this.gameStats.totalCells = 256;
+      this.gameStats.revealedCells = 0;
+      this.gameStats.rowAmount = 16;
+      this.gameStats.cellsPerRow = 16;
     } else {
-      this.rowAmount = 25;
-      this.cellsPerRow = 25;
+      this.gameStats.totalCells = 625;
+      this.gameStats.revealedCells = 0;
+      this.gameStats.rowAmount = 25;
+      this.gameStats.cellsPerRow = 25;
     }
   }
 
