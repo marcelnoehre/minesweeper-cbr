@@ -1,62 +1,72 @@
-<div class="container">
-    <div class="header">MINESWEEPER</div>
-    <div class="game-stats">
-        <div class="active-difficulty">
-            {{'DIFFICULTIES.' + board.gameStats.difficulty|translate}}
-        </div>
-        <div class="progress-stats">
-            <div class="timer">
-                <div class="time">{{minutes}}:{{seconds}}</div>
-            </div>
-            <div class="progress">
-                <progress id="prgoress" [value]="board.gameStats.revealedCells" [max]="board.gameStats.totalCells"></progress>
-            </div>
-        </div>
-        <div class="amount-stats">
-            <div class="flags">
-                <div class="stat-container">
-                    <img src="assets/images/game_icons/flagged.png">
-                    <pre>&nbsp;</pre>
-                    <p>{{board.gameStats.remainingFlags}}</p>
-                </div>
-            </div>
-            <pre>&nbsp;</pre>
-            <div class="bombs">
-                <div class="stat-container">
-                    <img src="assets/images/game_icons/bomb.png">
-                    <pre>&nbsp;</pre>
-                    <p>{{board.gameStats.remainingBombs}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="restart">
-            <button mat-raised-button type="button">{{'APP.RESTART'|translate}}</button>
-        </div>
+<div class="container" *ngIf="!loading">
+    <div class="firstRow">
+        <div class="header">MINESWEEPER</div>
     </div>
-    <div class="difficulty">
-        <span>{{'SETTINGS.DIFFICULTIES'|translate}}</span>
-        <ul class="difficulties">
-            <li *ngFor="let difficulty of difficulties">
-                <div *ngIf="difficulty == board.gameStats.difficulty" class="selected">
-                    <img src="{{ 'assets/images/difficulties/' + difficulty + '.png'}} " />
+    <div class="secondRow">
+        <div class="game-stats">
+            <div class="left-container">
+                <div class="active-difficulty">
+                    {{'DIFFICULTIES.' + 'ADVANCED'|translate}}
                 </div>
-                <div *ngIf="difficulty != board.gameStats.difficulty " class="clickable" (click)="setDifficulty(difficulty) ">
-                    <img src="{{ 'assets/images/difficulties/' + difficulty + '.png'}} " />
+                <!-- <div class="progress-stats"> ngif über 1000px-->
+                <div class="timer">
+                    <div class="time">00:00</div>
                 </div>
-            </li>
-        </ul>
-    </div>
-    <div class="language-selector ">
-        <span>{{'SETTINGS.LANGUAGES'|translate}}</span>
-        <ul class="languages ">
-            <li *ngFor="let language of languages ">
-                <div *ngIf="language == selectedLanguage" class="selected">
-                    <img src="{{ 'assets/images/flags/' + language + '.png'}}" />
+                <div class="progress">
+                    <progress id="prgoress" value="100" max="100"></progress>
                 </div>
-                <div *ngIf="language != selectedLanguage" class="clickable" (click)="setLanguage(language)">
-                    <img src="{{ 'assets/images/flags/' + language + '.png'}}" />
+                <!-- </div> -->
+            </div>
+            <div class="right-container">
+                <!-- <div class="amount-stats"> -->
+                <div class="flags">
+                    <div class="stat-container">
+                        <img src="assets/images/game_icons/flagged.png">
+                        <!-- <pre>&nbsp;</pre> ngif über 1000px -->
+                        <p>100</p>
+                    </div>
                 </div>
-            </li>
-        </ul>
+                <!-- <pre>&nbsp;</pre> ngif über 1000px -->
+                <div class="bombs">
+                    <div class="stat-container">
+                        <img src="assets/images/game_icons/bomb.png">
+                        <!-- <pre>&nbsp;</pre> ngif über 1000px -->
+                        <p>100</p>
+                    </div>
+                </div>
+                <!-- </div> -->
+                <div class="restart">
+                    <button mat-raised-button type="button">{{'APP.RESTART'|translate}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="selectors">
+            <div class="difficulty">
+                <div class="selector-header">{{'SETTINGS.DIFFICULTIES'|translate}}</div>
+                <ul class="difficulties">
+                    <li *ngFor="let difficulty of difficulties">
+                        <div *ngIf="difficulty == 'ADVANCED'" class="selected">
+                            <img src="{{ 'assets/images/difficulties/' + difficulty + '.png'}} " />
+                        </div>
+                        <div *ngIf="difficulty != 'ADVANCED'" class="clickable" (click)="setDifficulty(difficulty) ">
+                            <img src="{{ 'assets/images/difficulties/' + difficulty + '.png'}} " />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="language-selector ">
+                <div class="selector-header">{{'SETTINGS.LANGUAGES'|translate}}</div>
+                <ul class="languages ">
+                    <li *ngFor="let language of languages ">
+                        <div *ngIf="language == selectedLanguage" class="selected">
+                            <img src="{{ 'assets/images/flags/' + language + '.png'}}" />
+                        </div>
+                        <div *ngIf="language != selectedLanguage" class="clickable" (click)="setLanguage(language)">
+                            <img src="{{ 'assets/images/flags/' + language + '.png'}}" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>

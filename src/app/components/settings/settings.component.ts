@@ -1,27 +1,15 @@
-import { Component, OnInit, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { GameStats } from 'src/app/interfaces/game-stats';
 import { StorageService } from 'src/app/services/storage.service';
-import { BoardComponent } from '../board/board.component';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
-  @ViewChildren(BoardComponent) board!: BoardComponent;
-  public gameStats: GameStats = {
-    difficulty: '',
-    revealedCells: 0,
-    totalCells: 81,
-    rowAmount: 9,
-    cellsPerRow: 9,
-    flagAmount: 10,
-    remainingFlags: 10,
-    bombsAmount: 10,
-    remainingBombs: 10
-  }
+export class SettingsComponent implements OnInit, AfterViewInit {
+  @ViewChild('input') difficulty!: ElementRef;
+  public loading: boolean = false;
   public selectedLanguage:string = '';
   public languages:string[] = ['de', 'en', 'fr', 'es'];
   public difficulties: string[] = ['BEGINNER', 'ADVANCED', 'EXTREME'];
@@ -39,6 +27,10 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.selectedLanguage = this.storage.getSessionEntry('lang');
     this.setDifficulty(this.storage.getSessionEntry('difficulty'));
+  }
+
+  ngAfterViewInit(): void {
+      this.loading = false;
   }
 
   setLanguage(lang:string): void {

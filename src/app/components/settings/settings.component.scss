@@ -1,16 +1,27 @@
 .container {
+    height: 20vh;
+    width: 100vw;
+    border-bottom: 1px solid #D8D8D8;
+}
+
+.firstRow {
+    width: 100vw;
+    height: 7vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
-    width: 20vw;
-    border-right: 1px solid #D8D8D8;
+    justify-content: center;
+}
+
+.secondRow {
+    display: flex;
+    justify-content: space-around;
+    width: 100vw;
+    height: 13vh;
 }
 
 .header {
-    width: 20vw;
+    width: 100vw;
     text-align: center;
-    padding-top: 3rem;
     font-size: 2rem;
     font-family: fantasy;
     color: lightgreen;
@@ -18,19 +29,36 @@
 
 .game-stats {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: calc(18vw - 4px);
-    height: 50vh;
-    margin: 1vw;
+    justify-content: space-around;
+    width: 60vw;
+    margin-top: calc(1vh - 2px);
+    margin-bottom: calc(1vh - 2px);
+    margin-left: calc(1vw - 2px);
+    margin-right: calc(1vw - 2px);
+    height: 11vh;
     border: 2px dashed lightgreen;
 }
 
+.selectors {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 35vw;
+}
+
+.game-stats>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 11vh;
+    width: 28vw;
+}
+
 .active-difficulty {
-    width: 18vw;
+    width: 28vw;
     text-align: center;
-    padding-top: 1rem;
-    font-size: 1.75rem;
+    font-size: 4vw;
+    line-height: 4vw;
     font-family: fantasy;
     color: lightgreen;
     text-transform: uppercase;
@@ -39,11 +67,6 @@
 .timer {
     display: flex;
     justify-content: center;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-    margin-left: 3.5vw;
-    margin-right: 3.5vw;
-    height: 5vh;
     color: white;
     border: 1px dashed white;
 }
@@ -53,7 +76,7 @@
     flex-direction: column;
     justify-content: center;
     font-family: monospace;
-    font-size: 2rem;
+    font-size: 5vw;
 }
 
 .progress {
@@ -71,11 +94,6 @@ progress::-webkit-progress-value {
 
 progress {
     background-color: lightgreen;
-}
-
-.amount-stats {
-    display: block;
-    justify-content: center;
 }
 
 .flags,
@@ -101,33 +119,44 @@ p {
     margin: 0;
     padding: 0;
     color: white;
-    font-size: 2rem;
+    font-size: 4vw;
 }
 
-.amount-stats>div>div>img {
-    width: 3rem;
+.stat-container>img {
+    width: 5vw;
     height: auto;
 }
 
 .restart {
     display: flex;
     justify-content: center;
-    padding-bottom: 0.5rem;
+    height: 3.5vh;
 }
 
 .restart>button {
+    height: 100%;
+    font-size: 3vw;
     background-color: lightgreen;
     color: black;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-transform: uppercase;
     font-weight: bold;
 }
 
-span {
-    width: 20vw;
+.selectors>div {
+    justify-content: center;
+    width: 100%;
+}
+
+.selector-header {
     color: white;
     text-align: center;
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
+    width: 100%;
+    font-size: 3vw;
+    line-height: 3vw;
 }
 
 ul {
@@ -146,7 +175,7 @@ li:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0.5rem;
+    padding: 1vw;
     background-color: lightgreen;
 }
 
@@ -154,12 +183,12 @@ li:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0.5rem;
+    padding: 1vw;
 }
 
 .clickable>img,
 .selected>img {
-    width: 2.5rem;
+    width: 6vw;
     height: auto;
 }
 
@@ -167,15 +196,174 @@ li:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 20vw;
-    height: 10vh;
+    width: 100%;
+    height: 50%;
 }
 
 .language-selector {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 20vw;
-    height: 10vh;
-    margin-bottom: 0.5rem;
+    width: 100%;
+    height: 50%;
+}
+
+@media (min-width: 1000px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
+        width: 20vw;
+        border-right: 1px solid #D8D8D8;
+        border-bottom: none;
+    }
+    .header {
+        width: 20vw;
+        text-align: center;
+        padding-top: 3rem;
+        font-size: 2rem;
+        font-family: fantasy;
+        color: lightgreen;
+    }
+    .game-stats {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: calc(18vw - 4px);
+        height: 50vh;
+        margin: 1vw;
+        border: 2px dashed lightgreen;
+    }
+    .active-difficulty {
+        width: 18vw;
+        text-align: center;
+        padding-top: 1rem;
+        font-size: 1.75rem;
+        font-family: fantasy;
+        color: lightgreen;
+        text-transform: uppercase;
+    }
+    .timer {
+        display: flex;
+        justify-content: center;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+        margin-left: 3.5vw;
+        margin-right: 3.5vw;
+        height: 5vh;
+        color: white;
+        border: 1px dashed white;
+    }
+    .time {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-family: monospace;
+        font-size: 2rem;
+    }
+    .progress {
+        display: flex;
+        justify-content: center;
+    }
+    progress::-moz-progress-bar {
+        background: lightgreen;
+    }
+    progress::-webkit-progress-value {
+        background: lightgreen;
+    }
+    progress {
+        background-color: lightgreen;
+    }
+    .amount-stats {
+        display: block;
+        justify-content: center;
+    }
+    .flags,
+    .bombs {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    pre {
+        margin: 0;
+    }
+    .stat-container {
+        display: flex;
+        justify-content: center;
+    }
+    p {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+        color: white;
+        font-size: 2rem;
+    }
+    .amount-stats>div>div>img {
+        width: 3rem;
+        height: auto;
+    }
+    .restart {
+        display: flex;
+        justify-content: center;
+        padding-bottom: 0.5rem;
+    }
+    .restart>button {
+        background-color: lightgreen;
+        color: black;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    span {
+        width: 20vw;
+        color: white;
+        text-align: center;
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+    ul {
+        display: flex;
+        justify-content: space-around;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    li:hover {
+        background-color: lightgreen;
+    }
+    .selected {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0.5rem;
+        background-color: lightgreen;
+    }
+    .clickable {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0.5rem;
+    }
+    .clickable>img,
+    .selected>img {
+        width: 2.5rem;
+        height: auto;
+    }
+    .difficulty {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 20vw;
+        height: 10vh;
+    }
+    .language-selector {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 20vw;
+        height: 10vh;
+        margin-bottom: 0.5rem;
+    }
 }

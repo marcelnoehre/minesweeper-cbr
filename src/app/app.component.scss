@@ -8,22 +8,46 @@ app-settings {
     position: absolute;
     top: 0;
     left: 0;
-    width: 20vw;
-    height: 100vh;
+    width: 100vw;
+    height: 20vh;
 }
 
 app-board {
     position: absolute;
-    top: 0;
-    left: 20vw;
-    width: 60vw;
-    height: 100vh;
+    top: 20vh;
+    left: 0;
+    width: 100vw;
+    height: 60vh;
 }
 
 app-hints {
     position: absolute;
-    top: 0;
-    left: 80vw;
-    width: 20vw;
-    height: 100vh;
+    top: 80vh;
+    left: 0;
+    width: 100vw;
+    height: 20vh;
+}
+
+@media(min-width: 1000px) {
+    app-settings {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20vw;
+        height: 100vh;
+    }
+    app-board {
+        position: absolute;
+        top: 0;
+        left: 20vw;
+        width: 60vw;
+        height: 100vh;
+    }
+    app-hints {
+        position: absolute;
+        top: 0;
+        left: 80vw;
+        width: 20vw;
+        height: 100vh;
+    }
 }

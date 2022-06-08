@@ -1,14 +1,31 @@
 .container {
-    width: 20vw;
-    height: 100vh;
-    border-left: 1px solid #D8D8D8;
+    width: 100vw;
+    height: 20vh;
+    border-top: 1px solid #D8D8D8;
 }
 
 .header {
-    width: 20vw;
-    text-align: center;
-    padding-top: 3rem;
+    width: 100vw;
+    text-align: left;
+    padding-top: 1rem;
+    padding-left: 1rem;
     font-size: 2rem;
     font-family: fantasy;
     color: lightgreen;
+}
+
+@media(min-width: 1000px) {
+    .container {
+        width: 20vw;
+        height: 100vh;
+        border-left: 1px solid #D8D8D8;
+        border-top: none;
+    }
+    .header {
+        width: 20vw;
+        text-align: center;
+        padding-top: 3rem;
+        padding-left: 0;
+        font-size: 2rem;
+    }
 }

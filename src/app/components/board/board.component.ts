@@ -11,14 +11,14 @@ import { GameStats } from 'src/app/interfaces/game-stats';
 export class BoardComponent implements OnInit {
   DifficultyChange$!: Observable<string>;
   public gameStats: GameStats = {
-    difficulty: '',
+    difficulty: 'BEGINNER',
     revealedCells: 0,
     totalCells: 81,
     rowAmount: 9,
     cellsPerRow: 9,
     flagAmount: 10,
     remainingFlags: 10,
-    bombsAmount: 10,
+    bombAmount: 10,
     remainingBombs: 10
   }
 

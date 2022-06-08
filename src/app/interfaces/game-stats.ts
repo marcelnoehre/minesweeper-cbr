@@ -6,6 +6,6 @@ export interface GameStats {
     cellsPerRow: number,
     flagAmount: number,
     remainingFlags: number,
-    bombsAmount: number,
+    bombAmount: number,
     remainingBombs: number, 
 }
