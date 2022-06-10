@@ -22,7 +22,7 @@
 .header {
     width: 100vw;
     text-align: center;
-    font-size: 2rem;
+    font-size: 7.5vw;
     font-family: fantasy;
     color: lightgreen;
 }
@@ -143,7 +143,9 @@ p {
     flex-direction: column;
     justify-content: center;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: bolder;
+    border: 1px solid white;
+    margin-bottom: 0.5vh;
 }
 
 .selectors>div {
@@ -157,6 +159,7 @@ p {
     width: 100%;
     font-size: 3vw;
     line-height: 3vw;
+    margin-bottom: 0.5vh;
 }
 
 ul {
