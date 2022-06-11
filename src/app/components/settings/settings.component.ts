@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { GameStats } from 'src/app/interfaces/game-stats';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -7,8 +8,8 @@ import { StorageService } from 'src/app/services/storage.service';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit, AfterViewInit {
-  @ViewChild('input') difficulty!: ElementRef;
+export class SettingsComponent implements OnInit {
+  @Input() gameStats!: GameStats;
   public loading: boolean = false;
   public selectedLanguage:string = '';
   public languages:string[] = ['de', 'en', 'fr', 'es'];
@@ -27,10 +28,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.selectedLanguage = this.storage.getSessionEntry('lang');
     this.setDifficulty(this.storage.getSessionEntry('difficulty'));
-  }
-
-  ngAfterViewInit(): void {
-      this.loading = false;
   }
 
   setLanguage(lang:string): void {

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
+import { filter, Observable, pluck } from 'rxjs';
+import { GameStats } from './interfaces/game-stats';
 import { StorageService } from './services/storage.service';
 
 @Component({
@@ -7,7 +9,19 @@ import { StorageService } from './services/storage.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  DifficultyChange$!: Observable<string>;
+  public gameStats: GameStats = {
+    difficulty: 'BEGINNER',
+    revealedCells: 0,
+    totalCells: 81,
+    rowAmount: 9,
+    cellsPerRow: 9,
+    flagAmount: 10,
+    remainingFlags: 10,
+    bombAmount: 10,
+    remainingBombs: 10
+  }
   title = 'minesweeper-cbr';
 
   constructor(
@@ -28,5 +42,58 @@ export class AppComponent {
     } catch(err) {}
     diff = diff? diff : 'BEGINNER';
     storage.setSessionEntry('difficulty', diff)
+  }
+
+  ngOnInit(): void {
+    this.DifficultyChange$ = this.storage.storageChange$.pipe(
+      filter(({ key }) => key === "difficulty"),
+      pluck("id")
+    );
+    this.DifficultyChange$.subscribe(newDifficulty => {
+      this.gameStats.difficulty = newDifficulty;
+      this.setup();
+    });
+    this.setup();
+  }
+
+  setup() {
+    const diff = this.storage.getSessionEntry('difficulty');
+    if(diff == 'BEGINNER') {
+      this.gameStats = {
+        difficulty: 'BEGINNER',
+        revealedCells: 0,
+        totalCells: 81,
+        rowAmount: 9,
+        cellsPerRow: 9,
+        flagAmount: 10,
+        remainingFlags: 10,
+        bombAmount: 10,
+        remainingBombs: 10
+      }
+    } else if(diff == 'ADVANCED') {
+      this.gameStats = {
+        difficulty: 'ADVANCED',
+        revealedCells: 0,
+        totalCells: 81,
+        rowAmount: 15,
+        cellsPerRow: 15,
+        flagAmount: 30,
+        remainingFlags: 30,
+        bombAmount: 30,
+        remainingBombs: 30
+      }
+    } else {
+      this.gameStats = {
+        difficulty: 'EXTREME',
+        revealedCells: 0,
+        totalCells: 81,
+        rowAmount: 20,
+        cellsPerRow: 20,
+        flagAmount: 40,
+        remainingFlags: 40,
+        bombAmount: 40,
+        remainingBombs: 40
+      }
+    }
   }
 }

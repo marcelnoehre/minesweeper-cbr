@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { filter, Observable, pluck } from 'rxjs';
 import { StorageService } from 'src/app/services/storage.service';
 import { GameStats } from 'src/app/interfaces/game-stats';
@@ -26,15 +26,7 @@ export class BoardComponent implements OnInit {
     private storage:StorageService
   ) { }
 
-  async ngOnInit(): Promise<void> {
-      this.DifficultyChange$ = this.storage.storageChange$.pipe(
-        filter(({ key }) => key === "difficulty"),
-        pluck("id")
-      );
-      this.DifficultyChange$.subscribe(newDifficulty => {
-        this.gameStats.difficulty = newDifficulty;
-        this.setupBoard();
-      });
+  ngOnInit() {
     this.setupBoard();
   }
 
