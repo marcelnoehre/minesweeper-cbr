@@ -22,10 +22,11 @@
         border-top: none;
     }
     .header {
-        width: 20vw;
+        width: calc(20vw - 1px);
         text-align: center;
         padding-top: 3rem;
         padding-left: 0;
         font-size: 2rem;
+        line-height: 2rem;
     }
 }

@@ -17,3 +17,18 @@ img {
     height: 100%;
     width: 100%;
 }
+
+@media (min-width: 1000px) {
+    .BEGINNER {
+        height: 5.8vw;
+        width: 5.8vw;
+    }
+    .ADVANCED {
+        height: 3.86vw;
+        width: 3.86vw;
+    }
+    .EXTREME {
+        height: 2.9vw;
+        width: 2.9vw;
+    }
+}

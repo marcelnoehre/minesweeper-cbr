@@ -42,3 +42,33 @@
 .EXTREME {
     height: 4.8vw;
 }
+
+@media (min-width: 1000px) {
+    .horizontal-container {
+        width: 60vw;
+        height: 100vh;
+    }
+    .vertical-container {
+        width: 60vw;
+        height: 100vh;
+    }
+    .board {
+        height: 59vw;
+        width: 59vw;
+        margin: 0.5vw;
+    }
+    .field {
+        height: 58vw;
+        width: 58vw;
+        padding: 0.5vw;
+    }
+    .BEGINNER {
+        height: 5.8vw;
+    }
+    .ADVANCED {
+        height: 3.86vw;
+    }
+    .EXTREME {
+        height: 2.9vw;
+    }
+}
