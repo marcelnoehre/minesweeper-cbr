@@ -28,12 +28,12 @@ export class AppComponent implements OnInit {
     private translate: TranslateService, 
     private storage: StorageService
     ) {
-    translate.setDefaultLang('de');
+    translate.setDefaultLang('en');
     let lang = null;
     try {
       lang = storage.getSessionEntry('lang');
     } catch(err) {}  
-    lang = lang? lang : 'de';
+    lang = lang? lang : 'en';
     storage.setSessionEntry('lang', lang);
     translate.use(lang);
     let diff = null;
@@ -62,9 +62,9 @@ export class AppComponent implements OnInit {
       this.gameStats = {
         difficulty: 'BEGINNER',
         revealedCells: 0,
-        totalCells: 81,
-        rowAmount: 9,
-        cellsPerRow: 9,
+        totalCells: 100,
+        rowAmount: 10,
+        cellsPerRow: 10,
         flagAmount: 10,
         remainingFlags: 10,
         bombAmount: 10,

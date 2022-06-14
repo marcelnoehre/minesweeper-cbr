@@ -1,28 +1,29 @@
 .horizontal-container {
     display: flex;
     justify-content: center;
-    width: 60vw;
-    height: 100vh;
+    width: 100vw;
+    height: 60vh;
 }
 
 .vertical-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 87vh;
-    height: 100vh;
+    width: 100vw;
+    height: 60vh;
 }
 
 .board {
-    height: 87vh;
-    width: 87vh;
+    height: 98vw;
+    width: 98vw;
+    margin: 1vw;
     background-color: #D8D8D8;
 }
 
 .field {
-    height: 85vh;
-    width: 85vh;
-    padding: 1vh;
+    height: 96vw;
+    width: 96vw;
+    padding: 1vw;
 }
 
 .row {
@@ -31,13 +32,13 @@
 }
 
 .BEGINNER {
-    height: 9.45vh;
+    height: 9.6vw;
 }
 
 .ADVANCED {
-    height: 5.3125vh;
+    height: 6.4vw;
 }
 
 .EXTREME {
-    height: 3.4vh;
+    height: 4.8vw;
 }

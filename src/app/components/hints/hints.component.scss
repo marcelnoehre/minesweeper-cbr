@@ -16,7 +16,7 @@
 
 @media(min-width: 1000px) {
     .container {
-        width: 20vw;
+        width: calc(20vw - 1px);
         height: 100vh;
         border-left: 1px solid #D8D8D8;
         border-top: none;
