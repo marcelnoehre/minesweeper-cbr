@@ -51,10 +51,10 @@
                 <ul class="difficulties ">
                     <li *ngFor="let difficulty of difficulties ">
                         <div *ngIf="difficulty==gameStats.difficulty" class="selected ">
-                            <img src="{{ 'assets/images/difficulties/' + difficulty + '.png'}} " />
+                            <img src="{{ 'assets/images/icons/' + difficulty + '.png'}} " />
                         </div>
                         <div *ngIf="difficulty != gameStats.difficulty " class="clickable " (click)="setDifficulty(difficulty) ">
-                            <img src="{{ 'assets/images/difficulties/' + difficulty + '.png'}} " />
+                            <img src="{{ 'assets/images/icons/' + difficulty + '.png'}} " />
                         </div>
                     </li>
                 </ul>

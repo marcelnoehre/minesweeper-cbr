@@ -1,3 +1,28 @@
 <div class="container">
     <div class="header">{{'HINTS.HEADER'|translate}}</div>
+    <div class="inner-container">
+        <div class="remaining-tokens">
+            <div class="tokens-amount">
+                <img src="assets/images/icons/token.png" />
+                <p>&nbsp;{{remainingTokens}}</p>
+            </div>
+        </div>
+        <div class="select-hint">
+            <div [ngClass]="firstSelected? 'selected' : ''" (click)="firstHint()">
+                <img src="assets/images/icons/token.png" />
+                <p>&nbsp;1</p>
+            </div>
+            <div [ngClass]="secondSelected? 'selected' : ''" (click)="secondHint()">
+                <img src="assets/images/icons/token.png" />
+                <p>&nbsp;2</p>
+            </div>
+            <div [ngClass]="thirdSelected? 'selected' : ''" (click)="thirdHint()">
+                <img src="assets/images/icons/token.png" />
+                <p>&nbsp;3</p>
+            </div>
+        </div>
+        <div class="hint-description">
+            <div *ngIf="firstSelected">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae amet quaerat maxime sequi repellat. Itaque voluptatum cum esse veritatis odio fugiat libero expedita obcaecati sunt! Velit doloribus asperiores expedita ullam.</div>
+        </div>
+    </div>
 </div>
