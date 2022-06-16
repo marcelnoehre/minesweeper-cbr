@@ -99,4 +99,47 @@ p {
         font-size: 2rem;
         line-height: 2rem;
     }
+    .inner-container {
+        height: calc(100vh - 6rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .inner-container>div>div>img {
+        width: 3rem;
+        height: auto;
+    }
+    p {
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+    }
+    .remaining-tokens {
+        width: calc(20vw - 1px);
+        height: 15%;
+    }
+    .select-hint {
+        width: calc(20vw - 1px);
+        height: 25%;
+    }
+    // .select-hint>div {
+    //     display: flex;
+    //     justify-content: center;
+    //     border: 1px solid white;
+    // }
+    // .select-hint>div:hover {
+    //     background-color: lightgreen;
+    //     color: black;
+    //     font-weight: bolder;
+    // }
+    // .selected {
+    //     background-color: lightgreen;
+    //     color: black;
+    //     font-weight: bolder;
+    // }
+    .hint-description {
+        width: calc(20vw - 2vw - 1px);
+        height: 40%;
+        padding-left: 1vw;
+        padding-right: 1vw;
+    }
 }
