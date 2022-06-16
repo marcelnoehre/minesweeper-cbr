@@ -20,7 +20,8 @@ export class AppComponent implements OnInit {
     flagAmount: 10,
     remainingFlags: 10,
     bombAmount: 10,
-    remainingBombs: 10
+    remainingBombs: 10,
+    gameRunning: false
   }
   title = 'minesweeper-cbr';
 
@@ -68,7 +69,8 @@ export class AppComponent implements OnInit {
         flagAmount: 10,
         remainingFlags: 10,
         bombAmount: 10,
-        remainingBombs: 10
+        remainingBombs: 10, 
+        gameRunning: false
       }
     } else if(diff == 'ADVANCED') {
       this.gameStats = {
@@ -80,7 +82,8 @@ export class AppComponent implements OnInit {
         flagAmount: 30,
         remainingFlags: 30,
         bombAmount: 30,
-        remainingBombs: 30
+        remainingBombs: 30, 
+        gameRunning: false
       }
     } else {
       this.gameStats = {
@@ -92,8 +95,15 @@ export class AppComponent implements OnInit {
         flagAmount: 40,
         remainingFlags: 40,
         bombAmount: 40,
-        remainingBombs: 40
+        remainingBombs: 40, 
+        gameRunning: false
       }
     }
+  }
+
+  onRunningStatusChanged(event: any) {
+    let tmpGameStats = this.gameStats;
+    tmpGameStats.gameRunning = event;
+    this.gameStats = tmpGameStats;
   }
 }

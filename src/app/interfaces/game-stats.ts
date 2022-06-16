@@ -1,5 +1,6 @@
 export interface GameStats {
     difficulty: string,
+    gameRunning: boolean,
     revealedCells: number, 
     totalCells: number,
     rowAmount: number,

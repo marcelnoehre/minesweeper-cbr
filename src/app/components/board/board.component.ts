@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { filter, Observable, pluck } from 'rxjs';
+import { Component, Input, Output } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { StorageService } from 'src/app/services/storage.service';
 import { GameStats } from 'src/app/interfaces/game-stats';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-board',
@@ -10,11 +11,19 @@ import { GameStats } from 'src/app/interfaces/game-stats';
 })
 export class BoardComponent {
   DifficultyChange$!: Observable<string>;
+  gameRunningSubject: Subject<boolean> = new Subject<boolean>();
   @Input() gameStats!: GameStats;
+  @Output() runningState = new EventEmitter();
 
   constructor(
     private storage:StorageService
   ) { }
+
+  cellClicked(row: number, column: number) {
+    if(!this.gameStats.gameRunning) {
+      this.runningState.emit(this.gameStats.gameRunning);
+    }
+  }
 
   counter(amount: number) {
     return new Array(amount);
