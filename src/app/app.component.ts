@@ -102,8 +102,14 @@ export class AppComponent implements OnInit {
   }
 
   onRunningStatusChanged(event: any) {
-    let tmpGameStats = this.gameStats;
-    tmpGameStats.gameRunning = event;
-    this.gameStats = tmpGameStats;
+    this.gameStats = {...this.gameStats, gameRunning: event};
+  }
+
+  onCellRevealed(event: any) {
+    this.gameStats = {...this.gameStats, revealedCells: event};
+  }
+
+  onFlagsChanged(event: any) {
+    this.gameStats = {...this.gameStats, remainingFlags: event};
   }
 }

@@ -13,7 +13,7 @@
                     <div class="time">{{minutes}}:{{seconds}}</div>
                 </div>
                 <div class="progress">
-                    <progress id="prgoress" [value]="gameStats.totalCells" [max]="gameStats.revealedCells"></progress>
+                    <progress id="prgoress" [value]="gameStats.revealedCells" [max]="gameStats.totalCells"></progress>
                 </div>
             </div>
             <div class=" second-container ">
@@ -41,7 +41,7 @@
                 </div>
                 <pre></pre>
                 <div class="restart ">
-                    <button type="button ">{{'APP.RESTART'|translate}}</button>
+                    <button type="button " (click)="restartGame()">{{'APP.RESTART'|translate}}</button>
                 </div>
             </div>
         </div>

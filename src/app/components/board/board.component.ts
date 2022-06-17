@@ -14,6 +14,8 @@ export class BoardComponent {
   gameRunningSubject: Subject<boolean> = new Subject<boolean>();
   @Input() gameStats!: GameStats;
   @Output() runningState = new EventEmitter();
+  @Output() revealedCells = new EventEmitter();
+  @Output() remainingFlags = new EventEmitter();
 
   constructor(
     private storage:StorageService
@@ -21,7 +23,16 @@ export class BoardComponent {
 
   cellClicked(row: number, column: number) {
     if(!this.gameStats.gameRunning) {
-      this.runningState.emit(this.gameStats.gameRunning);
+      this.runningState.emit(true);
+    }
+    //if cell is not revealed
+    this.revealedCells.emit(this.gameStats.revealedCells + 1);
+    if(false) {
+      //if right click 
+      //add flag 
+      this.remainingFlags.emit(this.gameStats.remainingFlags - 1);
+      //remove flag
+      this.remainingFlags.emit(this.gameStats.remainingFlags + 1);
     }
   }
 
