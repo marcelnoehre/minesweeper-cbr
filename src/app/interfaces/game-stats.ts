@@ -8,5 +8,5 @@ export interface GameStats {
     flagAmount: number,
     remainingFlags: number,
     bombAmount: number,
-    remainingBombs: number, 
+    flaggedBombs: number, 
 }

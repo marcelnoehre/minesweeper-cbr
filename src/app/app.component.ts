@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   DifficultyChange$!: Observable<string>;
   public gameStats: GameStats = {
     difficulty: 'BEGINNER',
+    gameRunning: false,
     revealedCells: 0,
     totalCells: 81,
     rowAmount: 9,
@@ -22,9 +23,9 @@ export class AppComponent implements OnInit {
     flagAmount: 10,
     remainingFlags: 10,
     bombAmount: 10,
-    remainingBombs: 10,
-    gameRunning: false
+    flaggedBombs: 0
   }
+  public remainingTokens: number = 0;
   title = 'minesweeper-cbr';
 
   constructor(
@@ -66,6 +67,7 @@ export class AppComponent implements OnInit {
     if(diff == 'BEGINNER') {
       this.gameStats = {
         difficulty: 'BEGINNER',
+        gameRunning: false,
         revealedCells: 0,
         totalCells: 100,
         rowAmount: 10,
@@ -73,12 +75,13 @@ export class AppComponent implements OnInit {
         flagAmount: 10,
         remainingFlags: 10,
         bombAmount: 10,
-        remainingBombs: 10, 
-        gameRunning: false
-      }
+        flaggedBombs: 0
+      };
+      this.remainingTokens = 10;
     } else if(diff == 'ADVANCED') {
       this.gameStats = {
         difficulty: 'ADVANCED',
+        gameRunning: false,
         revealedCells: 0,
         totalCells: 225,
         rowAmount: 15,
@@ -86,12 +89,13 @@ export class AppComponent implements OnInit {
         flagAmount: 30,
         remainingFlags: 30,
         bombAmount: 30,
-        remainingBombs: 30, 
-        gameRunning: false
-      }
+        flaggedBombs: 0
+      };
+      this.remainingTokens = 20;
     } else {
       this.gameStats = {
         difficulty: 'EXTREME',
+        gameRunning: false,
         revealedCells: 0,
         totalCells: 400,
         rowAmount: 20,
@@ -99,9 +103,9 @@ export class AppComponent implements OnInit {
         flagAmount: 40,
         remainingFlags: 40,
         bombAmount: 40,
-        remainingBombs: 40, 
-        gameRunning: false
+        flaggedBombs: 0
       }
+      this.remainingTokens = 30;
     }
   }
 
@@ -115,6 +119,10 @@ export class AppComponent implements OnInit {
 
   onFlagsChanged(event: any) {
     this.gameStats = {...this.gameStats, remainingFlags: event};
+  }
+
+  onRemainingBombsChanged(event: any) {
+    this.gameStats = {...this.gameStats, flaggedBombs: event}
   }
 
   onRestart(event: any) {

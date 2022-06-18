@@ -16,6 +16,7 @@ export class BoardComponent implements OnInit, OnChanges{
   @Output() runningState = new EventEmitter();
   @Output() revealedCells = new EventEmitter();
   @Output() remainingFlags = new EventEmitter();
+  @Output() remainingBombs = new EventEmitter();
   public cellsRevealed:string[][] = [];
   public cellsPlanned: string[][] = [];
 
@@ -64,13 +65,19 @@ export class BoardComponent implements OnInit, OnChanges{
       this.cellsRevealed[row][column] = this.cellsPlanned[row][column]
       this.revealedCells.emit(this.gameStats.revealedCells + 1);
     }
-    if(false) { //right click
+    if(true) { //right click
       if(this.cellsRevealed[row][column] == 'flagged') {
         this.cellsRevealed[row][column] = 'facingDown';
         this.remainingFlags.emit(this.gameStats.remainingFlags + 1);
-      } else if(this.gameStats.remainingFlags > 0) {
-        this.remainingFlags.emit(this.gameStats.remainingFlags - 1);
+        if (this.cellsPlanned[row][column] == 'bomb') {
+          this.remainingBombs.emit(this.gameStats.flaggedBombs - 1);
+        }
+      } else if(this.gameStats.remainingFlags > 0 && this.cellsRevealed[row][column] == 'facingDown') {
         this.cellsRevealed[row][column] = 'flagged';
+        this.remainingFlags.emit(this.gameStats.remainingFlags - 1);
+        if(this.cellsPlanned[row][column] == 'bomb') {
+          this.remainingBombs.emit(this.gameStats.flaggedBombs + 1);
+        }
       }
     }
   }

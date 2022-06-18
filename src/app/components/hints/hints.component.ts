@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./hints.component.scss']
 })
 export class HintsComponent implements OnInit {
-  remainingTokens:number = 10; 
+  @Input() remainingTokens!:number; 
   firstSelected: boolean = false;
   secondSelected:boolean = false;
   thirdSelected: boolean = false;
