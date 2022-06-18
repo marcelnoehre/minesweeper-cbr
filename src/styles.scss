@@ -19,3 +19,8 @@ body {
 body::-webkit-scrollbar {
     display: none;
 }
+
+mat-dialog-container {
+    margin: 0 !important;
+    padding: 0 !important;
+}

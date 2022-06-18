@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import {TranslateService} from "@ngx-translate/core";
 import { filter, Observable, pluck } from 'rxjs';
+import { DialogComponent } from './components/dialog/dialog.component';
 import { GameStats } from './interfaces/game-stats';
 import { StorageService } from './services/storage.service';
 
@@ -27,7 +29,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private translate: TranslateService, 
-    private storage: StorageService
+    private storage: StorageService,
+    private dialog: MatDialog
     ) {
     translate.setDefaultLang('en');
     let lang = null;
@@ -55,6 +58,7 @@ export class AppComponent implements OnInit {
       this.setup();
     });
     this.setup();
+    this.onDialog();
   }
 
   setup() {
@@ -117,5 +121,10 @@ export class AppComponent implements OnInit {
     if(event == true) {
       this.setup();
     }
+  }
+
+  onDialog() {
+    const dialogConfig = new MatDialogConfig();
+    this.dialog.open(DialogComponent, dialogConfig);
   }
 }

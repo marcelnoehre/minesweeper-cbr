@@ -55,7 +55,6 @@ export class BoardComponent implements OnInit, OnChanges{
   async cellClicked(row: number, column: number) {
     if(!this.gameStats.gameRunning) {
       this.runningState.emit(true);
-      //TODO: fill first field without waiting
       this.cellsPlanned = await this.board.planned(this.gameStats.rowAmount, row, column);
     }
     //TODO: detect left right click
@@ -74,9 +73,5 @@ export class BoardComponent implements OnInit, OnChanges{
         this.cellsRevealed[row][column] = 'flagged';
       }
     }
-  }
-
-  counter(amount: number) {
-    return new Array(amount);
   }
 }

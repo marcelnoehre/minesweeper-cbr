@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angu
 import { TranslateService } from '@ngx-translate/core';
 import { GameStats } from 'src/app/interfaces/game-stats';
 import { StorageService } from 'src/app/services/storage.service';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-settings',
