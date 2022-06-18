@@ -2,8 +2,8 @@
     <div class="vertical-container">
         <div class="board">
             <div class="field">
-                <section *ngFor="let row of cells; index as rowIndex" class="row" [ngClass]="gameStats.difficulty">
-                    <app-cell *ngFor="let cell of cells[rowIndex]; index as columnIndex" [difficulty]="gameStats.difficulty" (click)="cellClicked(rowIndex, columnIndex)"></app-cell>
+                <section *ngFor="let row of cellsRevealed; index as rowIndex" class="row" [ngClass]="gameStats.difficulty">
+                    <app-cell *ngFor="let cell of cellsRevealed[rowIndex]; index as columnIndex" [difficulty]="gameStats.difficulty" [value]="cellsRevealed[rowIndex][columnIndex]" (click)="cellClicked(rowIndex, columnIndex)"></app-cell>
                 </section>
             </div>
         </div>

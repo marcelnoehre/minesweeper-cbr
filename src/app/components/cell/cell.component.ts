@@ -6,7 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./cell.component.scss']
 })
 export class CellComponent implements OnInit {
-  @Input() difficulty!: string;
+  @Input() difficulty!: string; 
+  @Input() value!: string;
+
 
   constructor() { }
 
