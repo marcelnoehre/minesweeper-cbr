@@ -58,14 +58,19 @@ export class BoardComponent implements OnInit, OnChanges{
       this.runningState.emit(true);
       this.cellsPlanned = await this.board.planned(this.gameStats.rowAmount, row, column);
     }
-    //TODO: detect left right click
+    //TODO: detect left/right click
     //TODO: implement on screen right click alternative
     if(true) { //left click
-      if(this.cellsRevealed[row][column] == 'facingDown')
-      this.cellsRevealed[row][column] = this.cellsPlanned[row][column]
-      this.revealedCells.emit(this.gameStats.revealedCells + 1);
+      if(this.cellsRevealed[row][column] == 'facingDown') {
+        this.cellsRevealed[row][column] = this.cellsPlanned[row][column]
+        if(this.cellsPlanned[row][column] == 'bomb') {
+          //TODO: hit bomb animation to show lose dialog
+        } else {
+          this.revealedCells.emit(this.gameStats.revealedCells + 1);
+        }
+      }
     }
-    if(true) { //right click
+    if(false) { //right click
       if(this.cellsRevealed[row][column] == 'flagged') {
         this.cellsRevealed[row][column] = 'facingDown';
         this.remainingFlags.emit(this.gameStats.remainingFlags + 1);
