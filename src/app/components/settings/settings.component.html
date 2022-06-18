@@ -13,7 +13,7 @@
                     <div class="time">{{minutes}}:{{seconds}}</div>
                 </div>
                 <div class="progress">
-                    <progress id="prgoress" [value]="gameStats.revealedCells" [max]="gameStats.totalCells"></progress>
+                    <progress id="prgoress" [value]="gameStats.revealedCells" [max]="gameStats.totalCells - gameStats.bombAmount"></progress>
                 </div>
             </div>
             <div class=" second-container ">
@@ -35,7 +35,7 @@
                             <div class="vertical-container ">
                                 <img src="assets/images/game_icons/bomb.png ">
                             </div>
-                            <p>&nbsp;{{gameStats.remainingBombs}}</p>
+                            <p>&nbsp;{{gameStats.bombAmount}}</p>
                         </div>
                     </div>
                 </div>

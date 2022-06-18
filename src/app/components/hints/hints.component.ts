@@ -67,6 +67,7 @@ export class HintsComponent implements OnInit {
   }
 
   resetHints() {
+    //TODO: call on cell clicked
     this.firstSelected = false;
     this.secondSelected = false;
     this.thirdSelected = false;

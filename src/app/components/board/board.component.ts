@@ -17,6 +17,7 @@ export class BoardComponent implements OnInit, OnChanges{
   @Output() revealedCells = new EventEmitter();
   @Output() remainingFlags = new EventEmitter();
   @Output() remainingBombs = new EventEmitter();
+  @Output() dialog = new EventEmitter();
   public cellsRevealed:string[][] = [];
   public cellsPlanned: string[][] = [];
 
@@ -65,6 +66,7 @@ export class BoardComponent implements OnInit, OnChanges{
         this.cellsRevealed[row][column] = this.cellsPlanned[row][column]
         if(this.cellsPlanned[row][column] == 'bomb') {
           //TODO: hit bomb animation to show lose dialog
+          this.dialog.emit([]);
         } else {
           this.revealedCells.emit(this.gameStats.revealedCells + 1);
         }

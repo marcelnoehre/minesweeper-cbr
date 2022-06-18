@@ -12,6 +12,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 export class SettingsComponent implements OnInit, OnChanges {
   @Input() gameStats!: GameStats;
   @Output() restart = new EventEmitter;
+  @Output() dialog = new EventEmitter;
   public loading: boolean = false;
   public selectedLanguage:string = '';
   public languages:string[] = ['de', 'en', 'fr', 'es'];
@@ -43,6 +44,7 @@ export class SettingsComponent implements OnInit, OnChanges {
     }
     if(this.gameStats.revealedCells === this.gameStats.totalCells - this.gameStats.bombAmount) {
       //TODO: Show winner dialog
+      this.dialog.emit([]);
     }
   }
 

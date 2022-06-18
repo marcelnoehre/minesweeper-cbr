@@ -59,7 +59,6 @@ export class AppComponent implements OnInit {
       this.setup();
     });
     this.setup();
-    this.onDialog();
   }
 
   setup() {
@@ -131,7 +130,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  onDialog() {
+  onDialog(event: any[]) {
     const dialogConfig = new MatDialogConfig();
     this.dialog.open(DialogComponent, dialogConfig);
   }
