@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
       this.gameStats = {
         difficulty: 'ADVANCED',
         revealedCells: 0,
-        totalCells: 81,
+        totalCells: 225,
         rowAmount: 15,
         cellsPerRow: 15,
         flagAmount: 30,
@@ -89,7 +89,7 @@ export class AppComponent implements OnInit {
       this.gameStats = {
         difficulty: 'EXTREME',
         revealedCells: 0,
-        totalCells: 81,
+        totalCells: 400,
         rowAmount: 20,
         cellsPerRow: 20,
         flagAmount: 40,
@@ -111,5 +111,11 @@ export class AppComponent implements OnInit {
 
   onFlagsChanged(event: any) {
     this.gameStats = {...this.gameStats, remainingFlags: event};
+  }
+
+  onRestart(event: any) {
+    if(event == true) {
+      this.setup();
+    }
   }
 }

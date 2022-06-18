@@ -1,5 +1,5 @@
 <div class="app-container">
-    <app-settings [gameStats]="gameStats"></app-settings>
+    <app-settings [gameStats]="gameStats" (restart)="onRestart($event)"></app-settings>
     <app-board [gameStats]="gameStats" (runningState)="onRunningStatusChanged($event)" (revealedCells)="onCellRevealed($event)" (remainingFlags)="onFlagsChanged($event)"></app-board>
     <app-hints></app-hints>
 </div>

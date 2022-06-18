@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { GameStats } from 'src/app/interfaces/game-stats';
 import { StorageService } from 'src/app/services/storage.service';
@@ -10,15 +10,16 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class SettingsComponent implements OnInit, OnChanges {
   @Input() gameStats!: GameStats;
+  @Output() restart = new EventEmitter;
   public loading: boolean = false;
   public selectedLanguage:string = '';
   public languages:string[] = ['de', 'en', 'fr', 'es'];
   public selectedDifficulty:string = '';
   public difficulties: string[] = ['BEGINNER', 'ADVANCED', 'EXTREME'];
+  public timerRunning: boolean = false;
   public minutes: string = '00';
   public seconds: string = '00';
   public time: number = 0;
-  public gameTime: number = 0;
   private interval: any;
 
   constructor(
@@ -33,11 +34,14 @@ export class SettingsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    if(this.time === 0 && this.gameStats.gameRunning == true) {
+    if(this.time === 0 && this.gameStats.gameRunning == true && !this.timerRunning) {
       this.startTimer();
     }
     if(this.selectedDifficulty != this.gameStats.difficulty) {
       this.stopTimer();
+    }
+    if(this.gameStats.revealedCells === this.gameStats.totalCells - this.gameStats.bombAmount) {
+      //TODO: Show winner dialog
     }
   }
 
@@ -53,10 +57,11 @@ export class SettingsComponent implements OnInit, OnChanges {
 
   restartGame() {
     this.stopTimer();
-    //TODO: emit restart
+    this.restart.emit(true);
   }
 
   startTimer() {
+    this.timerRunning = true;
     this.interval = setInterval(() => {
       this.time++;
       let minutes = Math.floor(this.time / 60);
@@ -67,7 +72,7 @@ export class SettingsComponent implements OnInit, OnChanges {
   }
 
   stopTimer() {
-    this.gameTime = this.time;
+    this.timerRunning = false;
     this.time = 0;
     this.minutes = '00';
     this.seconds = '00';

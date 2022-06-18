@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { filter, Observable, Subject, pluck } from 'rxjs';
 import { StorageService } from 'src/app/services/storage.service';
 import { GameStats } from 'src/app/interfaces/game-stats';
@@ -10,9 +10,8 @@ import { BoardService } from 'src/app/services/board.service';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent implements OnInit{
+export class BoardComponent implements OnInit, OnChanges{
   DifficultyChange$!: Observable<string>;
-  gameRunningSubject: Subject<boolean> = new Subject<boolean>();
   @Input() gameStats!: GameStats;
   @Output() runningState = new EventEmitter();
   @Output() revealedCells = new EventEmitter();
@@ -36,6 +35,12 @@ export class BoardComponent implements OnInit{
     });
   }
 
+  ngOnChanges(): void {
+    if(!this.gameStats.gameRunning && this.cellsPlanned != []) {
+      this.setupBoard(this.gameStats.difficulty);
+    }
+  }
+
   setupBoard(diff: string) {
     if (diff == 'BEGINNER') {
      this.cellsRevealed = this.board.facingDown(10);
@@ -44,21 +49,30 @@ export class BoardComponent implements OnInit{
     } else {
       this.cellsRevealed = this.board.facingDown(20);
     }
+    this.cellsPlanned = [];
   }
 
-  cellClicked(row: number, column: number) {
+  async cellClicked(row: number, column: number) {
     if(!this.gameStats.gameRunning) {
       this.runningState.emit(true);
+      //TODO: fill first field without waiting
+      this.cellsPlanned = await this.board.planned(this.gameStats.rowAmount, row, column);
     }
-    //if cell is not revealed
-    this.cellsRevealed[row][column] = '1'
-    this.revealedCells.emit(this.gameStats.revealedCells + 1);
-    if(false) {
-      //if right click 
-      //add flag 
-      this.remainingFlags.emit(this.gameStats.remainingFlags - 1);
-      //remove flag
-      this.remainingFlags.emit(this.gameStats.remainingFlags + 1);
+    //TODO: detect left right click
+    //TODO: implement on screen right click alternative
+    if(true) { //left click
+      if(this.cellsRevealed[row][column] == 'facingDown')
+      this.cellsRevealed[row][column] = this.cellsPlanned[row][column]
+      this.revealedCells.emit(this.gameStats.revealedCells + 1);
+    }
+    if(false) { //right click
+      if(this.cellsRevealed[row][column] == 'flagged') {
+        this.cellsRevealed[row][column] = 'facingDown';
+        this.remainingFlags.emit(this.gameStats.remainingFlags + 1);
+      } else if(this.gameStats.remainingFlags > 0) {
+        this.remainingFlags.emit(this.gameStats.remainingFlags - 1);
+        this.cellsRevealed[row][column] = 'flagged';
+      }
     }
   }
 
