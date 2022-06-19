@@ -28,6 +28,13 @@ app-hints {
     height: 20vh;
 }
 
+app-handbook {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
 @media(min-width: 1000px) {
     app-settings {
         position: absolute;

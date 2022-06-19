@@ -13,6 +13,7 @@ export class SettingsComponent implements OnInit, OnChanges {
   @Input() gameStats!: GameStats;
   @Output() restart = new EventEmitter;
   @Output() dialog = new EventEmitter;
+  @Output() handbook = new EventEmitter;
   public loading: boolean = false;
   public selectedLanguage:string = '';
   public languages:string[] = ['de', 'en', 'fr', 'es'];
@@ -80,5 +81,9 @@ export class SettingsComponent implements OnInit, OnChanges {
     this.minutes = '00';
     this.seconds = '00';
     clearInterval(this.interval);
+  }
+
+  openHandbook() {
+    this.handbook.emit(true);
   }
 }

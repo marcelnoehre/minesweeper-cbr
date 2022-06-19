@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
     flaggedBombs: 0
   }
   public remainingTokens: number = 0;
+  public displayHandbook: boolean = false;
   title = 'minesweeper-cbr';
 
   constructor(
@@ -106,6 +107,10 @@ export class AppComponent implements OnInit {
       }
       this.remainingTokens = 30;
     }
+  }
+
+  toggleHandbook(event: any) {
+    this.displayHandbook = event;
   }
 
   onRunningStatusChanged(event: any) {
