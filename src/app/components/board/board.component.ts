@@ -54,10 +54,10 @@ export class BoardComponent implements OnInit, OnChanges{
     this.cellsPlanned = [];
   }
 
-  async cellClicked(row: number, column: number) {
+  cellClicked(row: number, column: number) {
     if(!this.gameStats.gameRunning) {
       this.runningState.emit(true);
-      this.cellsPlanned = await this.board.planned(this.gameStats.rowAmount, row, column);
+      this.cellsPlanned = this.board.planned(this.gameStats.rowAmount, row, column, this.gameStats.bombAmount);
     }
     //TODO: detect left/right click
     //TODO: implement on screen right click alternative

@@ -126,7 +126,7 @@ export class AppComponent implements OnInit {
   }
 
   onRemainingBombsChanged(event: any) {
-    this.gameStats = {...this.gameStats, flaggedBombs: event}
+    this.gameStats = {...this.gameStats, flaggedBombs: event};
   }
 
   onRestart(event: any) {
