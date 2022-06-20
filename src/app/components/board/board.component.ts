@@ -17,6 +17,7 @@ export class BoardComponent implements OnInit, OnChanges{
   @Output() revealedCells = new EventEmitter();
   @Output() remainingFlags = new EventEmitter();
   @Output() remainingBombs = new EventEmitter();
+  @Output() setFlag = new EventEmitter();
   @Output() dialog = new EventEmitter();
   public cellsRevealed:string[][] = [];
   public cellsPlanned: string[][] = [];
@@ -61,7 +62,7 @@ export class BoardComponent implements OnInit, OnChanges{
     }
     //TODO: detect left/right click
     //TODO: implement on screen right click alternative
-    if(true) { //left click
+    if(!this.gameStats.setFlag) { //left click
       if(this.cellsRevealed[row][column] == 'facingDown') {
         this.cellsRevealed[row][column] = this.cellsPlanned[row][column]
         if(this.cellsPlanned[row][column] == 'bomb') {
@@ -76,7 +77,7 @@ export class BoardComponent implements OnInit, OnChanges{
         }
       }
     }
-    if(false) { //right click
+    if(this.gameStats.setFlag) { //right click
       if(this.cellsRevealed[row][column] == 'flagged') {
         this.cellsRevealed[row][column] = 'facingDown';
         this.remainingFlags.emit(this.gameStats.remainingFlags + 1);
@@ -90,6 +91,7 @@ export class BoardComponent implements OnInit, OnChanges{
           this.remainingBombs.emit(this.gameStats.flaggedBombs + 1);
         }
       }
+      this.setFlag.emit(false);
     }
   }
 }

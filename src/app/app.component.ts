@@ -23,7 +23,8 @@ export class AppComponent implements OnInit {
     flagAmount: 10,
     remainingFlags: 10,
     bombAmount: 10,
-    flaggedBombs: 0
+    flaggedBombs: 0, 
+    setFlag: false
   }
   public remainingTokens: number = 0;
   public displayHandbook: boolean = false;
@@ -75,7 +76,8 @@ export class AppComponent implements OnInit {
         flagAmount: 10,
         remainingFlags: 10,
         bombAmount: 10,
-        flaggedBombs: 0
+        flaggedBombs: 0, 
+        setFlag: false
       };
       this.remainingTokens = 10;
     } else if(diff == 'ADVANCED') {
@@ -89,7 +91,8 @@ export class AppComponent implements OnInit {
         flagAmount: 30,
         remainingFlags: 30,
         bombAmount: 30,
-        flaggedBombs: 0
+        flaggedBombs: 0, 
+        setFlag: false
       };
       this.remainingTokens = 20;
     } else {
@@ -103,12 +106,17 @@ export class AppComponent implements OnInit {
         flagAmount: 40,
         remainingFlags: 40,
         bombAmount: 40,
-        flaggedBombs: 0
+        flaggedBombs: 0, 
+        setFlag: false
       }
       this.remainingTokens = 30;
     }
   }
 
+  toggleSetFlag(event: any) {
+    this.gameStats = {...this.gameStats, setFlag: event};
+  }
+  
   toggleHandbook(event: any) {
     this.displayHandbook = event;
   }

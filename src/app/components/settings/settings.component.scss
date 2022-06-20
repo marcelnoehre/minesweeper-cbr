@@ -116,9 +116,14 @@ pre {
 .inner-stat {
     display: flex;
     justify-content: center;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
 }
 
 .vertical-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 100%;
     vertical-align: middle;
 }
@@ -126,6 +131,18 @@ pre {
 .vertical-container>img {
     width: 5vw;
     height: 5vw;
+}
+
+.set-flag:hover {
+    width: 75%;
+    margin-left: 12.5%;
+    background-color: lightgreen;
+}
+
+.remove-flag {
+    width: 75%;
+    margin-left: 12.5%;
+    background-color: lightgreen !important;
 }
 
 p {
@@ -302,6 +319,10 @@ pre {
         justify-content: center;
         font-family: monospace;
         font-size: 2rem;
+    }
+    .inner-stat {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
     }
     .vertical-container>img {
         width: 2rem;

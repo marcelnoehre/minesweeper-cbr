@@ -20,8 +20,8 @@
                 <pre></pre>
                 <div class="flags ">
                     <div class="stat-container ">
-                        <div class="inner-stat ">
-                            <div class="vertical-container ">
+                        <div class="inner-stat " [ngClass]="gameStats.setFlag? 'remove-flag' : 'set-flag'" (click)="toggleSetFlag()">
+                            <div class="vertical-container">
                                 <img src="assets/images/game_icons/flagged.png ">
                             </div>
                             <p>&nbsp;{{gameStats.remainingFlags}}</p>

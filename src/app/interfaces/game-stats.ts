@@ -8,5 +8,6 @@ export interface GameStats {
     flagAmount: number,
     remainingFlags: number,
     bombAmount: number,
-    flaggedBombs: number, 
+    flaggedBombs: number,
+    setFlag: boolean 
 }
