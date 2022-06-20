@@ -1,40 +1,65 @@
 .container {
     height: 75vh;
-    width: 75vw;
-    color: white;
+    width: 80vw;
+    text-align: center;
 }
 
 .win {
+    color: black;
     box-shadow: inset 0 0 2rem lightgreen, inset 0 0 2rem lightgreen, inset 0 0 2rem lightgreen;
 }
 
 .lose {
+    color: white;
     background-color: darkslategray;
     box-shadow: inset 0 0 3rem darkred, inset 0 0 3rem darkred, inset 0 0 3rem darkred;
 }
 
 .header {
     height: 15vh;
-    width: 55vw;
+    width: 60vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
-    font-size: 4vh;
-    line-height: 4vh;
+    font-size: 5vh;
+    line-height: 5vh;
     padding-left: 10vw;
     padding-right: 10vw;
     padding-top: 3vh;
     font-family: fantasy;
 }
 
+.rainbow {
+    background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red) !important;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .content {
     height: 52vh;
-    width: 55vw;
+    width: 60vw;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    font-size: 3vh;
+    line-height: 3vh;
     padding-left: 10vw;
     padding-right: 10vw;
     padding-bottom: 5vh;
+}
+
+p {
+    margin-bottom: 1vh;
+}
+
+.winner {
+    color: black !important;
+}
+
+.winner>p {
+    margin-bottom: 2vh;
+    font-size: 4vh;
+    line-height: 4vh;
+    font-weight: bolder;
 }

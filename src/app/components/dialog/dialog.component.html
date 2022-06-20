@@ -1,7 +1,31 @@
 <div class="container" [ngClass]="result">
-    <div class="header">GOOD LUCK NEXT TIME!</div>
+    <div class="header">
+        <p *ngIf="result == 'lose'">GOOD LUCK NEXT TIME!></p>
+        <p *ngIf="result == 'win'" class="rainbow">You are the winner!</p>
+    </div>
     <div class="content">
-        <div class="game-stats"></div>
-        <div class="token-stats"></div>
+        <div *ngIf="result == 'lose'">
+            <p>Benötigte Zeit:</p>
+            <p>00:00</p>
+            <hr>
+            <p>Aufgedeckte Felder:</p>
+            <p>40/100</p>
+            <hr>
+            <p>Fähnchen platziert:</p>
+            <p>8/10</p>
+            <hr>
+            <p>Korrekt platzierte Fähnchen:</p>
+            <p>4/8</p>
+            <hr>
+            <p>Genutzte Tokens:</p>
+            <p>5/10</p>
+        </div>
+        <div *ngIf="result == 'win'" class="winner">
+            <p>Benötigte Zeit:</p>
+            <p>00:00</p>
+            <hr>
+            <p>Genutzte Tokens:</p>
+            <p>5/10</p>
+        </div>
     </div>
 </div>
