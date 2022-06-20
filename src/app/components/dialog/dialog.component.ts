@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { GameStats } from 'src/app/interfaces/game-stats';
 
 @Component({
@@ -9,11 +10,14 @@ import { GameStats } from 'src/app/interfaces/game-stats';
 export class DialogComponent implements OnInit {
   @Input() result!: string;
   @Input() gameStats!: GameStats;
+  @Input() tokens!: number;
 
-  constructor() { }
+  constructor(
+    private dialogRef: MatDialogRef<DialogComponent>
+    ) { }
 
   ngOnInit(): void {
-
+    
   }
 
 }

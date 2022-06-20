@@ -144,7 +144,10 @@ export class AppComponent implements OnInit {
   }
 
   onDialog(event: any[]) {
-    const dialogConfig = new MatDialogConfig();
-    this.dialog.open(DialogComponent, dialogConfig);
+    let dialogRef = this.dialog.open(DialogComponent);
+    let instance = dialogRef.componentInstance;
+    instance.result = '' + event;
+    instance.gameStats = this.gameStats;
+    instance.tokens = this.remainingTokens;
   }
 }

@@ -44,8 +44,7 @@ export class SettingsComponent implements OnInit, OnChanges {
       this.stopTimer();
     }
     if(this.gameStats.revealedCells === this.gameStats.totalCells - this.gameStats.bombAmount) {
-      //TODO: Show winner dialog
-      this.dialog.emit([]);
+      this.dialog.emit('win');
     }
   }
 

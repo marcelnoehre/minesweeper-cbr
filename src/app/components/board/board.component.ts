@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { filter, Observable, Subject, pluck } from 'rxjs';
+import { filter, Observable, pluck } from 'rxjs';
 import { StorageService } from 'src/app/services/storage.service';
 import { GameStats } from 'src/app/interfaces/game-stats';
 import { EventEmitter } from '@angular/core';
@@ -60,14 +60,12 @@ export class BoardComponent implements OnInit, OnChanges{
       this.runningState.emit(true);
       this.cellsPlanned = this.board.planned(this.gameStats.rowAmount, row, column, this.gameStats.bombAmount);
     }
-    //TODO: detect left/right click
-    //TODO: implement on screen right click alternative
-    if(!this.gameStats.setFlag) { //left click
+    if(!this.gameStats.setFlag) {
       if(this.cellsRevealed[row][column] == 'facingDown') {
         this.cellsRevealed[row][column] = this.cellsPlanned[row][column]
         if(this.cellsPlanned[row][column] == 'bomb') {
-          //TODO: hit bomb animation to show lose dialog
-          this.dialog.emit([]);
+          //TODO: timeout to see bomb revealed
+          this.dialog.emit('lose');
         } else if(this.cellsPlanned[row][column] == '0') {
           let tmp = this.board.openSurround(row, column, this.gameStats.rowAmount, this.cellsRevealed, this.cellsPlanned, 1);  
           this.cellsRevealed = tmp.revealed;
@@ -77,7 +75,8 @@ export class BoardComponent implements OnInit, OnChanges{
         }
       }
     }
-    if(this.gameStats.setFlag) { //right click
+    //TODO: detect right click
+    if(this.gameStats.setFlag) {
       if(this.cellsRevealed[row][column] == 'flagged') {
         this.cellsRevealed[row][column] = 'facingDown';
         this.remainingFlags.emit(this.gameStats.remainingFlags + 1);
