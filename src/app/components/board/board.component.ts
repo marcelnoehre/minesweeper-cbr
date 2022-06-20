@@ -67,6 +67,10 @@ export class BoardComponent implements OnInit, OnChanges{
         if(this.cellsPlanned[row][column] == 'bomb') {
           //TODO: hit bomb animation to show lose dialog
           this.dialog.emit([]);
+        } else if(this.cellsPlanned[row][column] == '0') {
+          let tmp = this.board.openSurround(row, column, this.gameStats.rowAmount, this.cellsRevealed, this.cellsPlanned, 1);  
+          this.cellsRevealed = tmp.revealed;
+          this.revealedCells.emit(this.gameStats.revealedCells + tmp.revealedCounter);
         } else {
           this.revealedCells.emit(this.gameStats.revealedCells + 1);
         }

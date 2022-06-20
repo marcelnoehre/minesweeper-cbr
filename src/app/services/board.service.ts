@@ -74,4 +74,26 @@ export class BoardService {
         }
         return value;
     }
+
+    openSurround(row: number, column: number, counter: number, revealed: string[][], planned: string[][], revealedCounter: number) {
+        for(let i = row-1; i <= row+1; i++) {
+            for(let j = column-1; j <= column+1; j++) {
+                if(i >= 0 && j >= 0 && i < counter && j < counter) {
+                    if(revealed[i][j] == 'facingDown') {
+                        if(planned[i][j] == '0') {
+                            revealed[i][j] = planned[i][j];
+                            revealedCounter++;
+                            let tmp = this.openSurround(i, j, counter, revealed, planned, revealedCounter);
+                            revealed = tmp.revealed;
+                            revealedCounter = tmp.revealedCounter;                            
+                        } else {
+                            revealed[i][j] = planned[i][j];
+                            revealedCounter++;
+                        }
+                    }
+                }
+            }
+        }
+        return {revealed, revealedCounter};
+    }
 }
