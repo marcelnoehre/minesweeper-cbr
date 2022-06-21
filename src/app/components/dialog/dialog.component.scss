@@ -5,7 +5,9 @@
 }
 
 .win {
+    padding-top: 2vh;
     color: black;
+    background-color: lightblue;
     box-shadow: inset 0 0 2rem lightgreen, inset 0 0 2rem lightgreen, inset 0 0 2rem lightgreen;
 }
 
@@ -26,14 +28,8 @@
     padding-left: 10vw;
     padding-right: 10vw;
     padding-top: 3vh;
+    text-transform: uppercase;
     font-family: fantasy;
-}
-
-.rainbow {
-    background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red) !important;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 
 .content {

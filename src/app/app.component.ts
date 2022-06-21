@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
     flaggedBombs: 0, 
     setFlag: false
   }
+  public totalTokens: number = 0;
   public remainingTokens: number = 0;
   public displayHandbook: boolean = false;
   title = 'minesweeper-cbr';
@@ -79,6 +80,7 @@ export class AppComponent implements OnInit {
         flaggedBombs: 0, 
         setFlag: false
       };
+      this.totalTokens = 10;
       this.remainingTokens = 10;
     } else if(diff == 'ADVANCED') {
       this.gameStats = {
@@ -94,6 +96,7 @@ export class AppComponent implements OnInit {
         flaggedBombs: 0, 
         setFlag: false
       };
+      this.totalTokens = 20;
       this.remainingTokens = 20;
     } else {
       this.gameStats = {
@@ -109,6 +112,7 @@ export class AppComponent implements OnInit {
         flaggedBombs: 0, 
         setFlag: false
       }
+      this.totalTokens = 30;
       this.remainingTokens = 30;
     }
   }
@@ -148,6 +152,7 @@ export class AppComponent implements OnInit {
     let instance = dialogRef.componentInstance;
     instance.result = '' + event;
     instance.gameStats = this.gameStats;
-    instance.tokens = this.remainingTokens;
+    instance.totalTokens = this.totalTokens;
+    instance.remainingTokens = this.remainingTokens;
   }
 }

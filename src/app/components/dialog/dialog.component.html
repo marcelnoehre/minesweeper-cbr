@@ -1,7 +1,7 @@
 <div class="container" [ngClass]="result">
     <div class="header">
-        <p *ngIf="result == 'lose'">GOOD LUCK NEXT TIME!></p>
-        <p *ngIf="result == 'win'" class="rainbow">You are the winner!</p>
+        <p *ngIf="result == 'lose'">GOOD LUCK NEXT TIME!</p>
+        <p *ngIf="result == 'win'">You are the winner</p>
     </div>
     <div class="content">
         <div *ngIf="result == 'lose'">
@@ -9,23 +9,23 @@
             <p>00:00</p>
             <hr>
             <p>Aufgedeckte Felder:</p>
-            <p>40/100</p>
+            <p>{{gameStats.revealedCells}}/{{gameStats.totalCells}}</p>
             <hr>
             <p>Fähnchen platziert:</p>
-            <p>8/10</p>
+            <p>{{gameStats.flagAmount - gameStats.remainingFlags}}/{{gameStats.flagAmount}}</p>
             <hr>
             <p>Korrekt platzierte Fähnchen:</p>
-            <p>4/8</p>
+            <p>{{gameStats.flaggedBombs}}/{{gameStats.flagAmount - gameStats.remainingFlags}}</p>
             <hr>
             <p>Genutzte Tokens:</p>
-            <p>5/10</p>
+            <p>{{totalTokens - remainingTokens}}/{{totalTokens}}</p>
         </div>
         <div *ngIf="result == 'win'" class="winner">
             <p>Benötigte Zeit:</p>
             <p>00:00</p>
             <hr>
             <p>Genutzte Tokens:</p>
-            <p>5/10</p>
+            <p>{{totalTokens - remainingTokens}}/{{totalTokens}}</p>
         </div>
     </div>
 </div>
