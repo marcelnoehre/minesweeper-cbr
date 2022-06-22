@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { StatsService } from 'src/app/services/stats.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -7,16 +9,21 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./hints.component.scss']
 })
 export class HintsComponent implements OnInit {
-  @Input() remainingTokens!:number; 
+  remainingTokens!: number;
+
   firstSelected: boolean = false;
   secondSelected:boolean = false;
   thirdSelected: boolean = false;
 
   constructor(
-    private storage: StorageService
+    private storage: StorageService,
+    private stats: StatsService
   ) { }
 
   ngOnInit(): void {
+    this.stats.remainingTokens$.subscribe((remainingTokens: number) => {
+      this.remainingTokens = remainingTokens;
+    });
   }
 
   firstHint() {

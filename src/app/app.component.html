@@ -2,6 +2,6 @@
     <app-settings [gameStats]="gameStats" (restart)="onRestart($event)" (dialog)="onDialog($event)" (setFlag)="toggleSetFlag($event)" (handbook)="toggleHandbook($event)"></app-settings>
     <app-board [gameStats]="gameStats" (runningState)="onRunningStatusChanged($event)" (revealedCells)="onCellRevealed($event)" (remainingFlags)="onFlagsChanged($event)" (remainingBombs)="onRemainingBombsChanged($event)" (setFlag)="toggleSetFlag($event)"
         (dialog)="onDialog($event)"></app-board>
-    <app-hints [remainingTokens]="remainingTokens"></app-hints>
+    <app-hints></app-hints>
 </div>
 <app-handbook *ngIf="displayHandbook" (handbook)="toggleHandbook($event)"></app-handbook>

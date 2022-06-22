@@ -4,6 +4,7 @@ import {TranslateService} from "@ngx-translate/core";
 import { filter, Observable, pluck } from 'rxjs';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { GameStats } from './interfaces/game-stats';
+import { StatsService } from './services/stats.service';
 import { StorageService } from './services/storage.service';
 
 @Component({
@@ -26,14 +27,15 @@ export class AppComponent implements OnInit {
     flaggedBombs: 0, 
     setFlag: false
   }
-  public totalTokens: number = 0;
-  public remainingTokens: number = 0;
+  totalTokens$!: Observable<number>;
+  remainingTokens$!: Observable<number>;
   public displayHandbook: boolean = false;
   title = 'minesweeper-cbr';
 
   constructor(
     private translate: TranslateService, 
     private storage: StorageService,
+    private stats: StatsService,
     private dialog: MatDialog
     ) {
     translate.setDefaultLang('en');
@@ -80,8 +82,8 @@ export class AppComponent implements OnInit {
         flaggedBombs: 0, 
         setFlag: false
       };
-      this.totalTokens = 10;
-      this.remainingTokens = 10;
+      this.stats.setRemainingTokens(10);
+      this.stats.setTotalTokens(10);
     } else if(diff == 'ADVANCED') {
       this.gameStats = {
         difficulty: 'ADVANCED',
@@ -96,8 +98,8 @@ export class AppComponent implements OnInit {
         flaggedBombs: 0, 
         setFlag: false
       };
-      this.totalTokens = 20;
-      this.remainingTokens = 20;
+      this.stats.setRemainingTokens(20);
+      this.stats.setTotalTokens(20);
     } else {
       this.gameStats = {
         difficulty: 'EXTREME',
@@ -112,8 +114,8 @@ export class AppComponent implements OnInit {
         flaggedBombs: 0, 
         setFlag: false
       }
-      this.totalTokens = 30;
-      this.remainingTokens = 30;
+      this.stats.setRemainingTokens(30);
+      this.stats.setTotalTokens(30);
     }
   }
 
@@ -152,7 +154,5 @@ export class AppComponent implements OnInit {
     let instance = dialogRef.componentInstance;
     instance.result = '' + event;
     instance.gameStats = this.gameStats;
-    instance.totalTokens = this.totalTokens;
-    instance.remainingTokens = this.remainingTokens;
   }
 }
