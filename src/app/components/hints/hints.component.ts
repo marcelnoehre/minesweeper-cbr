@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { StatsService } from 'src/app/services/stats.service';
-import { StorageService } from 'src/app/services/storage.service';
+import { TokensService } from 'src/app/services/tokens.service';
 
 @Component({
   selector: 'app-hints',
@@ -10,81 +8,30 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class HintsComponent implements OnInit {
   remainingTokens!: number;
-
-  firstSelected: boolean = false;
-  secondSelected:boolean = false;
-  thirdSelected: boolean = false;
+  hintStatus!: number;
 
   constructor(
-    private storage: StorageService,
-    private stats: StatsService
+    private tokens: TokensService
   ) { }
 
   ngOnInit(): void {
-    this.stats.remainingTokens$.subscribe((remainingTokens: number) => {
+    this.tokens.remainingTokens$.subscribe((remainingTokens: number) => {
       this.remainingTokens = remainingTokens;
+    });
+    this.tokens.hintStatus$.subscribe((hintStatus: number) => {
+      this.hintStatus = hintStatus;
     });
   }
 
-  firstHint() {
-    if(!this.firstSelected) {
-      if(this.remainingTokens >= 1) {
-        this.remainingTokens = this.remainingTokens -1;
-        this.firstSelected = true;
-        this.secondSelected = false;
-        this.thirdSelected = false;
-      }
+  hintSelected(selectedHint: number) {
+    if(this.hintStatus < selectedHint && this.remainingTokens >= selectedHint-this.hintStatus) {
+      this.tokens.setRemainingTokens(this.remainingTokens-(selectedHint-this.hintStatus));
+      this.tokens.setHintStatus(selectedHint);
     }
-  }
-
-  secondHint() {
-    let tokens = this.remainingTokens;
-    if(!this.secondSelected) {
-      if(this.firstSelected) {
-        tokens = tokens - 1;
-      } else {
-        tokens = tokens - 2;
-      }
-      if(tokens >= 0) {
-        this.remainingTokens = tokens;
-        this.firstSelected = true;
-        this.secondSelected = true;
-        this.thirdSelected = false;
-      }
-    }
-  }
-
-  thirdHint() {
-    let tokens = this.remainingTokens;
-    if(!this.thirdSelected) {
-        if(this.secondSelected) {
-          tokens = tokens - 1;
-        } else if(this.firstSelected) {
-          tokens = tokens - 2;
-        } else {
-          tokens = tokens - 3;
-        }
-        if(tokens >= 0) {
-          this.remainingTokens = tokens;
-          this.firstSelected = true;
-          this.secondSelected = true;
-          this.thirdSelected = true;
-        }
-      }
   }
 
   resetHints() {
     //TODO: call on cell clicked
-    this.firstSelected = false;
-    this.secondSelected = false;
-    this.thirdSelected = false;
-    let diff = this.storage.getSessionEntry('difficulty');
-    if(diff == 'BEGINNER') {
-      this.remainingTokens = 10;
-    } else if (diff == 'ADVANCED') {
-      this.remainingTokens = 15;
-    } else {
-      this.remainingTokens = 20;
-    }
+    this.tokens.setHintStatus(0);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { GameStats } from 'src/app/interfaces/game-stats';
-import { StatsService } from 'src/app/services/stats.service';
+import { TokensService } from 'src/app/services/tokens.service';
 
 @Component({
   selector: 'app-dialog',
@@ -15,15 +15,15 @@ export class DialogComponent implements OnInit {
   remainingTokens!: number;
 
   constructor(
-    private stats: StatsService,
+    private tokens: TokensService,
     private dialogRef: MatDialogRef<DialogComponent>
     ) { }
 
   ngOnInit(): void {
-    this.stats.totalTokens$.subscribe((totalTokens: number) => {
+    this.tokens.totalTokens$.subscribe((totalTokens: number) => {
       this.totalTokens = totalTokens;
     });
-    this.stats.remainingTokens$.subscribe((remainingTokens: number) => {
+    this.tokens.remainingTokens$.subscribe((remainingTokens: number) => {
       this.remainingTokens = remainingTokens;
     });
   }

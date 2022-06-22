@@ -8,21 +8,21 @@
             </div>
         </div>
         <div class="select-hint">
-            <div [ngClass]="firstSelected? 'selected' : ''" (click)="firstHint()">
+            <div [ngClass]="hintStatus >= 1? 'selected' : ''" (click)="hintSelected(1)">
                 <img src="assets/images/icons/token.png" />
                 <p>&nbsp;1</p>
             </div>
-            <div [ngClass]="secondSelected? 'selected' : ''" (click)="secondHint()">
+            <div [ngClass]="hintStatus >= 2? 'selected' : ''" (click)="hintSelected(2)">
                 <img src="assets/images/icons/token.png" />
                 <p>&nbsp;2</p>
             </div>
-            <div [ngClass]="thirdSelected? 'selected' : ''" (click)="thirdHint()">
+            <div [ngClass]="hintStatus >= 3? 'selected' : ''" (click)="hintSelected(3)">
                 <img src="assets/images/icons/token.png" />
                 <p>&nbsp;3</p>
             </div>
         </div>
         <div class="hint-description">
-            <p *ngIf="firstSelected">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae amet quaerat maxime sequi repellat. Itaque voluptatum cum esse veritatis odio fugiat libero expedita obcaecati sunt! Velit doloribus asperiores expedita ullam.</p>
+            <p *ngIf="hintStatus >= 1">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae amet quaerat maxime sequi repellat. Itaque voluptatum cum esse veritatis odio fugiat libero expedita obcaecati sunt! Velit doloribus asperiores expedita ullam.</p>
         </div>
     </div>
 </div>

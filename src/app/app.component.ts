@@ -4,7 +4,7 @@ import {TranslateService} from "@ngx-translate/core";
 import { filter, Observable, pluck } from 'rxjs';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { GameStats } from './interfaces/game-stats';
-import { StatsService } from './services/stats.service';
+import { TokensService } from './services/tokens.service';
 import { StorageService } from './services/storage.service';
 
 @Component({
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   constructor(
     private translate: TranslateService, 
     private storage: StorageService,
-    private stats: StatsService,
+    private tokens: TokensService,
     private dialog: MatDialog
     ) {
     translate.setDefaultLang('en');
@@ -82,8 +82,8 @@ export class AppComponent implements OnInit {
         flaggedBombs: 0, 
         setFlag: false
       };
-      this.stats.setRemainingTokens(10);
-      this.stats.setTotalTokens(10);
+      this.tokens.setRemainingTokens(10);
+      this.tokens.setTotalTokens(10);
     } else if(diff == 'ADVANCED') {
       this.gameStats = {
         difficulty: 'ADVANCED',
@@ -98,8 +98,8 @@ export class AppComponent implements OnInit {
         flaggedBombs: 0, 
         setFlag: false
       };
-      this.stats.setRemainingTokens(20);
-      this.stats.setTotalTokens(20);
+      this.tokens.setRemainingTokens(20);
+      this.tokens.setTotalTokens(20);
     } else {
       this.gameStats = {
         difficulty: 'EXTREME',
@@ -114,8 +114,8 @@ export class AppComponent implements OnInit {
         flaggedBombs: 0, 
         setFlag: false
       }
-      this.stats.setRemainingTokens(30);
-      this.stats.setTotalTokens(30);
+      this.tokens.setRemainingTokens(30);
+      this.tokens.setTotalTokens(30);
     }
   }
 
