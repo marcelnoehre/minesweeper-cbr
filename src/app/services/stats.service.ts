@@ -8,15 +8,15 @@ import { StorageService } from './storage.service';
 })
 export class GameStatsService implements OnInit{
     private DifficultyChange$!: Observable<string>;
-    private _gameRunning!: BehaviorSubject<boolean>;
-    private _revealedCells!: BehaviorSubject<number>;
-    private _totalCells!: BehaviorSubject<number>;
-    private _cellsPerRow!: BehaviorSubject<number>;
-    private _flagAmount!: BehaviorSubject<number>;
-    private _remainingFlags!: BehaviorSubject<number>;
-    private _bombAmount!: BehaviorSubject<number>;
-    private _flaggedBombs!: BehaviorSubject<number>;
-    private _isFlagMode!: BehaviorSubject<boolean>;
+    private _gameRunning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _revealedCells: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    private _totalCells: BehaviorSubject<number> = new BehaviorSubject<number>(100);
+    private _cellsPerRow: BehaviorSubject<number> = new BehaviorSubject<number>(10);
+    private _flagAmount: BehaviorSubject<number> = new BehaviorSubject<number>(10);
+    private _remainingFlags: BehaviorSubject<number> = new BehaviorSubject<number>(10);
+    private _bombAmount: BehaviorSubject<number> = new BehaviorSubject<number>(10);
+    private _flaggedBombs: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    private _isFlagMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(
         private storage: StorageService
@@ -37,37 +37,37 @@ export class GameStatsService implements OnInit{
     setup(difficulty: string) {
         switch (difficulty) {
             case DifficultyEnum.beginner:
-                this._gameRunning = new BehaviorSubject(false);
-                this._revealedCells = new BehaviorSubject(0);
-                this._totalCells = new BehaviorSubject(100);
-                this._cellsPerRow = new BehaviorSubject(10);
-                this._flagAmount = new BehaviorSubject(10);
-                this._remainingFlags = new BehaviorSubject(10);
-                this._bombAmount = new BehaviorSubject(10);
-                this._flaggedBombs = new BehaviorSubject(0);
-                this._isFlagMode = new BehaviorSubject(false);
+                this._gameRunning = new BehaviorSubject<boolean>(false);
+                this._revealedCells = new BehaviorSubject<number>(0);
+                this._totalCells = new BehaviorSubject<number>(100);
+                this._cellsPerRow = new BehaviorSubject<number>(10);
+                this._flagAmount = new BehaviorSubject<number>(10);
+                this._remainingFlags = new BehaviorSubject<number>(10);
+                this._bombAmount = new BehaviorSubject<number>(10);
+                this._flaggedBombs = new BehaviorSubject<number>(0);
+                this._isFlagMode = new BehaviorSubject<boolean>(false);
                 break;
             case DifficultyEnum.advanced:
-                this._gameRunning = new BehaviorSubject(false);
-                this._revealedCells = new BehaviorSubject(0);
-                this._totalCells = new BehaviorSubject(225);
-                this._cellsPerRow = new BehaviorSubject(15);
-                this._flagAmount = new BehaviorSubject(15);
-                this._remainingFlags = new BehaviorSubject(20);
-                this._bombAmount = new BehaviorSubject(20);
-                this._flaggedBombs = new BehaviorSubject(0);
-                this._isFlagMode = new BehaviorSubject(false);
+                this._gameRunning = new BehaviorSubject<boolean>(false);
+                this._revealedCells = new BehaviorSubject<number>(0);
+                this._totalCells = new BehaviorSubject<number>(225);
+                this._cellsPerRow = new BehaviorSubject<number>(15);
+                this._flagAmount = new BehaviorSubject<number>(15);
+                this._remainingFlags = new BehaviorSubject<number>(20);
+                this._bombAmount = new BehaviorSubject<number>(20);
+                this._flaggedBombs = new BehaviorSubject<number>(0);
+                this._isFlagMode = new BehaviorSubject<boolean>(false);
                 break;
             case DifficultyEnum.expert:
-                this._gameRunning = new BehaviorSubject(false);
-                this._revealedCells = new BehaviorSubject(0);
-                this._totalCells = new BehaviorSubject(400);
-                this._cellsPerRow = new BehaviorSubject(20);
-                this._flagAmount = new BehaviorSubject(20);
-                this._remainingFlags = new BehaviorSubject(30);
-                this._bombAmount = new BehaviorSubject(30);
-                this._flaggedBombs = new BehaviorSubject(0);
-                this._isFlagMode = new BehaviorSubject(false);
+                this._gameRunning = new BehaviorSubject<boolean>(false);
+                this._revealedCells = new BehaviorSubject<number>(0);
+                this._totalCells = new BehaviorSubject<number>(400);
+                this._cellsPerRow = new BehaviorSubject<number>(20);
+                this._flagAmount = new BehaviorSubject<number>(20);
+                this._remainingFlags = new BehaviorSubject<number>(30);
+                this._bombAmount = new BehaviorSubject<number>(30);
+                this._flaggedBombs = new BehaviorSubject<number>(0);
+                this._isFlagMode = new BehaviorSubject<boolean>(false);
                 break;
             default:
                 break;
@@ -110,39 +110,39 @@ export class GameStatsService implements OnInit{
         this._isFlagMode.next(isFlagMode);
     }
 
-    get gameRunning() {
+    get gameRunning$() {
         return this._gameRunning.asObservable();
     }
 
-    get revealedCells() {
+    get revealedCells$() {
         return this._revealedCells.asObservable();
     }
     
-    get totalCells() {
+    get totalCells$() {
         return this._totalCells.asObservable();
     }
     
-    get cellsPerRow() {
+    get cellsPerRow$() {
         return this._cellsPerRow.asObservable();
     }
     
-    get flagAmount() {
+    get flagAmount$() {
         return this._flagAmount.asObservable();
     }
     
-    get remainingFlags() {
+    get remainingFlags$() {
         return this._remainingFlags.asObservable();
     }
     
-    get bombAmount() {
+    get bombAmount$() {
         return this._bombAmount.asObservable();
     }
     
-    get flaggedBombs() {
+    get flaggedBombs$() {
         return this._flaggedBombs.asObservable();
     }
     
-    get isFlagMode() {
+    get isFlagMode$() {
         return this._isFlagMode.asObservable();
     }
 }

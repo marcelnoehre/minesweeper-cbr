@@ -1,51 +1,75 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class BoardService {
 
-    facingDown(counter: number): string[][] {
-        let array: string[][] = [];
+    private cellsPlanned: BehaviorSubject<string[][]> = new BehaviorSubject<string[][]>([]);
+    private cellsRevealed: BehaviorSubject<string[][]> = new BehaviorSubject<string[][]>([]); 
+    private revealedArray: string[][] = [];
+    private plannedArray: string[][] = [];
+
+    setCellsPlanned(row: number, column: number, value: string) {
+        this.plannedArray[row][column] = value;
+        this.cellsPlanned.next(this.plannedArray);
+    }
+
+    setCellsRevealed(row: number, column: number, value: string) {
+        this.revealedArray[row][column] = value;
+        this.cellsRevealed.next(this.revealedArray);
+    }
+
+    get cellsPlanned$() {
+        return this.cellsPlanned.asObservable();
+    }
+
+    get cellsRevealed$() {
+        return this.cellsRevealed.asObservable();
+    }
+
+    revealCell(row: number, column: number) {
+        this.revealedArray[row][column] = this.plannedArray[row][column];
+        this.cellsRevealed.next(this.revealedArray);
+    }
+
+    setupRevealed(counter: number) {
         for (let i = 0; i < counter; i++) {
             let innerArray: string[] = [];
             for(let j = 0; j < counter; j++) {
                 innerArray.push('facingDown');
             }
-            array.push(innerArray); 
+            this.revealedArray.push(innerArray); 
         }
-        return array;
+        this.cellsRevealed.next(this.revealedArray);
     }
 
-    planned(counter: number, row: number, column: number, totalBombs: number): string[][] {
-        let array: string[][] = [];
+    setupPlanned(counter: number, row: number, column: number, totalBombs: number) {
         for (let i = 0; i < counter; i++) {
             let innerArray: string[] = [];
             for(let j = 0; j < counter; j++) {
                 innerArray.push('0');
             }
-            array.push(innerArray); 
+            this.plannedArray.push(innerArray); 
         }
         let placedBombs = 0;
         while(placedBombs != totalBombs) {
             let rowIndex = this.randomNumber(counter);
             let columnIndex = this.randomNumber(counter);
             if(!(rowIndex == row && columnIndex == column)) {
-                if(array[rowIndex][columnIndex] != 'bomb') {
-                    array[rowIndex][columnIndex] = 'bomb';
+                if(this.plannedArray[rowIndex][columnIndex] != 'bomb') {
+                    this.plannedArray[rowIndex][columnIndex] = 'bomb';
                     placedBombs++;
                 }
             }
         }
         for(let i = 0; i < counter; i++) {
             for(let j = 0; j < counter; j++) {
-                let value = this.updateCell(counter, i, j, array);
-                if(value > -1) {
-                    array[i][j] = '' + value;
-                }
+                this.updateCell(counter, i, j);
             }
         }
-        return array;
+        this.cellsPlanned.next(this.plannedArray);
     }
 
     randomNumber(counter: number) {
@@ -54,46 +78,40 @@ export class BoardService {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    checkBomb(row: number, column: number, array: string[][]): boolean {
-        return array[row][column] == 'bomb';
-    }
-
-    updateCell(counter: number, row: number, column: number, array: string[][]): number { 
-        if(array[row][column] == 'bomb') {
-            return -1;
-        }
-        let value = 0;
-        for(let i = row-1; i <= row+1; i++) {
-            for(let j = column-1; j <= column+1; j++) {
-                if(i >= 0 && j >= 0 && i < counter && j < counter) {
-                    if(array[i][j] == 'bomb') {
-                        value++;
+    updateCell(counter: number, row: number, column: number) { 
+        if(this.plannedArray[row][column] != 'bomb') {
+            let value = 0;
+            for(let i = row-1; i <= row+1; i++) {
+                for(let j = column-1; j <= column+1; j++) {
+                    if(i >= 0 && j >= 0 && i < counter && j < counter) {
+                        if(this.plannedArray[i][j] == 'bomb') {
+                            value++;
+                        }
                     }
                 }
             }
+            this.plannedArray[row][column] = '' + value;
         }
-        return value;
     }
 
-    openSurround(row: number, column: number, counter: number, revealed: string[][], planned: string[][], revealedCounter: number) {
+    openSurround(row: number, column: number, counter: number, revealedCounter: number) {
+        //TODO renew
         for(let i = row-1; i <= row+1; i++) {
             for(let j = column-1; j <= column+1; j++) {
                 if(i >= 0 && j >= 0 && i < counter && j < counter) {
-                    if(revealed[i][j] == 'facingDown') {
-                        if(planned[i][j] == '0') {
-                            revealed[i][j] = planned[i][j];
+                    if(this.revealedArray[i][j] == 'facingDown') {
+                        if(this.plannedArray[i][j] == '0') {
+                            this.revealedArray[i][j] = this.plannedArray[i][j];
                             revealedCounter++;
-                            let tmp = this.openSurround(i, j, counter, revealed, planned, revealedCounter);
-                            revealed = tmp.revealed;
-                            revealedCounter = tmp.revealedCounter;                            
+                            revealedCounter = this.openSurround(i, j, counter, revealedCounter);                            
                         } else {
-                            revealed[i][j] = planned[i][j];
+                            this.revealedArray[i][j] = this.plannedArray[i][j];
                             revealedCounter++;
                         }
                     }
                 }
             }
         }
-        return {revealed, revealedCounter};
+        return revealedCounter;
     }
 }

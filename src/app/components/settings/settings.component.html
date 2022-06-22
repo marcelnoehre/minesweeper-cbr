@@ -6,25 +6,25 @@
         <div class="game-stats">
             <div class="first-container">
                 <div class="active-difficulty">
-                    {{'DIFFICULTIES.' + gameStats.difficulty|translate}}
+                    {{'DIFFICULTIES.' + difficulty|translate}}
                 </div>
                 <pre></pre>
                 <div class="timer">
                     <div class="time">{{minutes}}:{{seconds}}</div>
                 </div>
                 <div class="progress">
-                    <progress id="prgoress" [value]="gameStats.revealedCells" [max]="gameStats.totalCells - gameStats.bombAmount"></progress>
+                    <progress id="prgoress" [value]="revealedCells" [max]="totalCells - bombAmount"></progress>
                 </div>
             </div>
             <div class=" second-container ">
                 <pre></pre>
                 <div class="flags ">
                     <div class="stat-container ">
-                        <div class="inner-stat " [ngClass]="gameStats.setFlag? 'remove-flag' : 'set-flag'" (click)="toggleSetFlag()">
+                        <div class="inner-stat " [ngClass]="isFlagMode? 'remove-flag' : 'set-flag'" (click)="toggleSetFlag()">
                             <div class="vertical-container">
                                 <img src="assets/images/game_icons/flagged.png ">
                             </div>
-                            <p>&nbsp;{{gameStats.remainingFlags}}</p>
+                            <p>&nbsp;{{remainingFlags}}</p>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                             <div class="vertical-container ">
                                 <img src="assets/images/game_icons/bomb.png ">
                             </div>
-                            <p>&nbsp;{{gameStats.bombAmount}}</p>
+                            <p>&nbsp;{{bombAmount}}</p>
                         </div>
                     </div>
                 </div>
@@ -49,12 +49,12 @@
             <div class="difficulty ">
                 <div class="selector-header ">{{'SETTINGS.DIFFICULTIES'|translate}}</div>
                 <ul class="difficulties ">
-                    <li *ngFor="let difficulty of difficulties ">
-                        <div *ngIf="difficulty==gameStats.difficulty" class="selected ">
-                            <img src="{{ 'assets/images/icons/' + difficulty + '.png'}} " />
+                    <li *ngFor="let diff of difficulties ">
+                        <div *ngIf="diff==difficulty" class="selected ">
+                            <img src="{{ 'assets/images/icons/' + diff + '.png'}} " />
                         </div>
-                        <div *ngIf="difficulty != gameStats.difficulty " class="clickable " (click)="setDifficulty(difficulty) ">
-                            <img src="{{ 'assets/images/icons/' + difficulty + '.png'}} " />
+                        <div *ngIf="diff != difficulty " class="clickable " (click)="setDifficulty(diff) ">
+                            <img src="{{ 'assets/images/icons/' + diff + '.png'}} " />
                         </div>
                     </li>
                 </ul>

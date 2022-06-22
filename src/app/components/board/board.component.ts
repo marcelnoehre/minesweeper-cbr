@@ -1,96 +1,117 @@
-import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { filter, Observable, pluck } from 'rxjs';
 import { StorageService } from 'src/app/services/storage.service';
-import { GameStats } from 'src/app/interfaces/game-stats';
 import { EventEmitter } from '@angular/core';
 import { BoardService } from 'src/app/services/board.service';
+import { DifficultyEnum } from 'src/app/enum/difficulty';
+import { GameStatsService } from 'src/app/services/stats.service';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent implements OnInit, OnChanges{
+export class BoardComponent implements OnInit{
   DifficultyChange$!: Observable<string>;
-  @Input() gameStats!: GameStats;
-  @Output() runningState = new EventEmitter();
-  @Output() revealedCells = new EventEmitter();
-  @Output() remainingFlags = new EventEmitter();
-  @Output() remainingBombs = new EventEmitter();
-  @Output() setFlag = new EventEmitter();
+  difficulty!: string;
+  gameRunning!: boolean;
+  revealedCells!: number;
+  totalCells!: number;
+  cellsPerRow!: number;
+  flagAmount!: number;
+  remainingFlags!: number;
+  bombAmount!: number;
+  flaggedBombs!: number;
+  isFlagMode!: boolean;
+
   @Output() dialog = new EventEmitter();
   public cellsRevealed:string[][] = [];
   public cellsPlanned: string[][] = [];
 
   constructor(
     private storage:StorageService, 
-    private board:BoardService
+    private board:BoardService,
+    private gameStats: GameStatsService
   ) { }
 
   ngOnInit(): void {
-    this.setupBoard(this.gameStats.difficulty);
     this.DifficultyChange$ = this.storage.storageChange$.pipe(
       filter(({ key }) => key === "difficulty"),
       pluck("id")
     );
-    this.DifficultyChange$.subscribe(newDifficulty => {
-      this.setupBoard(newDifficulty);
+      this.DifficultyChange$.subscribe(newDifficulty => {
+      this.difficulty = newDifficulty;
     });
-  }
-
-  ngOnChanges(): void {
-    if(!this.gameStats.gameRunning && this.cellsPlanned != []) {
-      this.setupBoard(this.gameStats.difficulty);
-    }
-  }
-
-  setupBoard(diff: string) {
-    if (diff == 'BEGINNER') {
-     this.cellsRevealed = this.board.facingDown(10);
-    } else if(diff == 'ADVANCED') {
-      this.cellsRevealed = this.board.facingDown(15);
-    } else {
-      this.cellsRevealed = this.board.facingDown(20);
-    }
-    this.cellsPlanned = [];
+    this.difficulty = this.storage.getSessionEntry('difficulty');
+    this.board.cellsRevealed$.subscribe((cellsRevealed: string[][]) => {
+      this.cellsRevealed = cellsRevealed;
+    });
+    this.board.cellsPlanned$.subscribe((cellsPlanned: string[][]) => {
+      this.cellsPlanned = cellsPlanned;
+    });
+    this.gameStats.gameRunning$.subscribe((gameRunning: boolean) => {
+      this.gameRunning = gameRunning;
+    });
+    this.gameStats.revealedCells$.subscribe((revealedCells: number) => {
+      this.revealedCells = revealedCells;
+    });
+    this.gameStats.totalCells$.subscribe((totalCells: number) => {
+      this.totalCells = totalCells;
+    });
+    this.gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
+      this.cellsPerRow = cellsPerRow;
+    });
+    this.gameStats.flagAmount$.subscribe((flagAmount: number) => {
+      this.flagAmount = flagAmount;
+    });
+    this.gameStats.remainingFlags$.subscribe((remainingFlags: number) => {
+      this.remainingFlags = remainingFlags;
+    });
+    this.gameStats.bombAmount$.subscribe((bombAmount: number) => {
+      this.bombAmount = bombAmount;
+    });
+    this.gameStats.flaggedBombs$.subscribe((flaggedBombs: number) => {
+      this.flaggedBombs = flaggedBombs;
+    });
+    this.gameStats.isFlagMode$.subscribe((isFlagMode: boolean) => {
+      this.isFlagMode = isFlagMode;
+    });
+    this.board.setupRevealed(this.cellsPerRow);
   }
 
   cellClicked(row: number, column: number) {
-    if(!this.gameStats.gameRunning) {
-      this.runningState.emit(true);
-      this.cellsPlanned = this.board.planned(this.gameStats.rowAmount, row, column, this.gameStats.bombAmount);
+    if(!this.gameRunning) {
+      this.gameStats.setGameRunning(true);
+      this.board.setupPlanned(this.cellsPerRow, row, column, this.bombAmount);
     }
-    if(!this.gameStats.setFlag) {
+    if(!this.isFlagMode) {
       if(this.cellsRevealed[row][column] == 'facingDown') {
-        this.cellsRevealed[row][column] = this.cellsPlanned[row][column]
+        this.board.revealCell(row, column);
         if(this.cellsPlanned[row][column] == 'bomb') {
           //TODO: timeout to see bomb revealed
           this.dialog.emit('lose');
-        } else if(this.cellsPlanned[row][column] == '0') {
-          let tmp = this.board.openSurround(row, column, this.gameStats.rowAmount, this.cellsRevealed, this.cellsPlanned, 1);  
-          this.cellsRevealed = tmp.revealed;
-          this.revealedCells.emit(this.gameStats.revealedCells + tmp.revealedCounter);
+        } else if(this.cellsPlanned[row][column] == '0') { 
+          this.gameStats.setRevealedCells(this.revealedCells + this.board.openSurround(row, column, this.cellsPerRow, 1)); 
         } else {
-          this.revealedCells.emit(this.gameStats.revealedCells + 1);
+          this.gameStats.setRevealedCells(this.revealedCells + 1);
         }
       }
-    }
-    //TODO: detect right click
-    if(this.gameStats.setFlag) {
+    } else {
+      //TODO: detect right click
       if(this.cellsRevealed[row][column] == 'flagged') {
-        this.cellsRevealed[row][column] = 'facingDown';
-        this.remainingFlags.emit(this.gameStats.remainingFlags + 1);
+        this.board.setCellsRevealed(row, column, 'facingDown');
+        this.gameStats.setRemainingFlags(this.remainingFlags+1);
         if (this.cellsPlanned[row][column] == 'bomb') {
-          this.remainingBombs.emit(this.gameStats.flaggedBombs - 1);
+          this.gameStats.setFlaggedBombs(this.flaggedBombs-1);
         }
-      } else if(this.gameStats.remainingFlags > 0 && this.cellsRevealed[row][column] == 'facingDown') {
-        this.cellsRevealed[row][column] = 'flagged';
-        this.remainingFlags.emit(this.gameStats.remainingFlags - 1);
+      } else if( this.cellsRevealed[row][column] == 'facingDown' && this.remainingFlags > 0) {
+        this.board.setCellsRevealed(row, column, 'flagged');
+        this.gameStats.setRemainingFlags(this.remainingFlags-1);
         if(this.cellsPlanned[row][column] == 'bomb') {
-          this.remainingBombs.emit(this.gameStats.flaggedBombs + 1);
+          this.gameStats.setFlaggedBombs(this.flaggedBombs+1);
         }
       }
-      this.setFlag.emit(false);
+      this.gameStats.setIsFlagMode(false);
     }
   }
 }

@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { GameStats } from 'src/app/interfaces/game-stats';
+import { filter, Observable, pluck } from 'rxjs';
+import { GameStatsService } from 'src/app/services/stats.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -8,18 +9,28 @@ import { StorageService } from 'src/app/services/storage.service';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit, OnChanges {
-  @Input() gameStats!: GameStats;
+export class SettingsComponent implements OnInit {
+  DifficultyChange$!: Observable<string>;
+  difficulty!: string;
+  gameRunning!: boolean;
+  revealedCells!: number;
+  totalCells!: number;
+  cellsPerRow!: number;
+  flagAmount!: number;
+  remainingFlags!: number;
+  bombAmount!: number;
+  flaggedBombs!: number;
+  isFlagMode!: boolean;
+  //TODO action Service
   @Output() restart = new EventEmitter;
   @Output() dialog = new EventEmitter;
-  @Output() setFlag = new EventEmitter;
   @Output() handbook = new EventEmitter;
+  //TODO clean up
   public loading: boolean = false;
   public selectedLanguage:string = '';
   public languages:string[] = ['de', 'en', 'fr', 'es'];
   public selectedDifficulty:string = '';
   public difficulties: string[] = ['BEGINNER', 'ADVANCED', 'EXTREME'];
-  public timerRunning: boolean = false;
   public minutes: string = '00';
   public seconds: string = '00';
   public time: number = 0;
@@ -27,29 +38,63 @@ export class SettingsComponent implements OnInit, OnChanges {
 
   constructor(
     private storage: StorageService,
+    private gameStats: GameStatsService,
     private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
+    this.DifficultyChange$ = this.storage.storageChange$.pipe(
+      filter(({ key }) => key === "difficulty"),
+      pluck("id")
+    );
+    this.DifficultyChange$.subscribe(newDifficulty => {
+      this.stopTimer();
+      this.difficulty = newDifficulty;
+    });
+    this.difficulty = this.storage.getSessionEntry('difficulty');
     this.selectedLanguage = this.storage.getSessionEntry('lang');
     this.selectedDifficulty = this.storage.getSessionEntry('difficulty');
     this.setDifficulty(this.storage.getSessionEntry('difficulty'));
-  }
-
-  ngOnChanges() {
-    if(this.time === 0 && this.gameStats.gameRunning == true && !this.timerRunning) {
-      this.startTimer();
-    }
-    if(this.selectedDifficulty != this.gameStats.difficulty) {
-      this.stopTimer();
-    }
-    if(this.gameStats.revealedCells === this.gameStats.totalCells - this.gameStats.bombAmount) {
-      this.dialog.emit('win');
-    }
+    this.gameStats.gameRunning$.subscribe((gameRunning: boolean) => {
+      if(gameRunning) {
+        this.startTimer();
+      } else {
+        this.stopTimer();
+      }
+      this.gameRunning = gameRunning;
+    });
+    this.gameStats.revealedCells$.subscribe((revealedCells: number) => {
+      if(revealedCells == this.totalCells - this.bombAmount) {
+        this.gameStats.setGameRunning(false);
+        this.dialog.emit('win');
+      }
+      this.revealedCells = revealedCells;
+    });
+    this.gameStats.totalCells$.subscribe((totalCells: number) => {
+      this.totalCells = totalCells;
+    });
+    this.gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
+      this.cellsPerRow = cellsPerRow;
+    });
+    this.gameStats.flagAmount$.subscribe((flagAmount: number) => {
+      this.flagAmount = flagAmount;
+    });
+    this.gameStats.remainingFlags$.subscribe((remainingFlags: number) => {
+      this.remainingFlags = remainingFlags;
+    });
+    this.gameStats.bombAmount$.subscribe((bombAmount: number) => {
+      this.bombAmount = bombAmount;
+    });
+    this.gameStats.flaggedBombs$.subscribe((flaggedBombs: number) => {
+      this.flaggedBombs = flaggedBombs;
+    });
+    this.gameStats.isFlagMode$.subscribe((isFlagMode: boolean) => {
+      this.isFlagMode = isFlagMode;
+    });
   }
 
   toggleSetFlag() {
-    this.setFlag.emit(this.gameStats.setFlag? false : true);
+    this.gameStats.setIsFlagMode(this.isFlagMode? false : true);
   }
 
   setLanguage(lang:string): void {
@@ -68,7 +113,7 @@ export class SettingsComponent implements OnInit, OnChanges {
   }
 
   startTimer() {
-    this.timerRunning = true;
+    this.time = 0;
     this.interval = setInterval(() => {
       this.time++;
       let minutes = Math.floor(this.time / 60);
@@ -79,7 +124,6 @@ export class SettingsComponent implements OnInit, OnChanges {
   }
 
   stopTimer() {
-    this.timerRunning = false;
     this.time = 0;
     this.minutes = '00';
     this.seconds = '00';

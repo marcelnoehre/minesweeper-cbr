@@ -1,7 +1,6 @@
 <div class="app-container">
-    <app-settings [gameStats]="gameStats" (restart)="onRestart($event)" (dialog)="onDialog($event)" (setFlag)="toggleSetFlag($event)" (handbook)="toggleHandbook($event)"></app-settings>
-    <app-board [gameStats]="gameStats" (runningState)="onRunningStatusChanged($event)" (revealedCells)="onCellRevealed($event)" (remainingFlags)="onFlagsChanged($event)" (remainingBombs)="onRemainingBombsChanged($event)" (setFlag)="toggleSetFlag($event)"
-        (dialog)="onDialog($event)"></app-board>
+    <app-settings (restart)="onRestart($event)" (dialog)="onDialog($event)" (handbook)="toggleHandbook($event)"></app-settings>
+    <app-board (dialog)="onDialog($event)"></app-board>
     <app-hints></app-hints>
 </div>
 <app-handbook *ngIf="displayHandbook" (handbook)="toggleHandbook($event)"></app-handbook>
