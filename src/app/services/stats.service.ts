@@ -53,7 +53,7 @@ export class GameStatsService {
                 this.setFlaggedBombs(0);
                 this.setIsFlagMode(false);
                 break;
-            case DifficultyEnum.expert:
+            case DifficultyEnum.extreme:
                 this.setGameRunning(false);
                 this.setRevealedCells(0);
                 this.setTotalCells(400);

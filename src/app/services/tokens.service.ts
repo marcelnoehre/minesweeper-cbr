@@ -35,7 +35,7 @@ export class TokensService {
                 this.setTotalTokens(20);
                 this.setHintStatus(0);
                 break;
-            case DifficultyEnum.expert:
+            case DifficultyEnum.extreme:
                 this.setRemainingTokens(30);
                 this.setTotalTokens(30);
                 this.setHintStatus(0);

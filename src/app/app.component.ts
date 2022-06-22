@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import { Observable} from 'rxjs';
 import { StorageService } from './services/storage.service';
-import { GameStatsService } from './services/stats.service';
 import { ActionService } from './services/action-service';
+import { LanguageEnum } from './enum/languages';
+import { BrowserLanguageEnum } from './enum/browser-languages';
+import { DifficultyEnum } from './enum/difficulty';
 
 @Component({
   selector: 'app-root',
@@ -19,31 +20,42 @@ export class AppComponent implements OnInit {
     private storage: StorageService,
     private action: ActionService
     ) {
-    translate.setDefaultLang('en');
-    let lang = null;
+    translate.setDefaultLang(LanguageEnum.english);
+    let lang: string = '';
     try {
       lang = storage.getSessionEntry('lang');
     } catch(err) {}  
-    lang = lang? lang : 'en';
+    if(!lang) {
+      switch (navigator.language) {
+        case BrowserLanguageEnum.german: {
+          lang = LanguageEnum.german;
+          break;
+        }
+        case BrowserLanguageEnum.french: {
+          lang = LanguageEnum.french;
+          break;
+        }
+        case BrowserLanguageEnum.spanish: {
+          lang = LanguageEnum.spanish;
+          break;
+        }
+        default:
+          lang = LanguageEnum.english;
+        }
+      }
     storage.setSessionEntry('lang', lang);
     translate.use(lang);
-    let diff = null;
+    let diff: string = '';
     try {
       diff = this.storage.getSessionEntry('difficulty');
     } catch(err) {}
-    diff = diff? diff : 'BEGINNER';
-    storage.setSessionEntry('difficulty', diff)
+    diff = diff == ''? DifficultyEnum.beginner: diff;
+    storage.setSessionEntry('difficulty', diff);
   }
 
   ngOnInit(): void {
     this.action.displayHandbook.subscribe((displayHandbook) => {
       this.displayHandbook = displayHandbook;
     });
-  }
-
-  onRestart(event: any) {
-    if(event == true) {
-      
-    }
   }
 }

@@ -1,6 +1,8 @@
 import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { filter, Observable, pluck } from 'rxjs';
+import { DifficultyEnum } from 'src/app/enum/difficulty';
+import { LanguageEnum } from 'src/app/enum/languages';
 import { ResultEnum } from 'src/app/enum/result';
 import { ActionService } from 'src/app/services/action-service';
 import { GameStatsService } from 'src/app/services/stats.service';
@@ -30,9 +32,9 @@ export class SettingsComponent implements OnInit {
   //TODO clean up
   public loading: boolean = false;
   public selectedLanguage:string = '';
-  public languages:string[] = ['de', 'en', 'fr', 'es'];
+  public languages:string[] = [LanguageEnum.english, LanguageEnum.german, LanguageEnum.french, LanguageEnum.spanish];
   public selectedDifficulty:string = '';
-  public difficulties: string[] = ['BEGINNER', 'ADVANCED', 'EXTREME'];
+  public difficulties: string[] = [DifficultyEnum.beginner, DifficultyEnum.advanced, DifficultyEnum.extreme];
   public minutes: string = '00';
   public seconds: string = '00';
   public time: number = 0;
