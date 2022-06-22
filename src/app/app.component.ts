@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
     try {
       diff = this.storage.getSessionEntry('difficulty');
     } catch(err) {}
-    diff = diff == ''? DifficultyEnum.beginner: diff;
+    diff = diff? diff : DifficultyEnum.beginner;
     storage.setSessionEntry('difficulty', diff);
   }
 
