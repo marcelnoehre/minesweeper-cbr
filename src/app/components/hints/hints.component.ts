@@ -29,9 +29,4 @@ export class HintsComponent implements OnInit {
       this.tokens.setHintStatus(selectedHint);
     }
   }
-
-  resetHints() {
-    //TODO: call on cell clicked
-    this.tokens.setHintStatus(0);
-  }
 }

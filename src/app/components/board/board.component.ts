@@ -7,6 +7,7 @@ import { DifficultyEnum } from 'src/app/enum/difficulty';
 import { GameStatsService } from 'src/app/services/stats.service';
 import { ActionService } from 'src/app/services/action-service';
 import { ResultEnum } from 'src/app/enum/result';
+import { TokensService } from 'src/app/services/tokens.service';
 
 @Component({
   selector: 'app-board',
@@ -34,6 +35,7 @@ export class BoardComponent implements OnInit{
     private storage:StorageService, 
     private board:BoardService,
     private gameStats: GameStatsService,
+    private tokens: TokensService,
     private action: ActionService
   ) { }
 
@@ -87,6 +89,7 @@ export class BoardComponent implements OnInit{
       this.gameStats.setGameRunning(true);
       this.board.setupPlanned(this.cellsPerRow, row, column, this.bombAmount);
     }
+    this.tokens.setHintStatus(0);
     if(!this.isFlagMode) {
       if(this.cellsRevealed[row][column] == 'facingDown') {
         this.board.revealCell(row, column);

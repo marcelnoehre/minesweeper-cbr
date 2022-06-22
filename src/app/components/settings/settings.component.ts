@@ -25,20 +25,15 @@ export class SettingsComponent implements OnInit {
   bombAmount!: number;
   flaggedBombs!: number;
   isFlagMode!: boolean;
-  //TODO action Service
-  @Output() restart = new EventEmitter;
-  @Output() dialog = new EventEmitter;
-  @Output() handbook = new EventEmitter;
-  //TODO clean up
-  public loading: boolean = false;
-  public selectedLanguage:string = '';
-  public languages:string[] = [LanguageEnum.english, LanguageEnum.german, LanguageEnum.french, LanguageEnum.spanish];
-  public selectedDifficulty:string = '';
-  public difficulties: string[] = [DifficultyEnum.beginner, DifficultyEnum.advanced, DifficultyEnum.extreme];
-  public minutes: string = '00';
-  public seconds: string = '00';
-  public time: number = 0;
-  private interval: any;
+  loading: boolean = false;
+  selectedLanguage:string = '';
+  languages:string[] = [LanguageEnum.english, LanguageEnum.german, LanguageEnum.french, LanguageEnum.spanish];
+  selectedDifficulty:string = '';
+  difficulties: string[] = [DifficultyEnum.beginner, DifficultyEnum.advanced, DifficultyEnum.extreme];
+  minutes: string = '00';
+  seconds: string = '00';
+  time: number = 0;
+  interval: any;
 
   constructor(
     private storage: StorageService,
