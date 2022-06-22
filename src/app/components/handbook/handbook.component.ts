@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActionService } from 'src/app/services/action-service';
 
 @Component({
   selector: 'app-handbook',
@@ -8,12 +9,12 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class HandbookComponent implements OnInit {
   @Output() handbook = new EventEmitter;
 
-  constructor() { }
+  constructor(private action: ActionService) { }
 
   ngOnInit(): void {
   }
 
   closeHandbook() {
-    this.handbook.emit(false);
+    this.action.toggleHandbook(false);
   }
 }

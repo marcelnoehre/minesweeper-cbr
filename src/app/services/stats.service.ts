@@ -6,7 +6,7 @@ import { StorageService } from './storage.service';
 @Injectable({
 	providedIn: 'root'
 })
-export class GameStatsService implements OnInit{
+export class GameStatsService {
     private DifficultyChange$!: Observable<string>;
     private _gameRunning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _revealedCells: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -18,56 +18,51 @@ export class GameStatsService implements OnInit{
     private _flaggedBombs: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private _isFlagMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    constructor(
-        private storage: StorageService
-        ) {
-    }
-
-    ngOnInit() {
-        this.DifficultyChange$ = this.storage.storageChange$.pipe(
-            filter(({ key }) => key === "difficulty"),
-            pluck("id")
-        );
-            this.DifficultyChange$.subscribe(newDifficulty => {
-            this.setup(newDifficulty);
-        });
-        this.setup(this.storage.getSessionEntry('difficulty'));
+    constructor(private storage: StorageService) {
+            this.DifficultyChange$ = this.storage.storageChange$.pipe(
+                filter(({ key }) => key === "difficulty"),
+                pluck("id")
+            );
+                this.DifficultyChange$.subscribe(newDifficulty => {
+                this.setup(newDifficulty);
+            });
+            this.setup(this.storage.getSessionEntry('difficulty'));
     }
 
     setup(difficulty: string) {
         switch (difficulty) {
             case DifficultyEnum.beginner:
-                this._gameRunning = new BehaviorSubject<boolean>(false);
-                this._revealedCells = new BehaviorSubject<number>(0);
-                this._totalCells = new BehaviorSubject<number>(100);
-                this._cellsPerRow = new BehaviorSubject<number>(10);
-                this._flagAmount = new BehaviorSubject<number>(10);
-                this._remainingFlags = new BehaviorSubject<number>(10);
-                this._bombAmount = new BehaviorSubject<number>(10);
-                this._flaggedBombs = new BehaviorSubject<number>(0);
-                this._isFlagMode = new BehaviorSubject<boolean>(false);
+                this.setGameRunning(false);
+                this.setRevealedCells(0);
+                this.setTotalCells(100);
+                this.setCellsPerRow(10);
+                this.setFlagAmount(10);
+                this.setRemainingFlags(10);
+                this.setBombAmount(10);
+                this.setFlaggedBombs(0);
+                this.setIsFlagMode(false);
                 break;
             case DifficultyEnum.advanced:
-                this._gameRunning = new BehaviorSubject<boolean>(false);
-                this._revealedCells = new BehaviorSubject<number>(0);
-                this._totalCells = new BehaviorSubject<number>(225);
-                this._cellsPerRow = new BehaviorSubject<number>(15);
-                this._flagAmount = new BehaviorSubject<number>(15);
-                this._remainingFlags = new BehaviorSubject<number>(20);
-                this._bombAmount = new BehaviorSubject<number>(20);
-                this._flaggedBombs = new BehaviorSubject<number>(0);
-                this._isFlagMode = new BehaviorSubject<boolean>(false);
+                this.setGameRunning(false);
+                this.setRevealedCells(0);
+                this.setTotalCells(225);
+                this.setCellsPerRow(15);
+                this.setFlagAmount(20);
+                this.setRemainingFlags(20);
+                this.setBombAmount(20);
+                this.setFlaggedBombs(0);
+                this.setIsFlagMode(false);
                 break;
             case DifficultyEnum.expert:
-                this._gameRunning = new BehaviorSubject<boolean>(false);
-                this._revealedCells = new BehaviorSubject<number>(0);
-                this._totalCells = new BehaviorSubject<number>(400);
-                this._cellsPerRow = new BehaviorSubject<number>(20);
-                this._flagAmount = new BehaviorSubject<number>(20);
-                this._remainingFlags = new BehaviorSubject<number>(30);
-                this._bombAmount = new BehaviorSubject<number>(30);
-                this._flaggedBombs = new BehaviorSubject<number>(0);
-                this._isFlagMode = new BehaviorSubject<boolean>(false);
+                this.setGameRunning(false);
+                this.setRevealedCells(0);
+                this.setTotalCells(400);
+                this.setCellsPerRow(20);
+                this.setFlagAmount(30);
+                this.setRemainingFlags(30);
+                this.setBombAmount(30);
+                this.setFlaggedBombs(0);
+                this.setIsFlagMode(false);
                 break;
             default:
                 break;

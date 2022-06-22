@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import {TranslateService} from "@ngx-translate/core";
 import { Observable} from 'rxjs';
-import { DialogComponent } from './components/dialog/dialog.component';
 import { StorageService } from './services/storage.service';
 import { GameStatsService } from './services/stats.service';
+import { ActionService } from './services/action-service';
 
 @Component({
   selector: 'app-root',
@@ -12,16 +11,13 @@ import { GameStatsService } from './services/stats.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  totalTokens$!: Observable<number>;
-  remainingTokens$!: Observable<number>;
-  public displayHandbook: boolean = false;
+  displayHandbook: boolean = false;
   title = 'minesweeper-cbr';
 
   constructor(
     private translate: TranslateService, 
     private storage: StorageService,
-    private gameStats: GameStatsService,
-    private dialog: MatDialog
+    private action: ActionService
     ) {
     translate.setDefaultLang('en');
     let lang = null;
@@ -40,22 +36,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-  }
-  
-  toggleHandbook(event: any) {
-    this.displayHandbook = event;
+    this.action.displayHandbook.subscribe((displayHandbook) => {
+      this.displayHandbook = displayHandbook;
+    });
   }
 
   onRestart(event: any) {
     if(event == true) {
       
     }
-  }
-
-  onDialog(event: any[]) {
-    let dialogRef = this.dialog.open(DialogComponent);
-    let instance = dialogRef.componentInstance;
-    instance.result = '' + event;
   }
 }

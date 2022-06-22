@@ -35,6 +35,7 @@ export class BoardService {
     }
 
     setupRevealed(counter: number) {
+        this.revealedArray = [];
         for (let i = 0; i < counter; i++) {
             let innerArray: string[] = [];
             for(let j = 0; j < counter; j++) {
@@ -46,6 +47,7 @@ export class BoardService {
     }
 
     setupPlanned(counter: number, row: number, column: number, totalBombs: number) {
+        this.plannedArray = [];
         for (let i = 0; i < counter; i++) {
             let innerArray: string[] = [];
             for(let j = 0; j < counter; j++) {

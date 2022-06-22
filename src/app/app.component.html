@@ -1,6 +1,6 @@
 <div class="app-container">
-    <app-settings (restart)="onRestart($event)" (dialog)="onDialog($event)" (handbook)="toggleHandbook($event)"></app-settings>
-    <app-board (dialog)="onDialog($event)"></app-board>
+    <app-settings></app-settings>
+    <app-board></app-board>
     <app-hints></app-hints>
 </div>
-<app-handbook *ngIf="displayHandbook" (handbook)="toggleHandbook($event)"></app-handbook>
+<app-handbook *ngIf="displayHandbook"></app-handbook>

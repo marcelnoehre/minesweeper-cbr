@@ -1,6 +1,8 @@
 import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { filter, Observable, pluck } from 'rxjs';
+import { ResultEnum } from 'src/app/enum/result';
+import { ActionService } from 'src/app/services/action-service';
 import { GameStatsService } from 'src/app/services/stats.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -39,6 +41,7 @@ export class SettingsComponent implements OnInit {
   constructor(
     private storage: StorageService,
     private gameStats: GameStatsService,
+    private action: ActionService,
     private translate: TranslateService
   ) { }
 
@@ -66,7 +69,7 @@ export class SettingsComponent implements OnInit {
     this.gameStats.revealedCells$.subscribe((revealedCells: number) => {
       if(revealedCells == this.totalCells - this.bombAmount) {
         this.gameStats.setGameRunning(false);
-        this.dialog.emit('win');
+        this.action.openDialog(ResultEnum.win);
       }
       this.revealedCells = revealedCells;
     });
@@ -93,6 +96,10 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  openHandbook() {
+    this.action.toggleHandbook(true);
+  }
+
   toggleSetFlag() {
     this.gameStats.setIsFlagMode(this.isFlagMode? false : true);
   }
@@ -105,11 +112,12 @@ export class SettingsComponent implements OnInit {
 
   setDifficulty(difficulty:string): void {
     this.storage.setSessionEntry('difficulty', difficulty);
+    this.action.restartGame();
   }
 
   restartGame() {
     this.stopTimer();
-    this.restart.emit(true);
+    this.action.restartGame();
   }
 
   startTimer() {
@@ -128,9 +136,5 @@ export class SettingsComponent implements OnInit {
     this.minutes = '00';
     this.seconds = '00';
     clearInterval(this.interval);
-  }
-
-  openHandbook() {
-    this.handbook.emit(true);
   }
 }

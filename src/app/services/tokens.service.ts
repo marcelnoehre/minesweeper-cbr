@@ -6,17 +6,13 @@ import { StorageService } from './storage.service';
 @Injectable({
 	providedIn: 'root'
 })
-export class TokensService implements OnInit {
+export class TokensService {
     private DifficultyChange$!: Observable<string>;
     private _remainingTokens: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _totalTokens: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _hintStatus: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
     constructor(private storage: StorageService) {
-
-    }
-
-    ngOnInit() {
         this.DifficultyChange$ = this.storage.storageChange$.pipe(
             filter(({ key }) => key === "difficulty"),
             pluck("id")
@@ -30,19 +26,19 @@ export class TokensService implements OnInit {
     setup(difficulty: string) {
         switch (difficulty) {
             case DifficultyEnum.beginner:
-                this._remainingTokens = new BehaviorSubject<number>(10);
-                this._totalTokens = new BehaviorSubject<number>(10);
-                this._hintStatus = new BehaviorSubject<number>(0);
+                this.setRemainingTokens(10);
+                this.setTotalTokens(10);
+                this.setHintStatus(0);
                 break;
             case DifficultyEnum.advanced:
-                this._remainingTokens = new BehaviorSubject<number>(20);
-                this._totalTokens = new BehaviorSubject<number>(20);
-                this._hintStatus = new BehaviorSubject<number>(0);
+                this.setRemainingTokens(20);
+                this.setTotalTokens(20);
+                this.setHintStatus(0);
                 break;
             case DifficultyEnum.expert:
-                this._remainingTokens = new BehaviorSubject<number>(30);
-                this._totalTokens = new BehaviorSubject<number>(30);
-                this._hintStatus = new BehaviorSubject<number>(0);
+                this.setRemainingTokens(30);
+                this.setTotalTokens(30);
+                this.setHintStatus(0);
                 break;
             default:
                 break;

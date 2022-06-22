@@ -5,6 +5,8 @@ import { EventEmitter } from '@angular/core';
 import { BoardService } from 'src/app/services/board.service';
 import { DifficultyEnum } from 'src/app/enum/difficulty';
 import { GameStatsService } from 'src/app/services/stats.service';
+import { ActionService } from 'src/app/services/action-service';
+import { ResultEnum } from 'src/app/enum/result';
 
 @Component({
   selector: 'app-board',
@@ -31,7 +33,8 @@ export class BoardComponent implements OnInit{
   constructor(
     private storage:StorageService, 
     private board:BoardService,
-    private gameStats: GameStatsService
+    private gameStats: GameStatsService,
+    private action: ActionService
   ) { }
 
   ngOnInit(): void {
@@ -89,7 +92,7 @@ export class BoardComponent implements OnInit{
         this.board.revealCell(row, column);
         if(this.cellsPlanned[row][column] == 'bomb') {
           //TODO: timeout to see bomb revealed
-          this.dialog.emit('lose');
+          this.action.openDialog(ResultEnum.lose);
         } else if(this.cellsPlanned[row][column] == '0') { 
           this.gameStats.setRevealedCells(this.revealedCells + this.board.openSurround(row, column, this.cellsPerRow, 1)); 
         } else {
