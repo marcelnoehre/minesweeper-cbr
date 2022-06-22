@@ -33,8 +33,4 @@ export class TokensService {
     get hintStatus$(): Observable<number> {
         return this._hintStatus.asObservable();
     }
-
-    
-
-    //TODO add all gameStats
 }
