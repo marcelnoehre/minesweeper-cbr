@@ -1,74 +1,135 @@
-.horizontal-container {
-    display: flex;
-    justify-content: center;
-    width: 100vw;
-    height: 60vh;
-}
-
-.vertical-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100vw;
-    height: 60vh;
-}
-
-.board {
-    height: 98vw;
-    width: 98vw;
-    margin: 1vw;
-    background-color: #D8D8D8;
-}
-
-.field {
-    height: 96vw;
-    width: 96vw;
-    padding: 1vw;
-}
-
-.row {
-    display: flex;
-    width: 100%;
-}
-
-.BEGINNER {
-    height: 9.6vw;
-}
-
-.ADVANCED {
-    height: 6.4vw;
-}
-
-.EXTREME {
-    height: 4.8vw;
+@media (max-width: 1000px) {
+    .horizontal-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100vw;
+        height: 60vh;
+    }
+    .vertical-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100vw;
+        height: 60vh;
+    }
+    .board {
+        height: 98vw;
+        width: 98vw;
+        margin: 1vw;
+        background-color: #D8D8D8;
+    }
+    .field {
+        height: 96vw;
+        width: 96vw;
+        padding: 1vw;
+    }
+    .row {
+        display: flex;
+        width: 100%;
+    }
+    .BEGINNER {
+        height: 9.6vw;
+    }
+    .ADVANCED {
+        height: 6.4vw;
+    }
+    .EXTREME {
+        height: 4.8vw;
+    }
+    @media (min-width: 60vh) {
+        .horizontal-container {
+            flex-direction: column;
+        }
+        .vertical-container {
+            flex-direction: row;
+        }
+        .board {
+            height: 59vh;
+            width: 59vh;
+            margin: 0.5vh;
+        }
+        .field {
+            height: 58vh;
+            width: 58vh;
+            padding: 0.5vh;
+        }
+        .BEGINNER {
+            height: 5.8vh;
+        }
+        .ADVANCED {
+            height: 3.86vh;
+        }
+        .EXTREME {
+            height: 2.9vh;
+        }
+    }
 }
 
 @media (min-width: 1000px) {
     .horizontal-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         width: 60vw;
         height: 100vh;
     }
     .vertical-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
         width: 60vw;
         height: 100vh;
     }
     .board {
-        height: 59vw;
-        width: 59vw;
-        margin: 0.5vw;
+        height: 99vh;
+        width: 99vh;
+        margin: 0.5vh;
+        background-color: #D8D8D8;
     }
     .field {
-        height: 58vw;
-        width: 58vw;
-        padding: 0.5vw;
+        height: 98vh;
+        width: 98vh;
+        padding: 0.5vh;
+    }
+    .row {
+        display: flex;
+        width: 100%;
     }
     .BEGINNER {
-        height: 5.8vw;
+        height: 9.8vh;
     }
     .ADVANCED {
-        height: 3.86vw;
+        height: 6.5vh;
     }
     .EXTREME {
-        height: 2.9vw;
+        height: 4.9vh;
+    }
+    @media (min-height: 60vw) {
+        .horizontal-container {
+            flex-direction: row;
+        }
+        .vertical-container {
+            flex-direction: column;
+        }
+        .board {
+            height: 59vw;
+            width: 59vw;
+            margin: 0.5vw;
+        }
+        .field {
+            height: 58vw;
+            width: 58vw;
+            padding: 0.5vw;
+        }
+        .BEGINNER {
+            height: 5.8vw;
+        }
+        .ADVANCED {
+            height: 3.86vw;
+        }
+        .EXTREME {
+            height: 2.9vw;
+        }
     }
 }
