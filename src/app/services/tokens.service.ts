@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, filter, Observable, pluck } from 'rxjs';
 import { DifficultyEnum } from '../enum/difficulty';
 import { StorageService } from './storage.service';

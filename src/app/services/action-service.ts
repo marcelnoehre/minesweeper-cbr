@@ -1,11 +1,12 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, filter, Observable, pluck } from 'rxjs';
 import { DialogComponent } from '../components/dialog/dialog.component';
 import { DifficultyEnum } from '../enum/difficulty';
 import { BoardService } from './board.service';
-import { GameStatsService } from './stats.service';
+import { GameStatsService } from './gamestats.service';
 import { StorageService } from './storage.service';
+import { TimerService } from './timer.service';
 import { TokensService } from './tokens.service';
 
 @Injectable({
@@ -22,6 +23,7 @@ export class ActionService {
         private gameStats: GameStatsService,
         private tokens: TokensService,
         private storage: StorageService,
+        private timer: TimerService,
         private dialog: MatDialog
         ) {
             this.DifficultyChange$ = this.storage.storageChange$.pipe(
@@ -62,5 +64,7 @@ export class ActionService {
         this.board.setupRevealed(this._cellsPerRow);
         this.gameStats.setup(this.difficulty);
         this.tokens.setup(this.difficulty);
+        this.timer.stop();
+        this.timer.reset();
     }
 }

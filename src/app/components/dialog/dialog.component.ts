@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { GameStatsService } from 'src/app/services/stats.service';
-import { StorageService } from 'src/app/services/storage.service';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActionService } from 'src/app/services/action-service';
+import { GameStatsService } from 'src/app/services/gamestats.service';
+import { TimerService } from 'src/app/services/timer.service';
 import { TokensService } from 'src/app/services/tokens.service';
 
 @Component({
@@ -9,10 +9,11 @@ import { TokensService } from 'src/app/services/tokens.service';
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss']
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent implements OnInit, OnDestroy {
   @Input() result!: string;
   difficulty!: string;
   revealedCells!: number;
+  cellsPerRow!: number;
   totalCells!: number;
   flagAmount!: number;
   remainingFlags!: number;
@@ -20,17 +21,31 @@ export class DialogComponent implements OnInit {
   flaggedBombs!: number;
   totalTokens!: number;
   remainingTokens!: number;
+  gameTime!: number;
+  minutes!: string;
+  seconds!: string;
 
   constructor(
-    private storage: StorageService,
     private gameStats: GameStatsService,
-    private tokens: TokensService, 
-    private dialogRef: MatDialogRef<DialogComponent>
+    private tokens: TokensService,
+    private action: ActionService,
+    private timer: TimerService
     ) { }
 
   ngOnInit(): void {
+    this.timer.gameTime$.subscribe((gameTime: number) => {
+      this.gameTime = gameTime;
+      let minutes = Math.floor(this.gameTime / 60);
+      let seconds = this.gameTime % 60;
+      this.minutes = minutes < 10 ? '0' + minutes : '' + minutes;
+      this.seconds = seconds < 10 ? '0' + seconds : '' + seconds; 
+    });
+    
     this.gameStats.revealedCells$.subscribe((revealedCells: number) => {
       this.revealedCells = revealedCells;
+    });
+    this.gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
+      this.cellsPerRow = cellsPerRow;
     });
     this.gameStats.totalCells$.subscribe((totalCells: number) => {
       this.totalCells = totalCells;
@@ -53,5 +68,9 @@ export class DialogComponent implements OnInit {
     this.tokens.remainingTokens$.subscribe((remainingTokens: number) => {
       this.remainingTokens = remainingTokens;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.action.restartGame();
   }
 }

@@ -4,10 +4,11 @@ import { StorageService } from 'src/app/services/storage.service';
 import { EventEmitter } from '@angular/core';
 import { BoardService } from 'src/app/services/board.service';
 import { DifficultyEnum } from 'src/app/enum/difficulty';
-import { GameStatsService } from 'src/app/services/stats.service';
+import { GameStatsService } from 'src/app/services/gamestats.service';
 import { ActionService } from 'src/app/services/action-service';
 import { ResultEnum } from 'src/app/enum/result';
 import { TokensService } from 'src/app/services/tokens.service';
+import { TimerService } from 'src/app/services/timer.service';
 
 @Component({
   selector: 'app-board',
@@ -35,6 +36,7 @@ export class BoardComponent implements OnInit{
     private storage:StorageService, 
     private board:BoardService,
     private gameStats: GameStatsService,
+    private timer: TimerService,
     private tokens: TokensService,
     private action: ActionService
   ) { }
@@ -84,7 +86,7 @@ export class BoardComponent implements OnInit{
     this.board.setupRevealed(this.cellsPerRow);
   }
 
-  cellClicked(row: number, column: number) {
+  async cellClicked(row: number, column: number) {
     if(!this.gameRunning) {
       this.gameStats.setGameRunning(true);
       this.board.setupPlanned(this.cellsPerRow, row, column, this.bombAmount);
@@ -94,7 +96,8 @@ export class BoardComponent implements OnInit{
       if(this.cellsRevealed[row][column] == 'facingDown') {
         this.board.revealCell(row, column);
         if(this.cellsPlanned[row][column] == 'bomb') {
-          //TODO: timeout to see bomb revealed
+          this.timer.stop();
+          await new Promise<void>(done => setTimeout(() => done(), 250));
           this.action.openDialog(ResultEnum.lose);
         } else if(this.cellsPlanned[row][column] == '0') { 
           this.gameStats.setRevealedCells(this.revealedCells + this.board.openSurround(row, column, this.cellsPerRow, 1)); 

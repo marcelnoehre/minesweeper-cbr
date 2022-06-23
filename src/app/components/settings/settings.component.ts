@@ -5,8 +5,9 @@ import { DifficultyEnum } from 'src/app/enum/difficulty';
 import { LanguageEnum } from 'src/app/enum/languages';
 import { ResultEnum } from 'src/app/enum/result';
 import { ActionService } from 'src/app/services/action-service';
-import { GameStatsService } from 'src/app/services/stats.service';
+import { GameStatsService } from 'src/app/services/gamestats.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { TimerService } from 'src/app/services/timer.service';
 
 @Component({
   selector: 'app-settings',
@@ -17,6 +18,7 @@ export class SettingsComponent implements OnInit {
   DifficultyChange$!: Observable<string>;
   difficulty!: string;
   gameRunning!: boolean;
+  gameTime!: number;
   revealedCells!: number;
   totalCells!: number;
   cellsPerRow!: number;
@@ -27,18 +29,18 @@ export class SettingsComponent implements OnInit {
   isFlagMode!: boolean;
   loading: boolean = false;
   selectedLanguage:string = '';
-  languages:string[] = [LanguageEnum.english, LanguageEnum.german, LanguageEnum.french, LanguageEnum.spanish];
   selectedDifficulty:string = '';
+  languages:string[] = [LanguageEnum.english, LanguageEnum.german, LanguageEnum.french, LanguageEnum.spanish];
   difficulties: string[] = [DifficultyEnum.beginner, DifficultyEnum.advanced, DifficultyEnum.extreme];
   minutes: string = '00';
   seconds: string = '00';
-  time: number = 0;
   interval: any;
 
   constructor(
     private storage: StorageService,
     private gameStats: GameStatsService,
     private action: ActionService,
+    private timer: TimerService,
     private translate: TranslateService
   ) { }
 
@@ -48,7 +50,7 @@ export class SettingsComponent implements OnInit {
       pluck("id")
     );
     this.DifficultyChange$.subscribe(newDifficulty => {
-      this.stopTimer();
+      this.timer.stop();
       this.difficulty = newDifficulty;
     });
     this.difficulty = this.storage.getSessionEntry('difficulty');
@@ -57,11 +59,18 @@ export class SettingsComponent implements OnInit {
     this.setDifficulty(this.storage.getSessionEntry('difficulty'));
     this.gameStats.gameRunning$.subscribe((gameRunning: boolean) => {
       if(gameRunning) {
-        this.startTimer();
+        this.timer.start();
       } else {
-        this.stopTimer();
+        this.timer.stop();
       }
       this.gameRunning = gameRunning;
+    });
+    this.timer.gameTime$.subscribe((gameTime: number) => {
+      this.gameTime = gameTime;
+      let minutes = Math.floor(this.gameTime / 60);
+      let seconds = this.gameTime % 60;
+      this.minutes = minutes < 10 ? '0' + minutes : '' + minutes;
+      this.seconds = seconds < 10 ? '0' + seconds : '' + seconds; 
     });
     this.gameStats.revealedCells$.subscribe((revealedCells: number) => {
       if(revealedCells == this.totalCells - this.bombAmount) {
@@ -113,25 +122,6 @@ export class SettingsComponent implements OnInit {
   }
 
   restartGame() {
-    this.stopTimer();
     this.action.restartGame();
-  }
-
-  startTimer() {
-    this.time = 0;
-    this.interval = setInterval(() => {
-      this.time++;
-      let minutes = Math.floor(this.time / 60);
-      let seconds = this.time % 60;
-      this.minutes = minutes < 10 ? '0' + minutes : '' + minutes;
-      this.seconds = seconds < 10 ? '0' + seconds : '' + seconds; 
-    },1000)
-  }
-
-  stopTimer() {
-    this.time = 0;
-    this.minutes = '00';
-    this.seconds = '00';
-    clearInterval(this.interval);
   }
 }
