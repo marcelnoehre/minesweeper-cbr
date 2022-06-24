@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { filter, Observable, pluck } from 'rxjs';
 import { DifficultyEnum } from 'src/app/enum/difficulty';

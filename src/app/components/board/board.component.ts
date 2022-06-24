@@ -1,9 +1,7 @@
-import { Component, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { filter, Observable, pluck } from 'rxjs';
 import { StorageService } from 'src/app/services/storage.service';
-import { EventEmitter } from '@angular/core';
 import { BoardService } from 'src/app/services/board.service';
-import { DifficultyEnum } from 'src/app/enum/difficulty';
 import { GameStatsService } from 'src/app/services/gamestats.service';
 import { ActionService } from 'src/app/services/action-service';
 import { ResultEnum } from 'src/app/enum/result';
@@ -27,8 +25,6 @@ export class BoardComponent implements OnInit{
   bombAmount!: number;
   flaggedBombs!: number;
   isFlagMode!: boolean;
-
-  @Output() dialog = new EventEmitter();
   public cellsRevealed:string[][] = [];
   public cellsPlanned: string[][] = [];
 

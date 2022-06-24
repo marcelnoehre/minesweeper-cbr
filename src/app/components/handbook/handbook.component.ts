@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActionService } from 'src/app/services/action-service';
 
 @Component({
@@ -7,7 +7,6 @@ import { ActionService } from 'src/app/services/action-service';
   styleUrls: ['./handbook.component.scss']
 })
 export class HandbookComponent implements OnInit {
-  @Output() handbook = new EventEmitter;
 
   constructor(private action: ActionService) { }
 
