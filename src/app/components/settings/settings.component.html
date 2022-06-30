@@ -6,7 +6,7 @@
         <div class="game-stats">
             <div class="first-container">
                 <div class="active-difficulty">
-                    {{'DIFFICULTIES.' + difficulty|translate}}
+                    {{difficulty}}
                 </div>
                 <pre></pre>
                 <div class="timer">
@@ -41,37 +41,22 @@
                 </div>
                 <pre></pre>
                 <div class="restart ">
-                    <button type="button " (click)="restartGame()">{{'APP.RESTART'|translate}}</button>
+                    <button type="button " (click)="restartGame()">Neustarten</button>
                 </div>
             </div>
         </div>
-        <div class="selectors ">
-            <div class="difficulty ">
-                <div class="selector-header ">{{'SETTINGS.DIFFICULTIES'|translate}}</div>
-                <ul class="difficulties ">
-                    <li *ngFor="let diff of difficulties ">
-                        <div *ngIf="diff==difficulty" class="selected ">
-                            <img src="{{ 'assets/images/icons/' + diff + '.png'}} " />
-                        </div>
-                        <div *ngIf="diff != difficulty " class="clickable " (click)="setDifficulty(diff) ">
-                            <img src="{{ 'assets/images/icons/' + diff + '.png'}} " />
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="language-selector ">
-                <div class="selector-header ">{{'SETTINGS.LANGUAGES'|translate}}</div>
-                <ul class="languages ">
-                    <li *ngFor="let language of languages ">
-                        <div *ngIf="language== selectedLanguage " class="selected ">
-                            <img src="{{ 'assets/images/flags/' + language + '.png'}} " />
-                        </div>
-                        <div *ngIf="language != selectedLanguage " class="clickable " (click)="setLanguage(language) ">
-                            <img src="{{ 'assets/images/flags/' + language + '.png'}} " />
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <div class="difficulty ">
+            <div class="difficulties-header ">Schwierigkeitsgrade</div>
+            <ul class="difficulties ">
+                <li *ngFor="let diff of difficulties ">
+                    <div *ngIf="diff==difficulty" class="selected ">
+                        <img src="{{ 'assets/images/icons/' + diff + '.png'}} " />
+                    </div>
+                    <div *ngIf="diff != difficulty " class="clickable " (click)="setDifficulty(diff) ">
+                        <img src="{{ 'assets/images/icons/' + diff + '.png'}} " />
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

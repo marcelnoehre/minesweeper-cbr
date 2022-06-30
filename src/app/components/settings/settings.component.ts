@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { filter, Observable, pluck } from 'rxjs';
 import { DifficultyEnum } from 'src/app/enum/difficulty';
-import { LanguageEnum } from 'src/app/enum/languages';
 import { ResultEnum } from 'src/app/enum/result';
 import { ActionService } from 'src/app/services/action-service';
 import { GameStatsService } from 'src/app/services/gamestats.service';
@@ -28,9 +26,7 @@ export class SettingsComponent implements OnInit {
   flaggedBombs!: number;
   isFlagMode!: boolean;
   loading: boolean = false;
-  selectedLanguage:string = '';
   selectedDifficulty:string = '';
-  languages:string[] = [LanguageEnum.english, LanguageEnum.german, LanguageEnum.french, LanguageEnum.spanish];
   difficulties: string[] = [DifficultyEnum.beginner, DifficultyEnum.advanced, DifficultyEnum.extreme];
   minutes: string = '00';
   seconds: string = '00';
@@ -40,8 +36,7 @@ export class SettingsComponent implements OnInit {
     private storage: StorageService,
     private gameStats: GameStatsService,
     private action: ActionService,
-    private timer: TimerService,
-    private translate: TranslateService
+    private timer: TimerService
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +49,6 @@ export class SettingsComponent implements OnInit {
       this.difficulty = newDifficulty;
     });
     this.difficulty = this.storage.getSessionEntry('difficulty');
-    this.selectedLanguage = this.storage.getSessionEntry('lang');
     this.selectedDifficulty = this.storage.getSessionEntry('difficulty');
     this.setDifficulty(this.storage.getSessionEntry('difficulty'));
     this.gameStats.gameRunning$.subscribe((gameRunning: boolean) => {
@@ -108,12 +102,6 @@ export class SettingsComponent implements OnInit {
 
   toggleSetFlag() {
     this.gameStats.setIsFlagMode(this.isFlagMode? false : true);
-  }
-
-  setLanguage(lang:string): void {
-    this.storage.setSessionEntry('lang', lang);
-    this.selectedLanguage = lang;
-    this.translate.use(lang);
   }
 
   setDifficulty(difficulty:string): void {
