@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { filter, Observable, pluck } from 'rxjs';
 import { DifficultyEnum } from 'src/app/enum/difficulty';
 import { ResultEnum } from 'src/app/enum/result';
@@ -31,15 +31,19 @@ export class SettingsComponent implements OnInit {
   minutes: string = '00';
   seconds: string = '00';
   interval: any;
+  mobile: boolean = false;
 
   constructor(
     private storage: StorageService,
     private gameStats: GameStatsService,
     private action: ActionService,
     private timer: TimerService
-  ) { }
+  ) { 
+    this.onResize();
+  }
 
   ngOnInit(): void {
+    this.onResize();
     this.DifficultyChange$ = this.storage.storageChange$.pipe(
       filter(({ key }) => key === "difficulty"),
       pluck("id")
@@ -94,6 +98,15 @@ export class SettingsComponent implements OnInit {
     this.gameStats.isFlagMode$.subscribe((isFlagMode: boolean) => {
       this.isFlagMode = isFlagMode;
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+     if(window.innerWidth < 1000) {
+      this.mobile = true;
+     } else {
+      this.mobile = false;
+     }
   }
 
   openHandbook() {

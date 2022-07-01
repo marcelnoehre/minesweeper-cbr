@@ -39,8 +39,8 @@
                         </div>
                     </div>
                 </div>
-                <pre></pre>
-                <div class="restart ">
+                <pre *ngIf="!mobile"></pre>
+                <div *ngIf="!mobile" class="restart ">
                     <button type="button " (click)="restartGame()">Neustarten</button>
                 </div>
             </div>
@@ -57,6 +57,9 @@
                     </div>
                 </li>
             </ul>
+        </div>
+        <div *ngIf="mobile" class="restart ">
+            <button type="button " (click)="restartGame()">Neustarten</button>
         </div>
     </div>
 </div>
