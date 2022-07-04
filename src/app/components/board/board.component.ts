@@ -107,6 +107,10 @@ export class BoardComponent implements OnInit{
   }
 
   onRightClick(row: number, column: number) {
+    if(!this.gameRunning) {
+      this.gameStats.setGameRunning(true);
+      this.board.setupPlanned(this.cellsPerRow, row, column, this.bombAmount);
+    }
     if(this.cellsRevealed[row][column] == 'flagged') {
       this.board.setCellsRevealed(row, column, 'facingDown');
       this.gameStats.setRemainingFlags(this.remainingFlags+1);
