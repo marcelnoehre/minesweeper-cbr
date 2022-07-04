@@ -102,28 +102,28 @@ export class BoardComponent implements OnInit{
         }
       }
     } else {
-      //TODO: detect right click
-      this.tokens.setHintStatus(0);
-      if(this.cellsRevealed[row][column] == 'flagged') {
-        this.board.setCellsRevealed(row, column, 'facingDown');
-        this.gameStats.setRemainingFlags(this.remainingFlags+1);
-        if (this.cellsPlanned[row][column] == 'bomb') {
-          this.gameStats.setFlaggedBombs(this.flaggedBombs-1);
-        }
-        this.gameStats.setIsFlagMode(false);
-      } else if( this.cellsRevealed[row][column] == 'facingDown' && this.remainingFlags > 0) {
-        this.board.setCellsRevealed(row, column, 'flagged');
-        this.gameStats.setRemainingFlags(this.remainingFlags-1);
-        if(this.cellsPlanned[row][column] == 'bomb') {
-          this.gameStats.setFlaggedBombs(this.flaggedBombs+1);
-        }
-        this.gameStats.setIsFlagMode(false);
-      }
+      this.onRightClick(row, column);
     }
   }
 
-  onRightClick() {
-    //TODO: Implement right click logic here
+  onRightClick(row: number, column: number) {
+    if(this.cellsRevealed[row][column] == 'flagged') {
+      this.board.setCellsRevealed(row, column, 'facingDown');
+      this.gameStats.setRemainingFlags(this.remainingFlags+1);
+      if (this.cellsPlanned[row][column] == 'bomb') {
+        this.gameStats.setFlaggedBombs(this.flaggedBombs-1);
+      }
+      this.tokens.setHintStatus(0);
+      this.gameStats.setIsFlagMode(false);
+    } else if( this.cellsRevealed[row][column] == 'facingDown' && this.remainingFlags > 0) {
+      this.board.setCellsRevealed(row, column, 'flagged');
+      this.gameStats.setRemainingFlags(this.remainingFlags-1);
+      if(this.cellsPlanned[row][column] == 'bomb') {
+        this.gameStats.setFlaggedBombs(this.flaggedBombs+1);
+      }
+      this.tokens.setHintStatus(0);
+      this.gameStats.setIsFlagMode(false);
+    }
     return false
 }
 }
