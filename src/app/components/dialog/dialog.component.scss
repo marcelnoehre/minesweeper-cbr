@@ -17,6 +17,7 @@
     .content {
         position: absolute;
         animation: shake 1s ease-in-out 0.15s;
+        padding-top: 16vh;
     }
 }
 
@@ -52,7 +53,6 @@
     padding-left: 10vw;
     padding-right: 10vw;
     padding-bottom: 5vh;
-    padding-top: 16vh;
 }
 
 p {
