@@ -17,6 +17,7 @@ export class GameStatsService {
     private _bombAmount: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _flaggedBombs: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private _isFlagMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _isFlagPermanently: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(private storage: StorageService) {
             this.DifficultyChange$ = this.storage.storageChange$.pipe(
@@ -41,6 +42,7 @@ export class GameStatsService {
                 this.setBombAmount(10);
                 this.setFlaggedBombs(0);
                 this.setIsFlagMode(false);
+                this.setisFlagPermanently(false);
                 break;
             case DifficultyEnum.advanced:
                 this.setGameRunning(false);
@@ -52,6 +54,7 @@ export class GameStatsService {
                 this.setBombAmount(20);
                 this.setFlaggedBombs(0);
                 this.setIsFlagMode(false);
+                this.setisFlagPermanently(false);
                 break;
             case DifficultyEnum.extreme:
                 this.setGameRunning(false);
@@ -63,6 +66,7 @@ export class GameStatsService {
                 this.setBombAmount(30);
                 this.setFlaggedBombs(0);
                 this.setIsFlagMode(false);
+                this.setisFlagPermanently(false);
                 break;
             default:
                 break;
@@ -102,7 +106,12 @@ export class GameStatsService {
     }
 
     setIsFlagMode(isFlagMode: boolean) {
+        console.log(isFlagMode);
         this._isFlagMode.next(isFlagMode);
+    }
+
+    setisFlagPermanently(isFlagPermanently: boolean) {
+        this._isFlagPermanently.next(isFlagPermanently);
     }
 
     get gameRunning$() {
@@ -139,5 +148,9 @@ export class GameStatsService {
     
     get isFlagMode$() {
         return this._isFlagMode.asObservable();
+    }
+
+    get isFlagPermanently$() {
+        return this._isFlagPermanently.asObservable();
     }
 }

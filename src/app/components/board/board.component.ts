@@ -25,6 +25,7 @@ export class BoardComponent implements OnInit{
   bombAmount!: number;
   flaggedBombs!: number;
   isFlagMode!: boolean;
+  isFlagPermanently!: boolean;
   public cellsRevealed:string[][] = [];
   public cellsPlanned: string[][] = [];
 
@@ -79,6 +80,9 @@ export class BoardComponent implements OnInit{
     this.gameStats.isFlagMode$.subscribe((isFlagMode: boolean) => {
       this.isFlagMode = isFlagMode;
     });
+    this.gameStats.isFlagPermanently$.subscribe((isFlagPermanently: boolean) => {
+      this.isFlagPermanently = isFlagPermanently;
+    });
     this.board.setupRevealed(this.cellsPerRow);
   }
 
@@ -118,7 +122,9 @@ export class BoardComponent implements OnInit{
         this.gameStats.setFlaggedBombs(this.flaggedBombs-1);
       }
       this.tokens.setHintStatus(0);
-      this.gameStats.setIsFlagMode(false);
+      if(!this.isFlagPermanently) {
+        this.gameStats.setIsFlagMode(false);
+      }
     } else if( this.cellsRevealed[row][column] == 'facingDown' && this.remainingFlags > 0) {
       this.board.setCellsRevealed(row, column, 'flagged');
       this.gameStats.setRemainingFlags(this.remainingFlags-1);
@@ -126,7 +132,9 @@ export class BoardComponent implements OnInit{
         this.gameStats.setFlaggedBombs(this.flaggedBombs+1);
       }
       this.tokens.setHintStatus(0);
-      this.gameStats.setIsFlagMode(false);
+      if(!this.isFlagPermanently) {
+        this.gameStats.setIsFlagMode(false);
+      }
     }
     return false
 }

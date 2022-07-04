@@ -20,13 +20,16 @@
                 <pre></pre>
                 <div class="flags ">
                     <div class="stat-container ">
-                        <div class="inner-stat " [ngClass]="isFlagMode? 'remove-flag' : 'set-flag'" (click)="toggleSetFlag()">
+                        <div class="inner-stat " [ngClass]="isFlagMode? 'remove-flag' : 'set-flag'" (click)="toggleFlagMode()">
                             <div class="vertical-container">
                                 <img src="assets/images/game_icons/flagged.png ">
                             </div>
                             <p>&nbsp;{{remainingFlags}}</p>
                         </div>
                     </div>
+                    <mat-slide-toggle [checked]="isFlagPermanently" (change)="toggleSetFlagPermanently($event)">
+                        Dauerhaft Flaggen setzen
+                    </mat-slide-toggle>
                 </div>
                 <pre></pre>
                 <div class="bombs ">

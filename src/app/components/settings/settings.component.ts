@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { filter, Observable, pluck } from 'rxjs';
 import { DifficultyEnum } from 'src/app/enum/difficulty';
 import { ResultEnum } from 'src/app/enum/result';
@@ -25,6 +26,7 @@ export class SettingsComponent implements OnInit {
   bombAmount!: number;
   flaggedBombs!: number;
   isFlagMode!: boolean;
+  isFlagPermanently!: boolean;
   loading: boolean = false;
   selectedDifficulty:string = '';
   difficulties: string[] = [DifficultyEnum.beginner, DifficultyEnum.advanced, DifficultyEnum.extreme];
@@ -98,6 +100,9 @@ export class SettingsComponent implements OnInit {
     this.gameStats.isFlagMode$.subscribe((isFlagMode: boolean) => {
       this.isFlagMode = isFlagMode;
     });
+    this.gameStats.isFlagPermanently$.subscribe((isFlagPermanently) => {
+      this.isFlagPermanently = isFlagPermanently;
+    });
   }
 
   @HostListener('window:resize', ['$event'])
@@ -113,8 +118,17 @@ export class SettingsComponent implements OnInit {
     this.action.toggleHandbook(true);
   }
 
-  toggleSetFlag() {
-    this.gameStats.setIsFlagMode(this.isFlagMode? false : true);
+  toggleFlagMode() {
+    let state: boolean = this.isFlagMode? false : true;
+    this.gameStats.setIsFlagMode(state);
+    if(!state) {
+      this.gameStats.setisFlagPermanently(false);
+    }
+  }
+
+  toggleSetFlagPermanently(state: any) {
+    this.gameStats.setisFlagPermanently(state.checked);
+    this.gameStats.setIsFlagMode(state.checked);
   }
 
   setDifficulty(difficulty:string): void {
