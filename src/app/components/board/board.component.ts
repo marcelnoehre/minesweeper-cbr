@@ -121,4 +121,9 @@ export class BoardComponent implements OnInit{
       }
     }
   }
+
+  onRightClick() {
+    //TODO: Implement right click logic here
+    return false
+}
 }

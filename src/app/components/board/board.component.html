@@ -3,7 +3,7 @@
         <div class="board">
             <div class="field">
                 <section *ngFor="let row of cellsRevealed; index as rowIndex" class="row" [ngClass]="difficulty">
-                    <app-cell *ngFor="let cell of cellsRevealed[rowIndex]; index as columnIndex" [difficulty]="difficulty" [value]="cellsRevealed[rowIndex][columnIndex]" (click)="cellClicked(rowIndex, columnIndex)"></app-cell>
+                    <app-cell *ngFor="let cell of cellsRevealed[rowIndex]; index as columnIndex" [difficulty]="difficulty" [value]="cellsRevealed[rowIndex][columnIndex]" (click)="cellClicked(rowIndex, columnIndex)" (contextmenu)="onRightClick()"></app-cell>
                 </section>
             </div>
         </div>
