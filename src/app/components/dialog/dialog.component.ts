@@ -26,14 +26,14 @@ export class DialogComponent implements OnInit, OnDestroy {
   seconds!: string;
 
   constructor(
-    private gameStats: GameStatsService,
-    private tokens: TokensService,
-    private action: ActionService,
-    private timer: TimerService
+    private _gameStats: GameStatsService,
+    private _tokens: TokensService,
+    private _action: ActionService,
+    private _timer: TimerService
     ) { }
 
   ngOnInit(): void {
-    this.timer.gameTime$.subscribe((gameTime: number) => {
+    this._timer.gameTime$.subscribe((gameTime: number) => {
       this.gameTime = gameTime;
       let minutes = Math.floor(this.gameTime / 60);
       let seconds = this.gameTime % 60;
@@ -41,36 +41,36 @@ export class DialogComponent implements OnInit, OnDestroy {
       this.seconds = seconds < 10 ? '0' + seconds : '' + seconds; 
     });
     
-    this.gameStats.revealedCells$.subscribe((revealedCells: number) => {
+    this._gameStats.revealedCells$.subscribe((revealedCells: number) => {
       this.revealedCells = revealedCells;
     });
-    this.gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
+    this._gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
       this.cellsPerRow = cellsPerRow;
     });
-    this.gameStats.totalCells$.subscribe((totalCells: number) => {
+    this._gameStats.totalCells$.subscribe((totalCells: number) => {
       this.totalCells = totalCells;
     });
-    this.gameStats.flagAmount$.subscribe((flagAmount: number) => {
+    this._gameStats.flagAmount$.subscribe((flagAmount: number) => {
       this.flagAmount = flagAmount;
     });
-    this.gameStats.remainingFlags$.subscribe((remainingFlags: number) => {
+    this._gameStats.remainingFlags$.subscribe((remainingFlags: number) => {
       this.remainingFlags = remainingFlags;
     });
-    this.gameStats.bombAmount$.subscribe((bombAmount: number) => {
+    this._gameStats.bombAmount$.subscribe((bombAmount: number) => {
       this.bombAmount = bombAmount;
     });
-    this.gameStats.flaggedBombs$.subscribe((flaggedBombs: number) => {
+    this._gameStats.flaggedBombs$.subscribe((flaggedBombs: number) => {
       this.flaggedBombs = flaggedBombs;
     });
-    this.tokens.totalTokens$.subscribe((totalTokens: number) => {
+    this._tokens.totalTokens$.subscribe((totalTokens: number) => {
       this.totalTokens = totalTokens;
     });
-    this.tokens.remainingTokens$.subscribe((remainingTokens: number) => {
+    this._tokens.remainingTokens$.subscribe((remainingTokens: number) => {
       this.remainingTokens = remainingTokens;
     });
   }
 
   ngOnDestroy(): void {
-    this.action.restartGame();
+    this._action.restartGame();
   }
 }

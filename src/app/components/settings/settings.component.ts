@@ -36,71 +36,71 @@ export class SettingsComponent implements OnInit {
   mobile: boolean = false;
 
   constructor(
-    private storage: StorageService,
-    private gameStats: GameStatsService,
-    private action: ActionService,
-    private timer: TimerService
+    private _storage: StorageService,
+    private _gameStats: GameStatsService,
+    private _action: ActionService,
+    private _timer: TimerService
   ) { 
     this.onResize();
   }
 
   ngOnInit(): void {
     this.onResize();
-    this.DifficultyChange$ = this.storage.storageChange$.pipe(
+    this.DifficultyChange$ = this._storage.storageChange$.pipe(
       filter(({ key }) => key === "difficulty"),
       pluck("id")
     );
     this.DifficultyChange$.subscribe(newDifficulty => {
-      this.timer.stop();
+      this._timer.stop();
       this.difficulty = newDifficulty;
     });
-    this.difficulty = this.storage.getSessionEntry('difficulty');
-    this.selectedDifficulty = this.storage.getSessionEntry('difficulty');
-    this.setDifficulty(this.storage.getSessionEntry('difficulty'));
-    this.gameStats.gameRunning$.subscribe((gameRunning: boolean) => {
+    this.difficulty = this._storage.getSessionEntry('difficulty');
+    this.selectedDifficulty = this._storage.getSessionEntry('difficulty');
+    this.setDifficulty(this._storage.getSessionEntry('difficulty'));
+    this._gameStats.gameRunning$.subscribe((gameRunning: boolean) => {
       if(gameRunning) {
-        this.timer.start();
+        this._timer.start();
       } else {
-        this.timer.stop();
+        this._timer.stop();
       }
       this.gameRunning = gameRunning;
     });
-    this.timer.gameTime$.subscribe((gameTime: number) => {
+    this._timer.gameTime$.subscribe((gameTime: number) => {
       this.gameTime = gameTime;
       let minutes = Math.floor(this.gameTime / 60);
       let seconds = this.gameTime % 60;
       this.minutes = minutes < 10 ? '0' + minutes : '' + minutes;
       this.seconds = seconds < 10 ? '0' + seconds : '' + seconds; 
     });
-    this.gameStats.revealedCells$.subscribe((revealedCells: number) => {
+    this._gameStats.revealedCells$.subscribe((revealedCells: number) => {
       if(revealedCells == this.totalCells - this.bombAmount) {
-        this.gameStats.setGameRunning(false);
-        this.action.openDialog(ResultEnum.win);
+        this._gameStats.setGameRunning(false);
+        this._action.openDialog(ResultEnum.win);
       }
       this.revealedCells = revealedCells;
     });
-    this.gameStats.totalCells$.subscribe((totalCells: number) => {
+    this._gameStats.totalCells$.subscribe((totalCells: number) => {
       this.totalCells = totalCells;
     });
-    this.gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
+    this._gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
       this.cellsPerRow = cellsPerRow;
     });
-    this.gameStats.flagAmount$.subscribe((flagAmount: number) => {
+    this._gameStats.flagAmount$.subscribe((flagAmount: number) => {
       this.flagAmount = flagAmount;
     });
-    this.gameStats.remainingFlags$.subscribe((remainingFlags: number) => {
+    this._gameStats.remainingFlags$.subscribe((remainingFlags: number) => {
       this.remainingFlags = remainingFlags;
     });
-    this.gameStats.bombAmount$.subscribe((bombAmount: number) => {
+    this._gameStats.bombAmount$.subscribe((bombAmount: number) => {
       this.bombAmount = bombAmount;
     });
-    this.gameStats.flaggedBombs$.subscribe((flaggedBombs: number) => {
+    this._gameStats.flaggedBombs$.subscribe((flaggedBombs: number) => {
       this.flaggedBombs = flaggedBombs;
     });
-    this.gameStats.isFlagMode$.subscribe((isFlagMode: boolean) => {
+    this._gameStats.isFlagMode$.subscribe((isFlagMode: boolean) => {
       this.isFlagMode = isFlagMode;
     });
-    this.gameStats.isFlagPermanently$.subscribe((isFlagPermanently) => {
+    this._gameStats.isFlagPermanently$.subscribe((isFlagPermanently: boolean) => {
       this.isFlagPermanently = isFlagPermanently;
     });
   }
@@ -115,28 +115,28 @@ export class SettingsComponent implements OnInit {
   }
 
   openHandbook() {
-    this.action.toggleHandbook(true);
+    this._action.toggleHandbook(true);
   }
 
   toggleFlagMode() {
     let state: boolean = this.isFlagMode? false : true;
-    this.gameStats.setIsFlagMode(state);
+    this._gameStats.setIsFlagMode(state);
     if(!state) {
-      this.gameStats.setisFlagPermanently(false);
+      this._gameStats.setisFlagPermanently(false);
     }
   }
 
   toggleSetFlagPermanently(state: any) {
-    this.gameStats.setisFlagPermanently(state.checked);
-    this.gameStats.setIsFlagMode(state.checked);
+    this._gameStats.setisFlagPermanently(state.checked);
+    this._gameStats.setIsFlagMode(state.checked);
   }
 
   setDifficulty(difficulty:string): void {
-    this.storage.setSessionEntry('difficulty', difficulty);
-    this.action.restartGame();
+    this._storage.setSessionEntry('difficulty', difficulty);
+    this._action.restartGame();
   }
 
   restartGame() {
-    this.action.restartGame();
+    this._action.restartGame();
   }
 }

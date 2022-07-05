@@ -13,7 +13,7 @@ import { TokensService } from './tokens.service';
 	providedIn: 'root'
 })
 export class ActionService {
-    DifficultyChange$!: Observable<string>;
+    private _difficultyChange$!: Observable<string>;
     private _displayHandbook: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private difficulty!: string; 
     private _cellsPerRow!: number;
@@ -26,11 +26,11 @@ export class ActionService {
         private timer: TimerService,
         private dialog: MatDialog
         ) {
-            this.DifficultyChange$ = this.storage.storageChange$.pipe(
+            this._difficultyChange$ = this.storage.storageChange$.pipe(
                 filter(({ key }) => key === "difficulty"),
                 pluck("id")
             );
-            this.DifficultyChange$.subscribe(newDifficulty => {
+            this._difficultyChange$.subscribe(newDifficulty => {
                 this.difficulty = newDifficulty;
             });
             this.difficulty = this.storage.getSessionEntry('difficulty');

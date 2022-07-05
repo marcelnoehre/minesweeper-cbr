@@ -7,14 +7,14 @@ import { StorageChange } from '../interfaces/storage-change';
 })
 export class StorageService {
 
-	public storageChange$: ReplaySubject<StorageChange> = new ReplaySubject();
+	storageChange$: ReplaySubject<StorageChange> = new ReplaySubject();
 
-    public setSessionEntry(key: string, id: string): void {
+    setSessionEntry(key: string, id: string): void {
         sessionStorage.setItem(key, id);
 		this.storageChange$.next({key, id});
     }
 
-	public getSessionEntry(key: string): any {
+	getSessionEntry(key: string): any {
 		return sessionStorage.getItem(key);
 	}
 }

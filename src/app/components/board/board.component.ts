@@ -26,83 +26,83 @@ export class BoardComponent implements OnInit{
   flaggedBombs!: number;
   isFlagMode!: boolean;
   isFlagPermanently!: boolean;
-  public cellsRevealed:string[][] = [];
-  public cellsPlanned: string[][] = [];
+  cellsRevealed:string[][] = [];
+  cellsPlanned: string[][] = [];
 
   constructor(
-    private storage:StorageService, 
-    private board:BoardService,
-    private gameStats: GameStatsService,
-    private timer: TimerService,
-    private tokens: TokensService,
-    private action: ActionService
+    private _storage:StorageService, 
+    private _board:BoardService,
+    private _gameStats: GameStatsService,
+    private _timer: TimerService,
+    private _tokens: TokensService,
+    private _action: ActionService
   ) { }
 
   ngOnInit(): void {
-    this.DifficultyChange$ = this.storage.storageChange$.pipe(
+    this.DifficultyChange$ = this._storage.storageChange$.pipe(
       filter(({ key }) => key === "difficulty"),
       pluck("id")
     );
       this.DifficultyChange$.subscribe(newDifficulty => {
       this.difficulty = newDifficulty;
     });
-    this.difficulty = this.storage.getSessionEntry('difficulty');
-    this.board.cellsRevealed$.subscribe((cellsRevealed: string[][]) => {
+    this.difficulty = this._storage.getSessionEntry('difficulty');
+    this._board.cellsRevealed$.subscribe((cellsRevealed: string[][]) => {
       this.cellsRevealed = cellsRevealed;
     });
-    this.board.cellsPlanned$.subscribe((cellsPlanned: string[][]) => {
+    this._board.cellsPlanned$.subscribe((cellsPlanned: string[][]) => {
       this.cellsPlanned = cellsPlanned;
     });
-    this.gameStats.gameRunning$.subscribe((gameRunning: boolean) => {
+    this._gameStats.gameRunning$.subscribe((gameRunning: boolean) => {
       this.gameRunning = gameRunning;
     });
-    this.gameStats.revealedCells$.subscribe((revealedCells: number) => {
+    this._gameStats.revealedCells$.subscribe((revealedCells: number) => {
       this.revealedCells = revealedCells;
     });
-    this.gameStats.totalCells$.subscribe((totalCells: number) => {
+    this._gameStats.totalCells$.subscribe((totalCells: number) => {
       this.totalCells = totalCells;
     });
-    this.gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
+    this._gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
       this.cellsPerRow = cellsPerRow;
     });
-    this.gameStats.flagAmount$.subscribe((flagAmount: number) => {
+    this._gameStats.flagAmount$.subscribe((flagAmount: number) => {
       this.flagAmount = flagAmount;
     });
-    this.gameStats.remainingFlags$.subscribe((remainingFlags: number) => {
+    this._gameStats.remainingFlags$.subscribe((remainingFlags: number) => {
       this.remainingFlags = remainingFlags;
     });
-    this.gameStats.bombAmount$.subscribe((bombAmount: number) => {
+    this._gameStats.bombAmount$.subscribe((bombAmount: number) => {
       this.bombAmount = bombAmount;
     });
-    this.gameStats.flaggedBombs$.subscribe((flaggedBombs: number) => {
+    this._gameStats.flaggedBombs$.subscribe((flaggedBombs: number) => {
       this.flaggedBombs = flaggedBombs;
     });
-    this.gameStats.isFlagMode$.subscribe((isFlagMode: boolean) => {
+    this._gameStats.isFlagMode$.subscribe((isFlagMode: boolean) => {
       this.isFlagMode = isFlagMode;
     });
-    this.gameStats.isFlagPermanently$.subscribe((isFlagPermanently: boolean) => {
+    this._gameStats.isFlagPermanently$.subscribe((isFlagPermanently: boolean) => {
       this.isFlagPermanently = isFlagPermanently;
     });
-    this.board.setupRevealed(this.cellsPerRow);
+    this._board.setupRevealed(this.cellsPerRow);
   }
 
   async cellClicked(row: number, column: number) {
     if(!this.gameRunning) {
-      this.gameStats.setGameRunning(true);
-      this.board.setupPlanned(this.cellsPerRow, row, column, this.bombAmount);
+      this._gameStats.setGameRunning(true);
+      this._board.setupPlanned(this.cellsPerRow, row, column, this.bombAmount);
     }
     if(!this.isFlagMode) {
       if(this.cellsRevealed[row][column] == 'facingDown') {
-        this.tokens.setHintStatus(0);
-        this.board.revealCell(row, column);
+        this._tokens.setHintStatus(0);
+        this._board.revealCell(row, column);
         if(this.cellsPlanned[row][column] == 'bomb') {
-          this.timer.stop();
+          this._timer.stop();
           await new Promise<void>(done => setTimeout(() => done(), 250));
-          this.action.openDialog(ResultEnum.lose);
+          this._action.openDialog(ResultEnum.lose);
         } else if(this.cellsPlanned[row][column] == '0') { 
-          this.gameStats.setRevealedCells(this.revealedCells + this.board.openSurround(row, column, this.cellsPerRow, 1)); 
+          this._gameStats.setRevealedCells(this.revealedCells + this._board.openSurround(row, column, this.cellsPerRow, 1)); 
         } else {
-          this.gameStats.setRevealedCells(this.revealedCells + 1);
+          this._gameStats.setRevealedCells(this.revealedCells + 1);
         }
       }
     } else {
@@ -112,28 +112,28 @@ export class BoardComponent implements OnInit{
 
   onRightClick(row: number, column: number) {
     if(!this.gameRunning) {
-      this.gameStats.setGameRunning(true);
-      this.board.setupPlanned(this.cellsPerRow, row, column, this.bombAmount);
+      this._gameStats.setGameRunning(true);
+      this._board.setupPlanned(this.cellsPerRow, row, column, this.bombAmount);
     }
     if(this.cellsRevealed[row][column] == 'flagged') {
-      this.board.setCellsRevealed(row, column, 'facingDown');
-      this.gameStats.setRemainingFlags(this.remainingFlags+1);
+      this._board.setCellsRevealed(row, column, 'facingDown');
+      this._gameStats.setRemainingFlags(this.remainingFlags+1);
       if (this.cellsPlanned[row][column] == 'bomb') {
-        this.gameStats.setFlaggedBombs(this.flaggedBombs-1);
+        this._gameStats.setFlaggedBombs(this.flaggedBombs-1);
       }
-      this.tokens.setHintStatus(0);
+      this._tokens.setHintStatus(0);
       if(!this.isFlagPermanently) {
-        this.gameStats.setIsFlagMode(false);
+        this._gameStats.setIsFlagMode(false);
       }
     } else if( this.cellsRevealed[row][column] == 'facingDown' && this.remainingFlags > 0) {
-      this.board.setCellsRevealed(row, column, 'flagged');
-      this.gameStats.setRemainingFlags(this.remainingFlags-1);
+      this._board.setCellsRevealed(row, column, 'flagged');
+      this._gameStats.setRemainingFlags(this.remainingFlags-1);
       if(this.cellsPlanned[row][column] == 'bomb') {
-        this.gameStats.setFlaggedBombs(this.flaggedBombs+1);
+        this._gameStats.setFlaggedBombs(this.flaggedBombs+1);
       }
-      this.tokens.setHintStatus(0);
+      this._tokens.setHintStatus(0);
       if(!this.isFlagPermanently) {
-        this.gameStats.setIsFlagMode(false);
+        this._gameStats.setIsFlagMode(false);
       }
     }
     return false

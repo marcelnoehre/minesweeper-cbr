@@ -7,17 +7,17 @@ import { StorageService } from './storage.service';
 	providedIn: 'root'
 })
 export class TokensService {
-    private DifficultyChange$!: Observable<string>;
+    private _difficultyChange$!: Observable<string>;
     private _remainingTokens: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _totalTokens: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _hintStatus: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
     constructor(private storage: StorageService) {
-        this.DifficultyChange$ = this.storage.storageChange$.pipe(
+        this._difficultyChange$ = this.storage.storageChange$.pipe(
             filter(({ key }) => key === "difficulty"),
             pluck("id")
         );
-            this.DifficultyChange$.subscribe(newDifficulty => {
+            this._difficultyChange$.subscribe(newDifficulty => {
             this.setup(newDifficulty);
         });
         this.setup(this.storage.getSessionEntry('difficulty'));

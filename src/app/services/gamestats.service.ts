@@ -7,7 +7,7 @@ import { StorageService } from './storage.service';
 	providedIn: 'root'
 })
 export class GameStatsService {
-    private DifficultyChange$!: Observable<string>;
+    private _difficultyChange$!: Observable<string>;
     private _gameRunning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _revealedCells: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private _totalCells: BehaviorSubject<number> = new BehaviorSubject<number>(100);
@@ -20,11 +20,11 @@ export class GameStatsService {
     private _isFlagPermanently: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(private storage: StorageService) {
-            this.DifficultyChange$ = this.storage.storageChange$.pipe(
+            this._difficultyChange$ = this.storage.storageChange$.pipe(
                 filter(({ key }) => key === "difficulty"),
                 pluck("id")
             );
-                this.DifficultyChange$.subscribe(newDifficulty => {
+                this._difficultyChange$.subscribe(newDifficulty => {
                 this.setup(newDifficulty);
             });
             this.setup(this.storage.getSessionEntry('difficulty'));
@@ -106,7 +106,6 @@ export class GameStatsService {
     }
 
     setIsFlagMode(isFlagMode: boolean) {
-        console.log(isFlagMode);
         this._isFlagMode.next(isFlagMode);
     }
 

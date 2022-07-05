@@ -8,12 +8,14 @@ import { ActionService } from 'src/app/services/action-service';
 })
 export class HandbookComponent implements OnInit {
 
-  constructor(private action: ActionService) { }
+  constructor(
+    private _action: ActionService
+    ) { }
 
   ngOnInit(): void {
   }
 
   closeHandbook() {
-    this.action.toggleHandbook(false);
+    this._action.toggleHandbook(false);
   }
 }
