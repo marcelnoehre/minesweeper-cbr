@@ -45,19 +45,19 @@ export class ActionService {
                 this._cellsPerRow = cellsPerRow;
             });
     }
-
+    
     get displayHandbook() {
         return this._displayHandbook.asObservable();
+    }
+
+    toggleHandbook(event: any) {
+        this._displayHandbook.next(event);
     }
 
     openDialog(event: any) {
         let dialogRef = this.dialog.open(DialogComponent);
         let instance = dialogRef.componentInstance;
         instance.result = '' + event;
-    }
-
-    toggleHandbook(event: any) {
-        this._displayHandbook.next(event);
     }
 
     restartGame() {

@@ -1,5 +1,4 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { filter, Observable, pluck } from 'rxjs';
 import { DifficultyEnum } from 'src/app/enum/difficulty';
 import { ResultEnum } from 'src/app/enum/result';
@@ -14,10 +13,8 @@ import { TimerService } from 'src/app/services/timer.service';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  DifficultyChange$!: Observable<string>;
-  difficulty!: string;
-  gameRunning!: boolean;
-  gameTime!: number;
+  private _difficultyChange$!: Observable<string>;
+  private gameTime!: number;
   revealedCells!: number;
   totalCells!: number;
   cellsPerRow!: number;
@@ -27,12 +24,10 @@ export class SettingsComponent implements OnInit {
   flaggedBombs!: number;
   isFlagMode!: boolean;
   isFlagPermanently!: boolean;
-  loading: boolean = false;
-  selectedDifficulty:string = '';
+  difficulty!: string;
   difficulties: string[] = [DifficultyEnum.beginner, DifficultyEnum.advanced, DifficultyEnum.extreme];
   minutes: string = '00';
   seconds: string = '00';
-  interval: any;
   mobile: boolean = false;
 
   constructor(
@@ -46,16 +41,15 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.onResize();
-    this.DifficultyChange$ = this._storage.storageChange$.pipe(
+    this._difficultyChange$ = this._storage.storageChange$.pipe(
       filter(({ key }) => key === "difficulty"),
       pluck("id")
     );
-    this.DifficultyChange$.subscribe(newDifficulty => {
+    this._difficultyChange$.subscribe(newDifficulty => {
       this._timer.stop();
       this.difficulty = newDifficulty;
     });
     this.difficulty = this._storage.getSessionEntry('difficulty');
-    this.selectedDifficulty = this._storage.getSessionEntry('difficulty');
     this.setDifficulty(this._storage.getSessionEntry('difficulty'));
     this._gameStats.gameRunning$.subscribe((gameRunning: boolean) => {
       if(gameRunning) {
@@ -63,7 +57,6 @@ export class SettingsComponent implements OnInit {
       } else {
         this._timer.stop();
       }
-      this.gameRunning = gameRunning;
     });
     this._timer.gameTime$.subscribe((gameTime: number) => {
       this.gameTime = gameTime;
