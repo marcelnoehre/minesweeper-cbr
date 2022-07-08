@@ -1,4 +1,4 @@
-<div class="app-container">
+<div class="app-container" [ngClass]="{'is-web-landscape': display['isWebLandscape']}">
     <app-settings></app-settings>
     <app-board></app-board>
     <app-hints></app-hints>
