@@ -24,7 +24,7 @@ export class BreakpointService {
 		isXLarge: false,
 		isXSmall: false,
 	};
-	private _responsiveClass: BehaviorSubject<String> = new BehaviorSubject<String>('');
+	private _responsiveClass: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
 	constructor(
 		private responsive: BreakpointObserver,
@@ -104,6 +104,7 @@ export class BreakpointService {
 				console.log(displaymode, ' = true');
 			} else {
 				this._display[displaymode] = false;
+				//console.log(displaymode, ' = false');
 			}
 		}
 	}

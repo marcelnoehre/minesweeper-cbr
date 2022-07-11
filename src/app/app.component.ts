@@ -16,7 +16,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private storage: StorageService,
-    private action: ActionService
+    private action: ActionService,
+    private breakpoint: BreakpointService
   ) {
     let diff: string = '';
     try {
