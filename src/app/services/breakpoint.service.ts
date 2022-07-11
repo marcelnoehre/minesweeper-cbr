@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BehaviorSubject } from 'rxjs';
+import { BreakpointEnum } from '../enum/breakpoint';
+import { DisplayModeEnum } from '../enum/display-mode';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class BreakpointService {
-
-	display: { [key: string]: any } = {
+	private _display: { [key: string]: any } = {
 		isHandset: false,
 		isHandsetLandscape: false,
 		isHandsetPortrait: false,
@@ -22,8 +24,7 @@ export class BreakpointService {
 		isXLarge: false,
 		isXSmall: false,
 	};
-
-	responsiveClass: string = '';
+	private _responsiveClass: BehaviorSubject<String> = new BehaviorSubject<String>('');
 
 	constructor(
 		private responsive: BreakpointObserver,
@@ -44,62 +45,65 @@ export class BreakpointService {
 			Breakpoints.XLarge,
 			Breakpoints.XSmall])
 			.subscribe(result => {
-
 				const breakpoints = result.breakpoints;
-
 				if (breakpoints[Breakpoints.Handset]) {
-					this.displayMode("isHandset");
-					this.responsiveClass = "is-handset";
+					this.displayMode(DisplayModeEnum.handset);
+					this._responsiveClass.next(BreakpointEnum.handset);
 				} else if (breakpoints[Breakpoints.HandsetLandscape]) {
-					this.displayMode("isHandsetLandscape");
-					this.responsiveClass = "is-handset-landscape";
+					this.displayMode(DisplayModeEnum.handsetLandscape);
+					this._responsiveClass.next(BreakpointEnum.handsetLandscape);
 				} else if (breakpoints[Breakpoints.HandsetPortrait]) {
-					this.displayMode("isHandsetPortrait");
-					this.responsiveClass = "is-handset-portrait";
+					this.displayMode(DisplayModeEnum.handsetPortrait);
+					this._responsiveClass.next(BreakpointEnum.handsetPortrait);
 				} else if (breakpoints[Breakpoints.Large]) {
-					this.displayMode("isLarge");
-					this.responsiveClass = "is-large";
+					this.displayMode(DisplayModeEnum.large);
+					this._responsiveClass.next(BreakpointEnum.large);
 				} else if (breakpoints[Breakpoints.Medium]) {
-					this.displayMode("isMedium");
-					this.responsiveClass = "is-medium";
+					this.displayMode(DisplayModeEnum.medium);
+					this._responsiveClass.next(BreakpointEnum.medium);
 				} else if (breakpoints[Breakpoints.Small]) {
-					this.displayMode("isSmall");
-					this.responsiveClass = "is-small";
+					this.displayMode(DisplayModeEnum.small);
+					this._responsiveClass.next(BreakpointEnum.small);
 				} else if (breakpoints[Breakpoints.Tablet]) {
-					this.displayMode("isTablet");
-					this.responsiveClass = "is-tablet";
+					this.displayMode(DisplayModeEnum.tablet);
+					this._responsiveClass.next(BreakpointEnum.tablet);
 				} else if (breakpoints[Breakpoints.TabletLandscape]) {
-					this.displayMode("isTabletLandscape");
-					this.responsiveClass = "is-tablet-landscape";
+					this.displayMode(DisplayModeEnum.tabletLandscape);
+					this._responsiveClass.next(BreakpointEnum.tabletLandscape);
 				} else if (breakpoints[Breakpoints.TabletPortrait]) {
-					this.displayMode("isTabletPortrait");
-					this.responsiveClass = "is-tablet-portrait";
+					this.displayMode(DisplayModeEnum.tabletPortrait);
+					this._responsiveClass.next(BreakpointEnum.tabletPortrait);
 				} else if (breakpoints[Breakpoints.Web]) {
-					this.displayMode("isWeb");
-					this.responsiveClass = "is-web";
+					this.displayMode(DisplayModeEnum.web);
+					this._responsiveClass.next(BreakpointEnum.web);
 				} else if (breakpoints[Breakpoints.WebLandscape]) {
-					this.displayMode("isWebLandscape");
-					this.responsiveClass = "is-web-landscape";
+					this.displayMode(DisplayModeEnum.webLandscape);
+					this._responsiveClass.next(BreakpointEnum.webLandscape);
 				} else if (breakpoints[Breakpoints.WebPortrait]) {
-					this.displayMode("isWebPortrait");
-					this.responsiveClass = "is-web-portrait";
+					this.displayMode(DisplayModeEnum.webPortrait);
+					this._responsiveClass.next(BreakpointEnum.webPortrait);
 				} else if (breakpoints[Breakpoints.XLarge]) {
-					this.displayMode("isXLarge");
-					this.responsiveClass = "is-x-large";
+					this.displayMode(DisplayModeEnum.xLarge);
+					this._responsiveClass.next(BreakpointEnum.xLarge);
 				} else if (breakpoints[Breakpoints.XSmall]) {
-					this.displayMode("isXSmall");
-					this.responsiveClass = "is-x-small";
+					this.displayMode(DisplayModeEnum.xSmall);
+					this._responsiveClass.next(BreakpointEnum.xSmall);
 				}
-			})
+			}
+		)
+	}
+
+	get responsiveClass$() {
+		return this._responsiveClass.asObservable();
 	}
 
 	displayMode(mode: string) {
-		for (let displaymode of Object.keys(this.display)) {
+		for (let displaymode of Object.keys(this._display)) {
 			if (displaymode == mode) {
-				this.display[displaymode] = true;
-				console.log(displaymode, " = true")
+				this._display[displaymode] = true;
+				console.log(displaymode, ' = true');
 			} else {
-				this.display[displaymode] = false;
+				this._display[displaymode] = false;
 			}
 		}
 	}

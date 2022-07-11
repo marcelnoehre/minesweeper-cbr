@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from './services/storage.service';
 import { ActionService } from './services/action-service';
 import { DifficultyEnum } from './enum/difficulty';
-import { NONE_TYPE } from '@angular/compiler';
 import { BreakpointService } from './services/breakpoint.service';
 
 @Component({
@@ -17,8 +16,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private storage: StorageService,
-    private action: ActionService,
-    private breakpoint: BreakpointService
+    private action: ActionService
   ) {
     let diff: string = '';
     try {
