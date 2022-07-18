@@ -11,13 +11,14 @@ import { BreakpointService } from './services/breakpoint.service';
 })
 export class AppComponent implements OnInit {
   displayHandbook: boolean = false;
+  responsiveClass!: string;
 
   title = 'minesweeper-cbr';
 
   constructor(
     private storage: StorageService,
     private action: ActionService,
-    private breakpoint: BreakpointService
+    private breakpoints: BreakpointService
   ) {
     let diff: string = '';
     try {
@@ -28,6 +29,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.breakpoints.responsiveClass$.subscribe((responsiveClass: string) => {
+      this.responsiveClass = responsiveClass;
+    });
     this.action.displayHandbook.subscribe((displayHandbook) => {
       this.displayHandbook = displayHandbook;
     });

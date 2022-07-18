@@ -1,6 +1,6 @@
-<div class="app-container" >
-    <app-settings ></app-settings>
-    <app-board ></app-board>
-    <app-hints ></app-hints>
+<div class="app-container" [ngClass]="responsiveClass">
+    <app-settings></app-settings>
+    <app-board></app-board>
+    <app-hints></app-hints>
 </div>
 <app-handbook *ngIf="displayHandbook"></app-handbook>

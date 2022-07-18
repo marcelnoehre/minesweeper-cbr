@@ -4,38 +4,7 @@
     background-color: #1C1C1C;
 }
 
-app-settings {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 20vh;
-}
-
-app-board {
-    position: absolute;
-    top: 20vh;
-    left: 0;
-    width: 100vw;
-    height: 60vh;
-}
-
-app-hints {
-    position: absolute;
-    top: 80vh;
-    left: 0;
-    width: 100vw;
-    height: 20vh;
-}
-
-app-handbook {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-@media(min-width: 1000px) {
+.handset-landscape {
     app-settings {
         position: absolute;
         top: 0;
@@ -56,5 +25,35 @@ app-handbook {
         left: 80vw;
         width: 20vw;
         height: 100vh;
+    }
+}
+
+.handset-portrait {
+    app-settings {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 20vh;
+    }
+    app-board {
+        position: absolute;
+        top: 20vh;
+        left: 0;
+        width: 100vw;
+        height: 60vh;
+    }
+    app-hints {
+        position: absolute;
+        top: 80vh;
+        left: 0;
+        width: 100vw;
+        height: 20vh;
+    }
+    app-handbook {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
     }
 }

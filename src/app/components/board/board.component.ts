@@ -7,6 +7,7 @@ import { ActionService } from 'src/app/services/action-service';
 import { ResultEnum } from 'src/app/enum/result';
 import { TokensService } from 'src/app/services/tokens.service';
 import { TimerService } from 'src/app/services/timer.service';
+import { BreakpointService } from 'src/app/services/breakpoint.service';
 
 @Component({
   selector: 'app-board',
@@ -16,6 +17,7 @@ import { TimerService } from 'src/app/services/timer.service';
 export class BoardComponent implements OnInit{
   DifficultyChange$!: Observable<string>;
   difficulty!: string;
+  responsiveClass!: string;
   gameRunning!: boolean;
   revealedCells!: number;
   totalCells!: number;
@@ -35,7 +37,8 @@ export class BoardComponent implements OnInit{
     private _gameStats: GameStatsService,
     private _timer: TimerService,
     private _tokens: TokensService,
-    private _action: ActionService
+    private _action: ActionService,
+    private _breakpoints: BreakpointService
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +50,9 @@ export class BoardComponent implements OnInit{
       this.difficulty = newDifficulty;
     });
     this.difficulty = this._storage.getSessionEntry('difficulty');
+    this._breakpoints.responsiveClass$.subscribe((responsiveClass: string) => {
+      this.responsiveClass = responsiveClass;
+    });
     this._board.cellsRevealed$.subscribe((cellsRevealed: string[][]) => {
       this.cellsRevealed = cellsRevealed;
     });
