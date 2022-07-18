@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionService } from 'src/app/services/action-service';
+import { BreakpointService } from 'src/app/services/breakpoint.service';
 
 @Component({
   selector: 'app-handbook',
@@ -7,12 +8,17 @@ import { ActionService } from 'src/app/services/action-service';
   styleUrls: ['./handbook.component.scss']
 })
 export class HandbookComponent implements OnInit {
+  responsiveClass!: string;
 
   constructor(
-    private _action: ActionService
+    private _action: ActionService,
+    private _breakpoints: BreakpointService
     ) { }
 
   ngOnInit(): void {
+    this._breakpoints.responsiveClass$.subscribe((responsiveClass: string) => {
+      this.responsiveClass = responsiveClass;
+    });
   }
 
   closeHandbook() {
