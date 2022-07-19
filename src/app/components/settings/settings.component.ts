@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit {
   isFlagMode!: boolean;
   isFlagPermanently!: boolean;
   difficulty!: string;
-  difficulties: string[] = [DifficultyEnum.beginner, DifficultyEnum.advanced, DifficultyEnum.extreme];
+  difficulties: string[] = [DifficultyEnum.beginner, DifficultyEnum.advanced, DifficultyEnum.expert];
   minutes: string = '00';
   seconds: string = '00';
 

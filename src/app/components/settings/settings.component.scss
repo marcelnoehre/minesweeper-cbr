@@ -162,8 +162,8 @@
 
 .handset-portrait {
     .active-difficulty {
-        font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
-        line-height: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+        font-size: calc(10px + (30 - 10) * ((100vw - 100px) / (1600 - 100)));
+        line-height: calc(10px + (30 - 10) * ((100vw - 100px) / (1600 - 100)));
         width: 28vw;
     }
     .time {
