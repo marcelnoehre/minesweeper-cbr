@@ -8,6 +8,54 @@
     color: white;
 }
 
+p {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+}
+
+.remaining-tokens {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tokens-amount {
+    display: flex;
+    justify-content: center;
+}
+
+.select-hint {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.select-hint>div {
+    display: flex;
+    justify-content: center;
+    border: 1px solid white;
+}
+
+.select-hint>div:hover {
+    background-color: lightgreen;
+    color: black;
+    font-weight: bolder;
+}
+
+.selected {
+    background-color: lightgreen;
+    color: black;
+    font-weight: bolder;
+}
+
+.hint-description {
+    text-align: center;
+    overflow: auto;
+}
+
 .handset-portrait {
     border-top: 1px solid #D8D8D8;
     width: 100vw;
@@ -27,55 +75,21 @@
         height: calc(10px + (50 - 10) * ((100vw - 100px) / (1600 - 100)));
         width: auto;
     }
-    p {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 0;
-    }
     .remaining-tokens {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         width: 20vw;
         height: 100%;
     }
-    .tokens-amount {
-        display: flex;
-        justify-content: center;
-    }
     .select-hint {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
         width: 30vw;
         height: 100%;
-    }
-    .select-hint>div {
-        display: flex;
-        justify-content: center;
-        border: 1px solid white;
-    }
-    .select-hint>div:hover {
-        background-color: lightgreen;
-        color: black;
-        font-weight: bolder;
-    }
-    .selected {
-        background-color: lightgreen;
-        color: black;
-        font-weight: bolder;
     }
     .hint-description {
         width: 50vw;
         height: calc(20vh - 7.5vw - 4vh - 1px);
-        text-align: center;
         margin-top: 1vh;
         margin-bottom: 1vh;
         padding-left: 2vw;
         padding-right: 2vw;
-        overflow: auto;
         font-size: calc(10px + (30 - 10) * ((100vw - 100px) / (1600 - 100)));
         line-height: calc(10px + (30 - 10) * ((100vw - 100px) / (1600 - 100)));
     }
@@ -101,55 +115,23 @@
         width: auto;
     }
     p {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 0;
         font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
     }
     .remaining-tokens {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         width: 20vw;
         height: 100%;
     }
-    .tokens-amount {
-        display: flex;
-        justify-content: center;
-    }
     .select-hint {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
         width: 30vw;
         height: 100%;
-    }
-    .select-hint>div {
-        display: flex;
-        justify-content: center;
-        border: 1px solid white;
-    }
-    .select-hint>div:hover {
-        background-color: lightgreen;
-        color: black;
-        font-weight: bolder;
-    }
-    .selected {
-        background-color: lightgreen;
-        color: black;
-        font-weight: bolder;
     }
     .hint-description {
         width: 50vw;
         height: calc(20vh - 5vw - 4vh - 1px);
-        text-align: center;
         margin-top: 1vh;
         margin-bottom: 1vh;
         padding-left: 2vw;
         padding-right: 2vw;
-        overflow: auto;
         font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
         line-height: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
     }
@@ -180,52 +162,18 @@
         width: auto;
     }
     .remaining-tokens {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         width: calc(20vw - 1px);
         height: 15%;
     }
-    .tokens-amount {
-        display: flex;
-        justify-content: center;
-    }
     .select-hint {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
         width: calc(20vw - 3px);
         height: 25%;
-    }
-    .select-hint>div {
-        display: flex;
-        justify-content: center;
-        border: 1px solid white;
-    }
-    .select-hint>div:hover {
-        background-color: lightgreen;
-        color: black;
-        font-weight: bolder;
-    }
-    p {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 0;
-    }
-    .selected {
-        background-color: lightgreen;
-        color: black;
-        font-weight: bolder;
     }
     .hint-description {
         width: calc(20vw - 2vw - 1px);
         height: 40%;
         padding-left: 1vw;
         padding-right: 1vw;
-        text-align: center;
-        overflow: auto;
         font-size: calc(7.5px + (20 - 7.5) * ((100vw - 100px) / (1600 - 100)));
         line-height: calc(7.5px + (20 - 7.5) * ((100vw - 100px) / (1600 - 100)));
     }
@@ -258,53 +206,21 @@
         width: auto;
     }
     .remaining-tokens {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         width: calc(20vw - 1px);
         height: 15%;
     }
-    .tokens-amount {
-        display: flex;
-        justify-content: center;
-    }
     .select-hint {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
         width: calc(20vw - 3px);
         height: 25%;
     }
-    .select-hint>div {
-        display: flex;
-        justify-content: center;
-        border: 1px solid white;
-    }
-    .select-hint>div:hover {
-        background-color: lightgreen;
-        color: black;
-        font-weight: bolder;
-    }
     p {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 0;
         font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
-    }
-    .selected {
-        background-color: lightgreen;
-        color: black;
-        font-weight: bolder;
     }
     .hint-description {
         width: calc(20vw - 2vw - 1px);
         height: 40%;
         padding-left: 1vw;
         padding-right: 1vw;
-        text-align: center;
-        overflow: auto;
         font-size: calc(7.5px + (25 - 7.5) * ((100vw - 100px) / (1600 - 100)));
         line-height: calc(7.5px + (25 - 7.5) * ((100vw - 100px) / (1600 - 100)));
     }

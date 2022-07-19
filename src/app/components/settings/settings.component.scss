@@ -1,3 +1,159 @@
+.first-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header {
+    text-align: center;
+    font-family: fantasy;
+    color: lightgreen;
+}
+
+.game-stats {
+    border: 2px dashed lightgreen;
+}
+
+.game-stats>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.active-difficulty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-family: fantasy;
+    color: lightgreen;
+    text-transform: uppercase;
+}
+
+.timer {
+    display: flex;
+    justify-content: center;
+    color: white;
+    border: 1px dashed white;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.time {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: monospace;
+}
+
+.progress {
+    display: flex;
+    justify-content: center;
+}
+
+progress::-moz-progress-bar {
+    background: lightgreen;
+}
+
+progress::-webkit-progress-value {
+    background: lightgreen;
+}
+
+progress {
+    background-color: lightgreen;
+}
+
+.flags,
+.bombs {
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
+.flags-inner,
+.bombs-inner {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.set-flag:hover {
+    background-color: lightgreen;
+    color: black;
+}
+
+.remove-flag {
+    background-color: lightgreen !important;
+    color: black;
+}
+
+.vertical-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flag-toggle {
+    display: flex;
+    justify-content: center;
+}
+
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.difficulties-header {
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+ul {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li:hover {
+    background-color: lightgreen;
+}
+
+.selected {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: lightgreen;
+}
+
+.clickable {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.difficulty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 50%;
+}
+
+button {
+    width: 70%;
+    margin-right: 15%;
+    margin-left: 15%;
+    background-color: lightgreen;
+    border-color: lightgreen;
+    color: black;
+    font-weight: bolder;
+    text-align: center;
+}
+
 .handset-portrait,
 .small {
     display: flex;
@@ -6,16 +162,10 @@
     .first-container {
         width: 100vw;
         height: calc(7vh - 1px);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
     }
     .header {
         width: 100vw;
-        text-align: center;
         font-size: calc(20px + (50 - 20) * ((100vw - 100px) / (1600 - 100)));
-        font-family: fantasy;
-        color: lightgreen;
     }
     .second-container {
         display: flex;
@@ -31,132 +181,23 @@
         margin-left: calc(1vw - 2px);
         margin-right: calc(1vw - 2px);
         height: 11vh;
-        border: 2px dashed lightgreen;
     }
     .game-stats>div {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
         height: 11vh;
     }
-    .active-difficulty {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        font-family: fantasy;
-        color: lightgreen;
-        text-transform: uppercase;
-    }
     .timer {
-        display: flex;
-        justify-content: center;
-        color: white;
         padding-top: 3px;
         padding-bottom: 3px;
-        border: 1px dashed white;
-        margin-left: 15%;
-        margin-right: 15%;
-    }
-    .time {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        font-family: monospace;
-    }
-    .progress {
-        display: flex;
-        justify-content: center;
-    }
-    progress::-moz-progress-bar {
-        background: lightgreen;
-    }
-    progress::-webkit-progress-value {
-        background: lightgreen;
-    }
-    progress {
-        background-color: lightgreen;
-    }
-    .flags,
-    .bombs {
-        display: flex;
-        justify-content: center;
-        color: white;
-    }
-    .flags-inner,
-    .bombs-inner {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
-    .set-flag:hover {
-        background-color: lightgreen;
-        color: black;
-    }
-    .remove-flag {
-        background-color: lightgreen !important;
-        color: black;
-    }
-    .vertical-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .flag-toggle {
-        display: flex;
-        justify-content: center;
     }
     .control-panel {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
         width: 40vw;
         height: 13vh;
     }
-    .difficulties-header {
-        width: 100%;
-        text-align: center;
-        color: white;
-    }
-    ul {
-        display: flex;
-        justify-content: space-around;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
-    li:hover {
-        background-color: lightgreen;
-    }
     .selected {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         padding: 1vw;
-        background-color: lightgreen;
     }
     .clickable {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         padding: 1vw;
-    }
-    .difficulty {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 100%;
-        height: 50%;
-    }
-    button {
-        width: 70%;
-        margin-right: 15%;
-        margin-left: 15%;
-        background-color: lightgreen;
-        border-color: lightgreen;
-        color: black;
-        font-weight: bolder;
-        text-align: center;
     }
 }
 
@@ -246,15 +287,9 @@
     .first-container {
         width: calc(20vw - 1px);
         height: 20vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
     }
     .header {
         width: calc(20vw - 1px);
-        text-align: center;
-        font-family: fantasy;
-        color: lightgreen;
     }
     .second-container {
         display: flex;
@@ -274,136 +309,31 @@
         margin-left: calc(1vw - 2px);
         margin-right: calc(1vw - 2px);
         height: 50vh;
-        border: 2px dashed lightgreen;
     }
     .game-stats>div {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
         height: 25vh;
         width: calc(18vw - 4px);
     }
     .active-difficulty {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         width: calc(18vw - 4px);
-        text-align: center;
-        font-family: fantasy;
-        color: lightgreen;
-        text-transform: uppercase;
     }
     .timer {
-        display: flex;
-        justify-content: center;
-        color: white;
-        border: 1px dashed white;
-        margin-left: 15%;
-        margin-right: 15%;
         padding-top: 1vh;
         padding-bottom: 1vh;
     }
-    .time {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        font-family: monospace;
-    }
-    .progress {
-        display: flex;
-        justify-content: center;
-    }
-    progress::-moz-progress-bar {
-        background: lightgreen;
-    }
-    progress::-webkit-progress-value {
-        background: lightgreen;
-    }
     progress {
-        background-color: lightgreen;
         width: 80%;
         height: 3vh;
     }
-    .flags,
-    .bombs {
-        display: flex;
-        justify-content: center;
-        color: white;
-    }
-    .flags-inner,
-    .bombs-inner {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
-    .set-flag:hover {
-        background-color: lightgreen;
-        color: black;
-    }
-    .remove-flag {
-        background-color: lightgreen !important;
-        color: black;
-    }
-    .vertical-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .flag-toggle {
-        display: flex;
-        justify-content: center;
-    }
     .control-panel {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
         width: calc(20vw - 1px);
         height: 30vh
     }
-    .difficulties-header {
-        width: 100%;
-        text-align: center;
-        color: white;
-    }
-    ul {
-        display: flex;
-        justify-content: space-around;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
-    li:hover {
-        background-color: lightgreen;
-    }
     .selected {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         padding: 1vh;
-        background-color: lightgreen;
     }
     .clickable {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         padding: 1vh;
-    }
-    .difficulty {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 100%;
-        height: 50%;
-    }
-    button {
-        width: 70%;
-        margin-right: 15%;
-        margin-left: 15%;
-        background-color: lightgreen;
-        border-color: lightgreen;
-        color: black;
-        font-weight: bolder;
-        text-align: center;
     }
 }
 

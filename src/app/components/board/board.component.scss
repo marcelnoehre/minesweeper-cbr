@@ -1,3 +1,12 @@
+.board {
+    background-color: #D8D8D8;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+}
+
 .handset-portrait,
 .small {
     .horizontal-container {
@@ -18,16 +27,11 @@
         height: 98vw;
         width: 98vw;
         margin: 1vw;
-        background-color: #D8D8D8;
     }
     .field {
         height: 96vw;
         width: 96vw;
         padding: 1vw;
-    }
-    .row {
-        display: flex;
-        width: 100%;
     }
     .ANFÄNGER {
         height: 9.6vw;
@@ -89,16 +93,11 @@
         height: 99vh;
         width: 99vh;
         margin: 0.5vh;
-        background-color: #D8D8D8;
     }
     .field {
         height: 98vh;
         width: 98vh;
         padding: 0.5vh;
-    }
-    .row {
-        display: flex;
-        width: 100%;
     }
     .ANFÄNGER {
         height: 9.8vh;
