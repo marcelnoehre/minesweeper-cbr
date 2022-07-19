@@ -1,14 +1,13 @@
-<div class="container">
-    <div class="first-inner">
-        <div class="header" (click)="openHandbook()">MINESWEEPER</div>
+<div class="container" [ngClass]="responsiveClass">
+    <div class="first-container">
+        <p class="header" (click)="openHandbook()">MINESWEEPER</p>
     </div>
-    <div class="second-inner">
+    <div class="second-container">
         <div class="game-stats">
-            <div class="first-container">
+            <div class="first-inner">
                 <div class="active-difficulty">
-                    {{difficulty}}
+                    <p>{{difficulty}}</p>
                 </div>
-                <pre></pre>
                 <div class="timer">
                     <div class="time">{{minutes}}:{{seconds}}</div>
                 </div>
@@ -16,39 +15,29 @@
                     <progress id="prgoress" [value]="revealedCells" [max]="totalCells - bombAmount"></progress>
                 </div>
             </div>
-            <div class=" second-container ">
-                <pre></pre>
+            <div class="second-inner">
                 <div class="flags ">
-                    <div class="stat-container ">
-                        <div class="inner-stat " [ngClass]="isFlagMode? 'remove-flag' : 'set-flag'" (click)="toggleFlagMode()">
-                            <div class="vertical-container">
-                                <img src="assets/images/game_icons/flagged.png ">
-                            </div>
-                            <p>&nbsp;{{remainingFlags}}</p>
+                    <div class="flags-inner " [ngClass]="isFlagMode? 'remove-flag' : 'set-flag'" (click)="toggleFlagMode()">
+                        <div class="vertical-container">
+                            <img src="assets/images/game_icons/flagged.png ">
                         </div>
+                        <p>&nbsp;{{remainingFlags}}</p>
                     </div>
-                    <mat-slide-toggle [checked]="isFlagPermanently" (change)="toggleSetFlagPermanently($event)">
-                        Dauerhafte Flaggen
-                    </mat-slide-toggle>
                 </div>
-                <pre></pre>
+                <div class="flag-toggle">
+                    <mat-slide-toggle [checked]="isFlagPermanently" (change)="toggleSetFlagPermanently($event)"></mat-slide-toggle>
+                </div>
                 <div class="bombs ">
-                    <div class="stat-container ">
-                        <div class="inner-stat ">
-                            <div class="vertical-container ">
-                                <img src="assets/images/game_icons/bomb.png ">
-                            </div>
-                            <p>&nbsp;{{bombAmount}}</p>
+                    <div class="bombs-inner ">
+                        <div class="vertical-container ">
+                            <img src="assets/images/game_icons/bomb.png ">
                         </div>
+                        <p>&nbsp;{{bombAmount}}</p>
                     </div>
-                </div>
-                <pre *ngIf="responsiveClass != 'small' && responsiveClass != 'handset-portrait'"></pre>
-                <div *ngIf="responsiveClass != 'small' && responsiveClass != 'handset-portrait'" class="restart ">
-                    <button type="button " (click)="restartGame()">Neustarten</button>
                 </div>
             </div>
         </div>
-        <div class="difficulty ">
+        <div class="control-panel">
             <div class="difficulties-header ">Schwierigkeitsgrade</div>
             <ul class="difficulties ">
                 <li *ngFor="let diff of difficulties ">
@@ -60,8 +49,6 @@
                     </div>
                 </li>
             </ul>
-        </div>
-        <div *ngIf="responsiveClass == 'small' || responsiveClass == 'handset-portrait'" class="restart ">
             <button type="button " (click)="restartGame()">Neustarten</button>
         </div>
     </div>
