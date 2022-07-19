@@ -4,7 +4,10 @@
     background-color: #1C1C1C;
 }
 
-.handset-landscape {
+.handset-landscape,
+.web-landscape,
+.large,
+.medium {
     app-settings {
         position: absolute;
         top: 0;
@@ -28,7 +31,8 @@
     }
 }
 
-.handset-portrait {
+.handset-portrait,
+.small {
     app-settings {
         position: absolute;
         top: 0;

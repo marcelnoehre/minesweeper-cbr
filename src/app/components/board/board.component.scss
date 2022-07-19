@@ -1,4 +1,5 @@
-.handset-portrait {
+.handset-portrait,
+.small {
     .horizontal-container {
         display: flex;
         flex-direction: row;
@@ -66,7 +67,10 @@
     }
 }
 
-.handset-landscape {
+.handset-landscape,
+.web-landscape,
+.large,
+.medium {
     .horizontal-container {
         display: flex;
         flex-direction: column;
