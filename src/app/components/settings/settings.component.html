@@ -1,4 +1,4 @@
-<!-- <div class="container">
+<div class="container">
     <div class="first-inner">
         <div class="header" (click)="openHandbook()">MINESWEEPER</div>
     </div>
@@ -42,11 +42,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- <pre *ngIf="!mobile"></pre>
-                <div *ngIf="!mobile" class="restart ">
+                <pre *ngIf="responsiveClass != 'small' && responsiveClass != 'handset-portrait'"></pre>
+                <div *ngIf="responsiveClass != 'small' && responsiveClass != 'handset-portrait'" class="restart ">
                     <button type="button " (click)="restartGame()">Neustarten</button>
-                </div> -->
-<!-- </div>
+                </div>
+            </div>
         </div>
         <div class="difficulty ">
             <div class="difficulties-header ">Schwierigkeitsgrade</div>
@@ -60,9 +60,9 @@
                     </div>
                 </li>
             </ul>
-        </div>--->
-<!-- <div *ngIf="mobile" class="restart ">
+        </div>
+        <div *ngIf="responsiveClass == 'small' || responsiveClass == 'handset-portrait'" class="restart ">
             <button type="button " (click)="restartGame()">Neustarten</button>
-        </div> -->
-<!-- </div>
-</div> -->
+        </div>
+    </div>
+</div>

@@ -3,6 +3,7 @@ import { filter, Observable, pluck } from 'rxjs';
 import { DifficultyEnum } from 'src/app/enum/difficulty';
 import { ResultEnum } from 'src/app/enum/result';
 import { ActionService } from 'src/app/services/action-service';
+import { BreakpointService } from 'src/app/services/breakpoint.service';
 import { GameStatsService } from 'src/app/services/gamestats.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { TimerService } from 'src/app/services/timer.service';
@@ -15,6 +16,7 @@ import { TimerService } from 'src/app/services/timer.service';
 export class SettingsComponent implements OnInit {
   private _difficultyChange$!: Observable<string>;
   private gameTime!: number;
+  responsiveClass!: string;
   revealedCells!: number;
   totalCells!: number;
   cellsPerRow!: number;
@@ -28,19 +30,16 @@ export class SettingsComponent implements OnInit {
   difficulties: string[] = [DifficultyEnum.beginner, DifficultyEnum.advanced, DifficultyEnum.extreme];
   minutes: string = '00';
   seconds: string = '00';
-  mobile: boolean = false;
 
   constructor(
     private _storage: StorageService,
     private _gameStats: GameStatsService,
     private _action: ActionService,
-    private _timer: TimerService
-  ) { 
-    this.onResize();
-  }
+    private _timer: TimerService,
+    private _breakpoints: BreakpointService
+  ) {}
 
   ngOnInit(): void {
-    this.onResize();
     this._difficultyChange$ = this._storage.storageChange$.pipe(
       filter(({ key }) => key === "difficulty"),
       pluck("id")
@@ -57,6 +56,9 @@ export class SettingsComponent implements OnInit {
       } else {
         this._timer.stop();
       }
+    });
+    this._breakpoints.responsiveClass$.subscribe((responsiveClass: string) => {
+      this.responsiveClass = responsiveClass;
     });
     this._timer.gameTime$.subscribe((gameTime: number) => {
       this.gameTime = gameTime;
@@ -96,15 +98,6 @@ export class SettingsComponent implements OnInit {
     this._gameStats.isFlagPermanently$.subscribe((isFlagPermanently: boolean) => {
       this.isFlagPermanently = isFlagPermanently;
     });
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-     if(window.innerWidth < 1000) {
-      this.mobile = true;
-     } else {
-      this.mobile = false;
-     }
   }
 
   openHandbook() {
