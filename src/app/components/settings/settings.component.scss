@@ -1,4 +1,5 @@
-.handset-portrait {
+.handset-portrait,
+.small {
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #D8D8D8;
@@ -12,7 +13,7 @@
     .header {
         width: 100vw;
         text-align: center;
-        font-size: 7.5vw;
+        font-size: calc(20px + (50 - 20) * ((100vw - 100px) / (1600 - 100)));
         font-family: fantasy;
         color: lightgreen;
     }
@@ -37,16 +38,12 @@
         flex-direction: column;
         justify-content: space-around;
         height: 11vh;
-        width: 28vw;
     }
     .active-difficulty {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 28vw;
         text-align: center;
-        font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
-        line-height: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
         font-family: fantasy;
         color: lightgreen;
         text-transform: uppercase;
@@ -55,6 +52,8 @@
         display: flex;
         justify-content: center;
         color: white;
+        padding-top: 3px;
+        padding-bottom: 3px;
         border: 1px dashed white;
     }
     .time {
@@ -62,7 +61,6 @@
         flex-direction: column;
         justify-content: center;
         font-family: monospace;
-        font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
     }
     .progress {
         display: flex;
@@ -100,10 +98,6 @@
         flex-direction: column;
         justify-content: center;
     }
-    .vertical-container>img {
-        height: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
-        width: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
-    }
     .flag-toggle {
         display: flex;
         justify-content: center;
@@ -119,7 +113,6 @@
         width: 100%;
         text-align: center;
         color: white;
-        font-size: calc(7.5px + (30 - 7.5) * ((100vw - 100px) / (1600 - 100)));
     }
     ul {
         display: flex;
@@ -144,11 +137,6 @@
         justify-content: center;
         padding: 1vw;
     }
-    .clickable>img,
-    .selected>img {
-        height: calc(15px + (40 - 15) * ((100vw - 100px) / (1600 - 100)));
-        width: calc(15px + (40 - 15) * ((100vw - 100px) / (1600 - 100)));
-    }
     .difficulty {
         display: flex;
         flex-direction: column;
@@ -164,8 +152,83 @@
         border-color: lightgreen;
         color: black;
         font-weight: bolder;
-        font-size: calc(5px + (30 - 5) * ((100vw - 100px) / (1600 - 100)));
         text-align: center;
+    }
+}
+
+.handset-portrait {
+    .active-difficulty {
+        font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+        line-height: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+        width: 28vw;
+    }
+    .time {
+        font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+        line-height: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+    }
+    .game-stats>div {
+        width: 28vw;
+    }
+    progress {
+        width: 26vw;
+    }
+    .vertical-container {
+        font-size: calc(7.5px + (30 - 7.5) * ((100vw - 100px) / (1600 - 100)));
+    }
+    .vertical-container>img {
+        height: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+        width: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+        font-size: calc(7.5px + (30 - 7.5) * ((100vw - 100px) / (1600 - 100)));
+    }
+    .difficulties-header {
+        font-size: calc(7.5px + (30 - 7.5) * ((100vw - 100px) / (1600 - 100)));
+    }
+    .clickable>img,
+    .selected>img {
+        height: calc(15px + (40 - 15) * ((100vw - 100px) / (1600 - 100)));
+        width: calc(15px + (40 - 15) * ((100vw - 100px) / (1600 - 100)));
+    }
+    button {
+        font-size: calc(5px + (30 - 5) * ((100vw - 100px) / (1600 - 100)));
+    }
+}
+
+.small {
+    .active-difficulty {
+        font-size: calc(10px + (50 - 10) * ((100vw - 100px) / (1600 - 100)));
+        line-height: calc(10px + (50 - 10) * ((100vw - 100px) / (1600 - 100)));
+        width: 32.5vw;
+    }
+    .time {
+        font-size: calc(10px + (50 - 10) * ((100vw - 100px) / (1600 - 100)));
+        line-height: calc(10px + (50 - 10) * ((100vw - 100px) / (1600 - 100)));
+    }
+    .first-inner {
+        width: 32.5vw;
+    }
+    .second-inner {
+        width: 26.5vw;
+    }
+    progress {
+        width: 30vw;
+    }
+    .vertical-container {
+        font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+    }
+    .vertical-container>img {
+        height: calc(15px + (50 - 15) * ((100vw - 100px) / (1600 - 100)));
+        width: calc(15px + (50 - 15) * ((100vw - 100px) / (1600 - 100)));
+    }
+    .difficulties-header {
+        font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+    }
+    .clickable>img,
+    .selected>img {
+        height: calc(20px + (50 - 20) * ((100vw - 100px) / (1600 - 100)));
+        width: calc(20px + (50 - 20) * ((100vw - 100px) / (1600 - 100)));
+    }
+    button {
+        font-size: calc(10px + (30 - 10) * ((100vw - 100px) / (1600 - 100)));
     }
 }
 
