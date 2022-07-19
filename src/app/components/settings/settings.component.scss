@@ -232,7 +232,10 @@
     }
 }
 
-.handset-landscape {
+.handset-landscape,
+.web-landscape,
+.medium,
+.large {
     display: flex;
     flex-direction: column;
     border-right: 1px solid #D8D8D8;
@@ -283,8 +286,8 @@
         justify-content: center;
         width: 18vw;
         text-align: center;
-        font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
-        line-height: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+        font-size: calc(7.5px + (25 - 7.5) * ((100vw - 100px) / (1600 - 100)));
+        line-height: calc(7.5px + (25 - 7.5) * ((100vw - 100px) / (1600 - 100)));
         font-family: fantasy;
         color: lightgreen;
         text-transform: uppercase;
