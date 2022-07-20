@@ -33,8 +33,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-size: 5vh;
-    line-height: 5vh;
+    font-size: calc(10px + (50 - 10) * ((100vw - 100px) / (1600 - 100)));
+    line-height: calc(10px + (50 - 10) * ((100vw - 100px) / (1600 - 100)));
     padding-left: 10vw;
     padding-right: 10vw;
     padding-top: 3vh;
@@ -48,21 +48,17 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    font-size: 3vh;
-    line-height: 3vh;
+    font-size: calc(10px + (30 - 10) * ((100vw - 100px) / (1600 - 100)));
+    line-height: calc(10px + (30 - 10) * ((100vw - 100px) / (1600 - 100)));
     padding-left: 10vw;
     padding-right: 10vw;
     padding-bottom: 5vh;
 }
 
-p {
-    margin-bottom: 1vh;
-}
-
 .winner>p {
     margin-bottom: 2vh;
-    font-size: 4vh;
-    line-height: 4vh;
+    font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+    line-height: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
     font-weight: bolder;
 }
 
