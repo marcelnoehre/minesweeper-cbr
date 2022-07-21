@@ -1,30 +1,14 @@
 <div class="container" [ngClass]="responsiveClass">
     <div class="caption">Handbuch</div>
-    <div class="minesweeper-manual ">
-        <div class="header ">Minesweeper</div>
-        <div class="content ">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis enim ipsa qui nulla. Alias ducimus illo veniam unde nisi deserunt totam deleniti nemo non harum! A aperiam expedita distinctio voluptate?Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Optio labore fuga unde atque ipsum itaque, eveniet distinctio accusamus exercitationem quaerat eum illo placeat ab maxime sint at qui voluptas magni?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis dicta quaerat autem animi
-            ratione repellendus excepturi quo provident, ex, quis numquam quibusdam. Ullam, accusantium maiores. Repellat voluptate consectetur id Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nihil mollitia quasi deleniti alias velit,
-            neque accusantium nesciunt! Eius illum eum quidem sapiente at voluptas, ad sed ullam recusandae dolorem!loremlorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis enim ipsa qui nulla. Alias ducimus illo veniam unde nisi deserunt
-            totam deleniti nemo non harum! A aperiam expedita distinctio voluptate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio labore fuga unde atque ipsum itaque, eveniet distinctio accusamus exercitationem quaerat eum illo placeat
-            ab maxime sint at qui voluptas magni?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis dicta quaerat autem animi ratione repellendus excepturi quo provident, ex, quis numquam quibusdam. Ullam, accusantium maiores. Repellat voluptate
-            consectetur id Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nihil mollitia quasi deleniti alias velit, neque accusantium nesciunt! Eius illum eum quidem sapiente at voluptas, ad sed ullam recusandae dolorem!loremlorem.
-        </div>
-    </div>
-    <pre></pre>
-    <div class="app-manual ">
-        <div class="header ">App-Funktionalitäten</div>
-        <div class="content ">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis enim ipsa qui nulla. Alias ducimus illo veniam unde nisi deserunt totam deleniti nemo non harum! A aperiam expedita distinctio voluptate?Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Optio labore fuga unde atque ipsum itaque, eveniet distinctio accusamus exercitationem quaerat eum illo placeat ab maxime sint at qui voluptas magni?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis dicta quaerat autem animi
-            ratione repellendus excepturi quo provident, ex, quis numquam quibusdam. Ullam, accusantium maiores. Repellat voluptate consectetur id Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nihil mollitia quasi deleniti alias velit,
-            neque accusantium nesciunt! Eius illum eum quidem sapiente at voluptas, ad sed ullam recusandae dolorem!loremlorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis enim ipsa qui nulla. Alias ducimus illo veniam unde nisi deserunt
-            totam deleniti nemo non harum! A aperiam expedita distinctio voluptate?Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio labore fuga unde atque ipsum itaque, eveniet distinctio accusamus exercitationem quaerat eum illo placeat
-            ab maxime sint at qui voluptas magni?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis dicta quaerat autem animi ratione repellendus excepturi quo provident, ex, quis numquam quibusdam. Ullam, accusantium maiores. Repellat voluptate
-            consectetur id Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti nihil mollitia quasi deleniti alias velit, neque accusantium nesciunt! Eius illum eum quidem sapiente at voluptas, ad sed ullam recusandae dolorem!loremlorem.
-        </div>
-    </div>
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Minesweeper
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p class="content">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas impedit eum saepe non vitae eos esse cupiditate id? Nesciunt amet veniam in voluptatibus. Molestias rerum culpa unde magni beatae reiciendis!Loremloremlore Lorem ipsum, dolor sit
+            amet consectetur adipisicing elit. Nobis blanditiis veniam earum, enim eveniet tempore ipsa voluptas illo sunt et sint esse, ratione saepe minima maxime repellat totam non reprehenderit.</p>
+    </mat-expansion-panel>
     <pre></pre>
     <div class="footer ">Jannis Kehrhahn & Marcel Nöhre</div>
     <i class="fa fa-times " (click)="closeHandbook() "></i>

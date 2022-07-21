@@ -1,0 +1,35 @@
+mat-dialog-container {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+mat-slide-toggle {
+    color: white;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: lightgreen;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: lightgreen;
+}
+
+mat-expansion-panel {
+    background-color: #D8D8D8 !important;
+}
+
+mat-expansion-panel-header,
+mat-expansion-panel-header:hover {
+    background-color: lightgreen !important;
+}
+
+.mat-expanded {
+    margin-bottom: 2vh;
+}
+
+mat-expansion-panel-header>* {
+    font-family: fantasy;
+    font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+    line-height: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
+}
