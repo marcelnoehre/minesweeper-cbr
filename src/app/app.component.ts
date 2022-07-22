@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { StorageService } from './services/storage.service';
 import { ActionService } from './services/action-service';
 import { DifficultyEnum } from './enum/difficulty';
