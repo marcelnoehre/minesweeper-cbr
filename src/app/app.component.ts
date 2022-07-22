@@ -3,6 +3,7 @@ import { StorageService } from './services/storage.service';
 import { ActionService } from './services/action-service';
 import { DifficultyEnum } from './enum/difficulty';
 import { BreakpointService } from './services/breakpoint.service';
+import { ImageService } from './services/image-service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit {
   constructor(
     private storage: StorageService,
     private action: ActionService,
-    private breakpoints: BreakpointService
+    private breakpoints: BreakpointService,
+    private images: ImageService
   ) {
     let diff: string = '';
     try {
@@ -35,6 +37,7 @@ export class AppComponent implements OnInit {
     this.action.displayHandbook.subscribe((displayHandbook) => {
       this.displayHandbook = displayHandbook;
     });
+    this.images.preLoadImages();
   }
 
 }
