@@ -36,6 +36,10 @@ i {
     line-height: calc(10px + (20 - 10) * ((100vw - 100px) / (1600 - 100)));
 }
 
+ul {
+    list-style-type: none;
+}
+
 .handset-portrait,
 .small {
     padding-left: 5vw;
