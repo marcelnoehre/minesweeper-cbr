@@ -7,22 +7,22 @@ import { BreakpointEnum } from '../enum/breakpoint';
 	providedIn: 'root'
 })
 export class BreakpointService {
-	// private _display: { [key: string]: any } = {
-	// 	isHandset: false,
-	// 	isHandsetLandscape: false,
-	// 	isHandsetPortrait: false,
-	// 	isLarge: false,
-	// 	isMedium: false,
-	// 	isSmall: false,
-	// 	isTablet: false,
-	// 	isTabletLandscape: false,
-	// 	isTabletPortrait: false,
-	// 	isWeb: false,
-	// 	isWebLandscape: false,
-	// 	isWebPortrait: false,
-	// 	isXLarge: false,
-	// 	isXSmall: false,
-	// };
+	private _display: { [key: string]: any } = {
+		isHandset: false,
+		isHandsetLandscape: false,
+		isHandsetPortrait: false,
+		isLarge: false,
+		isMedium: false,
+		isSmall: false,
+		isTablet: false,
+		isTabletLandscape: false,
+		isTabletPortrait: false,
+		isWeb: false,
+		isWebLandscape: false,
+		isWebPortrait: false,
+		isXLarge: false,
+		isXSmall: false,
+	};
 	private _responsiveClass: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
 	constructor(
@@ -80,5 +80,15 @@ export class BreakpointService {
 
 	get responsiveClass$() {
 		return this._responsiveClass.asObservable();
+	}
+
+	displayMode(mode: string) {
+		for (let displaymode of Object.keys(this._display)) {
+			if (displaymode == mode) {
+				this._display[displaymode] = true;
+			} else {
+				this._display[displaymode] = false;
+			}
+		}
 	}
 }

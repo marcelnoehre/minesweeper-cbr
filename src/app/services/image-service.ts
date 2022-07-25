@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ImageService {
     private _gameIcons: string[] = ['0.png', '1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', 'bomb.png', 'facingDown.png', 'flagged.png'];
-    private _icons: string[] = ['ANFÄNGER.png', 'FORTGESCHRITTEN.png', 'EXPERTE.png', 'stoken.png'];
+    private _icons: string[] = ['ANFÄNGER.png', 'FORTGESCHRITTEN.png', 'EXPERTE.png', 'token.png'];
     private _handbook: string[] = ['difficulties.png', 'flags.png'];
     private _basePath: string = 'assets/images/';
     private _gameIconsPath: string = 'game_icons/';
