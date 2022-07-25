@@ -17,27 +17,27 @@ export class AppComponent implements OnInit {
   title = 'minesweeper-cbr';
 
   constructor(
-    private storage: StorageService,
-    private action: ActionService,
-    private breakpoints: BreakpointService,
-    private images: ImageService
+    private _storage: StorageService,
+    private _action: ActionService,
+    private _breakpoints: BreakpointService,
+    private _images: ImageService
   ) {
     let diff: string = '';
     try {
-      diff = this.storage.getSessionEntry('difficulty');
+      diff = this._storage.getSessionEntry('difficulty');
     } catch (err) { }
     diff = diff ? diff : DifficultyEnum.beginner;
-    storage.setSessionEntry('difficulty', diff);
+    _storage.setSessionEntry('difficulty', diff);
   }
 
   ngOnInit(): void {
-    this.breakpoints.responsiveClass$.subscribe((responsiveClass: string) => {
+    this._breakpoints.responsiveClass$.subscribe((responsiveClass: string) => {
       this.responsiveClass = responsiveClass;
     });
-    this.action.displayHandbook.subscribe((displayHandbook) => {
+    this._action.displayHandbook.subscribe((displayHandbook) => {
       this.displayHandbook = displayHandbook;
     });
-    this.images.preLoadImages();
+    this._images.preLoadImages();
   }
 
 }

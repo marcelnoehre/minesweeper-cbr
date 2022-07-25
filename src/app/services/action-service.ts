@@ -15,33 +15,33 @@ import { TokensService } from './tokens.service';
 export class ActionService {
     private _difficultyChange$!: Observable<string>;
     private _displayHandbook: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private difficulty!: string; 
+    private _difficulty!: string; 
     private _cellsPerRow!: number;
 
     constructor(
-        private board: BoardService,
-        private gameStats: GameStatsService,
-        private tokens: TokensService,
-        private storage: StorageService,
-        private timer: TimerService,
-        private dialog: MatDialog
+        private _board: BoardService,
+        private _gameStats: GameStatsService,
+        private _tokens: TokensService,
+        private _storage: StorageService,
+        private _timer: TimerService,
+        private _dialog: MatDialog
         ) {
-            this._difficultyChange$ = this.storage.storageChange$.pipe(
+            this._difficultyChange$ = this._storage.storageChange$.pipe(
                 filter(({ key }) => key === "difficulty"),
                 pluck("id")
             );
             this._difficultyChange$.subscribe(newDifficulty => {
-                this.difficulty = newDifficulty;
+                this._difficulty = newDifficulty;
             });
-            this.difficulty = this.storage.getSessionEntry('difficulty');
-            if(this.difficulty == DifficultyEnum.beginner) {
+            this._difficulty = this._storage.getSessionEntry('difficulty');
+            if(this._difficulty == DifficultyEnum.beginner) {
                 this._cellsPerRow = 10;
-            } else if(this.difficulty == DifficultyEnum.advanced) {
+            } else if(this._difficulty == DifficultyEnum.advanced) {
                 this._cellsPerRow = 15;
             } else {
                 this._cellsPerRow = 20;
             }
-            this.gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
+            this._gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
                 this._cellsPerRow = cellsPerRow;
             });
     }
@@ -55,16 +55,16 @@ export class ActionService {
     }
 
     openDialog(event: any) {
-        let dialogRef = this.dialog.open(DialogComponent);
+        let dialogRef = this._dialog.open(DialogComponent);
         let instance = dialogRef.componentInstance;
         instance.result = '' + event;
     }
 
     restartGame() {
-        this.board.setupRevealed(this._cellsPerRow);
-        this.gameStats.setup(this.difficulty);
-        this.tokens.setup(this.difficulty);
-        this.timer.stop();
-        this.timer.reset();
+        this._board.setupRevealed(this._cellsPerRow);
+        this._gameStats.setup(this._difficulty);
+        this._tokens.setup(this._difficulty);
+        this._timer.stop();
+        this._timer.reset();
     }
 }

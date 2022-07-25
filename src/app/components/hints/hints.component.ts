@@ -14,11 +14,11 @@ export class HintsComponent implements OnInit {
 
   constructor(
     private _tokens: TokensService,
-    private breakpoints: BreakpointService
+    private _breakpoints: BreakpointService
   ) { }
 
   ngOnInit(): void {
-    this.breakpoints.responsiveClass$.subscribe((responsiveClass: string) => {
+    this._breakpoints.responsiveClass$.subscribe((responsiveClass: string) => {
       this.responsiveClass = responsiveClass;
     });
     this._tokens.remainingTokens$.subscribe((remainingTokens: number) => {

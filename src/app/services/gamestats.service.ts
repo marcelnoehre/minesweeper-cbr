@@ -19,15 +19,15 @@ export class GameStatsService {
     private _isFlagMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _isFlagPermanently: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    constructor(private storage: StorageService) {
-            this._difficultyChange$ = this.storage.storageChange$.pipe(
+    constructor(private _storage: StorageService) {
+            this._difficultyChange$ = this._storage.storageChange$.pipe(
                 filter(({ key }) => key === "difficulty"),
                 pluck("id")
             );
                 this._difficultyChange$.subscribe(newDifficulty => {
                 this.setup(newDifficulty);
             });
-            this.setup(this.storage.getSessionEntry('difficulty'));
+            this.setup(this._storage.getSessionEntry('difficulty'));
     }
 
     setup(difficulty: string) {

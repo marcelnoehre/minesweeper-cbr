@@ -11,7 +11,6 @@ import { TokensService } from 'src/app/services/tokens.service';
 })
 export class DialogComponent implements OnInit, OnDestroy {
   @Input() result!: string;
-  difficulty!: string;
   revealedCells!: number;
   cellsPerRow!: number;
   totalCells!: number;

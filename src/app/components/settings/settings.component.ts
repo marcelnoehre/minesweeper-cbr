@@ -15,15 +15,12 @@ import { TimerService } from 'src/app/services/timer.service';
 })
 export class SettingsComponent implements OnInit {
   private _difficultyChange$!: Observable<string>;
-  private gameTime!: number;
+  private _gameTime!: number;
   responsiveClass!: string;
   revealedCells!: number;
   totalCells!: number;
-  cellsPerRow!: number;
-  flagAmount!: number;
   remainingFlags!: number;
   bombAmount!: number;
-  flaggedBombs!: number;
   isFlagMode!: boolean;
   isFlagPermanently!: boolean;
   difficulty!: string;
@@ -61,9 +58,9 @@ export class SettingsComponent implements OnInit {
       this.responsiveClass = responsiveClass;
     });
     this._timer.gameTime$.subscribe((gameTime: number) => {
-      this.gameTime = gameTime;
-      let minutes = Math.floor(this.gameTime / 60);
-      let seconds = this.gameTime % 60;
+      this._gameTime = gameTime;
+      let minutes = Math.floor(this._gameTime / 60);
+      let seconds = this._gameTime % 60;
       this.minutes = minutes < 10 ? '0' + minutes : '' + minutes;
       this.seconds = seconds < 10 ? '0' + seconds : '' + seconds; 
     });
@@ -77,20 +74,11 @@ export class SettingsComponent implements OnInit {
     this._gameStats.totalCells$.subscribe((totalCells: number) => {
       this.totalCells = totalCells;
     });
-    this._gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
-      this.cellsPerRow = cellsPerRow;
-    });
-    this._gameStats.flagAmount$.subscribe((flagAmount: number) => {
-      this.flagAmount = flagAmount;
-    });
     this._gameStats.remainingFlags$.subscribe((remainingFlags: number) => {
       this.remainingFlags = remainingFlags;
     });
     this._gameStats.bombAmount$.subscribe((bombAmount: number) => {
       this.bombAmount = bombAmount;
-    });
-    this._gameStats.flaggedBombs$.subscribe((flaggedBombs: number) => {
-      this.flaggedBombs = flaggedBombs;
     });
     this._gameStats.isFlagMode$.subscribe((isFlagMode: boolean) => {
       this.isFlagMode = isFlagMode;
