@@ -181,8 +181,6 @@ public class MinesweeperPattern {
 		this.outerLeftTop = outerLeftTop;
 	}
 	
-	
-	
 	public String getCenter() {
 		return this.center;
 	}
