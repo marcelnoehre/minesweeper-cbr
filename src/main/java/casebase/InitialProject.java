@@ -12,7 +12,7 @@ import de.dfki.mycbr.core.similarity.config.StringConfig;
 import de.dfki.mycbr.io.XMLExporter;
 
 public class InitialProject {
-	private static String projectPath = "./MinesweeperPattern.prj";
+	private static String projectPath = ".\\MinesweeperPattern.prj";
 	private Project project;
 	private Concept minesweeperPatternConcept;
 	private AmalgamationFct minesweeperPatternSim;
@@ -50,7 +50,7 @@ public class InitialProject {
 			"OuterLeftTop"				//01
 	};
 	
-	public InitialProject() {	
+	public InitialProject() {
 		try {
 			setProjectInformation();
 			setSpecialSimilarity();
