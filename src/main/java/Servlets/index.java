@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import cbr.CBRAgent;
+
 /**
  * Servlet implementation class index
  */
@@ -26,6 +28,8 @@ public class index extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Minesweeper CBR Backend running at Port 8080");
+		CBRAgent cbrAgent = new CBRAgent();
+		cbrAgent.initializeCBR();
 	}
 
 	/**

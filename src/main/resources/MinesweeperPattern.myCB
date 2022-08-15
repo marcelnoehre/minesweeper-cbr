@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Project name="MinesweeperBackend" author="Jannis Kehrhahn 275136, Marcel N&#246;hre 357775" >
+<instances name="MinesweeperPatternConcept">
+  <instance id="EverythingCovered" >
+    <att name="InnerTopLeft" value="c" />
+    <att name="OuterTopRightCorner" value="c" />
+    <att name="InnerTop" value="c" />
+    <att name="OuterBottomRight" value="c" />
+    <att name="OuterRightBottom" value="c" />
+    <att name="Center" value="c" />
+    <att name="InnerTopRight" value="c" />
+    <att name="OuterBottomLeft" value="c" />
+    <att name="OuterLeftTop" value="c" />
+    <att name="OuterRightTop" value="c" />
+    <att name="OuterTopLeft" value="c" />
+    <att name="InnerBottomRight" value="c" />
+    <att name="InnerLeft" value="c" />
+    <att name="OuterBottom" value="c" />
+    <att name="OuterBottomLeftCorner" value="c" />
+    <att name="InnerBottom" value="c" />
+    <att name="InnerBottomLeft" value="c" />
+    <att name="OuterLeftBottom" value="c" />
+    <att name="OuterTop" value="c" />
+    <att name="OuterBottomRightCorner" value="c" />
+    <att name="OuterLeft" value="c" />
+    <att name="OuterTopRight" value="c" />
+    <att name="OuterRight" value="c" />
+    <att name="InnerRight" value="c" />
+    <att name="OuterTopLeftCorner" value="c" />
+  </instance>
+</instances>
+<cb name="MinesweeperPatternCasebase">
+     <case name="EverythingCovered" />
+</cb>
+</Project>
