@@ -69,7 +69,7 @@ public class Solution {
 	 * 
 	 * @return Die Zeilenangabe des Ziels
 	 */
-	protected int getRow() {
+	public int getRow() {
 		return this.row;
 	}
 	
@@ -78,7 +78,7 @@ public class Solution {
 	 * 
 	 * @return Die Spaltenangabe des Ziels
 	 */
-	protected int getColumn() {
+	public int getColumn() {
 		return this.column;
 	}
 	
@@ -87,7 +87,7 @@ public class Solution {
 	 * 
 	 * @return Die L&ouml;sung eines Falls
 	 */
-	protected String solution() {
+	public String getSolution() {
 		return this.solution;
 	}
 	
@@ -96,7 +96,7 @@ public class Solution {
 	 * 
 	 * @return Die L&ouml;sungsschritte eines Falls 
 	 */
-	protected String[] solutionSteps() {
+	public String[] getSolutionSteps() {
 		return this.solutionSteps;
 	}
 	

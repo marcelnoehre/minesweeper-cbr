@@ -9,7 +9,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import de.dfki.mycbr.core.Project;
+
+import minesweeper.Case;
 import minesweeper.Pattern;
+import minesweeper.Solution;
 
 public class CBRImports {
 
@@ -20,20 +23,22 @@ public class CBRImports {
 		return project;
 	}
 	
-	protected static ArrayList<Pattern> importCasesFromCsv(String csvFilePath) throws IOException {
+	protected static ArrayList<Case> importCasesFromCsv(String csvFilePath) throws IOException {
 		File file = new File(csvFilePath);
 		InputStream inputStream = new FileInputStream(file);
-		ArrayList<Pattern> patternList = new ArrayList<Pattern>();
+		ArrayList<Case> caseList = new ArrayList<Case>();
 		try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
 			String line;
 			bufferedReader.readLine();
 			while ((line = bufferedReader.readLine()) != null) {
 				String[] result = new String[CBRProject.ATTRIBUTES_AMOUNT];
-				String[] cellValues = line.split(",");
-				if(cellValues.length > 0) {
-					for(int i = 0; i < cellValues.length; i++) {
+				String[] cellValues = line.split(";");
+				if(cellValues.length > 0) {	
+					for(int i = 0; i < CBRProject.ATTRIBUTES_AMOUNT; i++) {
 						result[i] = cellValues[i];
 					}
+					int stepCount = result[29].length() - result[29].replace("#", "").length() + 1;
+					String[] solutionSteps = new String[stepCount];
 					Pattern pattern = new Pattern(
 							result[0], 
 							result[1], 
@@ -60,10 +65,21 @@ public class CBRImports {
 							result[22], 
 							result[23], 
 							result[24]);
-					patternList.add(pattern);
+					Solution solution = new Solution(
+							Integer.parseInt(result[25]),
+							Integer.parseInt(result[26]),
+							result[27],
+							solutionSteps
+					);
+					String caseName = "";
+					for(int i = 0; i < 25; i++) {
+						caseName += result[i];
+					}
+					Case newCase = new Case(caseName, pattern, solution);
+					caseList.add(newCase);
 				}
 			}
 		}
-		return patternList;
+		return caseList;
 	}
 }

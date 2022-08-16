@@ -346,7 +346,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 22
 	 */
-	protected String getCenter() {
+	public String getCenter() {
 		return this.center;
 	}
 	
@@ -355,7 +355,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 11
 	 */
-	protected String getInnerTopLeft() {
+	public String getInnerTopLeft() {
 		return this.innerTopLeft;
 	}
 	
@@ -364,7 +364,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 21
 	 */
-	protected String getInnerTop() {
+	public String getInnerTop() {
 		return this.innerTop;
 	}
 	
@@ -373,7 +373,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 31
 	 */
-	protected String getInnerTopRight() {
+	public String getInnerTopRight() {
 		return this.innerTopRight;
 	}
 	
@@ -382,7 +382,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 32
 	 */
-	protected String getInnerRight() {
+	public String getInnerRight() {
 		return this.innerRight;
 	}
 	
@@ -391,7 +391,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 33
 	 */
-	protected String getInnerBottomRight() {
+	public String getInnerBottomRight() {
 		return this.innerBottomRight;
 	}
 	
@@ -400,7 +400,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 23
 	 */
-	protected String getInnerBottom() {
+	public String getInnerBottom() {
 		return this.innerBottom;
 	}
 	
@@ -409,7 +409,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 13
 	 */
-	protected String getInnerBottomLeft() {
+	public String getInnerBottomLeft() {
 		return this.innerBottomLeft;
 	}
 	
@@ -418,7 +418,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 12
 	 */
-	protected String getInnerLeft() {
+	public String getInnerLeft() {
 		return this.innerLeft;
 	}
 	
@@ -427,7 +427,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 00
 	 */
-	protected String getOuterTopLeftCorner() {
+	public String getOuterTopLeftCorner() {
 		return this.outerTopLeftCorner;
 	}
 	
@@ -436,7 +436,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 10
 	 */
-	protected String getOuterTopLeft() {
+	public String getOuterTopLeft() {
 		return this.outerTopLeft;
 	}
 	
@@ -445,7 +445,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 20
 	 */
-	protected String getOuterTop() {
+	public String getOuterTop() {
 		return this.outerTop;
 	}
 	
@@ -454,7 +454,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 30
 	 */
-	protected String getOuterTopRight() {
+	public String getOuterTopRight() {
 		return this.outerTopRight;
 	}
 	
@@ -463,7 +463,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 40
 	 */
-	protected String getOuterTopRightCorner() {
+	public String getOuterTopRightCorner() {
 		return this.outerTopRightCorner;
 	}
 	
@@ -472,7 +472,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 41
 	 */
-	protected String getOuterRightTop() {
+	public String getOuterRightTop() {
 		return this.outerRightTop;
 	}
 	
@@ -481,7 +481,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 42
 	 */
-	protected String getOuterRight() {
+	public String getOuterRight() {
 		return this.outerRight;
 	}
 	
@@ -490,7 +490,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 43
 	 */
-	protected String getOuterRightBottom() {
+	public String getOuterRightBottom() {
 		return this.outerRightBottom;
 	}
 	
@@ -499,7 +499,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 44
 	 */
-	protected String getOuterBottomRightCorner() {
+	public String getOuterBottomRightCorner() {
 		return this.outerBottomRightCorner;
 	}
 	
@@ -508,7 +508,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 34
 	 */
-	protected String getOuterBottomRight() {
+	public String getOuterBottomRight() {
 		return this.outerBottomRight;
 	}
 	
@@ -517,7 +517,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 24
 	 */
-	protected String getOuterBottom() {
+	public String getOuterBottom() {
 		return this.outerBottom;
 	}
 	
@@ -526,7 +526,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 14
 	 */
-	protected String getOuterBottomLeft() {
+	public String getOuterBottomLeft() {
 		return this.outerBottomLeft;
 	}
 	
@@ -535,7 +535,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 04
 	 */
-	protected String getOuterBottomLeftCorner() {
+	public String getOuterBottomLeftCorner() {
 		return this.outerBottomLeftCorner;
 	}
 	
@@ -544,7 +544,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 03
 	 */
-	protected String getOuterLeftBottom() {
+	public String getOuterLeftBottom() {
 		return this.outerLeftBottom;
 	}
 	
@@ -553,7 +553,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 02
 	 */
-	protected String getOuterLeft() {
+	public String getOuterLeft() {
 		return this.outerLeft;
 	}
 	
@@ -562,7 +562,7 @@ public class Pattern {
 	 *  
 	 * @return Das Feld mit dem Index: 01
 	 */
-	protected String getOuterLeftTop() {
+	public String getOuterLeftTop() {
 		return this.outerLeftTop;
 	}
 }
