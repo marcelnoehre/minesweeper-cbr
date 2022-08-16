@@ -32,7 +32,7 @@ public class CBRImports {
 			bufferedReader.readLine();
 			while ((line = bufferedReader.readLine()) != null) {
 				String[] result = new String[CBRProject.ATTRIBUTES_AMOUNT];
-				String[] cellValues = line.split(";");
+				String[] cellValues = line.split(",");
 				if(cellValues.length > 0) {	
 					for(int i = 0; i < CBRProject.ATTRIBUTES_AMOUNT; i++) {
 						result[i] = cellValues[i];

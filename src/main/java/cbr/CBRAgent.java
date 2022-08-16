@@ -1,6 +1,7 @@
 package cbr;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import minesweeper.Case;
 
@@ -11,14 +12,27 @@ public class CBRAgent {
 		project = new CBRProject();
 	}
 	
-	public void importCsvFile(String path) {
+	public void importCases(String path) {
 		try {
-			for(Case newCase : CBRImports.importCasesFromCsv(path)) {
-				project.addCase(newCase);
+			System.out.print("Reading .csv file...");
+			ArrayList<Case> caseList = CBRImports.importCasesFromCsv(path);
+			System.out.println(" Success!");
+			for(Case newCase : caseList) {
+				try {
+					//TODO: check if case exists in casebase
+					project.addCase(newCase);
+					System.out.println("Case " + newCase.getName() + " added to casebase!");
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("Invalid Case " + newCase.getName() + " detected!");
+				}
 			}
-			
 		} catch (IOException e) {
-			
-		} catch (Exception e) {}
+			System.out.println(" failed!");
+		}
 	}
+	
+	//TODO: export cases
+	//TODO: delete cases
+	//TODO: update cases
 }

@@ -1,11 +1,8 @@
 package cbr;
 
-import java.util.HashMap;
-
 import de.dfki.mycbr.core.ICaseBase;
 import de.dfki.mycbr.core.Project;
 import de.dfki.mycbr.core.casebase.Instance;
-import de.dfki.mycbr.core.model.AttributeDesc;
 import de.dfki.mycbr.core.model.Concept;
 import de.dfki.mycbr.core.model.StringDesc;
 import de.dfki.mycbr.core.similarity.AmalgamationFct;
@@ -88,14 +85,13 @@ public class CBRProject {
 		project = CBRImports.importExistingProject();
 		minesweeperPatternConcept = project.getConceptByID("MinesweeperPatternConcept");
 		minesweeperPatternSim = project.getActiveAmalgamFct();
-		importAttributes(project.getAllAttributeDescs());
+		importAttributes();
 		casebase = project.getCB("MinesweeperPatternCasebase");
 	}
 	
-	private void importAttributes(HashMap<String, AttributeDesc> map) throws Exception {
-		int position = 0;
-		for (Object description : map.values()) {
-		    attributes[position] = (StringDesc) description;
+	private void importAttributes() throws Exception {
+		for(int i = 0; i < ATTRIBUTES_AMOUNT; i++) {
+			attributes[i] = (StringDesc) project.getAttDescsByName(attributeNames[i]).getFirst();
 		}
 	}
 	
