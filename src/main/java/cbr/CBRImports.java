@@ -37,8 +37,6 @@ public class CBRImports {
 					for(int i = 0; i < CBRProject.ATTRIBUTES_AMOUNT; i++) {
 						result[i] = cellValues[i];
 					}
-					int stepCount = result[29].length() - result[29].replace("#", "").length() + 1;
-					String[] solutionSteps = new String[stepCount];
 					Pattern pattern = new Pattern(
 							result[0], 
 							result[1], 
@@ -65,10 +63,11 @@ public class CBRImports {
 							result[22], 
 							result[23], 
 							result[24]);
+					int stepCount = result[26].length() - result[26].replace("#", "").length() + 1;
+					String[] solutionSteps = new String[stepCount];
+					solutionSteps = result[26].split("#");
 					Solution solution = new Solution(
-							Integer.parseInt(result[25]),
-							Integer.parseInt(result[26]),
-							result[27],
+							result[25],
 							solutionSteps
 					);
 					String caseName = "";

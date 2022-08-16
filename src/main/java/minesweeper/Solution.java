@@ -8,42 +8,18 @@ package minesweeper;
  *
  */
 public class Solution {
-	private int row;
-	private int column;
 	private String solution;
 	private String[] solutionSteps;
 	
 	/**
 	 * Erstellt die L&ouml;sung f&uuml;r einen Fall.
 	 * 
-	 * @param row			Die Zeilenangabe des Zielfelds
-	 * @param column		Die Spaltenangabe des Zielfelds
 	 * @param solution		Die L&ouml;sung f&uuml;r einen Fall
 	 * @param solutionSteps	Die L&ouml;sungsschritte die zu der angegebenen L&ouml;sung f&uuml;hren.
 	 */
-	public Solution(int row, int column, String solution, String[] solutionSteps) {
-		setRow(row);
-		setColumn(column);
+	public Solution(String solution, String[] solutionSteps) {
 		setSolution(solution);
 		setSolutionSteps(solutionSteps);
-	}
-	
-	/**
-	 * Legt die Zeilenangabe des Ziels fest.
-	 * 
-	 * @param row Die Zeilenangabe des Ziels
-	 */
-	private void setRow(int row) {
-		this.row = row;
-	}
-	
-	/**
-	 * Legt die Spaltenangabe des Ziels fest.
-	 * 
-	 * @param column Die Spaltenangabe des Ziels
-	 */
-	private void setColumn(int column) {
-		this.column = column;
 	}
 	
 	/**
@@ -62,24 +38,6 @@ public class Solution {
 	 */
 	private void setSolutionSteps(String[] solutionSteps) {
 		this.solutionSteps = solutionSteps;
-	}
-	
-	/**
-	 * Gibt die Zeilenangabe des Ziels zur&uuml;ck.
-	 * 
-	 * @return Die Zeilenangabe des Ziels
-	 */
-	public int getRow() {
-		return this.row;
-	}
-	
-	/**
-	 * Gibt die Spaltenangabe des Ziels zur&uuml;ck.
-	 * 
-	 * @return Die Spaltenangabe des Ziels
-	 */
-	public int getColumn() {
-		return this.column;
 	}
 	
 	/**

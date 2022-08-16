@@ -7,7 +7,6 @@ import de.dfki.mycbr.core.Project;
 import de.dfki.mycbr.core.casebase.Instance;
 import de.dfki.mycbr.core.model.AttributeDesc;
 import de.dfki.mycbr.core.model.Concept;
-import de.dfki.mycbr.core.model.IntegerDesc;
 import de.dfki.mycbr.core.model.StringDesc;
 import de.dfki.mycbr.core.similarity.AmalgamationFct;
 import de.dfki.mycbr.core.similarity.SymbolFct;
@@ -21,12 +20,12 @@ import minesweeper.Solution;
 public class CBRProject {
 	protected static final String PATH = "C:\\Users\\Marcel\\cbr-workspace\\minesweeper-cbr-backend\\src\\main\\resources\\";
 	protected static final String NAME = "MinesweeperPattern.prj";
-	protected static final int ATTRIBUTES_AMOUNT = 29;
+	protected static final int ATTRIBUTES_AMOUNT = 27;
 	private Project project;
 	private Concept minesweeperPatternConcept;
 	private AmalgamationFct minesweeperPatternSim;
 	private ICaseBase casebase;
-	private AttributeDesc[] attributes = new StringDesc[ATTRIBUTES_AMOUNT];
+	private StringDesc[] attributes = new StringDesc[ATTRIBUTES_AMOUNT];
 	private String[] attributeNames = new String[] {
 			//center
 			"Center",					//22
@@ -57,8 +56,6 @@ public class CBRProject {
 			"OuterLeft", 				//02
 			"OuterLeftTop",				//01
 			//solution
-			"Row",
-			"Column",
 			"Solution",					
 			"SolutionSteps"
 	};
@@ -125,13 +122,13 @@ public class CBRProject {
 	private void initAttributes() throws Exception {
 		for(int i = 0; i < ATTRIBUTES_AMOUNT; i++) {
 			if(i == 0) {
-				attributes[i] = configurePatternAttribute(attributeNames[i], 137);
+				attributes[i] = configureAttribute(attributeNames[i], 137);
 			} else if(i < 9) {
-				attributes[i] = configurePatternAttribute(attributeNames[i], 17);
+				attributes[i] = configureAttribute(attributeNames[i], 17);
 			} else if (i >= 9 && i < 25) {
-				attributes[i] = configurePatternAttribute(attributeNames[i], 1);
+				attributes[i] = configureAttribute(attributeNames[i], 1);
 			} else {
-				attributes[i] = configureSolutionAttribute(attributeNames[i]);
+				attributes[i] = configureAttribute(attributeNames[i], 50);
 			}
 			
 		}
@@ -141,25 +138,10 @@ public class CBRProject {
 		casebase = project.createDefaultCB("MinesweeperPatternCasebase");
 	}
 	
-	private StringDesc configurePatternAttribute(String descName, int weight) throws Exception {
+	private StringDesc configureAttribute(String descName, int weight) throws Exception {
 		StringDesc attribute = new StringDesc(minesweeperPatternConcept, descName);
 		attribute.addStringFct(StringConfig.LEVENSHTEIN, descName + "Fct", true);
 		minesweeperPatternSim.setWeight(descName, weight);
-		return attribute;
-	}
-	
-	private AttributeDesc configureSolutionAttribute(String descName) throws Exception {
-		AttributeDesc attribute = null;
-		if(descName.equals("Row") || descName.equals("Column")) {
-			attribute = new IntegerDesc(minesweeperPatternConcept, descName, 0, 1);
-			minesweeperPatternSim.setWeight(descName, 50);
-		} else if(descName.equals("Solution") || descName.equals("SolutionSteps")) {
-			attribute = new StringDesc(minesweeperPatternConcept, descName);
-			((StringDesc) attribute).addStringFct(StringConfig.LEVENSHTEIN, descName + "Fct", true);
-			minesweeperPatternSim.setWeight(descName, 25);
-		} else {
-			throw new Exception("Empty Attribute");
-		}
 		return attribute;
 	}
 	
@@ -191,7 +173,7 @@ public class CBRProject {
 				"c", 
 				"c", 
 				"c");
-		Solution solution = new Solution(0, 0, "Für dieses Muster kann keine Lösung gefunden werden", new String[0]);
+		Solution solution = new Solution("Für dieses Muster kann keine Lösung gefunden werden", new String[0]);
 		addCase(new Case(name, pattern, solution));
 	}
 	
@@ -222,10 +204,8 @@ public class CBRProject {
 		instance.addAttribute(attributes[22], newCase.getPattern().getOuterLeftBottom());
 		instance.addAttribute(attributes[23], newCase.getPattern().getOuterLeft());
 		instance.addAttribute(attributes[24], newCase.getPattern().getOuterLeftTop());
-		instance.addAttribute(attributes[0], newCase.getSolution().getRow());
-		instance.addAttribute(attributes[0], newCase.getSolution().getColumn());
-		instance.addAttribute(attributes[0], newCase.getSolution().getSolution());
-		instance.addAttribute(attributes[0], newCase.getSolution().getSolutionSteps());
+		instance.addAttribute(attributes[25], newCase.getSolution().getSolution());
+		instance.addAttribute(attributes[26], newCase.getSolution().getSolutionSteps());
 		casebase.addCase(instance);
 	}
 }
