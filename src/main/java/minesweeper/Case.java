@@ -2,7 +2,7 @@ package minesweeper;
 
 /**
  *
- * Ein mit einem Namen versehener Fall, der ein 5x5 Pattern und eine L&ouml;sung beinhaltet. 
+ * A uniquely named case that includes a 5x5 pattern and solution.
  *
  * @author Marcel N&ouml;hre, 357775
  *
@@ -13,11 +13,11 @@ public class Case {
 	private Solution solution;
 	
 	/**
-	 * Erstellt einen Fall.
+	 * Creates a case.
 	 * 
-	 * @param name		Der Name eines Falls
-	 * @param pattern	Das 5x5 Pattern als Situation
-	 * @param solution	Die L&ouml;sung des Falls
+	 * @param name		The name of a case
+	 * @param pattern	The 5x5 pattern that represents the situation
+	 * @param solution	The solution of the case
 	 */
 	public Case(String name, Pattern pattern, Solution solution) {
 		setName(name);
@@ -26,54 +26,54 @@ public class Case {
 	}
 
 	/**
-	 * Legt den Namen des Falls fest.
+	 * Sets the name of the case.
 	 * 
-	 * @param name	Der Name des Falls
+	 * @param name	The name of a case
 	 */
 	private void setName(String name) {
 		this.name = name;
 	}
 	
 	/**
-	 * Legt das 5x5 Pattern des Falls fest.
+	 * Sets the 5x5 pattern that represents the situation.
 	 * 
-	 * @param pattern	Das 5x5 Pattern des Falls
+	 * @param pattern	The 5x5 pattern that represents the situation
 	 */
 	private void setPattern(Pattern pattern) {
 		this.pattern = pattern;
 	}
 	
 	/**
-	 * Legt die L&ouml;sung für des Falls fest.
+	 * Sets the solution of the case.
 	 * 
-	 * @param solution	Die L&ouml;sung des Falls
+	 * @param solution	The solution of a case
 	 */
 	private void setSolution(Solution solution) {
 		this.solution = solution;
 	}
 	
 	/**
-	 * Gibt den Namen des Falls zur&uuml;ck.
+	 * Returns the name of the case.
 	 * 
-	 * @return	Der Name des Falls
+	 * @return	The name of the case
 	 */
 	public String getName() {
 		return this.name;
 	}
 	
 	/**
-	 * Gibt das 5x5 Pattern des Falls zur&uuml;ck.
+	 * Returns the 5x5 pattern that represents the situation.
 	 * 
-	 * @return	Das 5x5 Pattern des Falls
+	 * @return	The 5x5 pattern that represents the situation
 	 */
 	public Pattern getPattern() {
 		return this.pattern;
 	}
 	
 	/**
-	 * Gibt die L&ouml;sung des Falls zur&uuml;ck.
+	 * Returns the solution of the case.
 	 * 
-	 * @return	Die L&ouml;sung des Falls
+	 * @return	The solution of the case
 	 */
 	public Solution getSolution() {
 		return this.solution;

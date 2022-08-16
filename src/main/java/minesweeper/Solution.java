@@ -26,7 +26,7 @@ public class Solution {
 	/**
 	 * Sets the solvability information.
 	 * 
-	 * @param solveable The solvability information
+	 * @param solveable	The solvability information
 	 */
 	private void setSolvable(boolean solveable) {
 		this.solveable = solveable;
@@ -35,7 +35,7 @@ public class Solution {
 	/**
 	 * Sets the decisive cells.
 	 * 
-	 * @param cells The decisive cells
+	 * @param cells	The decisive cells
 	 */
 	private void setCells(String[] cells) {
 		this.cells = cells;
@@ -44,7 +44,7 @@ public class Solution {
 	/**
 	 * Sets the type of decisive cells.
 	 * 
-	 * @param types The types of the decisive cells
+	 * @param types	The types of the decisive cells
 	 */
 	private void setTypes(String[] types) {
 		this.types = types;
@@ -53,7 +53,7 @@ public class Solution {
 	/**
 	 * Returns the solvability information.
 	 *
-	 * @return The solvability information
+	 * @return	The solvability information
 	 */
 	public boolean getSolveable() {
 		return solveable;
@@ -62,7 +62,7 @@ public class Solution {
 	/**
 	 * Returns the decisive cells.
 	 * 
-	 * @return The decisive cells
+	 * @return	The decisive cells
 	 */
 	public String[] getCells() {
 		return this.cells;
@@ -71,7 +71,7 @@ public class Solution {
 	/**
 	 * Returns the types of decisive cells.
 	 * 
-	 * @return The types of the decisive cells
+	 * @return	The types of the decisive cells
 	 */
 	public String[] getTypes() {
 		return this.types;
