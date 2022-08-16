@@ -20,7 +20,7 @@ import minesweeper.Solution;
 public class CBRProject {
 	protected static final String PATH = "C:\\Users\\Marcel\\cbr-workspace\\minesweeper-cbr-backend\\src\\main\\resources\\";
 	protected static final String NAME = "MinesweeperPattern.prj";
-	protected static final int ATTRIBUTES_AMOUNT = 27;
+	protected static final int ATTRIBUTES_AMOUNT = 28;
 	private Project project;
 	private Concept minesweeperPatternConcept;
 	private AmalgamationFct minesweeperPatternSim;
@@ -56,8 +56,9 @@ public class CBRProject {
 			"OuterLeft", 				//02
 			"OuterLeftTop",				//01
 			//solution
-			"Solution",					
-			"SolutionSteps"
+			"Solvability",
+			"SolutionCells",					
+			"SolutionTypes"
 	};
 	
 	protected CBRProject() {
@@ -173,7 +174,7 @@ public class CBRProject {
 				"c", 
 				"c", 
 				"c");
-		Solution solution = new Solution("Für dieses Muster kann keine Lösung gefunden werden", new String[0]);
+		Solution solution = new Solution(false, new String[0], new String[0]);
 		addCase(new Case(name, pattern, solution));
 	}
 	
@@ -204,8 +205,9 @@ public class CBRProject {
 		instance.addAttribute(attributes[22], newCase.getPattern().getOuterLeftBottom());
 		instance.addAttribute(attributes[23], newCase.getPattern().getOuterLeft());
 		instance.addAttribute(attributes[24], newCase.getPattern().getOuterLeftTop());
-		instance.addAttribute(attributes[25], newCase.getSolution().getSolution());
-		instance.addAttribute(attributes[26], newCase.getSolution().getSolutionSteps());
+		instance.addAttribute(attributes[25], newCase.getSolution().getSolveable());
+		instance.addAttribute(attributes[26], newCase.getSolution().getCells());
+		instance.addAttribute(attributes[27], newCase.getSolution().getTypes());
 		casebase.addCase(instance);
 	}
 }

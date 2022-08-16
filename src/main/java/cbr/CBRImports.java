@@ -63,12 +63,10 @@ public class CBRImports {
 							result[22], 
 							result[23], 
 							result[24]);
-					int stepCount = result[26].length() - result[26].replace("#", "").length() + 1;
-					String[] solutionSteps = new String[stepCount];
-					solutionSteps = result[26].split("#");
 					Solution solution = new Solution(
-							result[25],
-							solutionSteps
+							Boolean.parseBoolean(result[25]), 
+							result[26].split("#"),
+							result[27].split("#")
 					);
 					String caseName = "";
 					for(int i = 0; i < 25; i++) {

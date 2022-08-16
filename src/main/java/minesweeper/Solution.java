@@ -1,61 +1,79 @@
 package minesweeper;
 
 /**
- * Die Lösung eines Falls, welche die Position des zu w&auml;lenden Felds und eine 
- * dazugehörige L&ouml;sungebeschreibung beinhaltet.
+ * The solution of a case, based on the decisive fields and their information type.
  * 
  * @author Marcel N&ouml;hre, 357775
  *
  */
 public class Solution {
-	private String solution;
-	private String[] solutionSteps;
+	private boolean solveable;
+	private String[] cells;
+	private String[] types;
 	
 	/**
-	 * Erstellt die L&ouml;sung f&uuml;r einen Fall.
+	 * Creates the solution of a case consisting of the decisive cells and their type.
 	 * 
-	 * @param solution		Die L&ouml;sung f&uuml;r einen Fall
-	 * @param solutionSteps	Die L&ouml;sungsschritte die zu der angegebenen L&ouml;sung f&uuml;hren.
+	 * @param cells	The decisive cells
+	 * @param types	The types of decisive cells
 	 */
-	public Solution(String solution, String[] solutionSteps) {
-		setSolution(solution);
-		setSolutionSteps(solutionSteps);
+	public Solution(boolean solveable, String[] cells, String[] types) {
+		setSolvable(solveable);
+		setCells(cells);
+		setTypes(types);
 	}
 	
 	/**
-	 * Legt die L&ouml;sung eines Falls fest.
+	 * Sets the solvability information.
 	 * 
-	 * @param solution Die L&ouml;sung eines Falls
+	 * @param solveable The solvability information
 	 */
-	private void setSolution(String solution) {
-		this.solution = solution;
+	private void setSolvable(boolean solveable) {
+		this.solveable = solveable;
 	}
 	
 	/**
-	 * Legt die L&ouml;sungsschritte eines Falls fest.
+	 * Sets the decisive cells.
 	 * 
-	 * @param solutionSteps Die L&ouml;sungsschritte eines Falls
+	 * @param cells The decisive cells
 	 */
-	private void setSolutionSteps(String[] solutionSteps) {
-		this.solutionSteps = solutionSteps;
+	private void setCells(String[] cells) {
+		this.cells = cells;
 	}
 	
 	/**
-	 * Gibt die L&ouml;sung eines Falls zur&uuml;ck.
+	 * Sets the type of decisive cells.
 	 * 
-	 * @return Die L&ouml;sung eines Falls
+	 * @param types The types of the decisive cells
 	 */
-	public String getSolution() {
-		return this.solution;
+	private void setTypes(String[] types) {
+		this.types = types;
 	}
 	
 	/**
-	 * Gibt die L&ouml;sungsschritte eines Falls zur&uuml;ck.
-	 * 
-	 * @return Die L&ouml;sungsschritte eines Falls 
+	 * Returns the solvability information.
+	 *
+	 * @return The solvability information
 	 */
-	public String[] getSolutionSteps() {
-		return this.solutionSteps;
+	public boolean getSolveable() {
+		return solveable;
 	}
 	
+	/**
+	 * Returns the decisive cells.
+	 * 
+	 * @return The decisive cells
+	 */
+	public String[] getCells() {
+		return this.cells;
+	}
+	
+	/**
+	 * Returns the types of decisive cells.
+	 * 
+	 * @return The types of the decisive cells
+	 */
+	public String[] getTypes() {
+		return this.types;
+	}
 }
