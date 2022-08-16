@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Project name="MinesweeperBackend" author="Jannis Kehrhahn 275136 and Marcel N&#246;hre 357775" >
+<svs>
+  <sv name="_unknown_"/>
+  <sv name="_undefined_"/>
+  <sv name="_others_"/>
+<fct name="default function" type="Symbol" mt="PARTNER_QUERY" r="REUSE" t="MAX" symm="true">
+<qsym name="_unknown_">
+<csym name="_undefined_" sim="1.0"/>
+<csym name="_others_" sim="1.0"/>
+</qsym>
+<qsym name="_undefined_">
+<csym name="_unknown_" sim="1.0"/>
+<csym name="_others_" sim="1.0"/>
+</qsym>
+<qsym name="_others_">
+<csym name="_unknown_" sim="1.0"/>
+<csym name="_undefined_" sim="1.0"/>
+</qsym>
+</fct>
+</svs>
+<model>
+  <concept name="MinesweeperPatternConcept">
+    <desc name="InnerBottomRight" type="String" mult="false" >
+      <fct name="InnerBottomRightFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterTopLeft" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="OuterTopLeftFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterRight" type="String" mult="false" >
+      <fct name="OuterRightFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterRightBottom" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="OuterRightBottomFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterTopRightCorner" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="OuterTopRightCornerFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterBottomLeftCorner" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="OuterBottomLeftCornerFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterBottom" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="OuterBottomFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterTop" type="String" mult="false" >
+      <fct name="OuterTopFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterLeftTop" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="OuterLeftTopFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterLeft" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="OuterLeftFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterRightTop" type="String" mult="false" >
+      <fct name="OuterRightTopFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="Center" type="String" mult="false" >
+      <fct name="CenterFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="InnerTopLeft" type="String" mult="false" >
+      <fct name="InnerTopLeftFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="InnerTop" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="InnerTopFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterLeftBottom" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="OuterLeftBottomFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterBottomLeft" type="String" mult="false" >
+      <fct name="OuterBottomLeftFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="InnerRight" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="InnerRightFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="InnerLeft" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="InnerLeftFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="InnerTopRight" type="String" mult="false" >
+      <fct name="InnerTopRightFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterBottomRight" type="String" mult="false" >
+      <fct name="OuterBottomRightFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterTopLeftCorner" type="String" mult="false" >
+      <fct name="OuterTopLeftCornerFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="InnerBottomLeft" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="InnerBottomLeftFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterBottomRightCorner" type="String" mult="false" >
+      <fct name="OuterBottomRightCornerFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="InnerBottom" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="InnerBottomFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <desc name="OuterTopRight" type="String" mult="false" >
+      <fct name="default function" type="String" symm="true" config="EQUALITY" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+      <fct name="OuterTopRightFct" type="String" symm="true" config="LEVENSHTEIN" n="3" mt="PARTNER_QUERY" r="REUSE" t="MAX" />
+    </desc>
+    <amalgam name="default function" type="EUCLIDEAN" active="false" >
+      <entry name="InnerBottomRight" active="true" fct="default function" weight="1"/>
+      <entry name="OuterTopLeft" active="true" fct="default function" weight="1"/>
+      <entry name="OuterRight" active="true" fct="default function" weight="1"/>
+      <entry name="OuterRightBottom" active="true" fct="default function" weight="1"/>
+      <entry name="OuterTopRightCorner" active="true" fct="default function" weight="1"/>
+      <entry name="OuterBottomLeftCorner" active="true" fct="default function" weight="1"/>
+      <entry name="OuterBottom" active="true" fct="default function" weight="1"/>
+      <entry name="OuterTop" active="true" fct="default function" weight="1"/>
+      <entry name="OuterLeftTop" active="true" fct="default function" weight="1"/>
+      <entry name="OuterLeft" active="true" fct="default function" weight="1"/>
+      <entry name="OuterRightTop" active="true" fct="default function" weight="1"/>
+      <entry name="Center" active="true" fct="default function" weight="1"/>
+      <entry name="InnerTopLeft" active="true" fct="default function" weight="1"/>
+      <entry name="InnerTop" active="true" fct="default function" weight="1"/>
+      <entry name="OuterLeftBottom" active="true" fct="default function" weight="1"/>
+      <entry name="OuterBottomLeft" active="true" fct="default function" weight="1"/>
+      <entry name="InnerRight" active="true" fct="default function" weight="1"/>
+      <entry name="InnerLeft" active="true" fct="default function" weight="1"/>
+      <entry name="InnerTopRight" active="true" fct="default function" weight="1"/>
+      <entry name="OuterBottomRight" active="true" fct="default function" weight="1"/>
+      <entry name="OuterTopLeftCorner" active="true" fct="default function" weight="1"/>
+      <entry name="InnerBottomLeft" active="true" fct="default function" weight="1"/>
+      <entry name="OuterBottomRightCorner" active="true" fct="default function" weight="1"/>
+      <entry name="InnerBottom" active="true" fct="default function" weight="1"/>
+      <entry name="OuterTopRight" active="true" fct="default function" weight="1"/>
+    </amalgam>
+    <amalgam name="MinesweeperPatternSimFct" type="WEIGHTED_SUM" active="true" >
+      <entry name="InnerBottomRight" active="true" fct="InnerBottomRightFct" weight="17"/>
+      <entry name="OuterTopLeft" active="true" fct="OuterTopLeftFct" weight="1"/>
+      <entry name="OuterRight" active="true" fct="OuterRightFct" weight="1"/>
+      <entry name="OuterRightBottom" active="true" fct="OuterRightBottomFct" weight="1"/>
+      <entry name="OuterTopRightCorner" active="true" fct="OuterTopRightCornerFct" weight="1"/>
+      <entry name="OuterBottomLeftCorner" active="true" fct="OuterBottomLeftCornerFct" weight="1"/>
+      <entry name="OuterBottom" active="true" fct="OuterBottomFct" weight="1"/>
+      <entry name="OuterTop" active="true" fct="OuterTopFct" weight="1"/>
+      <entry name="OuterLeftTop" active="true" fct="OuterLeftTopFct" weight="1"/>
+      <entry name="OuterLeft" active="true" fct="OuterLeftFct" weight="1"/>
+      <entry name="OuterRightTop" active="true" fct="OuterRightTopFct" weight="1"/>
+      <entry name="Center" active="true" fct="CenterFct" weight="137"/>
+      <entry name="InnerTopLeft" active="true" fct="InnerTopLeftFct" weight="17"/>
+      <entry name="InnerTop" active="true" fct="InnerTopFct" weight="17"/>
+      <entry name="OuterLeftBottom" active="true" fct="OuterLeftBottomFct" weight="1"/>
+      <entry name="OuterBottomLeft" active="true" fct="OuterBottomLeftFct" weight="1"/>
+      <entry name="InnerRight" active="true" fct="InnerRightFct" weight="17"/>
+      <entry name="InnerLeft" active="true" fct="InnerLeftFct" weight="17"/>
+      <entry name="InnerTopRight" active="true" fct="InnerTopRightFct" weight="17"/>
+      <entry name="OuterBottomRight" active="true" fct="OuterBottomRightFct" weight="1"/>
+      <entry name="OuterTopLeftCorner" active="true" fct="OuterTopLeftCornerFct" weight="1"/>
+      <entry name="InnerBottomLeft" active="true" fct="InnerBottomLeftFct" weight="17"/>
+      <entry name="OuterBottomRightCorner" active="true" fct="OuterBottomRightCornerFct" weight="1"/>
+      <entry name="InnerBottom" active="true" fct="InnerBottomFct" weight="17"/>
+      <entry name="OuterTopRight" active="true" fct="OuterTopRightFct" weight="1"/>
+    </amalgam>
+  </concept>
+</model>
+<hierarchy>
+  <fct name="default function" type="Taxonomy" mt="PARTNER_QUERY" r="REUSE" t="MAX" qconfig="INNER_NODES_ANY" cconfig="INNER_NODES_ANY" top="inheritanceDesc" sim="0.0" symm="true" >
+    <node name="MinesweeperPatternConcept" sim="1.0" parent="inheritanceDesc" />
+  </fct>
+</hierarchy>
+<cases no="1" cb="MinesweeperPatternCasebase"/>
+</Project>

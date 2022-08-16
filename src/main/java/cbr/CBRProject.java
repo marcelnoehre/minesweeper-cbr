@@ -16,23 +16,24 @@ import de.dfki.mycbr.core.similarity.config.StringConfig;
 public class CBRProject {
 	protected static final String PATH = "C:\\Users\\Marcel\\cbr-workspace\\minesweeper-cbr-backend\\src\\main\\resources\\";
 	protected static final String NAME = "MinesweeperPattern.prj";
+	protected static final int ATTRIBUTES_AMOUNT = 25;
 	private Project project;
 	private Concept minesweeperPatternConcept;
 	private AmalgamationFct minesweeperPatternSim;
 	private ICaseBase casebase;
-	private StringDesc[] attributes = new StringDesc[25];
+	private AttributeDesc[] attributes = new StringDesc[ATTRIBUTES_AMOUNT];
 	private String[] attributeNames = new String[] {
 			//center
 			"Center",					//22
 			//inner ring
 			"InnerTopLeft",				//11
-			"InnerTop",					//12
-			"InnerTopRight",			//13
-			"InnerRight",				//23
+			"InnerTop",					//21
+			"InnerTopRight",			//31
+			"InnerRight",				//32
 			"InnerBottomRight",			//33
-			"InnerBottom",				//32
-			"InnerBottomLeft",			//31
-			"InnerLeft",				//21
+			"InnerBottom",				//23
+			"InnerBottomLeft",			//13
+			"InnerLeft",				//12
 			//outer ring
 			"OuterTopLeftCorner", 		//00
 			"OuterTopLeft", 			//10
@@ -75,7 +76,7 @@ public class CBRProject {
 		}
 	}
 	
-	private void importProject() throws Exception {
+	protected void importProject() throws Exception {
 		project = CBRImports.importExistingProject();
 		minesweeperPatternConcept = project.getConceptByID("MinesweeperPatternConcept");
 		minesweeperPatternSim = project.getActiveAmalgamFct();
@@ -112,13 +113,13 @@ public class CBRProject {
 	}
 	
 	private void initAttributes() throws Exception {
-		for(int i = 0; i < attributeNames.length; i++) {
+		for(int i = 0; i < ATTRIBUTES_AMOUNT; i++) {
 			if(i == 0) {
-				attributes[i] = configureAttribute(attributeNames[i], 137);
+				attributes[i] = configurePatternAttribute(attributeNames[i], 137);
 			} else if(i < 9) {
-				attributes[i] = configureAttribute(attributeNames[i], 17);
+				attributes[i] = configurePatternAttribute(attributeNames[i], 17);
 			} else {
-				attributes[i] = configureAttribute(attributeNames[i], 1);
+				attributes[i] = configurePatternAttribute(attributeNames[i], 1);
 			}
 		}
 	}
@@ -127,7 +128,7 @@ public class CBRProject {
 		casebase = project.createDefaultCB("MinesweeperPatternCasebase");
 	}
 	
-	private StringDesc configureAttribute(String descName, int weight) throws Exception {
+	private StringDesc configurePatternAttribute(String descName, int weight) throws Exception {
 		StringDesc attribute = new StringDesc(minesweeperPatternConcept, descName);
 		attribute.addStringFct(StringConfig.LEVENSHTEIN, descName + "Fct", true);
 		minesweeperPatternSim.setWeight(descName, weight);
@@ -135,7 +136,7 @@ public class CBRProject {
 	}
 	
 	private void addDefaultCase() throws Exception {
-		String[] values = new String[25];
+		String[] values = new String[ATTRIBUTES_AMOUNT];
 		for(int i = 0; i < values.length; i++) {
 			values[i] = "c";
 		}
@@ -148,7 +149,7 @@ public class CBRProject {
 			name += value;
 		}
 		Instance instance = minesweeperPatternConcept.addInstance(name);
-		for(StringDesc attribute : attributes) {
+		for(AttributeDesc attribute : attributes) {
 			instance.addAttribute(attribute, "c");
 		}
 		casebase.addCase(instance);
