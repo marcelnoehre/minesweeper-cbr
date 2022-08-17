@@ -10,6 +10,7 @@ public class CBRAgent {
 	
 	public void initializeCBR() {
 		project = new CBRProject();
+		importCases("C:\\Users\\Marcel\\cbr-workspace\\minesweeper-cbr-backend\\src\\main\\backups\\allCases.csv");
 	}
 	
 	public void importCases(String path) {
@@ -19,9 +20,14 @@ public class CBRAgent {
 			System.out.println(" Success!");
 			for(Case newCase : caseList) {
 				try {
-					//TODO: check if case exists in casebase
-					project.addCase(newCase);
-					System.out.println("Case " + newCase.getName() + " added to casebase!");
+					if(!project.checkForCase(newCase.getName())) {
+						project.addCase(newCase);
+						//TODO: add to allCases.csv
+						System.out.println("Case " + newCase.getName() + " added to casebase!");
+					} else {
+						System.out.println("Case " + newCase.getName() + " already exists!");	
+					}
+
 				} catch (Exception e) {
 					e.printStackTrace();
 					System.out.println("Invalid Case " + newCase.getName() + " detected!");

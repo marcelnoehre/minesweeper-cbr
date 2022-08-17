@@ -172,4 +172,18 @@ public class CBRProject {
 		instance.addAttribute(attributes[27], newCase.getSolution().getTypes());
 		casebase.addCase(instance);
 	}
+	
+	protected void removeCase(String name) {
+		//TODO: check if works
+		casebase.removeCase(name);
+		//TODO remove from allCases.csv (organize from agent)
+	}
+	
+	protected boolean checkForCase(String name) {
+		boolean available = false;
+		if(casebase.containsCase(name) != null) {
+			available = true;
+		};
+		return available;
+	}
 }

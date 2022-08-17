@@ -30,7 +30,6 @@ public class index extends HttpServlet {
 		response.getWriter().append("Minesweeper CBR Backend running at Port 8080");
 		CBRAgent cbrAgent = new CBRAgent();
 		cbrAgent.initializeCBR();
-		cbrAgent.importCases("C:\\Users\\Marcel\\cbr-workspace\\minesweeper-cbr-backend\\src\\main\\backups\\allCases.csv");
 	}
 
 	/**
