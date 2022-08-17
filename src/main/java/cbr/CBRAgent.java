@@ -10,7 +10,7 @@ public class CBRAgent {
 	
 	public void initializeCBR() {
 		project = new CBRProject();
-		importCases("C:\\Users\\Marcel\\cbr-workspace\\minesweeper-cbr-backend\\src\\main\\backups\\allCases.csv");
+		importCases(new CBRUtils().getPath() + "allCases.csv");
 	}
 	
 	public void importCases(String path) {
