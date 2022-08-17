@@ -8,7 +8,8 @@ import de.dfki.mycbr.io.XMLExporter;
 public class CBRExports {
 
 	protected static void exportProject(Project project) throws IOException {
-		XMLExporter.save(project, CBRProject.PATH + CBRProject.NAME);
+		new CBRUtils().getPath();
+		XMLExporter.save(project, new CBRUtils().getPath() + CBRProject.NAME);
 	}
 	
 	//TODO: Export cases as csv

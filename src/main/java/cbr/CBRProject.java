@@ -13,7 +13,6 @@ import de.dfki.mycbr.core.similarity.config.StringConfig;
 import minesweeper.Case;
 
 public class CBRProject {
-	protected static final String PATH = "C:\\Users\\Marcel\\cbr-workspace\\minesweeper-cbr-backend\\src\\main\\resources\\";
 	protected static final String NAME = "MinesweeperPattern.prj";
 	protected static final int ATTRIBUTES_AMOUNT = 28;
 	private Project project;
