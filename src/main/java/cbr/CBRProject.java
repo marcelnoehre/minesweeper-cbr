@@ -11,8 +11,6 @@ import de.dfki.mycbr.core.similarity.config.AmalgamationConfig;
 import de.dfki.mycbr.core.similarity.config.StringConfig;
 
 import minesweeper.Case;
-import minesweeper.Pattern;
-import minesweeper.Solution;
 
 public class CBRProject {
 	protected static final String PATH = "C:\\Users\\Marcel\\cbr-workspace\\minesweeper-cbr-backend\\src\\main\\resources\\";
@@ -72,7 +70,7 @@ public class CBRProject {
 				initConceptAndAmalgation();
 				initAttributes();
 				initCaseBase();
-				addDefaultCase();
+				addCase(CBRUtils.createDefaultCase());
 				CBRExports.exportProject(project);
 				System.out.println(" Success!");
 			} catch(Exception initializing) {
@@ -140,38 +138,6 @@ public class CBRProject {
 		attribute.addStringFct(StringConfig.LEVENSHTEIN, descName + "Fct", true);
 		minesweeperPatternSim.setWeight(descName, weight);
 		return attribute;
-	}
-	
-	private void addDefaultCase() throws Exception {
-		String name = "ccccccccccccccccccccccccc";
-		Pattern pattern = new Pattern(
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c");
-		Solution solution = new Solution(false, new String[0], new String[0]);
-		addCase(new Case(name, pattern, solution));
 	}
 	
 	protected void addCase(Case newCase) throws Exception {
