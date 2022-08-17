@@ -12,8 +12,8 @@ public class CBRUtils {
 		try {
 		path = this.getClass().getClassLoader().getResource("").getPath();
         String encodedPath = URLDecoder.decode(path, "UTF-8");
-        String pathArr[] = encodedPath.split(".metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/minesweeper-cbr-backend/WEB-INF/classes/");
-        path = pathArr[0] + "minesweeper-cbr-backend/src/main/resources/";
+        String pathArr[] = encodedPath.split("classes/");
+        path = pathArr[0] + "resources/";
         path = path.replace("/", "\\");
 		} catch(Exception e) {
 			System.err.println("Path Problem!");
