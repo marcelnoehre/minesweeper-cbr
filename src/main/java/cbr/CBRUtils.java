@@ -7,6 +7,9 @@ import minesweeper.Pattern;
 import minesweeper.Solution;
 
 public class CBRUtils {
+	protected static final String CSV_SEPARATOR = ",";
+	protected static final String SOLUTION_SEPERATOR = "#";
+	
 	protected String getPath() {
 		String path = "";
 		try {
@@ -51,5 +54,14 @@ public class CBRUtils {
 				"c");
 		Solution solution = new Solution(false, new String[0], new String[0]);
 		return new Case(name, pattern, solution);
+	}
+	
+	protected static String transformStringArray(String[] arr) {
+        String transformation = "";
+        for(String element : arr) {
+        	transformation += element + CBRUtils.SOLUTION_SEPERATOR;
+        }
+        transformation = transformation.substring(0, transformation.length()-1);
+        return transformation;
 	}
 }

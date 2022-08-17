@@ -22,18 +22,17 @@ public class CBRAgent {
 				try {
 					if(!project.checkForCase(newCase.getName())) {
 						project.addCase(newCase);
-						//TODO: add to allCases.csv
 						System.out.println("Case " + newCase.getName() + " added to casebase!");
 					} else {
 						System.out.println("Case " + newCase.getName() + " already exists!");	
 					}
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 					System.out.println("Invalid Case " + newCase.getName() + " detected!");
 				}
-				System.out.println("");
 			}
+			System.out.println("");
+			//TODO: update allCases.csv
 		} catch (IOException e) {
 			System.out.println(" failed!\n");
 		}
@@ -42,7 +41,7 @@ public class CBRAgent {
 	public void removeCases(String[] caseNames) {
 		for(String name : caseNames) {
 			if(project.removeCase(name)) {
-				//TODO remove from allCases.csv	
+				//TODO: update allCases.csv	
 			}
 		}
 	}

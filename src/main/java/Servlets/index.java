@@ -27,6 +27,7 @@ public class index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//TODO: Display REST endpoints at index page
 		response.getWriter().append("Minesweeper CBR Backend running at Port 8080");
 		//TODO: remove realize via api calls e.g. rest
 		CBRAgent cbrAgent = new CBRAgent();

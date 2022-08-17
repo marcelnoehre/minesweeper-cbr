@@ -32,7 +32,7 @@ public class CBRImports {
 			bufferedReader.readLine();
 			while ((line = bufferedReader.readLine()) != null) {
 				String[] result = new String[CBRProject.ATTRIBUTES_AMOUNT];
-				String[] cellValues = line.split(",");
+				String[] cellValues = line.split(CBRUtils.CSV_SEPARATOR);
 				if(cellValues.length > 0) {	
 					for(int i = 0; i < CBRProject.ATTRIBUTES_AMOUNT; i++) {
 						result[i] = cellValues[i];
@@ -65,8 +65,8 @@ public class CBRImports {
 							result[24]);
 					Solution solution = new Solution(
 							Boolean.parseBoolean(result[25]), 
-							result[26].split("#"),
-							result[27].split("#")
+							result[26].split(CBRUtils.SOLUTION_SEPERATOR),
+							result[27].split(CBRUtils.SOLUTION_SEPERATOR)
 					);
 					String caseName = "";
 					for(int i = 0; i < 25; i++) {
