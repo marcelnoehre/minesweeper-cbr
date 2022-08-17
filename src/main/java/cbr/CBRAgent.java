@@ -27,14 +27,23 @@ public class CBRAgent {
 					} else {
 						System.out.println("Case " + newCase.getName() + " already exists!");	
 					}
-
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 					System.out.println("Invalid Case " + newCase.getName() + " detected!");
 				}
+				System.out.println("");
 			}
 		} catch (IOException e) {
-			System.out.println(" failed!");
+			System.out.println(" failed!\n");
+		}
+	}
+	
+	public void removeCases(String[] caseNames) {
+		for(String name : caseNames) {
+			if(project.removeCase(name)) {
+				//TODO remove from allCases.csv	
+			}
 		}
 	}
 	

@@ -10,4 +10,7 @@ public class CBRExports {
 	protected static void exportProject(Project project) throws IOException {
 		XMLExporter.save(project, CBRProject.PATH + CBRProject.NAME);
 	}
+	
+	//TODO: Export cases as csv
+	//TODO: add cases to allCases.csv
 }

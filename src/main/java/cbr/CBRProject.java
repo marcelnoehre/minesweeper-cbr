@@ -60,10 +60,10 @@ public class CBRProject {
 		try {
 			System.out.println("Importing Project...");
 			importProject();
-			System.out.println("The project " + project.getName() + " from " + project.getAuthor() + " was imported!");
+			System.out.println("The project " + project.getName() + " from " + project.getAuthor() + " was imported!\n");
 		} catch(Exception importing) {
 			try {
-				System.out.println("No project found!");
+				System.out.println("No project found!\n");
 				System.out.print("Creating new Project...");
 				initProjectInformation();
 				initSpecialSimilarity();
@@ -72,9 +72,9 @@ public class CBRProject {
 				initCaseBase();
 				addCase(CBRUtils.createDefaultCase());
 				CBRExports.exportProject(project);
-				System.out.println(" Success!");
+				System.out.println(" Success!\n");
 			} catch(Exception initializing) {
-				System.out.println(" Failed");
+				System.out.println(" Failed!\n");
 			}
 		}
 	}
@@ -117,7 +117,7 @@ public class CBRProject {
 	private void initAttributes() throws Exception {
 		for(int i = 0; i < ATTRIBUTES_AMOUNT; i++) {
 			if(i == 0) {
-				attributes[i] = configureAttribute(attributeNames[i], 137);
+				attributes[i] = configureAttribute(attributeNames[i], 153);
 			} else if(i < 9) {
 				attributes[i] = configureAttribute(attributeNames[i], 17);
 			} else if (i >= 9 && i < 25) {
@@ -173,10 +173,15 @@ public class CBRProject {
 		casebase.addCase(instance);
 	}
 	
-	protected void removeCase(String name) {
-		//TODO: check if works
-		casebase.removeCase(name);
-		//TODO remove from allCases.csv (organize from agent)
+	protected boolean removeCase(String name) {
+		if(checkForCase(name)) {
+			casebase.removeCase(name);
+			System.out.println("Case " + name + " removed from case base!");	
+			return true;
+		} else {
+			System.out.println("Case " + name + " does not exist!");
+			return false;
+		}
 	}
 	
 	protected boolean checkForCase(String name) {
