@@ -26,7 +26,7 @@ public class CBRExports {
         list.add(header);
         list.add(record1);
         list.add(record2);
-        CSVWriter writer = new CSVWriter(new FileWriter(new CBRUtils().getPath() + "test.csv"));
+        CSVWriter writer = new CSVWriter(new FileWriter("test.csv"));
         writer.writeAll(list);
 	}
 
