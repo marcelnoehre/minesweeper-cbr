@@ -32,6 +32,7 @@ public class index extends HttpServlet {
 		//TODO: remove realize via api calls e.g. rest
 		CBRAgent cbrAgent = new CBRAgent();
 		cbrAgent.initializeCBR();
+		cbrAgent.saveCasesAsCsv();
 	}
 
 	/**

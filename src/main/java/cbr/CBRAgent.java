@@ -46,6 +46,16 @@ public class CBRAgent {
 		}
 	}
 	
+	public void saveCasesAsCsv() {
+		try {
+			System.out.print("Exporting Cases... ");
+			CBRExports.exportCasesAsCsv();
+			System.out.println("Success!");
+		} catch (IOException e) {
+			System.out.println("Failed!");
+		}
+	}
+	
 	//TODO: export cases
 	//TODO: delete cases
 	//TODO: update cases
