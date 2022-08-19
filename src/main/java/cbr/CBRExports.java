@@ -1,6 +1,7 @@
 package cbr;
 
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
@@ -26,7 +27,7 @@ public class CBRExports {
 		//TODO: Check why function not writing into file
 		ArrayList<String[]> cases = new ArrayList<String[]>();
 		for(Case caseElement : caseList) {
-			cases.add(CBRUtils.createCsvCase(caseElement));
+			cases.add(CBRUtils.getCaseArray(caseElement));
 		}
         FileOutputStream fileOutputStream = new FileOutputStream(path); 
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
@@ -40,8 +41,22 @@ public class CBRExports {
 	}
 	
 	
-	protected static void exportCasesAsJson(ArrayList<Case> caseList, String path) {
-		JSONArray jsonArray = new JSONArray();
-		JSONObject jsonObject = new JSONObject();
+	@SuppressWarnings({ "unchecked", "resource" })
+	protected static void exportCasesAsJson(ArrayList<Case> caseList, String path) throws IOException {
+		JSONObject jsonContainer = new JSONObject();
+		JSONArray jsonCaseList = new JSONArray();
+		for(Case caseElement : caseList) {
+			JSONObject jsonCase = new JSONObject();
+			int i = 0;
+			for(String attribute : CBRUtils.getCaseArray(caseElement)) {
+				jsonCase.put(CBRProject.ATTRIBUTE_NAMES[i], attribute);
+			}
+			jsonCaseList.add(jsonCase);
+			jsonContainer.put(caseElement.getName(), jsonCase);
+		}
+		System.out.println(jsonContainer);
+		FileWriter file = new FileWriter(path);
+        file.write(jsonContainer.toJSONString()); 
+        file.flush();
 	}
 }

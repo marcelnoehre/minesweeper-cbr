@@ -25,33 +25,33 @@ public class CBRUtils {
 	}
 	
 	protected static Case createDefaultCase() {
-		String name = "ccccccccccccccccccccccccc";
+		String name = "CCCCCCCCCCCCCCCCCCCCCCCCC";
 		Pattern pattern = new Pattern(
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c", 
-				"c");
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C", 
+				"C");
 		Solution solution = new Solution(false, new String[0], new String[0]);
 		return new Case(name, pattern, solution);
 	}
@@ -100,41 +100,6 @@ public class CBRUtils {
 		return "Center,InnerTopLeft,InnerTop,InnerTopRight,InnerRight,InnerBottomRight,InnerBottom,InnerBottomLeft,InnerLeft,OuterTopLeftCorner,OuterTopLeft,OuterTop,OuterTopRight,OuterTopRightCorner,OuterRightTop,OuterRight,OuterRightBottom,OuterBottomRightCorn,OuterBottomRight,OuterBottom,OuterBottomLeft,OuterBottomLeftCorn,OuterLeftBottom,OuterLeft,OuterLeftTop,Solveable,SolutionCells,SolutionTypes".split(CSV_SEPERATOR);
 	}
 	
-	protected static String[] createCsvCase(Case caseElement) {
-		String[] csvCase = new String[CBRProject.ATTRIBUTES_AMOUNT];
-		csvCase[0] = caseElement.getPattern().getCenter();
-		csvCase[1] = caseElement.getPattern().getInnerTopLeft();
-		csvCase[2] = caseElement.getPattern().getInnerTop();
-		csvCase[3] = caseElement.getPattern().getInnerTopRight();
-		csvCase[4] = caseElement.getPattern().getInnerRight();
-		csvCase[5] = caseElement.getPattern().getInnerBottomRight();
-		csvCase[6] = caseElement.getPattern().getInnerBottom();
-		csvCase[7] = caseElement.getPattern().getInnerBottomLeft();
-		csvCase[8] = caseElement.getPattern().getInnerLeft();
-		csvCase[9] = caseElement.getPattern().getOuterTopLeftCorner();
-		csvCase[10] = caseElement.getPattern().getOuterTopLeft();
-		csvCase[11] = caseElement.getPattern().getOuterTop();
-		csvCase[12] = caseElement.getPattern().getOuterTopRight();
-		csvCase[13] = caseElement.getPattern().getOuterTopRightCorner();
-		csvCase[14] = caseElement.getPattern().getOuterRightTop();
-		csvCase[15] = caseElement.getPattern().getOuterRight();
-		csvCase[16] = caseElement.getPattern().getOuterRightBottom();
-		csvCase[17] = caseElement.getPattern().getOuterBottomRightCorner();
-		csvCase[18] = caseElement.getPattern().getOuterBottomRight();
-		csvCase[19] = caseElement.getPattern().getOuterBottom();
-		csvCase[20] = caseElement.getPattern().getOuterBottomLeft();
-		csvCase[21] = caseElement.getPattern().getOuterBottomLeftCorner();
-		csvCase[22] = caseElement.getPattern().getOuterLeftBottom();
-		csvCase[23] = caseElement.getPattern().getOuterLeft();
-		csvCase[24] = caseElement.getPattern().getOuterLeftTop();
-		csvCase[25] = caseElement.getSolution().getSolveable() ? "True" : "False";
-		csvCase[26] = transformSolution(caseElement.getSolution().getCells());
-		csvCase[27] = transformSolution(caseElement.getSolution().getTypes());
-		return csvCase;
-	}
-	
-	
-	
 	protected static String transformSolution(String[] arr) {
         String transformation = "";
         for(String element : arr) {
@@ -142,5 +107,38 @@ public class CBRUtils {
         }
         transformation = transformation.substring(0, transformation.length()-1);
         return transformation;
+	}
+	
+	protected static String[] getCaseArray(Case caseElement) {
+		String[] caseArray = new String[CBRProject.ATTRIBUTES_AMOUNT];
+		caseArray[0] = caseElement.getPattern().getCenter();
+		caseArray[1] = caseElement.getPattern().getInnerTopLeft();
+		caseArray[2] = caseElement.getPattern().getInnerTop();
+		caseArray[3] = caseElement.getPattern().getInnerTopRight();
+		caseArray[4] = caseElement.getPattern().getInnerRight();
+		caseArray[5] = caseElement.getPattern().getInnerBottomRight();
+		caseArray[6] = caseElement.getPattern().getInnerBottom();
+		caseArray[7] = caseElement.getPattern().getInnerBottomLeft();
+		caseArray[8] = caseElement.getPattern().getInnerLeft();
+		caseArray[9] = caseElement.getPattern().getOuterTopLeftCorner();
+		caseArray[10] = caseElement.getPattern().getOuterTopLeft();
+		caseArray[11] = caseElement.getPattern().getOuterTop();
+		caseArray[12] = caseElement.getPattern().getOuterTopRight();
+		caseArray[13] = caseElement.getPattern().getOuterTopRightCorner();
+		caseArray[14] = caseElement.getPattern().getOuterRightTop();
+		caseArray[15] = caseElement.getPattern().getOuterRight();
+		caseArray[16] = caseElement.getPattern().getOuterRightBottom();
+		caseArray[17] = caseElement.getPattern().getOuterBottomRightCorner();
+		caseArray[18] = caseElement.getPattern().getOuterBottomRight();
+		caseArray[19] = caseElement.getPattern().getOuterBottom();
+		caseArray[20] = caseElement.getPattern().getOuterBottomLeft();
+		caseArray[21] = caseElement.getPattern().getOuterBottomLeftCorner();
+		caseArray[22] = caseElement.getPattern().getOuterLeftBottom();
+		caseArray[23] = caseElement.getPattern().getOuterLeft();
+		caseArray[24] = caseElement.getPattern().getOuterLeftTop();
+		caseArray[25] = caseElement.getSolution().getSolveable() ? "True" : "False";
+		caseArray[26] = transformSolution(caseElement.getSolution().getCells());
+		caseArray[27] = transformSolution(caseElement.getSolution().getTypes());
+		return caseArray;
 	}
 }

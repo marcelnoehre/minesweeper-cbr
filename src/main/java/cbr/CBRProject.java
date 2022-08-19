@@ -15,12 +15,7 @@ import minesweeper.Case;
 public class CBRProject {
 	protected static final String NAME = "MinesweeperPattern.prj";
 	protected static final int ATTRIBUTES_AMOUNT = 28;
-	private Project project;
-	private Concept minesweeperPatternConcept;
-	private AmalgamationFct minesweeperPatternSim;
-	private ICaseBase casebase;
-	private StringDesc[] attributes = new StringDesc[ATTRIBUTES_AMOUNT];
-	private String[] attributeNames = new String[] {
+	protected static final String[] ATTRIBUTE_NAMES = new String[] {
 			//center
 			"Center",					//22
 			//inner ring
@@ -54,6 +49,11 @@ public class CBRProject {
 			"SolutionCells",					
 			"SolutionTypes"
 	};
+	private Project project;
+	private Concept minesweeperPatternConcept;
+	private AmalgamationFct minesweeperPatternSim;
+	private ICaseBase casebase;
+	private StringDesc[] attributes = new StringDesc[ATTRIBUTES_AMOUNT];
 	
 	protected CBRProject() {
 		try {
@@ -88,7 +88,7 @@ public class CBRProject {
 	
 	private void importAttributes() throws Exception {
 		for(int i = 0; i < ATTRIBUTES_AMOUNT; i++) {
-			attributes[i] = (StringDesc) project.getAttDescsByName(attributeNames[i]).getFirst();
+			attributes[i] = (StringDesc) project.getAttDescsByName(ATTRIBUTE_NAMES[i]).getFirst();
 		}
 	}
 	
@@ -116,13 +116,13 @@ public class CBRProject {
 	private void initAttributes() throws Exception {
 		for(int i = 0; i < ATTRIBUTES_AMOUNT; i++) {
 			if(i == 0) {
-				attributes[i] = configureAttribute(attributeNames[i], 153);
+				attributes[i] = configureAttribute(ATTRIBUTE_NAMES[i], 153);
 			} else if(i < 9) {
-				attributes[i] = configureAttribute(attributeNames[i], 17);
+				attributes[i] = configureAttribute(ATTRIBUTE_NAMES[i], 17);
 			} else if (i >= 9 && i < 25) {
-				attributes[i] = configureAttribute(attributeNames[i], 1);
+				attributes[i] = configureAttribute(ATTRIBUTE_NAMES[i], 1);
 			} else {
-				attributes[i] = configureAttribute(attributeNames[i], 50);
+				attributes[i] = configureAttribute(ATTRIBUTE_NAMES[i], 50);
 			}
 			
 		}
