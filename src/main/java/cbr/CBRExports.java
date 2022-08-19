@@ -6,6 +6,9 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.opencsv.CSVWriter;
 
 import de.dfki.mycbr.core.Project;
@@ -34,5 +37,11 @@ public class CBRExports {
         }
         csvWriter.writeAll(cases);
         csvWriter.close();
+	}
+	
+	
+	protected static void exportCasesAsJson(ArrayList<Case> caseList, String path) {
+		JSONArray jsonArray = new JSONArray();
+		JSONObject jsonObject = new JSONObject();
 	}
 }
