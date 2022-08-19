@@ -1,13 +1,16 @@
 package cbr;
 
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import com.opencsv.CSVWriter;
 
 import de.dfki.mycbr.core.Project;
 import de.dfki.mycbr.io.XMLExporter;
+import minesweeper.Case;
 
 public class CBRExports {
 
@@ -16,18 +19,20 @@ public class CBRExports {
 		XMLExporter.save(project, new CBRUtils().getPath() + CBRProject.NAME);
 	}
 	
-	protected static void exportCasesAsCsv() throws IOException {
-		//TODO: Check why it does not work
-        String[] header = {"id", "name", "address", "phone"};
-        String[] record1 = {"1", "first name", "address 1", "11111"};
-        String[] record2 = {"2", "second name", "address 2", "22222"};
-
-        ArrayList<String[]> list = new ArrayList<>();
-        list.add(header);
-        list.add(record1);
-        list.add(record2);
-        CSVWriter writer = new CSVWriter(new FileWriter("test.csv"));
-        writer.writeAll(list);
+	protected static void exportCasesAsCsv(ArrayList<Case> caseList, String path) throws IOException {
+		//TODO: Check why function not writing into file
+		ArrayList<String[]> cases = new ArrayList<String[]>();
+		for(Case caseElement : caseList) {
+			cases.add(CBRUtils.createCsvCase(caseElement));
+		}
+        FileOutputStream fileOutputStream = new FileOutputStream(path); 
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
+        CSVWriter csvWriter = new CSVWriter(outputStreamWriter);
+        csvWriter.writeNext(CBRUtils.createCsvHeader());
+        for(String[] csvCase : cases) {
+        	csvWriter.writeNext(csvCase);
+        }
+        csvWriter.writeAll(cases);
+        csvWriter.close();
 	}
-
 }

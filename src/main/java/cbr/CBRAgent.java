@@ -10,10 +10,10 @@ public class CBRAgent {
 	
 	public void initializeCBR() {
 		project = new CBRProject();
-		importCases(new CBRUtils().getPath() + "allCases.csv");
+		importCsvCases(new CBRUtils().getPath() + "allCases.csv");
 	}
 	
-	public void importCases(String path) {
+	public void importCsvCases(String path) {
 		try {
 			System.out.print("Reading .csv file...");
 			ArrayList<Case> caseList = CBRImports.importCasesFromCsv(path);
@@ -38,7 +38,7 @@ public class CBRAgent {
 		}
 	}
 	
-	public void removeCases(String[] caseNames) {
+	public void deleteCases(String[] caseNames) {
 		for(String name : caseNames) {
 			if(project.removeCase(name)) {
 				//TODO: update allCases.csv	
@@ -46,17 +46,31 @@ public class CBRAgent {
 		}
 	}
 	
-	public void saveCasesAsCsv() {
-		try {
-			System.out.print("Exporting Cases... ");
-			CBRExports.exportCasesAsCsv();
-			System.out.println("Success!");
-		} catch (IOException e) {
-			System.out.println("Failed!");
+	public void updateCases(Case[] caseList) {
+		for(Case caseElement : caseList) {
+			//TODO: update casebase
+			//TODO: update allCases.csv
 		}
 	}
 	
-	//TODO: export cases
-	//TODO: delete cases
-	//TODO: update cases
+	public void saveCasesAsCsv(ArrayList<Case> caseList, String fileName) {
+		try {
+			System.out.print("Exporting Cases... ");
+			CBRExports.exportCasesAsCsv(caseList, new CBRUtils().getPath() + fileName);
+			System.out.println("Success!");
+			System.out.println("File " + fileName + " was created!\n");
+		} catch (IOException e) {
+			System.out.println("Failed!\n");
+		}
+	}
+	
+	public void importJsonCases(String path) {
+		//TODO: read json file
+		//TODO: update caseBase
+		//TODO: update allCases.csv
+	}
+	
+	public void saveCasesAsJson(ArrayList<Case> caseList, String fileName) {
+		//TODO: exportCasesAsJson in CBRExports
+	}
 }
