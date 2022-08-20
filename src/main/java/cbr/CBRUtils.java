@@ -11,6 +11,7 @@ import minesweeper.Solution;
 public class CBRUtils {
 	protected static final String CSV_SEPERATOR = ",";
 	protected static final String SOLUTION_SEPERATOR = "#";
+	protected static final int RESULT_AMOUNT = 10;
 	
 	protected String getPath() {
 		String path = "";

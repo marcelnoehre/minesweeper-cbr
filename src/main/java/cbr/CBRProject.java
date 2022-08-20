@@ -1,17 +1,22 @@
 package cbr;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import de.dfki.mycbr.core.ICaseBase;
 import de.dfki.mycbr.core.Project;
 import de.dfki.mycbr.core.casebase.Instance;
 import de.dfki.mycbr.core.model.Concept;
 import de.dfki.mycbr.core.model.StringDesc;
+import de.dfki.mycbr.core.retrieval.Retrieval;
+import de.dfki.mycbr.core.retrieval.Retrieval.RetrievalMethod;
 import de.dfki.mycbr.core.similarity.AmalgamationFct;
+import de.dfki.mycbr.core.similarity.Similarity;
 import de.dfki.mycbr.core.similarity.SymbolFct;
 import de.dfki.mycbr.core.similarity.config.AmalgamationConfig;
 import de.dfki.mycbr.core.similarity.config.StringConfig;
-
+import de.dfki.mycbr.util.Pair;
 import minesweeper.Case;
 
 public class CBRProject {
@@ -208,5 +213,40 @@ public class CBRProject {
 			available = true;
 		};
 		return available;
+	}
+	
+	protected void caseQuery(Case problemCase) {
+		//TODO: check if this works (need more cases)
+		System.out.print("Query starts...");
+		Retrieval retrieve = new Retrieval(minesweeperPatternConcept, casebase);
+		retrieve.setRetrievalMethod(RetrievalMethod.RETRIEVE_SORTED);
+		String[] problemValues = CBRUtils.getCaseArray(problemCase);
+		int attributeCounter = 0;
+		Instance query = retrieve.getQueryInstance();
+		for(StringDesc attribute : attributes) {
+			try {
+				query.addAttribute(attribute , attribute.getAttribute(problemValues[attributeCounter]));
+			} catch (ParseException e) {
+				System.out.println("Failed!");
+			}
+		}
+		retrieve.start();
+		List<Pair<Instance, Similarity>> result = retrieve.getResult();
+		System.out.println("Retrieved result!");
+		ArrayList<Pair<Case, Double>> resultList= new ArrayList<Pair<Case, Double>>();
+		for (int i = 0; i < CBRUtils.RESULT_AMOUNT; i++) {
+			Instance instance = minesweeperPatternConcept.getInstance(result.get(i).getFirst().getName());
+			attributeCounter = 0;
+			String[] caseValues = new String[ATTRIBUTES_AMOUNT];
+			for(StringDesc attribute : attributes) {
+				caseValues[attributeCounter] = instance.getAttForDesc(attribute).getValueAsString();
+			}	
+			Case retrievedCase = CBRUtils.createCaseObject(caseValues);
+			double similarity = result.get(i).getSecond().getValue();
+			resultList.add(new Pair<Case, Double>(retrievedCase, similarity));
+			System.out.println("Case " + retrievedCase.getName() + 
+					" fits with a probability of " + Math.floor(similarity * 100) / 100);
+		}
+		System.out.println("");
 	}
 }
