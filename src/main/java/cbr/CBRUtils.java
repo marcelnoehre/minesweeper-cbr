@@ -2,6 +2,8 @@ package cbr;
 
 import java.net.URLDecoder;
 
+import org.json.simple.JSONObject;
+
 import minesweeper.Case;
 import minesweeper.Pattern;
 import minesweeper.Solution;
@@ -140,5 +142,42 @@ public class CBRUtils {
 		caseArray[26] = transformSolution(caseElement.getSolution().getCells());
 		caseArray[27] = transformSolution(caseElement.getSolution().getTypes());
 		return caseArray;
+	}
+	
+	protected static Case getCaseFromJsonObject(JSONObject jsonCase) {
+		//TODO: check if this works
+		String caseName = (String) jsonCase.get("CaseName");
+		Pattern pattern = new Pattern(
+				(String) jsonCase.get("Center"),
+				(String) jsonCase.get("InnerTopLeft"),			
+				(String) jsonCase.get("InnerTop"),				
+				(String) jsonCase.get("InnerTopRight"),		
+				(String) jsonCase.get("InnerRight"),			
+				(String) jsonCase.get("InnerBottomRight"),		
+				(String) jsonCase.get("InnerBottom"),			
+				(String) jsonCase.get("InnerBottomLeft"),		
+				(String) jsonCase.get("InnerLeft"),			
+				(String) jsonCase.get("OuterTopLeftCorner"), 	
+				(String) jsonCase.get("OuterTopLeft"), 		
+				(String) jsonCase.get("OuterTop"),				
+				(String) jsonCase.get("OuterTopRight"), 		
+				(String) jsonCase.get("OuterTopRightCorner"),	
+				(String) jsonCase.get("OuterRightTop"), 		
+				(String) jsonCase.get("OuterRight"), 			
+				(String) jsonCase.get("OuterRightBottom"), 	
+				(String) jsonCase.get("OuterBottomRightCorner"),
+				(String) jsonCase.get("OuterBottomRight"), 	
+				(String) jsonCase.get("OuterBottom"), 			
+				(String) jsonCase.get("OuterBottomLeft"),		
+				(String) jsonCase.get("OuterBottomLeftCorner"),
+				(String) jsonCase.get("OuterLeftBottom"), 		
+				(String) jsonCase.get("OuterLeft"), 			
+				(String) jsonCase.get("OuterLeftTop")
+				);
+		Solution solution = new Solution(
+				((String) jsonCase.get("Solvability")).equals("True"),
+				((String) jsonCase.get("SolutionCells")).split(SOLUTION_SEPERATOR),
+				((String) jsonCase.get("SolutionTypes")).split(SOLUTION_SEPERATOR));
+		return new Case(caseName, pattern, solution);		
 	}
 }

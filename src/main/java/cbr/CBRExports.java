@@ -43,20 +43,19 @@ public class CBRExports {
 	
 	@SuppressWarnings({ "unchecked", "resource" })
 	protected static void exportCasesAsJson(ArrayList<Case> caseList, String path) throws IOException {
-		JSONObject jsonContainer = new JSONObject();
+		//TODO: check if this works
 		JSONArray jsonCaseList = new JSONArray();
 		for(Case caseElement : caseList) {
 			JSONObject jsonCase = new JSONObject();
 			int i = 0;
+			jsonCase.put("CaseName", caseElement.getName());
 			for(String attribute : CBRUtils.getCaseArray(caseElement)) {
 				jsonCase.put(CBRProject.ATTRIBUTE_NAMES[i], attribute);
 			}
 			jsonCaseList.add(jsonCase);
-			jsonContainer.put(caseElement.getName(), jsonCase);
 		}
-		System.out.println(jsonContainer);
 		FileWriter file = new FileWriter(path);
-        file.write(jsonContainer.toJSONString()); 
+        file.write(jsonCaseList.toJSONString()); 
         file.flush();
 	}
 }

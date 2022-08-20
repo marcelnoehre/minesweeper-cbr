@@ -1,5 +1,7 @@
 package cbr;
 
+import java.util.ArrayList;
+
 import de.dfki.mycbr.core.ICaseBase;
 import de.dfki.mycbr.core.Project;
 import de.dfki.mycbr.core.casebase.Instance;
@@ -137,6 +139,23 @@ public class CBRProject {
 		attribute.addStringFct(StringConfig.LEVENSHTEIN, descName + "Fct", true);
 		minesweeperPatternSim.setWeight(descName, weight);
 		return attribute;
+	}
+	
+	protected void addCaseList(ArrayList<Case> caseList) {
+		for(Case newCase : caseList) {
+			try {
+				if(!checkForCase(newCase.getName())) {
+					addCase(newCase);
+					System.out.println("Case " + newCase.getName() + " added to casebase!");
+				} else {
+					System.out.println("Case " + newCase.getName() + " already exists!");	
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Invalid Case " + newCase.getName() + " detected!");
+			}
+		}
+		System.out.println("");
 	}
 	
 	protected void addCase(Case newCase) throws Exception {

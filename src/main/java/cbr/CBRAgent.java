@@ -3,6 +3,8 @@ package cbr;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.tomcat.util.json.ParseException;
+
 import minesweeper.Case;
 
 public class CBRAgent {
@@ -18,22 +20,21 @@ public class CBRAgent {
 			System.out.print("Reading .csv file...");
 			ArrayList<Case> caseList = CBRImports.importCasesFromCsv(path);
 			System.out.println(" Success!");
-			for(Case newCase : caseList) {
-				try {
-					if(!project.checkForCase(newCase.getName())) {
-						project.addCase(newCase);
-						System.out.println("Case " + newCase.getName() + " added to casebase!");
-					} else {
-						System.out.println("Case " + newCase.getName() + " already exists!");	
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					System.out.println("Invalid Case " + newCase.getName() + " detected!");
-				}
-			}
-			System.out.println("");
+			project.addCaseList(caseList);
 			//TODO: update allCases.csv
 		} catch (IOException e) {
+			System.out.println(" failed!\n");
+		}
+	}
+	
+	public void importJsonCases(String path) {
+		try {
+			System.out.print("Reading .json file...");
+			ArrayList<Case> caseList = CBRImports.importCasesFromJson(path);
+			System.out.println("Success!");
+			project.addCaseList(caseList);
+			//TODO: update allCases.csv
+		} catch (IOException | ParseException e) {
 			System.out.println(" failed!\n");
 		}
 	}
@@ -48,8 +49,16 @@ public class CBRAgent {
 	
 	public void updateCases(Case[] caseList) {
 		for(Case caseElement : caseList) {
-			//TODO: update casebase
-			//TODO: update allCases.csv
+			try {
+				System.out.print("Updating Case " + caseElement.getName());
+				project.removeCase(caseElement.getName());
+				project.addCase(caseElement);
+				//TODO: update allCases.csv
+				System.out.println("Success!");
+			} catch (Exception e) {
+				System.out.println("Failed!");
+			}
+			System.out.println("");
 		}
 	}
 	
@@ -64,13 +73,14 @@ public class CBRAgent {
 		}
 	}
 	
-	public void importJsonCases(String path) {
-		//TODO: read json file
-		//TODO: update caseBase
-		//TODO: update allCases.csv
-	}
-	
 	public void saveCasesAsJson(ArrayList<Case> caseList, String fileName) {
-		//TODO: exportCasesAsJson in CBRExports
+		try {
+			System.out.print("Exporting Cases... ");
+			CBRExports.exportCasesAsJson(caseList, new CBRUtils().getPath() + fileName);
+			System.out.println("Success!");
+			System.out.println("File " + fileName + " was created!\n");
+		} catch (IOException e) {
+			System.out.println("Failed!\n");
+		}
 	}
 }
