@@ -20,7 +20,7 @@ public class CBRImports {
 
 	
 	protected static Project importExistingProject() throws Exception {
-		Project project = new Project(new CBRUtils().getPath() + CBRProject.NAME);
+		Project project = new Project(new CBRUtils().getPath() + CBRConstants.NAME);
 		Thread.sleep(2000);
 		return project;
 	}
@@ -32,7 +32,7 @@ public class CBRImports {
             String[] nextLine;
             csvReader.readNext();
             while ((nextLine = csvReader.readNext()) != null) {
-            	String[] result = new String[CBRProject.ATTRIBUTES_AMOUNT];
+            	String[] result = new String[CBRConstants.ATTRIBUTES_AMOUNT];
             	int i = 0;
                 for (String value : nextLine) {
                 	result[i] = value;

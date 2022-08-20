@@ -9,9 +9,6 @@ import minesweeper.Pattern;
 import minesweeper.Solution;
 
 public class CBRUtils {
-	protected static final String CSV_SEPERATOR = ",";
-	protected static final String SOLUTION_SEPERATOR = "#";
-	protected static final int RESULT_AMOUNT = 10;
 	
 	protected String getPath() {
 		String path = "";
@@ -89,8 +86,8 @@ public class CBRUtils {
 		);
         Solution solution = new Solution(
 			Boolean.parseBoolean(caseArr[25]), 
-			caseArr[26].split(SOLUTION_SEPERATOR),
-			caseArr[27].split(SOLUTION_SEPERATOR)
+			caseArr[26].split(CBRConstants.SOLUTION_SEPERATOR),
+			caseArr[27].split(CBRConstants.SOLUTION_SEPERATOR)
 		);
 		String caseName = "";
 		for(int j = 0; j < 25; j++) {
@@ -100,20 +97,20 @@ public class CBRUtils {
 	}
 	
 	protected static String[] createCsvHeader() {
-		return "Center,InnerTopLeft,InnerTop,InnerTopRight,InnerRight,InnerBottomRight,InnerBottom,InnerBottomLeft,InnerLeft,OuterTopLeftCorner,OuterTopLeft,OuterTop,OuterTopRight,OuterTopRightCorner,OuterRightTop,OuterRight,OuterRightBottom,OuterBottomRightCorn,OuterBottomRight,OuterBottom,OuterBottomLeft,OuterBottomLeftCorn,OuterLeftBottom,OuterLeft,OuterLeftTop,Solveable,SolutionCells,SolutionTypes".split(CSV_SEPERATOR);
+		return "Center,InnerTopLeft,InnerTop,InnerTopRight,InnerRight,InnerBottomRight,InnerBottom,InnerBottomLeft,InnerLeft,OuterTopLeftCorner,OuterTopLeft,OuterTop,OuterTopRight,OuterTopRightCorner,OuterRightTop,OuterRight,OuterRightBottom,OuterBottomRightCorn,OuterBottomRight,OuterBottom,OuterBottomLeft,OuterBottomLeftCorn,OuterLeftBottom,OuterLeft,OuterLeftTop,Solveable,SolutionCells,SolutionTypes".split(CBRConstants.CSV_SEPERATOR);
 	}
 	
 	protected static String transformSolution(String[] arr) {
         String transformation = "";
         for(String element : arr) {
-        	transformation += element + CBRUtils.SOLUTION_SEPERATOR;
+        	transformation += element + CBRConstants.SOLUTION_SEPERATOR;
         }
         transformation = transformation.substring(0, transformation.length()-1);
         return transformation;
 	}
 	
 	protected static String[] getCaseArray(Case caseElement) {
-		String[] caseArray = new String[CBRProject.ATTRIBUTES_AMOUNT];
+		String[] caseArray = new String[CBRConstants.ATTRIBUTES_AMOUNT];
 		caseArray[0] = caseElement.getPattern().getCenter();
 		caseArray[1] = caseElement.getPattern().getInnerTopLeft();
 		caseArray[2] = caseElement.getPattern().getInnerTop();
@@ -177,8 +174,8 @@ public class CBRUtils {
 				);
 		Solution solution = new Solution(
 				((String) jsonCase.get("Solvability")).equals("True"),
-				((String) jsonCase.get("SolutionCells")).split(SOLUTION_SEPERATOR),
-				((String) jsonCase.get("SolutionTypes")).split(SOLUTION_SEPERATOR));
+				((String) jsonCase.get("SolutionCells")).split(CBRConstants.SOLUTION_SEPERATOR),
+				((String) jsonCase.get("SolutionTypes")).split(CBRConstants.SOLUTION_SEPERATOR));
 		return new Case(caseName, pattern, solution);		
 	}
 }

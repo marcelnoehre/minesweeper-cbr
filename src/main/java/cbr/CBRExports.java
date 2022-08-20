@@ -20,7 +20,7 @@ public class CBRExports {
 
 	protected static void exportProject(Project project) throws IOException {
 		new CBRUtils().getPath();
-		XMLExporter.save(project, new CBRUtils().getPath() + CBRProject.NAME);
+		XMLExporter.save(project, new CBRUtils().getPath() + CBRConstants.NAME);
 	}
 	
 	protected static void exportCasesAsCsv(ArrayList<Case> caseList, String path) throws IOException {
@@ -50,7 +50,7 @@ public class CBRExports {
 			int i = 0;
 			jsonCase.put("CaseName", caseElement.getName());
 			for(String attribute : CBRUtils.getCaseArray(caseElement)) {
-				jsonCase.put(CBRProject.ATTRIBUTE_NAMES[i], attribute);
+				jsonCase.put(CBRConstants.ATTRIBUTE_NAMES[i], attribute);
 			}
 			jsonCaseList.add(jsonCase);
 		}
