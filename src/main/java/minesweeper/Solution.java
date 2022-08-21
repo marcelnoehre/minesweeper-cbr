@@ -14,6 +14,15 @@ public class Solution {
 	private String[] types;
 	
 	/**
+	 * Creates a empty solution for an incoming case.
+	 */
+	public Solution() {
+		setSolvable(false);
+		setCells(new String[] {});
+		setTypes(new String[] {});
+	}
+	
+	/**
 	 * Creates the solution of a case consisting of the decisive cells and their type.
 	 * 
 	 * @param solutionValues The solution values in the form of a string array

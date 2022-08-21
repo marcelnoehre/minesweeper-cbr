@@ -73,10 +73,10 @@ public class CBRProject {
 		SymbolFct sym = project.getSpecialFct();
 		sym.setSimilarity("_unknown_", "_undefined_", 1);
 		sym.setSimilarity("_undefined_", "_unknown_", 1);
-		sym.setSimilarity("_others_", "_unknown_", 1);
-		sym.setSimilarity("_others_", "_undefined_", 1);
-		sym.setSimilarity("_unknown_", "_others_", 1);
-		sym.setSimilarity("_undefined_", "_others_", 1);
+		sym.setSimilarity("_others_", "_unknown_", 0);
+		sym.setSimilarity("_others_", "_undefined_", 0);
+		sym.setSimilarity("_unknown_", "_others_", 0);
+		sym.setSimilarity("_undefined_", "_others_", 0);
 	}
 	
 	private void initConceptAndAmalgation() throws Exception {
@@ -178,9 +178,9 @@ public class CBRProject {
 		return available;
 	}
 	
-	protected void caseQuery(Case problemCase) {
+	protected String caseQuery(Case problemCase) {
 		//TODO: check if this works (need more cases)
-		System.out.print("Query starts...");
+		System.out.print("Query starts... ");
 		Retrieval retrieve = new Retrieval(minesweeperPatternConcept, casebase);
 		retrieve.setRetrievalMethod(RetrievalMethod.RETRIEVE_SORTED);
 		String[] problemValues = CBRUtils.getCaseArray(problemCase);
@@ -196,13 +196,16 @@ public class CBRProject {
 		retrieve.start();
 		List<Pair<Instance, Similarity>> result = retrieve.getResult();
 		System.out.println("Retrieved result!");
+		
 		ArrayList<Pair<Case, Double>> resultList= new ArrayList<Pair<Case, Double>>();
-		for (int i = 0; i < CBRConstants.RESULT_AMOUNT; i++) {
+		int caseAmount = result.size() < CBRConstants.RESULT_AMOUNT ? result.size() : CBRConstants.RESULT_AMOUNT;
+		for (int i = 0; i < caseAmount; i++) {
 			Instance instance = minesweeperPatternConcept.getInstance(result.get(i).getFirst().getName());
 			attributeCounter = 0;
 			String[] caseValues = new String[CBRConstants.ATTRIBUTES_AMOUNT];
 			for(StringDesc attribute : attributes) {
 				caseValues[attributeCounter] = instance.getAttForDesc(attribute).getValueAsString();
+				attributeCounter++;
 			}	
 			Case retrievedCase = new Case(caseValues);
 			double similarity = result.get(i).getSecond().getValue();
@@ -211,5 +214,6 @@ public class CBRProject {
 					" fits with a probability of " + Math.floor(similarity * 100) / 100);
 		}
 		System.out.println("");
+		return CBRUtils.getCaseListAsJson(resultList);
 	}
 }

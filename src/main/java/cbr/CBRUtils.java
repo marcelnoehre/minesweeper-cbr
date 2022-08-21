@@ -1,9 +1,12 @@
 package cbr;
 
 import java.net.URLDecoder;
+import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import de.dfki.mycbr.util.Pair;
 import minesweeper.Case;
 import minesweeper.Pattern;
 import minesweeper.Solution;
@@ -24,6 +27,24 @@ public class CBRUtils {
 		return path;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected static String getCaseListAsJson(ArrayList<Pair<Case, Double>> caseList) {
+		//TODO: check if this works
+		JSONObject jsonContainer = new JSONObject();
+		JSONArray jsonCaseList = new JSONArray();
+		for(Pair caseElement : caseList) {
+			JSONObject jsonCase = new JSONObject();
+			int i = 0;
+			for(String attribute : CBRUtils.getCaseArray((Case)caseElement.getFirst())) {
+				jsonCase.put(CBRConstants.ATTRIBUTE_NAMES[i], attribute);
+			}
+			jsonCaseList.add(jsonCase);
+		}
+		jsonContainer.put("CaseList", jsonCaseList);
+		System.out.println(jsonContainer.toJSONString());
+		return jsonContainer.toJSONString();
+	}
+	
 	protected static Case createDefaultCase() {
 		String name = "CCCCCCCCCCCCCCCCCCCCCCCCC";
 		Pattern pattern = new Pattern(name.toCharArray());
@@ -37,10 +58,11 @@ public class CBRUtils {
 	
 	protected static String transformSolution(String[] arr) {
         String transformation = "";
-        for(String element : arr) {
-        	transformation += element + CBRConstants.SOLUTION_SEPERATOR;
+        if(arr.length > 0) {
+	        for(String element : arr) {
+	        	transformation += element + CBRConstants.SOLUTION_SEPERATOR;
+	        }
         }
-        transformation = transformation.substring(0, transformation.length()-1);
         return transformation;
 	}
 	
