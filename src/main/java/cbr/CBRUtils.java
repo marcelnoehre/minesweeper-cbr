@@ -36,7 +36,16 @@ public class CBRUtils {
 			JSONObject jsonCase = new JSONObject();
 			int i = 0;
 			for(String attribute : CBRUtils.getCaseArray((Case)caseElement.getFirst())) {
-				jsonCase.put(CBRConstants.ATTRIBUTE_NAMES[i], attribute);
+				if(CBRConstants.ATTRIBUTE_NAMES[i].equals("SolutionCells") || CBRConstants.ATTRIBUTE_NAMES[i].equals("SolutionTypes")) {
+					JSONArray jsonSolutionArray = new JSONArray();
+					String[] solutionArray = attribute.split(CBRConstants.SOLUTION_SEPERATOR);
+					for(String solution : solutionArray) {
+						jsonSolutionArray.add(solution);
+					}
+					jsonCase.put(CBRConstants.ATTRIBUTE_NAMES[i], jsonSolutionArray);
+				} else {
+					jsonCase.put(CBRConstants.ATTRIBUTE_NAMES[i], attribute);
+				}
 				i++;
 			}
 			jsonCaseList.add(jsonCase);

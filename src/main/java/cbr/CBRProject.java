@@ -93,7 +93,7 @@ public class CBRProject {
 			} else if (i >= 9 && i < 25) {
 				attributes[i] = configureAttribute(CBRConstants.ATTRIBUTE_NAMES[i], 1);
 			} else {
-				attributes[i] = configureAttribute(CBRConstants.ATTRIBUTE_NAMES[i], 50);
+				attributes[i] = configureAttribute(CBRConstants.ATTRIBUTE_NAMES[i], 0);
 			}
 			
 		}
