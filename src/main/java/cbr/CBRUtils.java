@@ -26,74 +26,9 @@ public class CBRUtils {
 	
 	protected static Case createDefaultCase() {
 		String name = "CCCCCCCCCCCCCCCCCCCCCCCCC";
-		Pattern pattern = new Pattern(
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C", 
-				"C");
-		Solution solution = new Solution(false, new String[0], new String[0]);
+		Pattern pattern = new Pattern(name.toCharArray());
+		Solution solution = new Solution(false, "", "");
 		return new Case(name, pattern, solution);
-	}
-	
-	protected static Case createCaseObject(String[] caseArr) {
-		Pattern pattern = new Pattern(
-			caseArr[0], 
-			caseArr[1], 
-			caseArr[2], 
-			caseArr[3], 
-			caseArr[4], 
-			caseArr[5], 
-			caseArr[6], 
-			caseArr[7], 
-			caseArr[8], 
-			caseArr[9], 
-			caseArr[10], 
-			caseArr[11], 
-			caseArr[12], 
-			caseArr[13], 
-			caseArr[14], 
-			caseArr[15], 
-			caseArr[16], 
-			caseArr[17], 
-			caseArr[18], 
-			caseArr[19], 
-			caseArr[20], 
-			caseArr[21], 
-			caseArr[22], 
-			caseArr[23], 
-			caseArr[24]
-		);
-        Solution solution = new Solution(
-			Boolean.parseBoolean(caseArr[25]), 
-			caseArr[26].split(CBRConstants.SOLUTION_SEPERATOR),
-			caseArr[27].split(CBRConstants.SOLUTION_SEPERATOR)
-		);
-		String caseName = "";
-		for(int j = 0; j < 25; j++) {
-			caseName += caseArr[j];
-		}
-		return new Case(caseName, pattern, solution);
 	}
 	
 	protected static String[] createCsvHeader() {
@@ -144,38 +79,11 @@ public class CBRUtils {
 	
 	protected static Case getCaseFromJsonObject(JSONObject jsonCase) {
 		//TODO: check if this works
-		String caseName = (String) jsonCase.get("CaseName");
-		Pattern pattern = new Pattern(
-				(String) jsonCase.get("Center"),
-				(String) jsonCase.get("InnerTopLeft"),			
-				(String) jsonCase.get("InnerTop"),				
-				(String) jsonCase.get("InnerTopRight"),		
-				(String) jsonCase.get("InnerRight"),			
-				(String) jsonCase.get("InnerBottomRight"),		
-				(String) jsonCase.get("InnerBottom"),			
-				(String) jsonCase.get("InnerBottomLeft"),		
-				(String) jsonCase.get("InnerLeft"),			
-				(String) jsonCase.get("OuterTopLeftCorner"), 	
-				(String) jsonCase.get("OuterTopLeft"), 		
-				(String) jsonCase.get("OuterTop"),				
-				(String) jsonCase.get("OuterTopRight"), 		
-				(String) jsonCase.get("OuterTopRightCorner"),	
-				(String) jsonCase.get("OuterRightTop"), 		
-				(String) jsonCase.get("OuterRight"), 			
-				(String) jsonCase.get("OuterRightBottom"), 	
-				(String) jsonCase.get("OuterBottomRightCorner"),
-				(String) jsonCase.get("OuterBottomRight"), 	
-				(String) jsonCase.get("OuterBottom"), 			
-				(String) jsonCase.get("OuterBottomLeft"),		
-				(String) jsonCase.get("OuterBottomLeftCorner"),
-				(String) jsonCase.get("OuterLeftBottom"), 		
-				(String) jsonCase.get("OuterLeft"), 			
-				(String) jsonCase.get("OuterLeftTop")
-				);
-		Solution solution = new Solution(
-				((String) jsonCase.get("Solvability")).equals("True"),
-				((String) jsonCase.get("SolutionCells")).split(CBRConstants.SOLUTION_SEPERATOR),
-				((String) jsonCase.get("SolutionTypes")).split(CBRConstants.SOLUTION_SEPERATOR));
-		return new Case(caseName, pattern, solution);		
+		int i = 0;
+		String[] caseArray = new String[CBRConstants.ATTRIBUTES_AMOUNT];
+		for(String attributeName : CBRConstants.ATTRIBUTE_NAMES) {
+			caseArray[i] = (String) jsonCase.get(attributeName);
+		}
+		return new Case(caseArray);		
 	}
 }

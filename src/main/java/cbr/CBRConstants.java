@@ -13,10 +13,20 @@ public class CBRConstants {
 	protected static final String NAME = "MinesweeperPattern.prj";
 	
 	/**
-	 * The amount of attributes that a case of the case base has.
+	 * The amount of all attributes a case has.
 	 */
 	protected static final int ATTRIBUTES_AMOUNT = 28;
+	
+	/**
+	 * The amount of cells that a pattern has.
+	 */
+	public static final int CELLS_AMOUNT = 25;
 
+	/**
+	 * The amount of solution elements a case has;
+	 */
+	public static final int SOLUTION_AMOUNT = 3;
+	
 	/**
 	 * The amount of result that a query produces.
 	 */
@@ -68,5 +78,5 @@ public class CBRConstants {
 	/**
 	 * The character used to separate the values in a solution string.
 	 */
-	protected static final String SOLUTION_SEPERATOR = "#";
+	public static final String SOLUTION_SEPERATOR = "#";
 }

@@ -120,7 +120,6 @@ public class CBRProject {
 					System.out.println("Case " + newCase.getName() + " already exists!");	
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
 				System.out.println("Invalid Case " + newCase.getName() + " detected!");
 			}
 		}
@@ -205,7 +204,7 @@ public class CBRProject {
 			for(StringDesc attribute : attributes) {
 				caseValues[attributeCounter] = instance.getAttForDesc(attribute).getValueAsString();
 			}	
-			Case retrievedCase = CBRUtils.createCaseObject(caseValues);
+			Case retrievedCase = new Case(caseValues);
 			double similarity = result.get(i).getSecond().getValue();
 			resultList.add(new Pair<Case, Double>(retrievedCase, similarity));
 			System.out.println("Case " + retrievedCase.getName() + 

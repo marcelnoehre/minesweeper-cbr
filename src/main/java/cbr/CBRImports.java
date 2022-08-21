@@ -38,7 +38,7 @@ public class CBRImports {
                 	result[i] = value;
                 	i++;
                 }
-				caseList.add(CBRUtils.createCaseObject(result));
+				caseList.add(new Case(result));
             }
         }
 		return caseList;

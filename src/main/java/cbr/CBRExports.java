@@ -48,7 +48,6 @@ public class CBRExports {
 		for(Case caseElement : caseList) {
 			JSONObject jsonCase = new JSONObject();
 			int i = 0;
-			jsonCase.put("CaseName", caseElement.getName());
 			for(String attribute : CBRUtils.getCaseArray(caseElement)) {
 				jsonCase.put(CBRConstants.ATTRIBUTE_NAMES[i], attribute);
 			}

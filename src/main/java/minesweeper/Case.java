@@ -1,5 +1,7 @@
 package minesweeper;
 
+import cbr.CBRConstants;
+
 /**
  *
  * A uniquely named case that includes a 5x5 pattern and solution.
@@ -11,6 +13,22 @@ public class Case {
 	private String name;
 	private Pattern pattern;
 	private Solution solution;
+	
+	public Case(String[] caseValues) {
+		String[] patternArray = new String[CBRConstants.CELLS_AMOUNT];
+		String name = "";
+		for(int i = 0; i < CBRConstants.CELLS_AMOUNT; i++) {
+			patternArray[i] = caseValues[i];
+			name += caseValues[i];
+		}
+		String[] solutionArray = new String[CBRConstants.SOLUTION_AMOUNT];
+		for(int i = 0; i < CBRConstants.SOLUTION_AMOUNT; i++) {
+			solutionArray[i] = caseValues[i + CBRConstants.CELLS_AMOUNT];
+		}
+		setName(name);
+		setPattern(new Pattern(patternArray));
+		setSolution(new Solution(solutionArray));
+	}
 	
 	/**
 	 * Creates a case.

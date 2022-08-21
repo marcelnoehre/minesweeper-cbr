@@ -1,5 +1,7 @@
 package minesweeper;
 
+import cbr.CBRConstants;
+
 /**
  * The solution of a case, based on the decisive fields and their information type.
  * 
@@ -14,13 +16,24 @@ public class Solution {
 	/**
 	 * Creates the solution of a case consisting of the decisive cells and their type.
 	 * 
+	 * @param solutionValues The solution values in the form of a string array
+	 */
+	public Solution(String[] solutionValues) {
+		setSolvable(solutionValues[0].equals("True"));
+		setCells(solutionValues[1].split(CBRConstants.SOLUTION_SEPERATOR));
+		setTypes(solutionValues[2].split(CBRConstants.SOLUTION_SEPERATOR));
+	}
+	
+	/**
+	 * Creates the solution of a case consisting of the decisive cells and their type.
+	 * 
 	 * @param cells	The decisive cells
 	 * @param types	The types of decisive cells
 	 */
-	public Solution(boolean solveable, String[] cells, String[] types) {
+	public Solution(boolean solveable, String cells, String types) {
 		setSolvable(solveable);
-		setCells(cells);
-		setTypes(types);
+		setCells(cells.split(CBRConstants.SOLUTION_SEPERATOR));
+		setTypes(types.split(CBRConstants.SOLUTION_SEPERATOR));
 	}
 	
 	/**

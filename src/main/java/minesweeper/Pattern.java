@@ -34,86 +34,69 @@ public class Pattern {
 	private String outerLeftTop;	
 	
 	/**
-	 * Creates a 5x5 Minesweeper pattern.
+	 * Creates a 5x5 Minesweeper Pattern.
 	 * 
-	 * @param center 					The value of the field with the index: 22
-	 * @param innerTopLeft				The value of the field with the index: 11
-	 * @param innerTop					The value of the field with the index: 21
-	 * @param innerTopRight				The value of the field with the index: 31
-	 * @param innerRight				The value of the field with the index: 32
-	 * @param innerBottomRight			The value of the field with the index: 33
-	 * @param innerBottom				The value of the field with the index: 23
-	 * @param innerBottomLeft			The value of the field with the index: 13
-	 * @param innerLeft					The value of the field with the index: 12
-	 * @param outerTopLeftCorner		The value of the field with the index: 00
-	 * @param outerTopLeft				The value of the field with the index: 10
-	 * @param outerTop					The value of the field with the index: 20
-	 * @param outerTopRight				The value of the field with the index: 30
-	 * @param outerTopRightCorner		The value of the field with the index: 40
-	 * @param outerRightTop				The value of the field with the index: 41
-	 * @param outerRight				The value of the field with the index: 42
-	 * @param outerRightBottom			The value of the field with the index: 43
-	 * @param outerBottomRightCorner	The value of the field with the index: 44
-	 * @param outerBottomRight			The value of the field with the index: 34
-	 * @param outerBottom				The value of the field with the index: 24
-	 * @param outerBottomLeft			The value of the field with the index: 14
-	 * @param outerBottomLeftCorner		The value of the field with the index: 04
-	 * @param outerLeftBottom			The value of the field with the index: 03
-	 * @param outerLeft					The value of the field with the index: 02
-	 * @param outerLeftTop				The value of the field with the index: 01
+	 * @param cellValues The values of the cells in a pattern
 	 */
-	public Pattern(
-			String center,
-			String innerTopLeft,
-			String innerTop,		
-			String innerTopRight,
-			String innerRight,			
-			String innerBottomRight,
-			String innerBottom,		
-			String innerBottomLeft,
-			String innerLeft,
-			String outerTopLeftCorner,
-			String outerTopLeft,			
-			String outerTop,			
-			String outerTopRight,		
-			String outerTopRightCorner,
-			String outerRightTop,
-			String outerRight,		
-			String outerRightBottom,	
-			String outerBottomRightCorner,
-			String outerBottomRight,
-			String outerBottom,		
-			String outerBottomLeft,
-			String outerBottomLeftCorner,
-			String outerLeftBottom,	
-			String outerLeft,	
-			String outerLeftTop
-			) {
-		setCenter(center);
-		setInnerTopLeft(innerTopLeft);
-		setInnerTop(innerTop);
-		setInnerTopRight(innerTopRight);
-		setInnerRight(innerRight);
-		setInnerBottomRight(innerBottomRight);
-		setInnerBottom(innerBottom);
-		setInnerBottomLeft(innerBottomLeft);
-		setInnerLeft(innerLeft);
-		setOuterTopLeftCorner(outerTopLeftCorner);
-		setOuterTopLeft(outerTopLeft);	
-		setOuterTop(outerTop);			
-		setOuterTopRight(outerTopRight);		
-		setOuterTopRightCorner(outerTopRightCorner);
-		setOuterRightTop(outerRightTop);
-		setOuterRight(outerRight);	
-		setOuterRightBottom(outerRightBottom);
-		setOuterBottomRightCorner(outerBottomRightCorner);
-		setOuterBottomRight(outerBottomRight);
-		setOuterBottom(outerBottom);		
-		setOuterBottomLeft(outerBottomLeft);
-		setOuterBottomLeftCorner(outerBottomLeftCorner);
-		setOuterLeftBottom(outerLeftBottom);
-		setOuterLeft(outerLeft);	
-		setOuterLeftTop(outerLeftTop);
+	public Pattern(String[] cellValues) {
+		setCenter(cellValues[0]);
+		setInnerTopLeft(cellValues[1]);
+		setInnerTop(cellValues[2]);
+		setInnerTopRight(cellValues[3]);
+		setInnerRight(cellValues[4]);
+		setInnerBottomRight(cellValues[5]);
+		setInnerBottom(cellValues[6]);
+		setInnerBottomLeft(cellValues[7]);
+		setInnerLeft(cellValues[8]);
+		setOuterTopLeftCorner(cellValues[9]);
+		setOuterTopLeft(cellValues[10]);	
+		setOuterTop(cellValues[11]);			
+		setOuterTopRight(cellValues[12]);		
+		setOuterTopRightCorner(cellValues[13]);
+		setOuterRightTop(cellValues[14]);
+		setOuterRight(cellValues[15]);	
+		setOuterRightBottom(cellValues[16]);
+		setOuterBottomRightCorner(cellValues[17]);
+		setOuterBottomRight(cellValues[18]);
+		setOuterBottom(cellValues[19]);		
+		setOuterBottomLeft(cellValues[20]);
+		setOuterBottomLeftCorner(cellValues[21]);
+		setOuterLeftBottom(cellValues[22]);
+		setOuterLeft(cellValues[23]);	
+		setOuterLeftTop(cellValues[24]);
+	}
+	
+	/**
+	 * Creates a 5x5 Minesweeper Pattern.
+	 * 
+	 * @param cellValues The values of the cells in a pattern
+	 */
+	public Pattern(char[] cellValues) {
+		setCenter(String.valueOf(cellValues[0]));
+		setInnerTopLeft(String.valueOf(cellValues[1]));
+		setInnerTop(String.valueOf(cellValues[2]));
+		setInnerTopRight(String.valueOf(cellValues[3]));
+		setInnerRight(String.valueOf(cellValues[4]));
+		setInnerBottomRight(String.valueOf(cellValues[5]));
+		setInnerBottom(String.valueOf(cellValues[6]));
+		setInnerBottomLeft(String.valueOf(cellValues[7]));
+		setInnerLeft(String.valueOf(cellValues[8]));
+		setOuterTopLeftCorner(String.valueOf(cellValues[9]));
+		setOuterTopLeft(String.valueOf(cellValues[10]));	
+		setOuterTop(String.valueOf(cellValues[11]));			
+		setOuterTopRight(String.valueOf(cellValues[12]));		
+		setOuterTopRightCorner(String.valueOf(cellValues[13]));
+		setOuterRightTop(String.valueOf(cellValues[14]));
+		setOuterRight(String.valueOf(cellValues[15]));	
+		setOuterRightBottom(String.valueOf(cellValues[16]));
+		setOuterBottomRightCorner(String.valueOf(cellValues[17]));
+		setOuterBottomRight(String.valueOf(cellValues[18]));
+		setOuterBottom(String.valueOf(cellValues[19]));		
+		setOuterBottomLeft(String.valueOf(cellValues[20]));
+		setOuterBottomLeftCorner(String.valueOf(cellValues[21]));
+		setOuterLeftBottom(String.valueOf(cellValues[22]));
+		setOuterLeft(String.valueOf(cellValues[23]));	
+		setOuterLeftTop(String.valueOf(cellValues[24]));
 	}
 	
 	/**
