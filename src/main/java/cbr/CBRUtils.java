@@ -37,11 +37,11 @@ public class CBRUtils {
 			int i = 0;
 			for(String attribute : CBRUtils.getCaseArray((Case)caseElement.getFirst())) {
 				jsonCase.put(CBRConstants.ATTRIBUTE_NAMES[i], attribute);
+				i++;
 			}
 			jsonCaseList.add(jsonCase);
 		}
 		jsonContainer.put("CaseList", jsonCaseList);
-		System.out.println(jsonContainer.toJSONString());
 		return jsonContainer.toJSONString();
 	}
 	
@@ -62,6 +62,7 @@ public class CBRUtils {
 	        for(String element : arr) {
 	        	transformation += element + CBRConstants.SOLUTION_SEPERATOR;
 	        }
+	        transformation = transformation.substring(0, transformation.length() - 1);
         }
         return transformation;
 	}

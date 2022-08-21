@@ -30,7 +30,12 @@ public class CBRConstants {
 	/**
 	 * The amount of result that a query produces.
 	 */
-	protected static final int RESULT_AMOUNT = 10;
+	protected static final int RESULT_AMOUNT = 5;
+	
+	/**
+	 * The minimum similarity to include the case in the query result.
+	 */
+	protected static final double MINIMUM_SIMILARITY = 0.9;
 	
 	/**
 	 * The set of attribute names that a case of the case base has.

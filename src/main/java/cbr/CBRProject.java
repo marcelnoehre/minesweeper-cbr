@@ -153,9 +153,9 @@ public class CBRProject {
 		instance.addAttribute(attributes[22], newCase.getPattern().getOuterLeftBottom());
 		instance.addAttribute(attributes[23], newCase.getPattern().getOuterLeft());
 		instance.addAttribute(attributes[24], newCase.getPattern().getOuterLeftTop());
-		instance.addAttribute(attributes[25], newCase.getSolution().getSolveable());
-		instance.addAttribute(attributes[26], newCase.getSolution().getCells());
-		instance.addAttribute(attributes[27], newCase.getSolution().getTypes());
+		instance.addAttribute(attributes[25], newCase.getSolution().getSolveable() ? "True": "False");
+		instance.addAttribute(attributes[26], CBRUtils.transformSolution(newCase.getSolution().getCells()));
+		instance.addAttribute(attributes[27], CBRUtils.transformSolution(newCase.getSolution().getTypes()));
 		casebase.addCase(instance);
 	}
 	
@@ -180,7 +180,8 @@ public class CBRProject {
 	
 	protected String caseQuery(Case problemCase) {
 		//TODO: check if this works (need more cases)
-		System.out.print("Query starts... ");
+		System.out.println("Query starts... ");
+		System.out.println("Input: " + problemCase.getName());
 		Retrieval retrieve = new Retrieval(minesweeperPatternConcept, casebase);
 		retrieve.setRetrievalMethod(RetrievalMethod.RETRIEVE_SORTED);
 		String[] problemValues = CBRUtils.getCaseArray(problemCase);
@@ -189,13 +190,14 @@ public class CBRProject {
 		for(StringDesc attribute : attributes) {
 			try {
 				query.addAttribute(attribute , attribute.getAttribute(problemValues[attributeCounter]));
+				attributeCounter++;
 			} catch (ParseException e) {
 				System.out.println("Failed!");
 			}
 		}
 		retrieve.start();
 		List<Pair<Instance, Similarity>> result = retrieve.getResult();
-		System.out.println("Retrieved result!");
+		System.out.println("Retrieved result:");
 		
 		ArrayList<Pair<Case, Double>> resultList= new ArrayList<Pair<Case, Double>>();
 		int caseAmount = result.size() < CBRConstants.RESULT_AMOUNT ? result.size() : CBRConstants.RESULT_AMOUNT;
@@ -209,7 +211,12 @@ public class CBRProject {
 			}	
 			Case retrievedCase = new Case(caseValues);
 			double similarity = result.get(i).getSecond().getValue();
-			resultList.add(new Pair<Case, Double>(retrievedCase, similarity));
+			if(similarity > CBRConstants.MINIMUM_SIMILARITY) {
+				resultList.add(new Pair<Case, Double>(retrievedCase, similarity));
+				System.out.print("(+) ");
+			} else {
+				System.out.print("(-) ");
+			}
 			System.out.println("Case " + retrievedCase.getName() + 
 					" fits with a probability of " + Math.floor(similarity * 100) / 100);
 		}
