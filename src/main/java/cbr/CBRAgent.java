@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.apache.tomcat.util.json.ParseException;
 
 import minesweeper.Case;
+import minesweeper.Pattern;
 
 public class CBRAgent {
 	protected static CBRProject project;
@@ -13,6 +14,12 @@ public class CBRAgent {
 	public void initializeCBR() {
 		project = new CBRProject();
 		importCsvCases(new CBRUtils().getPath() + "allCases.csv");
+	}
+	
+	public void getSolution(Pattern pattern) {
+		//TODO: create case from pattern
+		//TODO: start query
+		//TODO: return query result as JSON String
 	}
 	
 	public void importCsvCases(String path) {
