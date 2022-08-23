@@ -3,6 +3,7 @@ package Servlets;
 import java.io.IOException;
 
 import cbr.CBRAgent;
+import cbr.CBRConstants;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -26,24 +27,21 @@ public class solution extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request instanceof HttpServletRequest) {
-			String queryString = ((HttpServletRequest)request).getQueryString();
-			if(queryString == null) {
-				response.getOutputStream().println("{}");
-			} else {
-				response.getOutputStream().println(CBRAgent.getSolution(queryString));
-			}
-		}
+		response.getWriter().append("Minesweeper CBR Backend running at Port 8080");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doPost method called");
-		response.getOutputStream().println("doPost method called");
-		//TODO: get case String array from request
-		//TODO: add case to case base
+		if (request instanceof HttpServletRequest) {
+			String caseName = request.getParameter("Case");
+			if(caseName == null || caseName.length() != CBRConstants.CELLS_AMOUNT) {
+				response.sendError(400, "Bad Request");
+			} else {
+				response.getOutputStream().println(CBRAgent.getSolution(caseName));
+			}
+		}
 	}
 
 }
