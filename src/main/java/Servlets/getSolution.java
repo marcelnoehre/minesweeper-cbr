@@ -35,7 +35,7 @@ public class getSolution extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request instanceof HttpServletRequest) {
-			String caseName = request.getParameter("Case");
+			String caseName = request.getParameter("pattern");
 			if(caseName == null || caseName.length() != CBRConstants.CELLS_AMOUNT) {
 				response.sendError(400, "Bad Request");
 			} else {
