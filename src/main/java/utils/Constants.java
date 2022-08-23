@@ -7,12 +7,12 @@ public class Constants {
 	/**
 	 * The name of the CBR project.
 	 */
-	protected static final String PROJECT_NAME = "MinesweeperPattern.prj";
+	public static final String PROJECT_NAME = "MinesweeperPattern.prj";
 	
 	/**
 	 * The amount of all attributes a case has.
 	 */
-	protected static final int ATTRIBUTES_AMOUNT = 28;
+	public static final int ATTRIBUTES_AMOUNT = 28;
 	
 	/**
 	 * The amount of cells that a pattern has.
@@ -27,17 +27,17 @@ public class Constants {
 	/**
 	 * The amount of result that a query produces.
 	 */
-	protected static final int RESULT_ATTRIBTUES_AMOUNT = 5;
+	public static final int RESULT_ATTRIBTUES_AMOUNT = 5;
 	
 	/**
 	 * The minimum similarity to include the case in the query result.
 	 */
-	protected static final double MINIMUM_SIMILARITY = 0.9;
+	public static final double MINIMUM_SIMILARITY = 0.9;
 	
 	/**
 	 * The set of attribute names that a case of the case base has.
 	 */
-	protected static final String[] ATTRIBUTE_NAMES = new String[] {
+	public static final String[] ATTRIBUTE_NAMES = new String[] {
 			//center
 			"Center",					//22
 			//inner ring
@@ -75,7 +75,7 @@ public class Constants {
 	/**
 	 * The character used to separate the values in a csv file.
 	 */
-	protected static final String CSV_SEPERATOR = ",";
+	public static final String CSV_SEPERATOR = ",";
 	
 	/**
 	 * The character used to separate the values in a solution string.
