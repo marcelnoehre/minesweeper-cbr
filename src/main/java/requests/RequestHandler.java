@@ -5,6 +5,7 @@ import utils.Transform;
 
 public class RequestHandler {
 	public static boolean addCase(String pattern, boolean solveable, String[] solutionCells, String[] solutionTypes) {
+		System.out.println("---ADD CASE---");
 		System.out.print("Checking input...");
 		if(
 		RequestValidator.validatePattern(pattern) &&
@@ -27,6 +28,7 @@ public class RequestHandler {
 	}
 	
 	public static boolean upadteCase(String pattern, boolean solveable, String[] solutionCells, String[] solutionTypes) {
+		System.out.println("---UPDATE CASE---");
 		System.out.print("Checking input...");
 		if(
 		RequestValidator.validatePattern(pattern) &&
@@ -50,6 +52,7 @@ public class RequestHandler {
 	}
 	
 	public static boolean removeCase(String pattern) {
+		System.out.println("---REMOVE CASE---");
 		System.out.print("Checking input...");
 		if(RequestValidator.validatePattern(pattern)) {
 			System.out.println(" Valid!");
@@ -68,6 +71,7 @@ public class RequestHandler {
 	}
 	
 	public static String getSolution(String pattern) {
+		System.out.println("---GET SOLUTION---");
 		System.out.print("Checking input...");
 		String result = "";
 		if(RequestValidator.validatePattern(pattern)) {
@@ -85,6 +89,7 @@ public class RequestHandler {
 	}
 	
 	public static void initializeBackend() {
+		System.out.println("\n---INITIALIZE BACKEND---");
 		try {
 			CBRAgent.project();	
 		} catch(Exception e) {

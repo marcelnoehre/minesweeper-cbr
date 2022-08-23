@@ -15,9 +15,10 @@ import utils.Imports;
 public class CBRAgent {
 	protected static CBRProject project;
 	
-	public static void project() throws FileNotFoundException, IOException {
-		if(project != null) {
+	public static void project() throws FileNotFoundException, IOException {;
+		if(project == null) {
 			project = new CBRProject();
+			System.out.println("Reading allCases.csv ...");
 			project.addCaseList(Imports.importCasesFromCsv(new Constants().getPath() + "allCases.csv"));
 		}
 	}
@@ -38,13 +39,13 @@ public class CBRAgent {
 	
 	public static void importCsvCases(String path) {
 		try {
-			System.out.print("Reading .csv file...");
+
 			ArrayList<Case> caseList = CBRImports.importCasesFromCsv(path);
-			System.out.println(" Success!");
+
 			project.addCaseList(caseList);
 			//TODO: update allCases.csv
 		} catch (IOException e) {
-			System.out.println(" failed!\n");
+			
 		}
 	}
 	

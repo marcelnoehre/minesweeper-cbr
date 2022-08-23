@@ -30,10 +30,10 @@ public class CBRProject {
 		try {
 			System.out.println("Importing Project...");
 			importProject();
-			System.out.println("The project " + project.getName() + " from " + project.getAuthor() + " was imported!\n");
+			System.out.println("The project " + project.getName() + " from " + project.getAuthor() + " was imported!");
 		} catch(Exception importing) {
 			try {
-				System.out.println("No project found!\n");
+				System.out.println("No project found!");
 				System.out.print("Creating new Project...");
 				initProjectInformation();
 				initSpecialSimilarity();
@@ -42,9 +42,9 @@ public class CBRProject {
 				initCaseBase();
 				addCase(CBRUtils.createDefaultCase());
 				CBRExports.exportProject(project);
-				System.out.println(" Success!\n");
+				System.out.println(" Success!");
 			} catch(Exception initializing) {
-				System.out.println(" Failed!\n");
+				System.out.println(" Failed!");
 			}
 		}
 	}
