@@ -36,8 +36,22 @@ public class Solution {
 	/**
 	 * Creates the solution of a case consisting of the decisive cells and their type.
 	 * 
-	 * @param cells	The decisive cells
-	 * @param types	The types of decisive cells
+	 * @param solveable The indication whether the case is solvable
+	 * @param cells		The decisive cells
+	 * @param types		The types of decisive cells
+	 */
+	public Solution(boolean solveable, String[] cells, String[] types) {
+		setSolvable(solveable);
+		setCells(cells);
+		setTypes(types);
+	}
+
+	/**
+	 * Creates the solution of a case consisting of the decisive cells and their type.
+	 * 
+	 * @param solveable The indication whether the case is solvable
+	 * @param cells		The decisive cells
+	 * @param types		The types of decisive cells
 	 */
 	public Solution(boolean solveable, String cells, String types) {
 		setSolvable(solveable);

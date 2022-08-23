@@ -1,6 +1,7 @@
 package requests;
 
 import cbr.CBRAgent;
+import utils.Transform;
 
 public class RequestHandler {
 	public static boolean addCase(String pattern, boolean solveable, String[] solutionCells, String[] solutionTypes) {
@@ -9,8 +10,7 @@ public class RequestHandler {
 		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes)
 		) {
 			CBRAgent.initializeCBR();
-			//TODO: newCase = utils -> create case
-//			CBRAgent.addCase(newCase);
+			CBRAgent.addCase(Transform.apiInputToCase(pattern, solveable, solutionCells, solutionTypes));
 			return true;
 		}
 		return false;
@@ -23,8 +23,7 @@ public class RequestHandler {
 		) {
 			CBRAgent.initializeCBR();
 			CBRAgent.removeCase(pattern);
-			//TODO: newCase = utils -> create case
-//			CBRAgent.addCase(newCase);
+			CBRAgent.addCase(Transform.apiInputToCase(pattern, solveable, solutionCells, solutionTypes));
 			return true;
 		}
 		return false;

@@ -4,8 +4,14 @@ import org.json.simple.JSONObject;
 
 import cbr.CBRConstants;
 import minesweeper.Case;
+import minesweeper.Pattern;
+import minesweeper.Solution;
 
 public class Transform {
+	
+	public static Case apiInputToCase(String pattern, boolean solveable, String[] solutionCells, String[] solutionTypes) {
+		return new Case(pattern, new Pattern(pattern.toCharArray()), new Solution(solveable, solutionCells, solutionTypes));
+	}
 	
 	public static String[] caseToStringArray(Case caseObject) {
 		String[] caseArray = new String[Constants.ATTRIBUTES_AMOUNT];
