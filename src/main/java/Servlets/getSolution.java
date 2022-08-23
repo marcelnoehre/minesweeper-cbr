@@ -2,13 +2,12 @@ package Servlets;
 
 import java.io.IOException;
 
-import cbr.CBRAgent;
-import cbr.CBRConstants;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import requests.RequestHandler;
 
 /**
  * Servlet implementation class solution
@@ -35,11 +34,11 @@ public class getSolution extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request instanceof HttpServletRequest) {
-			String caseName = request.getParameter("pattern");
-			if(caseName == null || caseName.length() != CBRConstants.CELLS_AMOUNT) {
+			String result = RequestHandler.getSolution(request.getParameter("pattern"));
+			if(result.length() == 0) {
 				response.sendError(400, "Bad Request");
 			} else {
-				response.getOutputStream().println(CBRAgent.getSolution(caseName));
+				response.getOutputStream().println(result);
 			}
 		}
 	}
