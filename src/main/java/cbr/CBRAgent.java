@@ -13,8 +13,26 @@ public class CBRAgent {
 	protected static CBRProject project;
 	
 	public static void initializeCBR() {
-		project = new CBRProject();
-		importCsvCases(new CBRUtils().getPath() + "allCases.csv");
+		if(project != null) {
+			project = new CBRProject();
+			importCsvCases(new CBRUtils().getPath() + "allCases.csv");	
+		}
+	}
+	
+	public static void addCase(Case newCase) {
+		try {
+			System.out.print("Adding Case " + newCase.getName() + " to case base...");
+			project.addCase(newCase);
+			System.out.println(" Success!");
+		} catch (Exception e) {
+			System.out.println(" Failed!");
+		}
+	}
+	
+	public static void removeCase(String pattern) {
+		System.out.println("Removing Case " + pattern + " from case base...");
+		project.removeCase(pattern);
+		System.out.println(" Success!");
 	}
 	
 	public static String getSolution(String queryString) {

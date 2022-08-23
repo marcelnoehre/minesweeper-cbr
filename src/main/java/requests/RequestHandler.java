@@ -1,36 +1,53 @@
 package requests;
 
+import cbr.CBRAgent;
+
 public class RequestHandler {
-	public static void addCase(String pattern, boolean solveable, String[] solutionCells, String[] solutionTypes) {
-		RequestValidator.validatePattern(pattern);
-		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes);
-		//TODO: check for project
-		//TODO: add case
+	public static boolean addCase(String pattern, boolean solveable, String[] solutionCells, String[] solutionTypes) {
+		if(
+		RequestValidator.validatePattern(pattern) &&
+		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes)
+		) {
+			CBRAgent.initializeCBR();
+			//TODO: newCase = utils -> create case
+//			CBRAgent.addCase(newCase);
+			return true;
+		}
+		return false;
 	}
 	
-	public static void upadteCase(String pattern, boolean solveable, String[] solutionCells, String[] solutionTypes) {
-		RequestValidator.validatePattern(pattern);
-		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes);
-		//TODO: check for project
-		//TODO: remove old case
-		//TODO: add new Case
+	public static boolean upadteCase(String pattern, boolean solveable, String[] solutionCells, String[] solutionTypes) {
+		if(
+		RequestValidator.validatePattern(pattern) &&
+		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes)
+		) {
+			CBRAgent.initializeCBR();
+			CBRAgent.removeCase(pattern);
+			//TODO: newCase = utils -> create case
+//			CBRAgent.addCase(newCase);
+			return true;
+		}
+		return false;
 	}
 	
-	public static void removeCase(String pattern) {
-		RequestValidator.validatePattern(pattern);
-		//TODO: check for project
-		//TODO: check for case
-		//TODO: remove case
+	public static boolean removeCase(String pattern) {
+		if(RequestValidator.validatePattern(pattern)) {
+			CBRAgent.initializeCBR();
+			CBRAgent.removeCase(pattern);
+			return true;
+		}
+		return false;
 	}
 	
-	public static void getSolution(String pattern) {
-		RequestValidator.validatePattern(pattern);
-		//TODO: check for project
-		//TODO: getSolution
+	public static String getSolution(String pattern) {
+		if(RequestValidator.validatePattern(pattern)) {
+			CBRAgent.initializeCBR();
+			return CBRAgent.getSolution(pattern);
+		}
+		return "{}";
 	}
 	
 	public static void initializeBackend() {
-		//TODO: check for Project
-		//TODO: initialize CBR Project
+		CBRAgent.initializeCBR();
 	}
 }
