@@ -1,5 +1,6 @@
 package cbr;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -8,14 +9,16 @@ import org.apache.tomcat.util.json.ParseException;
 import minesweeper.Case;
 import minesweeper.Pattern;
 import minesweeper.Solution;
+import utils.Constants;
+import utils.Imports;
 
 public class CBRAgent {
 	protected static CBRProject project;
 	
-	public static void initializeCBR() {
+	public static void project() throws FileNotFoundException, IOException {
 		if(project != null) {
 			project = new CBRProject();
-			importCsvCases(new CBRUtils().getPath() + "allCases.csv");	
+			project.addCaseList(Imports.importCasesFromCsv(new Constants().getPath() + "allCases.csv"));
 		}
 	}
 	

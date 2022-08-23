@@ -12,10 +12,9 @@ public class RequestHandler {
 		) {
 			
 			System.out.println(" Valid!");
-			//TODO: renew initialize project
-			CBRAgent.initializeCBR();
 			try {
 				System.out.print("Adding Case " + pattern + " to case base...");
+				CBRAgent.project();
 				CBRAgent.addCase(Transform.apiInputToCase(pattern, solveable, solutionCells, solutionTypes));
 				System.out.println(" Success!\n");
 			} catch(Exception e) {
@@ -34,10 +33,9 @@ public class RequestHandler {
 		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes)
 		) {
 			System.out.println(" Valid!");
-			//TODO: renew initialize project
-			CBRAgent.initializeCBR();
 			try {
 				System.out.print("Updating Case " + pattern + " in the case base...");
+				CBRAgent.project();
 				CBRAgent.removeCase(pattern);
 				CBRAgent.addCase(Transform.apiInputToCase(pattern, solveable, solutionCells, solutionTypes));
 				System.out.println(" Success!\n");
@@ -55,11 +53,14 @@ public class RequestHandler {
 		System.out.print("Checking input...");
 		if(RequestValidator.validatePattern(pattern)) {
 			System.out.println(" Valid!");
-			//TODO: renew initialize project
-			CBRAgent.initializeCBR();
-			System.out.print("Removing Case " + pattern + " from the case base...");
-			CBRAgent.removeCase(pattern);
-			System.out.println("Success!\n");
+			try {
+				System.out.print("Removing Case " + pattern + " from the case base...");
+				CBRAgent.project();
+				CBRAgent.removeCase(pattern);
+				System.out.println(" Success!\n");
+			} catch (Exception e) {
+				System.out.println(" Failed!\n");
+			}
 			return true;
 		}
 		System.out.println(" Invalid!\n");
@@ -68,17 +69,26 @@ public class RequestHandler {
 	
 	public static String getSolution(String pattern) {
 		System.out.print("Checking input...");
+		String result = "";
 		if(RequestValidator.validatePattern(pattern)) {
 			System.out.println(" Valid!");
-			//TODO: renew initialize project
-			CBRAgent.initializeCBR();
-			return CBRAgent.caseQuery(pattern);
+			try {
+				CBRAgent.project();
+				result = CBRAgent.caseQuery(pattern);
+			} catch(Exception e) {
+				result = "{}";
+			}
+			return result;
 		}
 		System.out.println(" Invalid!\n");
 		return "";
 	}
 	
 	public static void initializeBackend() {
-		CBRAgent.initializeCBR();
+		try {
+			CBRAgent.project();	
+		} catch(Exception e) {
+			
+		}
 	}
 }

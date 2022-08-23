@@ -23,7 +23,7 @@ public class Imports {
 		return project;
 	}
 	
-	protected static ArrayList<Case> importCasesFromCsv(String path) throws FileNotFoundException, IOException {
+	public static ArrayList<Case> importCasesFromCsv(String path) throws FileNotFoundException, IOException {
 		ArrayList<Case> caseList = new ArrayList<Case>();
         try (FileReader fileReader = new FileReader(path);
              CSVReader csvReader = new CSVReader(fileReader)) {
