@@ -82,6 +82,8 @@ public class Constants {
 	 */
 	public static final String SOLUTION_SEPERATOR = "#";
 	
+	public static final String CSV_HEADER[] = "Center,InnerTopLeft,InnerTop,InnerTopRight,InnerRight,InnerBottomRight,InnerBottom,InnerBottomLeft,InnerLeft,OuterTopLeftCorner,OuterTopLeft,OuterTop,OuterTopRight,OuterTopRightCorner,OuterRightTop,OuterRight,OuterRightBottom,OuterBottomRightCorn,OuterBottomRight,OuterBottom,OuterBottomLeft,OuterBottomLeftCorn,OuterLeftBottom,OuterLeft,OuterLeftTop,Solveable,SolutionCells,SolutionTypes".split(Constants.CSV_SEPERATOR);
+	
 	/**
 	 * Creates the path to the resources storage.
 	 * 

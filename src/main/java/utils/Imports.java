@@ -3,12 +3,10 @@ package utils;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
 import java.util.ArrayList;
 
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
