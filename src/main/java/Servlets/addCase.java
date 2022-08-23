@@ -1,25 +1,23 @@
 package Servlets;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import cbr.CBRAgent;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class index
+ * Servlet implementation class addCase
  */
-@WebServlet("/index.jsp")
-public class index extends HttpServlet {
+@WebServlet("/addCase")
+public class addCase extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public index() {
+    public addCase() {
         super();
     }
 
@@ -27,7 +25,6 @@ public class index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CBRAgent.initializeCBR();
 		response.getWriter().append("Minesweeper CBR Backend running at Port 8080");
 	}
 
@@ -35,6 +32,8 @@ public class index extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getOutputStream().println("{}");
+		//TODO: implement endpoint
+		response.getOutputStream().println("Method not implemented!");
 	}
+
 }

@@ -13,14 +13,14 @@ import jakarta.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class solution
  */
-@WebServlet("/solution")
-public class solution extends HttpServlet {
+@WebServlet("/getSolution")
+public class getSolution extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public solution() {
+    public getSolution() {
     }
 
 	/**
