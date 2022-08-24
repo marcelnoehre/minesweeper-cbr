@@ -73,7 +73,7 @@ public class RequestHandler {
 					System.out.println(" Success!");
 					try {
 						System.out.print("Updating Case " + pattern + " at CaseBase.csv...");
-						Exports.removeCaseFromCSV(pattern);
+						Exports.removeCaseFromCSV(pattern, new Constants().getPath() + "CaseBase.csv");
 						Exports.addCaseToCSV(Transform.caseToStringArray(newCase), new Constants().getPath() + "CaseBase.csv");
 						System.out.println(" Success!\n");
 					} catch(Exception e) {
@@ -109,7 +109,7 @@ public class RequestHandler {
 					System.out.println(" Success!");
 					try {
 						System.out.print("Removing Case " + pattern + " from CaseBase.csv...");
-						Exports.removeCaseFromCSV(pattern);
+						Exports.removeCaseFromCSV(pattern, new Constants().getPath() + "CaseBase.csv");
 						System.out.println(" Success!\n");
 					} catch(Exception e) {
 						System.out.println(" Failed!\n");
