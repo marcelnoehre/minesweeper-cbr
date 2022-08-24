@@ -14,11 +14,11 @@ import de.dfki.mycbr.io.XMLExporter;
 import minesweeper.Case;
 
 public class Exports {
-	protected static void exportProject(Project project) throws IOException {
+	public static void exportProject(Project project) throws IOException {
 		XMLExporter.save(project, new Constants().getPath() + Constants.PROJECT_NAME);
 	}
 	
-	protected static void exportCasesAsCsv(ArrayList<Case> caseList, String path) throws IOException {
+	public static void exportCasesAsCsv(ArrayList<Case> caseList, String path) throws IOException {
 		//TODO: Check why function not writing into file
 		ArrayList<String[]> cases = new ArrayList<String[]>();
 		for(Case caseElement : caseList) {

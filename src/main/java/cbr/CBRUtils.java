@@ -10,6 +10,7 @@ import de.dfki.mycbr.util.Pair;
 import minesweeper.Case;
 import minesweeper.Pattern;
 import minesweeper.Solution;
+import utils.Constants;
 
 public class CBRUtils {
 	
@@ -36,15 +37,15 @@ public class CBRUtils {
 			JSONObject jsonCase = new JSONObject();
 			int i = 0;
 			for(String attribute : CBRUtils.getCaseArray((Case)caseElement.getFirst())) {
-				if(CBRConstants.ATTRIBUTE_NAMES[i].equals("SolutionCells") || CBRConstants.ATTRIBUTE_NAMES[i].equals("SolutionTypes")) {
+				if(Constants.ATTRIBUTE_NAMES[i].equals("SolutionCells") || Constants.ATTRIBUTE_NAMES[i].equals("SolutionTypes")) {
 					JSONArray jsonSolutionArray = new JSONArray();
-					String[] solutionArray = attribute.split(CBRConstants.SOLUTION_SEPERATOR);
+					String[] solutionArray = attribute.split(Constants.SOLUTION_SEPERATOR);
 					for(String solution : solutionArray) {
 						jsonSolutionArray.add(solution);
 					}
-					jsonCase.put(CBRConstants.ATTRIBUTE_NAMES[i], jsonSolutionArray);
+					jsonCase.put(Constants.ATTRIBUTE_NAMES[i], jsonSolutionArray);
 				} else {
-					jsonCase.put(CBRConstants.ATTRIBUTE_NAMES[i], attribute);
+					jsonCase.put(Constants.ATTRIBUTE_NAMES[i], attribute);
 				}
 				i++;
 			}
@@ -62,14 +63,14 @@ public class CBRUtils {
 	}
 	
 	protected static String[] createCsvHeader() {
-		return "Center,InnerTopLeft,InnerTop,InnerTopRight,InnerRight,InnerBottomRight,InnerBottom,InnerBottomLeft,InnerLeft,OuterTopLeftCorner,OuterTopLeft,OuterTop,OuterTopRight,OuterTopRightCorner,OuterRightTop,OuterRight,OuterRightBottom,OuterBottomRightCorn,OuterBottomRight,OuterBottom,OuterBottomLeft,OuterBottomLeftCorn,OuterLeftBottom,OuterLeft,OuterLeftTop,Solveable,SolutionCells,SolutionTypes".split(CBRConstants.CSV_SEPERATOR);
+		return "Center,InnerTopLeft,InnerTop,InnerTopRight,InnerRight,InnerBottomRight,InnerBottom,InnerBottomLeft,InnerLeft,OuterTopLeftCorner,OuterTopLeft,OuterTop,OuterTopRight,OuterTopRightCorner,OuterRightTop,OuterRight,OuterRightBottom,OuterBottomRightCorn,OuterBottomRight,OuterBottom,OuterBottomLeft,OuterBottomLeftCorn,OuterLeftBottom,OuterLeft,OuterLeftTop,Solveable,SolutionCells,SolutionTypes".split(Constants.CSV_SEPERATOR);
 	}
 	
 	protected static String transformSolution(String[] arr) {
         String transformation = "";
         if(arr.length > 0) {
 	        for(String element : arr) {
-	        	transformation += element + CBRConstants.SOLUTION_SEPERATOR;
+	        	transformation += element + Constants.SOLUTION_SEPERATOR;
 	        }
 	        transformation = transformation.substring(0, transformation.length() - 1);
         }
@@ -77,7 +78,7 @@ public class CBRUtils {
 	}
 	
 	protected static String[] getCaseArray(Case caseElement) {
-		String[] caseArray = new String[CBRConstants.ATTRIBUTES_AMOUNT];
+		String[] caseArray = new String[Constants.ATTRIBUTES_AMOUNT];
 		caseArray[0] = caseElement.getPattern().getCenter();
 		caseArray[1] = caseElement.getPattern().getInnerTopLeft();
 		caseArray[2] = caseElement.getPattern().getInnerTop();
@@ -112,8 +113,8 @@ public class CBRUtils {
 	protected static Case getCaseFromJsonObject(JSONObject jsonCase) {
 		//TODO: check if this works
 		int i = 0;
-		String[] caseArray = new String[CBRConstants.ATTRIBUTES_AMOUNT];
-		for(String attributeName : CBRConstants.ATTRIBUTE_NAMES) {
+		String[] caseArray = new String[Constants.ATTRIBUTES_AMOUNT];
+		for(String attributeName : Constants.ATTRIBUTE_NAMES) {
 			caseArray[i] = (String) jsonCase.get(attributeName);
 		}
 		return new Case(caseArray);		

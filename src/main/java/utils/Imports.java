@@ -17,7 +17,7 @@ import de.dfki.mycbr.core.Project;
 import minesweeper.Case;
 
 public class Imports {
-	protected static Project importProject() throws Exception {
+	public static Project importProject() throws Exception {
 		Project project = new Project(new Constants().getPath() + Constants.PROJECT_NAME);
 		Thread.sleep(2000);
 		return project;
@@ -43,7 +43,7 @@ public class Imports {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected static ArrayList<Case> importCasesFromJson(String path) throws FileNotFoundException, IOException, ParseException {
+	public static ArrayList<Case> importCasesFromJson(String path) throws FileNotFoundException, IOException, ParseException {
 		ArrayList<Case> caseList = new ArrayList<Case>();
         try (FileReader reader = new FileReader(path))
         {

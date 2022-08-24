@@ -1,6 +1,6 @@
 package minesweeper;
 
-import cbr.CBRConstants;
+import utils.Constants;
 
 /**
  *
@@ -15,15 +15,15 @@ public class Case {
 	private Solution solution;
 	
 	public Case(String[] caseValues) {
-		String[] patternArray = new String[CBRConstants.CELLS_AMOUNT];
+		String[] patternArray = new String[Constants.CELL_ATTRIBUTES_AMOUNT];
 		String name = "";
-		for(int i = 0; i < CBRConstants.CELLS_AMOUNT; i++) {
+		for(int i = 0; i < Constants.CELL_ATTRIBUTES_AMOUNT; i++) {
 			patternArray[i] = caseValues[i];
 			name += caseValues[i];
 		}
-		String[] solutionArray = new String[CBRConstants.SOLUTION_AMOUNT];
-		for(int i = 0; i < CBRConstants.SOLUTION_AMOUNT; i++) {
-			solutionArray[i] = caseValues[i + CBRConstants.CELLS_AMOUNT];
+		String[] solutionArray = new String[Constants.SOLUTION_ATTRIBUTES_AMOUNT];
+		for(int i = 0; i < Constants.SOLUTION_ATTRIBUTES_AMOUNT; i++) {
+			solutionArray[i] = caseValues[i + Constants.CELL_ATTRIBUTES_AMOUNT];
 		}
 		setName(name);
 		setPattern(new Pattern(patternArray));

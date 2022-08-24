@@ -18,13 +18,16 @@ import de.dfki.mycbr.core.similarity.config.AmalgamationConfig;
 import de.dfki.mycbr.core.similarity.config.StringConfig;
 import de.dfki.mycbr.util.Pair;
 import minesweeper.Case;
+import utils.Constants;
+import utils.Exports;
+import utils.Imports;
 
 public class CBRProject {
 	private Project project;
 	private Concept minesweeperPatternConcept;
 	private AmalgamationFct minesweeperPatternSim;
 	private ICaseBase casebase;
-	private StringDesc[] attributes = new StringDesc[CBRConstants.ATTRIBUTES_AMOUNT];
+	private StringDesc[] attributes = new StringDesc[Constants.ATTRIBUTES_AMOUNT];
 	
 	protected CBRProject() {
 		try {
@@ -41,7 +44,7 @@ public class CBRProject {
 				initAttributes();
 				initCaseBase();
 				addCase(CBRUtils.createDefaultCase());
-				CBRExports.exportProject(project);
+				Exports.exportProject(project);
 				System.out.println(" Success!");
 			} catch(Exception initializing) {
 				System.out.println(" Failed!");
@@ -50,7 +53,7 @@ public class CBRProject {
 	}
 	
 	protected void importProject() throws Exception {
-		project = CBRImports.importExistingProject();
+		project = Imports.importProject();
 		minesweeperPatternConcept = project.getConceptByID("MinesweeperPatternConcept");
 		minesweeperPatternSim = project.getActiveAmalgamFct();
 		importAttributes();
@@ -58,8 +61,8 @@ public class CBRProject {
 	}
 	
 	private void importAttributes() throws Exception {
-		for(int i = 0; i < CBRConstants.ATTRIBUTES_AMOUNT; i++) {
-			attributes[i] = (StringDesc) project.getAttDescsByName(CBRConstants.ATTRIBUTE_NAMES[i]).getFirst();
+		for(int i = 0; i < Constants.ATTRIBUTES_AMOUNT; i++) {
+			attributes[i] = (StringDesc) project.getAttDescsByName(Constants.ATTRIBUTE_NAMES[i]).getFirst();
 		}
 	}
 	
@@ -85,15 +88,15 @@ public class CBRProject {
 	}
 	
 	private void initAttributes() throws Exception {
-		for(int i = 0; i < CBRConstants.ATTRIBUTES_AMOUNT; i++) {
+		for(int i = 0; i < Constants.ATTRIBUTES_AMOUNT; i++) {
 			if(i == 0) {
-				attributes[i] = configureAttribute(CBRConstants.ATTRIBUTE_NAMES[i], 153);
+				attributes[i] = configureAttribute(Constants.ATTRIBUTE_NAMES[i], 153);
 			} else if(i < 9) {
-				attributes[i] = configureAttribute(CBRConstants.ATTRIBUTE_NAMES[i], 17);
+				attributes[i] = configureAttribute(Constants.ATTRIBUTE_NAMES[i], 17);
 			} else if (i >= 9 && i < 25) {
-				attributes[i] = configureAttribute(CBRConstants.ATTRIBUTE_NAMES[i], 1);
+				attributes[i] = configureAttribute(Constants.ATTRIBUTE_NAMES[i], 1);
 			} else {
-				attributes[i] = configureAttribute(CBRConstants.ATTRIBUTE_NAMES[i], 0);
+				attributes[i] = configureAttribute(Constants.ATTRIBUTE_NAMES[i], 0);
 			}
 			
 		}
@@ -200,18 +203,18 @@ public class CBRProject {
 		System.out.println("Retrieved result:");
 		
 		ArrayList<Pair<Case, Double>> resultList= new ArrayList<Pair<Case, Double>>();
-		int caseAmount = result.size() < CBRConstants.RESULT_AMOUNT ? result.size() : CBRConstants.RESULT_AMOUNT;
+		int caseAmount = result.size() < Constants.RESULT_ATTRIBTUES_AMOUNT ? result.size() : Constants.RESULT_ATTRIBTUES_AMOUNT;
 		for (int i = 0; i < caseAmount; i++) {
 			Instance instance = minesweeperPatternConcept.getInstance(result.get(i).getFirst().getName());
 			attributeCounter = 0;
-			String[] caseValues = new String[CBRConstants.ATTRIBUTES_AMOUNT];
+			String[] caseValues = new String[Constants.ATTRIBUTES_AMOUNT];
 			for(StringDesc attribute : attributes) {
 				caseValues[attributeCounter] = instance.getAttForDesc(attribute).getValueAsString();
 				attributeCounter++;
 			}	
 			Case retrievedCase = new Case(caseValues);
 			double similarity = result.get(i).getSecond().getValue();
-			if(similarity > CBRConstants.MINIMUM_SIMILARITY) {
+			if(similarity > Constants.MINIMUM_SIMILARITY) {
 				resultList.add(new Pair<Case, Double>(retrievedCase, similarity));
 				System.out.print("(+) ");
 			} else {

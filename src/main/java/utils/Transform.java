@@ -2,7 +2,6 @@ package utils;
 
 import org.json.simple.JSONObject;
 
-import cbr.CBRConstants;
 import minesweeper.Case;
 import minesweeper.Pattern;
 import minesweeper.Solution;
@@ -60,7 +59,7 @@ public class Transform {
         String solution = "";
         if(arr.length > 0) {
 	        for(String element : arr) {
-	        	solution += element + CBRConstants.SOLUTION_SEPERATOR;
+	        	solution += element + Constants.SOLUTION_SEPERATOR;
 	        }
 	        solution = solution.substring(0, solution.length() - 1);
         }
