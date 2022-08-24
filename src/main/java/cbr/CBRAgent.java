@@ -13,7 +13,7 @@ import utils.Imports;
 public class CBRAgent {
 	protected static CBRProject project;
 	
-	public static boolean project() throws FileNotFoundException, IOException {;
+	public static boolean project() throws FileNotFoundException, IOException {
 		if(project == null) {
 			project = new CBRProject();
 			System.out.println("Reading CaseBase.csv ...");
@@ -40,8 +40,8 @@ public class CBRAgent {
 	}
 	
 	public static String caseQuery(String queryString) {
-		 Case problemCase = new Case(queryString, new Pattern(queryString.toCharArray()), new Solution());
-		 String result = project.caseQuery(problemCase);
-		 return result;
+		Case problemCase = new Case(queryString, new Pattern(queryString.toCharArray()), new Solution());
+		String result = project.caseQuery(problemCase);
+		return result;
 	}
 }
