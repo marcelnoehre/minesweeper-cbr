@@ -61,10 +61,12 @@ public class RequestHandler {
 		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes)
 		) {
 			System.out.println(" Valid!");
+			Case dataStorage = null;
 			if(CBRAgent.checkForCase(pattern)) {
 				try {
 					System.out.print("Updating Case " + pattern + " in the case base...");
 					CBRAgent.project();
+					dataStorage = CBRAgent.getCase(pattern);
 					CBRAgent.removeCase(pattern);
 					Case newCase = Transform.apiInputToCase(pattern, solveable.equals("True"), solutionCells.split(Constants.SOLUTION_SEPERATOR), solutionTypes.split(Constants.SOLUTION_SEPERATOR));
 					CBRAgent.addCase(newCase);
@@ -78,7 +80,10 @@ public class RequestHandler {
 						System.out.println(" Failed!\n");
 					}
 				} catch(Exception e) {
-					//TODO: store old case if adding new one fails
+					try {
+						CBRAgent.addCase(dataStorage);
+					} catch (Exception e1) {
+					}
 					System.out.println(" Failed!\n");
 				}
 				return true;

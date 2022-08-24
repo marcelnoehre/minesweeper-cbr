@@ -114,6 +114,21 @@ public class CBRProject {
 		return attribute;
 	}
 	
+	private Case getCaseFromInstance(Instance instance) {
+		int attributeCounter = 0;
+		String[] caseValues = new String[Constants.ATTRIBUTES_AMOUNT];
+		for(StringDesc attribute : attributes) {
+			caseValues[attributeCounter] = instance.getAttForDesc(attribute).getValueAsString();
+			attributeCounter++;
+		}	
+		return new Case(caseValues);
+		
+	}
+	
+	protected Case getCase(String pattern) {
+		return getCaseFromInstance(casebase.containsCase(pattern));
+	}
+	
 	protected void addCaseList(ArrayList<Case> caseList) {
 		for(Case newCase : caseList) {
 			try {
@@ -203,14 +218,7 @@ public class CBRProject {
 		ArrayList<Pair<Case, Double>> resultList= new ArrayList<Pair<Case, Double>>();
 		int caseAmount = result.size() < Constants.RESULT_ATTRIBTUES_AMOUNT ? result.size() : Constants.RESULT_ATTRIBTUES_AMOUNT;
 		for (int i = 0; i < caseAmount; i++) {
-			Instance instance = minesweeperPatternConcept.getInstance(result.get(i).getFirst().getName());
-			attributeCounter = 0;
-			String[] caseValues = new String[Constants.ATTRIBUTES_AMOUNT];
-			for(StringDesc attribute : attributes) {
-				caseValues[attributeCounter] = instance.getAttForDesc(attribute).getValueAsString();
-				attributeCounter++;
-			}	
-			Case retrievedCase = new Case(caseValues);
+			Case retrievedCase = getCaseFromInstance(minesweeperPatternConcept.getInstance(result.get(i).getFirst().getName()));
 			double similarity = result.get(i).getSecond().getValue();
 			if(similarity > Constants.MINIMUM_SIMILARITY) {
 				resultList.add(new Pair<Case, Double>(retrievedCase, similarity));

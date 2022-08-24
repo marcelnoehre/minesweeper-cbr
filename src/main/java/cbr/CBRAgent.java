@@ -27,6 +27,10 @@ public class CBRAgent {
 		return project.checkForCase(pattern);
 	}
 	
+	public static Case getCase(String pattern) {
+		return project.getCase(pattern);
+	}
+	
 	public static void addCase(Case newCase) throws Exception {
 		project.addCase(newCase);
 	}
