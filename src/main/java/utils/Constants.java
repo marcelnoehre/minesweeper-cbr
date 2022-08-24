@@ -94,6 +94,10 @@ public class Constants {
 			"COVERED.AMOUNT"
 	};
 	
+	public static final String[] SOLUTION_COORDINATES = new String[] {
+			"11", "12", "13", "21", "22", "23", "31", "32", "33"
+	};
+	
 	/**
 	 * The default case when all cells of the 5x5 field are covered.
 	 */

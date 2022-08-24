@@ -14,7 +14,11 @@ public class RequestValidator {
 	
 	protected static boolean validateSolution(String solveable, String solutionCells, String solutionTypes) {
 		if(solveable.equals("True") || solveable.equals("False")) {
-			//TODO: check if solutionCells valid
+			for(String solutionCell: solutionCells.split(Constants.SOLUTION_SEPERATOR)) {
+				if(!Arrays.stream(Constants.SOLUTION_COORDINATES).anyMatch(solutionCell::equals)) {
+					return false;
+				}
+			}
 			for(String solutionType : solutionTypes.split(Constants.SOLUTION_SEPERATOR)) {
 				if(!Arrays.stream(Constants.SOLUTION_TYPES).anyMatch(solutionType::equals)) {
 					return false;
