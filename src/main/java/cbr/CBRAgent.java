@@ -23,6 +23,10 @@ public class CBRAgent {
 		return true;
 	}
 	
+	public static boolean checkForCase(String pattern) {
+		return project.checkForCase(pattern);
+	}
+	
 	public static void addCase(Case newCase) throws Exception {
 		project.addCase(newCase);
 	}
