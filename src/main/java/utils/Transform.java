@@ -49,16 +49,6 @@ public class Transform {
 		return caseArray;
 	}
 	
-	public static Case jsonToCase(JSONObject jsonCase) {
-		//TODO: check if this works
-		int i = 0;
-		String[] caseArray = new String[Constants.ATTRIBUTES_AMOUNT];
-		for(String attributeName : Constants.ATTRIBUTE_NAMES) {
-			caseArray[i] = (String) jsonCase.get(attributeName);
-		}
-		return new Case(caseArray);		
-	}
-	
 	public static String stringArrayToSolutionString(String[] arr) {
         String solution = "";
         if(arr.length > 0) {
@@ -72,7 +62,6 @@ public class Transform {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static String caseListToJson(ArrayList<Pair<Case, Double>> caseList) {
-		//TODO: check if this works
 		JSONObject jsonContainer = new JSONObject();
 		JSONArray jsonCaseList = new JSONArray();
 		for(Pair caseElement : caseList) {
