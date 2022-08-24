@@ -26,7 +26,7 @@ public class RequestHandler {
 		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes)
 		) {
 			System.out.println(" Valid!");
-			if(CBRAgent.checkForCase(pattern)) {
+			if(!CBRAgent.checkForCase(pattern)) {
 				try {
 					System.out.print("Adding Case " + pattern + " to case base...");
 					CBRAgent.project();
@@ -35,7 +35,7 @@ public class RequestHandler {
 					System.out.println(" Success!");
 					try {
 						System.out.print("Adding Case " + pattern + " to CaseBase.csv...");
-						Exports.addCaseToCSV(Transform.caseToStringArray(newCase));
+						Exports.addCaseToCSV(Transform.caseToStringArray(newCase), new Constants().getPath() + "CaseBase.csv");
 						System.out.println(" Success!\n");
 					} catch(Exception e) {
 						System.out.println(" Failed!\n");
@@ -72,7 +72,7 @@ public class RequestHandler {
 					try {
 						System.out.print("Updating Case " + pattern + " at CaseBase.csv...");
 						Exports.removeCaseFromCSV(pattern);
-						Exports.addCaseToCSV(Transform.caseToStringArray(newCase));
+						Exports.addCaseToCSV(Transform.caseToStringArray(newCase), new Constants().getPath() + "CaseBase.csv");
 						System.out.println(" Success!\n");
 					} catch(Exception e) {
 						System.out.println(" Failed!\n");
