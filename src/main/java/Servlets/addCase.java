@@ -35,17 +35,7 @@ public class addCase extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request instanceof HttpServletRequest) {
-			if(
-				RequestHandler.addCase(
-					request.getParameter("pattern"),
-					request.getParameter("solveable"),
-					request.getParameter("solutionCells"),
-					request.getParameter("solutionTypes"))
-			) {
-				response.getOutputStream().println("{}");
-			} else {
-				response.sendError(400, "Bad Request");
-			}
+			RequestHandler.addCase(request, response);
 		}
 	}
 

@@ -34,12 +34,7 @@ public class getSolution extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request instanceof HttpServletRequest) {
-			String result = RequestHandler.getSolution(request.getParameter("pattern"));
-			if(result.length() == 0) {
-				response.sendError(400, "Bad Request");
-			} else {
-				response.getOutputStream().println(result);
-			}
+			RequestHandler.getSolution(request, response);
 		}
 	}
 

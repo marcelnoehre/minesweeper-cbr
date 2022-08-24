@@ -1,6 +1,10 @@
 package requests;
 
+import java.io.IOException;
+
 import cbr.CBRAgent;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import minesweeper.Case;
 import utils.Constants;
 import utils.Exports;
@@ -18,8 +22,12 @@ public class RequestHandler {
 		}
 	}
 	
-	public static boolean addCase(String pattern, String solveable, String solutionCells, String solutionTypes) {
+	public static void addCase(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---ADD CASE---");
+		String pattern = request.getParameter("pattern");
+		String solveable = request.getParameter("solveable");
+		String solutionCells = request.getParameter("solutionCells");
+		String solutionTypes = request.getParameter("solutionTypes");
 		System.out.print("Checking input...");
 		if(
 		RequestValidator.validatePattern(pattern) &&
@@ -43,18 +51,31 @@ public class RequestHandler {
 				} catch(Exception e) {
 					System.out.println(" Failed!\n");
 				}
-				return true;
+				try {
+					response.getOutputStream().println("{}");
+				} catch (IOException e) {
+				}
 			} else {
 				System.out.println("Case " + pattern + " already exists!\n");
-				return false;
+				try {
+					response.sendError(250, "Case " + pattern + " already exists");
+				} catch (IOException e) {
+				}
 			}
 		}
 		System.out.println(" Invalid!\n");
-		return false;
+		try {
+			response.sendError(400, "Bad Request");
+		} catch (IOException e) {
+		}
 	}
 	
-	public static boolean updateCase(String pattern, String solveable, String solutionCells, String solutionTypes) {
+	public static void updateCase(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---UPDATE CASE---");
+		String pattern = request.getParameter("pattern");
+		String solveable = request.getParameter("solveable");
+		String solutionCells = request.getParameter("solutionCells");
+		String solutionTypes = request.getParameter("solutionTypes");
 		System.out.print("Checking input...");
 		if(
 		RequestValidator.validatePattern(pattern) &&
@@ -86,18 +107,28 @@ public class RequestHandler {
 					}
 					System.out.println(" Failed!\n");
 				}
-				return true;
+				try {
+					response.getOutputStream().println("{}");
+				} catch (IOException e) {
+				}
 			} else {
 				System.out.println("Case " + pattern + " does not exist!\n");
-				return false;
+				try {
+					response.sendError(250, "Case " + pattern + " does not exist");
+				} catch (IOException e) {
+				}
 			}
 		}
 		System.out.println(" Invalid!\n");
-		return false;
+		try {
+			response.sendError(400, "Bad Request");
+		} catch (IOException e) {
+		}
 	}
 	
-	public static boolean removeCase(String pattern) {
+	public static void removeCase(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---REMOVE CASE---");
+		String pattern = request.getParameter("pattern");
 		System.out.print("Checking input...");
 		if(RequestValidator.validatePattern(pattern)) {
 			System.out.println(" Valid!");
@@ -117,31 +148,45 @@ public class RequestHandler {
 				} catch (Exception e) {
 					System.out.println(" Failed!\n");
 				}
-				return true;
+				try {
+					response.getOutputStream().println("{}");
+				} catch (IOException e) {
+				}
 			} else {
 				System.out.println("Case " + pattern + " does not exist!\n");
-				return false;
+				try {
+					response.sendError(250, "Case " + pattern + " does not exist");
+				} catch (IOException e) {
+				}
 			}
 		}
 		System.out.println(" Invalid!\n");
-		return false;
+		try {
+			response.sendError(400, "Bad Request");
+		} catch (IOException e) {
+		}
 	}
 	
-	public static String getSolution(String pattern) {
+	public static void getSolution(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---GET SOLUTION---");
+		String pattern = request.getParameter("pattern");
 		System.out.print("Checking input...");
-		String result = "";
 		if(RequestValidator.validatePattern(pattern)) {
 			System.out.println(" Valid!");
 			try {
 				CBRAgent.project();
-				result = CBRAgent.caseQuery(pattern);
+				response.getOutputStream().println(CBRAgent.caseQuery(pattern));
 			} catch(Exception e) {
-				result = "{}";
+				try {
+					response.sendError(500, "Internal Server Error ");
+				} catch (IOException e1) {
+				}
 			}
-			return result;
 		}
 		System.out.println(" Invalid!\n");
-		return "";
+		try {
+			response.sendError(400, "Bad Request");
+		} catch (IOException e) {
+		}
 	}
 }

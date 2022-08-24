@@ -34,14 +34,7 @@ public class removeCase extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request instanceof HttpServletRequest) {
-			if(
-				RequestHandler.removeCase(request.getParameter("pattern"))
-			) {
-				response.getOutputStream().println("{}");
-			} else {
-				response.sendError(400, "Bad Request");
-			}
+			RequestHandler.removeCase(request, response);
 		}
 	}
-
 }
