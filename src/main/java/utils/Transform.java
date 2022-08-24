@@ -1,7 +1,11 @@
 package utils;
 
+import java.util.ArrayList;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import de.dfki.mycbr.util.Pair;
 import minesweeper.Case;
 import minesweeper.Pattern;
 import minesweeper.Solution;
@@ -64,5 +68,32 @@ public class Transform {
 	        solution = solution.substring(0, solution.length() - 1);
         }
         return solution;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static String caseListToJson(ArrayList<Pair<Case, Double>> caseList) {
+		//TODO: check if this works
+		JSONObject jsonContainer = new JSONObject();
+		JSONArray jsonCaseList = new JSONArray();
+		for(Pair caseElement : caseList) {
+			JSONObject jsonCase = new JSONObject();
+			int i = 0;
+			for(String attribute : Transform.caseToStringArray((Case)caseElement.getFirst())) {
+				if(Constants.ATTRIBUTE_NAMES[i].equals("SolutionCells") || Constants.ATTRIBUTE_NAMES[i].equals("SolutionTypes")) {
+					JSONArray jsonSolutionArray = new JSONArray();
+					String[] solutionArray = attribute.split(Constants.SOLUTION_SEPERATOR);
+					for(String solution : solutionArray) {
+						jsonSolutionArray.add(solution);
+					}
+					jsonCase.put(Constants.ATTRIBUTE_NAMES[i], jsonSolutionArray);
+				} else {
+					jsonCase.put(Constants.ATTRIBUTE_NAMES[i], attribute);
+				}
+				i++;
+			}
+			jsonCaseList.add(jsonCase);
+		}
+		jsonContainer.put("CaseList", jsonCaseList);
+		return jsonContainer.toJSONString();
 	}
 }

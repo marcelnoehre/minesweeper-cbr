@@ -21,6 +21,7 @@ import minesweeper.Case;
 import utils.Constants;
 import utils.Exports;
 import utils.Imports;
+import utils.Transform;
 
 public class CBRProject {
 	private Project project;
@@ -157,8 +158,8 @@ public class CBRProject {
 		instance.addAttribute(attributes[23], newCase.getPattern().getOuterLeft());
 		instance.addAttribute(attributes[24], newCase.getPattern().getOuterLeftTop());
 		instance.addAttribute(attributes[25], newCase.getSolution().getSolveable() ? "True": "False");
-		instance.addAttribute(attributes[26], CBRUtils.transformSolution(newCase.getSolution().getCells()));
-		instance.addAttribute(attributes[27], CBRUtils.transformSolution(newCase.getSolution().getTypes()));
+		instance.addAttribute(attributes[26], Transform.stringArrayToSolutionString(newCase.getSolution().getCells()));
+		instance.addAttribute(attributes[27], Transform.stringArrayToSolutionString(newCase.getSolution().getTypes()));
 		casebase.addCase(instance);
 	}
 	
@@ -187,7 +188,7 @@ public class CBRProject {
 		System.out.println("Input: " + problemCase.getName());
 		Retrieval retrieve = new Retrieval(minesweeperPatternConcept, casebase);
 		retrieve.setRetrievalMethod(RetrievalMethod.RETRIEVE_SORTED);
-		String[] problemValues = CBRUtils.getCaseArray(problemCase);
+		String[] problemValues = Transform.caseToStringArray(problemCase);
 		int attributeCounter = 0;
 		Instance query = retrieve.getQueryInstance();
 		for(StringDesc attribute : attributes) {
@@ -224,6 +225,6 @@ public class CBRProject {
 					" fits with a probability of " + Math.floor(similarity * 100) / 100);
 		}
 		System.out.println("");
-		return CBRUtils.getCaseListAsJson(resultList);
+		return Transform.caseListToJson(resultList);
 	}
 }
