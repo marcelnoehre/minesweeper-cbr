@@ -14,6 +14,16 @@ public class Constants {
 	public static final String PROJECT_NAME = "MinesweeperPattern.prj";
 	
 	/**
+	 * The regex to validate a pattern.
+	 */
+	public static final String PATTERN_REGEX = "[0-8|C|M|B]{25}";
+	
+	/**
+	 * The regex to validate solution cells
+	 */
+	public static final String SOLUTION_REGEX = "";
+	
+	/**
 	 * The amount of all attributes a case has.
 	 */
 	public static final int ATTRIBUTES_AMOUNT = 28;

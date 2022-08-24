@@ -23,7 +23,7 @@ public class RequestHandler {
 		System.out.print("Checking input...");
 		if(
 		RequestValidator.validatePattern(pattern) &&
-		RequestValidator.validateSolution(solveable.equals("True"), solutionCells.split(Constants.SOLUTION_SEPERATOR), solutionTypes.split(Constants.SOLUTION_SEPERATOR))
+		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes)
 		) {
 			
 			System.out.println(" Valid!");
@@ -54,7 +54,7 @@ public class RequestHandler {
 		System.out.print("Checking input...");
 		if(
 		RequestValidator.validatePattern(pattern) &&
-		RequestValidator.validateSolution(solveable.equals("True"), solutionCells.split(Constants.SOLUTION_SEPERATOR), solutionTypes.split(Constants.SOLUTION_SEPERATOR))
+		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes)
 		) {
 			System.out.println(" Valid!");
 			try {
