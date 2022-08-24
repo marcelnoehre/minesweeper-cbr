@@ -38,7 +38,7 @@ public class RequestHandler {
 		return false;
 	}
 	
-	public static boolean upadteCase(String pattern, String solveable, String solutionCells, String solutionTypes) {
+	public static boolean updateCase(String pattern, String solveable, String solutionCells, String solutionTypes) {
 		System.out.println("---UPDATE CASE---");
 		System.out.print("Checking input...");
 		if(
