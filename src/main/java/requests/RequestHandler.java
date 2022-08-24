@@ -2,23 +2,24 @@ package requests;
 
 import cbr.CBRAgent;
 import minesweeper.Case;
+import utils.Constants;
 import utils.Exports;
 import utils.Transform;
 
 public class RequestHandler {
-	public static boolean addCase(String pattern, boolean solveable, String[] solutionCells, String[] solutionTypes) {
+	public static boolean addCase(String pattern, String solveable, String solutionCells, String solutionTypes) {
 		System.out.println("---ADD CASE---");
 		System.out.print("Checking input...");
 		if(
 		RequestValidator.validatePattern(pattern) &&
-		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes)
+		RequestValidator.validateSolution(solveable.equals("True"), solutionCells.split(Constants.SOLUTION_SEPERATOR), solutionTypes.split(Constants.SOLUTION_SEPERATOR))
 		) {
 			
 			System.out.println(" Valid!");
 			try {
 				System.out.print("Adding Case " + pattern + " to case base...");
 				CBRAgent.project();
-				Case newCase = Transform.apiInputToCase(pattern, solveable, solutionCells, solutionTypes);
+				Case newCase = Transform.apiInputToCase(pattern, solveable.equals("True"), solutionCells.split(Constants.SOLUTION_SEPERATOR), solutionTypes.split(Constants.SOLUTION_SEPERATOR));
 				CBRAgent.addCase(newCase);
 				System.out.println(" Success!");
 				try {
@@ -37,19 +38,19 @@ public class RequestHandler {
 		return false;
 	}
 	
-	public static boolean upadteCase(String pattern, boolean solveable, String[] solutionCells, String[] solutionTypes) {
+	public static boolean upadteCase(String pattern, String solveable, String solutionCells, String solutionTypes) {
 		System.out.println("---UPDATE CASE---");
 		System.out.print("Checking input...");
 		if(
 		RequestValidator.validatePattern(pattern) &&
-		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes)
+		RequestValidator.validateSolution(solveable.equals("True"), solutionCells.split(Constants.SOLUTION_SEPERATOR), solutionTypes.split(Constants.SOLUTION_SEPERATOR))
 		) {
 			System.out.println(" Valid!");
 			try {
 				System.out.print("Updating Case " + pattern + " in the case base...");
 				CBRAgent.project();
 				CBRAgent.removeCase(pattern);
-				Case newCase = Transform.apiInputToCase(pattern, solveable, solutionCells, solutionTypes);
+				Case newCase = Transform.apiInputToCase(pattern, solveable.equals("True"), solutionCells.split(Constants.SOLUTION_SEPERATOR), solutionTypes.split(Constants.SOLUTION_SEPERATOR));
 				CBRAgent.addCase(newCase);
 				System.out.println(" Success!");
 				try {
