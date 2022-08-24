@@ -1,5 +1,7 @@
 package requests;
 
+import java.util.Arrays;
+
 import utils.Constants;
 
 public class RequestValidator {
@@ -12,8 +14,14 @@ public class RequestValidator {
 	
 	protected static boolean validateSolution(String solveable, String solutionCells, String solutionTypes) {
 		if(solveable.equals("True") || solveable.equals("False")) {
-			//TODO: check if solutionCells valid -> regex
-			//TODO: split solution types check if codes are all valid -> list
+			//TODO: check if solutionCells valid
+			for(String solutionType : solutionTypes.split(Constants.SOLUTION_SEPERATOR)) {
+				if(!Arrays.stream(Constants.SOLUTION_TYPES).anyMatch(solutionType::equals)) {
+					return false;
+				}
+			}
+		} else {
+			return false;
 		}
 		return true;
 	}

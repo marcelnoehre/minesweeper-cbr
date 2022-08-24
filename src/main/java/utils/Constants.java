@@ -86,6 +86,14 @@ public class Constants {
 			"SolutionTypes"
 	};
 	
+	public static final String[] SOLUTION_TYPES = new String[] {
+			"MINES.REVEALED",
+			"MINES.FLAGGED",
+			"WRONG.FLAG",
+			"SUSPICIOUS.FLAG",
+			"COVERED.AMOUNT"
+	};
+	
 	/**
 	 * The default case when all cells of the 5x5 field are covered.
 	 */
@@ -101,6 +109,9 @@ public class Constants {
 	 */
 	public static final String SOLUTION_SEPERATOR = "#";
 	
+	/**
+	 * The header of a csv file for the case objects.
+	 */
 	public static final String CSV_HEADER[] = "Center,InnerTopLeft,InnerTop,InnerTopRight,InnerRight,InnerBottomRight,InnerBottom,InnerBottomLeft,InnerLeft,OuterTopLeftCorner,OuterTopLeft,OuterTop,OuterTopRight,OuterTopRightCorner,OuterRightTop,OuterRight,OuterRightBottom,OuterBottomRightCorn,OuterBottomRight,OuterBottom,OuterBottomLeft,OuterBottomLeftCorn,OuterLeftBottom,OuterLeft,OuterLeftTop,Solveable,SolutionCells,SolutionTypes".split(Constants.CSV_SEPERATOR);
 	
 	/**
