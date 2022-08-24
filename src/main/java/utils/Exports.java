@@ -19,18 +19,15 @@ public class Exports {
 	}
 	
 	public static void exportCasesAsCsv(ArrayList<Case> caseList, String path) throws IOException {
-		//TODO: Check why function not writing into file
 		ArrayList<String[]> cases = new ArrayList<String[]>();
 		for(Case caseElement : caseList) {
 			cases.add(Transform.caseToStringArray(caseElement));
 		}
         FileOutputStream fileOutputStream = new FileOutputStream(path); 
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
-        CSVWriter csvWriter = new CSVWriter(outputStreamWriter);
+		@SuppressWarnings("deprecation")
+		CSVWriter csvWriter = new CSVWriter(outputStreamWriter, Constants.CSV_SEPERATOR.charAt(0));        
         csvWriter.writeNext(Constants.CSV_HEADER);
-        for(String[] csvCase : cases) {
-        	csvWriter.writeNext(csvCase);
-        }
         csvWriter.writeAll(cases);
         csvWriter.close();
 	}
