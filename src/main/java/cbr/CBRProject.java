@@ -183,7 +183,6 @@ public class CBRProject {
 	}
 	
 	protected String caseQuery(Case problemCase) {
-		//TODO: check if this works (need more cases)
 		System.out.println("Query starts... ");
 		System.out.println("Input: " + problemCase.getName());
 		Retrieval retrieve = new Retrieval(minesweeperPatternConcept, casebase);

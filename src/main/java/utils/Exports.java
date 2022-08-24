@@ -34,4 +34,12 @@ public class Exports {
         csvWriter.writeAll(cases);
         csvWriter.close();
 	}
+	
+	public static void addCaseToCSV(String[] newCase) {
+		//TODO: implement
+	}
+	
+	public static void removeCaseFromCSV(String pattern) {
+		//TODO: implement
+	}
 }

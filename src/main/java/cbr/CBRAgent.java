@@ -16,8 +16,8 @@ public class CBRAgent {
 	public static void project() throws FileNotFoundException, IOException {;
 		if(project == null) {
 			project = new CBRProject();
-			System.out.println("Reading allCases.csv ...");
-			project.addCaseList(Imports.importCasesFromCsv(new Constants().getPath() + "allCases.csv"));
+			System.out.println("Reading CaseBase.csv ...");
+			project.addCaseList(Imports.importCasesFromCsv(new Constants().getPath() + "CaseBase.csv"));
 		}
 	}
 	

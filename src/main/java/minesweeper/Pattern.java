@@ -4,7 +4,7 @@ package minesweeper;
  * A 5x5 square representing a situation on the Minesweeper board.
  * 
  * @author Marcel N&ouml;hre, 357775
- *
+ * 
  */
 public class Pattern {
 	private String center;

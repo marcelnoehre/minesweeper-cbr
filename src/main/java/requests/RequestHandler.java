@@ -1,6 +1,8 @@
 package requests;
 
 import cbr.CBRAgent;
+import minesweeper.Case;
+import utils.Exports;
 import utils.Transform;
 
 public class RequestHandler {
@@ -16,8 +18,16 @@ public class RequestHandler {
 			try {
 				System.out.print("Adding Case " + pattern + " to case base...");
 				CBRAgent.project();
-				CBRAgent.addCase(Transform.apiInputToCase(pattern, solveable, solutionCells, solutionTypes));
-				System.out.println(" Success!\n");
+				Case newCase = Transform.apiInputToCase(pattern, solveable, solutionCells, solutionTypes);
+				CBRAgent.addCase(newCase);
+				System.out.println(" Success!");
+				try {
+					System.out.print("Adding Case + " + pattern + " to CaseBase.csv...");
+					Exports.addCaseToCSV(Transform.caseToStringArray(newCase));
+					System.out.println(" Success!\n");
+				} catch(Exception e) {
+					System.out.println(" Failed!\n");
+				}
 			} catch(Exception e) {
 				System.out.println(" Failed!\n");
 			}
@@ -39,8 +49,17 @@ public class RequestHandler {
 				System.out.print("Updating Case " + pattern + " in the case base...");
 				CBRAgent.project();
 				CBRAgent.removeCase(pattern);
-				CBRAgent.addCase(Transform.apiInputToCase(pattern, solveable, solutionCells, solutionTypes));
-				System.out.println(" Success!\n");
+				Case newCase = Transform.apiInputToCase(pattern, solveable, solutionCells, solutionTypes);
+				CBRAgent.addCase(newCase);
+				System.out.println(" Success!");
+				try {
+					System.out.print("Updating Case + " + pattern + " at CaseBase.csv...");
+					Exports.removeCaseFromCSV(pattern);
+					Exports.addCaseToCSV(Transform.caseToStringArray(newCase));
+					System.out.println(" Success!\n");
+				} catch(Exception e) {
+					System.out.println(" Failed!\n");
+				}
 			} catch(Exception e) {
 				//TODO: store old case if adding new one fails
 				System.out.println(" Failed!\n");
@@ -60,7 +79,14 @@ public class RequestHandler {
 				System.out.print("Removing Case " + pattern + " from the case base...");
 				CBRAgent.project();
 				CBRAgent.removeCase(pattern);
-				System.out.println(" Success!\n");
+				System.out.println(" Success!");
+				try {
+					System.out.print("Removing Case + " + pattern + " from CaseBase.csv...");
+					Exports.removeCaseFromCSV(pattern);
+					System.out.println(" Success!\n");
+				} catch(Exception e) {
+					System.out.println(" Failed!\n");
+				}
 			} catch (Exception e) {
 				System.out.println(" Failed!\n");
 			}
