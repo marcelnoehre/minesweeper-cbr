@@ -7,6 +7,17 @@ import utils.Exports;
 import utils.Transform;
 
 public class RequestHandler {
+	public static void initializeBackend() {
+		System.out.println("\n---INITIALIZE BACKEND---");
+		try {
+			if(CBRAgent.project()) {
+				System.out.println("Already initialized!\n");
+			}
+		} catch(Exception e) {
+			System.out.println("Initializing project failed... restart minesweeper-cbr-backend!\n");
+		}
+	}
+	
 	public static boolean addCase(String pattern, String solveable, String solutionCells, String solutionTypes) {
 		System.out.println("---ADD CASE---");
 		System.out.print("Checking input...");
@@ -23,7 +34,7 @@ public class RequestHandler {
 				CBRAgent.addCase(newCase);
 				System.out.println(" Success!");
 				try {
-					System.out.print("Adding Case + " + pattern + " to CaseBase.csv...");
+					System.out.print("Adding Case " + pattern + " to CaseBase.csv...");
 					Exports.addCaseToCSV(Transform.caseToStringArray(newCase));
 					System.out.println(" Success!\n");
 				} catch(Exception e) {
@@ -54,7 +65,7 @@ public class RequestHandler {
 				CBRAgent.addCase(newCase);
 				System.out.println(" Success!");
 				try {
-					System.out.print("Updating Case + " + pattern + " at CaseBase.csv...");
+					System.out.print("Updating Case " + pattern + " at CaseBase.csv...");
 					Exports.removeCaseFromCSV(pattern);
 					Exports.addCaseToCSV(Transform.caseToStringArray(newCase));
 					System.out.println(" Success!\n");
@@ -82,7 +93,7 @@ public class RequestHandler {
 				CBRAgent.removeCase(pattern);
 				System.out.println(" Success!");
 				try {
-					System.out.print("Removing Case + " + pattern + " from CaseBase.csv...");
+					System.out.print("Removing Case " + pattern + " from CaseBase.csv...");
 					Exports.removeCaseFromCSV(pattern);
 					System.out.println(" Success!\n");
 				} catch(Exception e) {
@@ -113,14 +124,5 @@ public class RequestHandler {
 		}
 		System.out.println(" Invalid!\n");
 		return "";
-	}
-	
-	public static void initializeBackend() {
-		System.out.println("\n---INITIALIZE BACKEND---");
-		try {
-			CBRAgent.project();	
-		} catch(Exception e) {
-			
-		}
 	}
 }

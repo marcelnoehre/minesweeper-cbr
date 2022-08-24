@@ -166,10 +166,8 @@ public class CBRProject {
 	protected boolean removeCase(String name) {
 		if(checkForCase(name)) {
 			casebase.removeCase(name);
-			System.out.println("Case " + name + " removed from case base!");	
 			return true;
 		} else {
-			System.out.println("Case " + name + " does not exist!");
 			return false;
 		}
 	}

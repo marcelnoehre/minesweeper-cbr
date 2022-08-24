@@ -13,12 +13,14 @@ import utils.Imports;
 public class CBRAgent {
 	protected static CBRProject project;
 	
-	public static void project() throws FileNotFoundException, IOException {;
+	public static boolean project() throws FileNotFoundException, IOException {;
 		if(project == null) {
 			project = new CBRProject();
 			System.out.println("Reading CaseBase.csv ...");
 			project.addCaseList(Imports.importCasesFromCsv(new Constants().getPath() + "CaseBase.csv"));
+			return false;
 		}
+		return true;
 	}
 	
 	public static void addCase(Case newCase) throws Exception {
