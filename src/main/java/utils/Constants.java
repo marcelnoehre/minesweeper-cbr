@@ -2,6 +2,10 @@ package utils;
 
 import java.net.URLDecoder;
 
+import minesweeper.Case;
+import minesweeper.Pattern;
+import minesweeper.Solution;
+
 public class Constants {
 	
 	/**
@@ -71,6 +75,11 @@ public class Constants {
 			"SolutionCells",					
 			"SolutionTypes"
 	};
+	
+	/**
+	 * The default case when all cells of the 5x5 field are covered.
+	 */
+	public static final Case DEFAULT_CASE = new Case("CCCCCCCCCCCCCCCCCCCCCCCCC", new Pattern("CCCCCCCCCCCCCCCCCCCCCCCCC".toCharArray()), new Solution(false, "", ""));
 	
 	/**
 	 * The character used to separate the values in a csv file.

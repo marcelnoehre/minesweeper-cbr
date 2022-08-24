@@ -1,6 +1,5 @@
 package cbr;
 
-import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
@@ -8,25 +7,9 @@ import org.json.simple.JSONObject;
 
 import de.dfki.mycbr.util.Pair;
 import minesweeper.Case;
-import minesweeper.Pattern;
-import minesweeper.Solution;
 import utils.Constants;
 
 public class CBRUtils {
-	
-	protected String getPath() {
-		String path = "";
-		try {
-		path = this.getClass().getClassLoader().getResource("").getPath();
-        String encodedPath = URLDecoder.decode(path, "UTF-8");
-        String pathArr[] = encodedPath.split("classes/");
-        path = pathArr[0] + "resources/";
-        path = path.replace("/", "\\");
-		} catch(Exception e) {
-			System.err.println("Path Problem!");
-		}
-		return path;
-	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected static String getCaseListAsJson(ArrayList<Pair<Case, Double>> caseList) {
@@ -53,17 +36,6 @@ public class CBRUtils {
 		}
 		jsonContainer.put("CaseList", jsonCaseList);
 		return jsonContainer.toJSONString();
-	}
-	
-	protected static Case createDefaultCase() {
-		String name = "CCCCCCCCCCCCCCCCCCCCCCCCC";
-		Pattern pattern = new Pattern(name.toCharArray());
-		Solution solution = new Solution(false, "", "");
-		return new Case(name, pattern, solution);
-	}
-	
-	protected static String[] createCsvHeader() {
-		return "Center,InnerTopLeft,InnerTop,InnerTopRight,InnerRight,InnerBottomRight,InnerBottom,InnerBottomLeft,InnerLeft,OuterTopLeftCorner,OuterTopLeft,OuterTop,OuterTopRight,OuterTopRightCorner,OuterRightTop,OuterRight,OuterRightBottom,OuterBottomRightCorn,OuterBottomRight,OuterBottom,OuterBottomLeft,OuterBottomLeftCorn,OuterLeftBottom,OuterLeft,OuterLeftTop,Solveable,SolutionCells,SolutionTypes".split(Constants.CSV_SEPERATOR);
 	}
 	
 	protected static String transformSolution(String[] arr) {

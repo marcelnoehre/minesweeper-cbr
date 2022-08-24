@@ -43,7 +43,7 @@ public class CBRProject {
 				initConceptAndAmalgation();
 				initAttributes();
 				initCaseBase();
-				addCase(CBRUtils.createDefaultCase());
+				addCase(Constants.DEFAULT_CASE);
 				Exports.exportProject(project);
 				System.out.println(" Success!");
 			} catch(Exception initializing) {
