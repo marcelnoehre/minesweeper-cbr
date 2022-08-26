@@ -6,8 +6,12 @@ import { Injectable } from '@angular/core';
 export class PatternService {
 
     getCheckablePattern(revealedBoard: String[][]):void {
-        for(let field of revealedBoard) {
-            console.log(field);
+        for(let i = 0; i < revealedBoard.length; i++) {
+            for(let j = 0; j < revealedBoard[i].length; j++) {
+                if(revealedBoard[i][j] == 'C' || revealedBoard[i][j] == 'F') {
+                    console.log('Value: ', i,j, ' ', revealedBoard[i][j]);
+                }
+            }
         }
     }
 }
