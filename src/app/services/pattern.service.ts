@@ -29,31 +29,40 @@ export class PatternService {
         });
     }
 
-    async getSolution() {
+    async getSolution(): Promise<Object> {
         this.getCheckablePattern();
         let result: Object = {};
-        let solution: boolean = false;
+        let solutionFound: boolean = false;
         let checkedIndexes: number[][] = [];
-        while(!solution) {
+        let solution: Object = {};
+        while(!solutionFound) {
+            console.log('here');
             let newIndex: boolean = false;
+            let index = -1;
             while(!newIndex) {
-                let index = Math.floor(Math.random()*this.predictableIndexes.length);
+                index = Math.floor(Math.random()*this.predictableIndexes.length);
                 if(!checkedIndexes.includes(this.predictableIndexes[index])) {
                     newIndex = true;
-                    result = await this._apiService.getSolutionCall(this.getPatternByIndex(this.predictableIndexes[index][0], this.predictableIndexes[index][1]));
-                    for(let i = 0; Object.values(result)[0][i] != undefined; i++) {
-                        if(Object.values(result)[0][i].Solvability) {
-                            solution = true
-                            //TODO: return solution
-                        }
-                    }
-                    if(!solution) {
-                        //TODO: save tested index
-                        //TODO: test next index if a index left
-                    }
+                }
+            }
+            result = await this._apiService.getSolutionCall(this.getPatternByIndex(this.predictableIndexes[index][0], this.predictableIndexes[index][1]));
+            for(let i = 0; Object.values(result)[0][i] != undefined; i++) {
+                if(Object.values(result)[0][i].Solvability == 'True') {
+                    solutionFound = true
+                    console.log(1)
+                    solution = Object.values(result)[0][i];
+                }
+            }
+            if(!solutionFound) {
+                checkedIndexes.push(this.predictableIndexes[index]);
+                if(checkedIndexes.length == this.predictableIndexes.length) {
+                    console.log(2)
+                    solutionFound = true;
                 }
             }
         }
+        console.log('Done');
+        return solution;
     }
 
     getCheckablePattern():void {
