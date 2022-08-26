@@ -31,7 +31,7 @@ export class PatternService {
 
     async getSolution() {
         this.getCheckablePattern();
-        let result: string = '';
+        let result: Object = {};
         let solution: boolean = false;
         let checkedIndexes: number[][] = [];
         while(!solution) {
@@ -41,13 +41,19 @@ export class PatternService {
                 if(!checkedIndexes.includes(this.predictableIndexes[index])) {
                     newIndex = true;
                     result = await this._apiService.getSolutionCall(this.getPatternByIndex(this.predictableIndexes[index][0], this.predictableIndexes[index][1]));
-                    if(true) { //if valid solution
-                        solution = true;
+                    for(let i = 0; Object.values(result)[0][i] != undefined; i++) {
+                        if(Object.values(result)[0][i].Solvability) {
+                            solution = true
+                            //TODO: return solution
+                        }
+                    }
+                    if(!solution) {
+                        //TODO: save tested index
+                        //TODO: test next index if a index left
                     }
                 }
             }
         }
-        console.log(result);
     }
 
     getCheckablePattern():void {
