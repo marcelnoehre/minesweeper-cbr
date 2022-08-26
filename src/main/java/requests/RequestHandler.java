@@ -28,6 +28,8 @@ public class RequestHandler {
 		String solveable = request.getParameter("solveable");
 		String solutionCells = request.getParameter("solutionCells");
 		String solutionTypes = request.getParameter("solutionTypes");
+		response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		System.out.print("Checking input...");
 		if(
 		RequestValidator.validatePattern(pattern) &&
@@ -76,6 +78,8 @@ public class RequestHandler {
 		String solveable = request.getParameter("solveable");
 		String solutionCells = request.getParameter("solutionCells");
 		String solutionTypes = request.getParameter("solutionTypes");
+		response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		System.out.print("Checking input...");
 		if(
 		RequestValidator.validatePattern(pattern) &&
@@ -129,6 +133,8 @@ public class RequestHandler {
 	public static void removeCase(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---REMOVE CASE---");
 		String pattern = request.getParameter("pattern");
+		response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		System.out.print("Checking input...");
 		if(RequestValidator.validatePattern(pattern)) {
 			System.out.println(" Valid!");
@@ -170,6 +176,8 @@ public class RequestHandler {
 	public static void getSolution(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---GET SOLUTION---");
 		String pattern = request.getParameter("pattern");
+		response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		System.out.print("Checking input...");
 		if(RequestValidator.validatePattern(pattern)) {
 			System.out.println(" Valid!");
