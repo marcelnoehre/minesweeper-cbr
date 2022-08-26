@@ -29,6 +29,13 @@ export class PatternService {
         });
     }
 
+    async createCase(x: number, y: number) {
+        this.getPatternByIndex(x,y);
+        for(let i = 1; i <= 8; i++) {
+
+        }
+    }
+
     async getSolution(): Promise<Object> {
         this.getCheckablePattern();
         let result: Object = {};
@@ -84,5 +91,91 @@ export class PatternService {
             }
         }
         return pattern;
+    }
+
+    getSolutionIdentifier(x: number, y: number) {
+        //test for all identifiers
+        //if true add to list
+    }
+
+    testMinesRevealed(x: number, y: number) {
+        //dont check mid?
+        let value = Number(this.cellsRevealed[x][y]);
+        if(value != NaN) {
+            let minesCounter = 0;
+            for(let i = 1; i <= 8; i++) {
+                if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'M') {
+                    minesCounter++;
+                }
+            }
+            return minesCounter == value;
+        }
+        return false;
+    }
+
+    testMinesFlagged(x: number, y: number) {
+        //dont check mid?
+        let value = Number(this.cellsRevealed[x][y]);
+        if(value != NaN) {
+            let minesCounter = 0;
+            let flag = false;
+            for(let i = 1; i <= 8; i++) {
+                if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'M') {
+                    minesCounter++;
+                } else if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'F') {
+                    minesCounter++;
+                    flag = true;
+                }
+            }
+            return (minesCounter == value && flag);
+        }
+        return false;
+    }
+
+    testWrongFlag(x: number, y: number) {
+        //dont check mid?
+        let value = Number(this.cellsRevealed[x][y]);
+        if(value != NaN) {
+            let minesCounter = 0;
+            for(let i = 1; i <= 8; i++) {
+                if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'M') {
+                    minesCounter++;
+                }
+            }
+            return minesCounter >= value;
+        }
+        return false;
+    }
+
+    testCoveredAmount(x: number, y: number) {
+        let value = Number(this.cellsRevealed[x][y]);
+        if(value != NaN) {
+            let coveredCounter = 0;
+            for(let i = 1; i <= 8; i++) {
+                if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'C') {
+                    coveredCounter++;
+                }
+            }
+            return coveredCounter == value;
+        }
+        return false;
+    }
+
+    testSuspiciousFlag(x: number, y: number) {
+        let value = Number(this.cellsRevealed[x][y]);
+        if(value != NaN) {
+            let minesCounter = 0;
+            let flag = false;
+            for(let i = 1; i <= 8; i++) {
+                if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'M') {
+                    minesCounter++;
+                } else if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'F') {
+                    minesCounter++;
+                    flag = true;
+                }
+            }
+            return minesCounter > value;
+        }
+        return false;
     }
 }
