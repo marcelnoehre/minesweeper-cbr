@@ -182,11 +182,12 @@ public class RequestHandler {
 				} catch (IOException e1) {
 				}
 			}
-		}
-		System.out.println(" Invalid!\n");
-		try {
-			response.sendError(400, "Bad Request");
-		} catch (IOException e) {
+		} else {
+			System.out.println(" Invalid!\n");
+			try {
+				response.sendError(400, "Bad Request");
+			} catch (IOException e) {
+			}
 		}
 	}
 }
