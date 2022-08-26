@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵɵtextInterpolate } from '@angular/core';
+import { ApiService } from './api.service';
 import { BoardService } from './board.service';
 import { GameStatsService } from './gamestats.service';
 
@@ -17,28 +18,49 @@ export class PatternService {
 
     constructor(
         private _board: BoardService,
-        private _gameStats: GameStatsService
+        private _gameStats: GameStatsService,
+        private _apiService: ApiService
         ) {
-        _board.cellsRevealed$.subscribe((cellRevealed: string[][]) => {
-            this.cellsRevealed = cellRevealed;
+        _board.cellsRevealed$.subscribe((cellsRevealed: string[][]) => {
+            this.cellsRevealed = cellsRevealed;
         });
         _gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
             this.cellsPerRow = cellsPerRow;
         });
     }
 
-    getCheckablePattern(revealedBoard: string[][]):void {
-        for(let i = 0; i < revealedBoard.length; i++) {
-            for(let j = 0; j < revealedBoard[i].length; j++) {
-                if(revealedBoard[i][j] == 'C' || revealedBoard[i][j] == 'F') {
+    async getSolution() {
+        this.getCheckablePattern();
+        let result: string = '';
+        let solution: boolean = false;
+        let checkedIndexes: number[][] = [];
+        while(!solution) {
+            let newIndex: boolean = false;
+            while(!newIndex) {
+                let index = Math.floor(Math.random()*this.predictableIndexes.length);
+                if(!checkedIndexes.includes(this.predictableIndexes[index])) {
+                    newIndex = true;
+                    result = await this._apiService.getSolutionCall(this.getPatternByIndex(this.predictableIndexes[index][0], this.predictableIndexes[index][1]));
+                    if(true) { //if valid solution
+                        solution = true;
+                    }
+                }
+            }
+        }
+        console.log(result);
+    }
+
+    getCheckablePattern():void {
+        for(let i = 0; i < this.cellsRevealed.length; i++) {
+            for(let j = 0; j < this.cellsRevealed[i].length; j++) {
+                if(this.cellsRevealed[i][j] == 'C' || this.cellsRevealed[i][j] == 'F') {
                     this.predictableIndexes.push([i,j]);
                 }
             }
         }
-        console.log(this.predictableIndexes);
     }
 
-    getPatternByIndex(x: number, y: number) {
+    getPatternByIndex(x: number, y: number): string {
         let pattern = '';
         for(let i = 0; i < 25; i++) {
             if(x + this.patternOrder[i][0] < 0 || 
@@ -50,5 +72,6 @@ export class PatternService {
                 pattern += this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]];
             }
         }
+        return pattern;
     }
 }
