@@ -1,4 +1,4 @@
-import { Injectable, ɵɵtextInterpolate } from '@angular/core';
+import { ComponentFactoryResolver, Injectable, ɵɵtextInterpolate } from '@angular/core';
 import { ApiService } from './api.service';
 import { BoardService } from './board.service';
 import { GameStatsService } from './gamestats.service';
@@ -33,15 +33,14 @@ export class PatternService {
         this.getCheckablePattern();
         let result: Object = {};
         let solutionFound: boolean = false;
-        let checkedIndexes: number[][] = [];
+        let possibleIndexes: number[][] = this.predictableIndexes;
         let solution: Object = {};
         while(!solutionFound) {
-            console.log('here');
             let newIndex: boolean = false;
             let index = -1;
             while(!newIndex) {
-                index = Math.floor(Math.random()*this.predictableIndexes.length);
-                if(!checkedIndexes.includes(this.predictableIndexes[index])) {
+                index = Math.floor(Math.random()*possibleIndexes.length);
+                if(this.predictableIndexes.includes(possibleIndexes[index])) {
                     newIndex = true;
                 }
             }
@@ -49,19 +48,16 @@ export class PatternService {
             for(let i = 0; Object.values(result)[0][i] != undefined; i++) {
                 if(Object.values(result)[0][i].Solvability == 'True') {
                     solutionFound = true
-                    console.log(1)
-                    solution = Object.values(result)[0][i];
+                    return Object.values(result)[0][i];
                 }
             }
             if(!solutionFound) {
-                checkedIndexes.push(this.predictableIndexes[index]);
-                if(checkedIndexes.length == this.predictableIndexes.length) {
-                    console.log(2)
+                possibleIndexes.splice(index,1);
+                if(possibleIndexes.length == 0) {
                     solutionFound = true;
                 }
             }
         }
-        console.log('Done');
         return solution;
     }
 
