@@ -91,10 +91,10 @@ export class BoardComponent implements OnInit{
       this._board.setupPlanned(this._cellsPerRow, row, column, this._bombAmount);
     }
     if(!this._isFlagMode) {
-      if(this.cellsRevealed[row][column] == 'facingDown') {
+      if(this.cellsRevealed[row][column] == 'C') {
         this._tokens.setHintStatus(0);
         this._board.revealCell(row, column);
-        if(this._cellsPlanned[row][column] == 'bomb') {
+        if(this._cellsPlanned[row][column] == 'M') {
           this._timer.stop();
           await new Promise<void>(done => setTimeout(() => done(), 250));
           this._action.openDialog(ResultEnum.lose);
@@ -114,20 +114,20 @@ export class BoardComponent implements OnInit{
       this._gameStats.setGameRunning(true);
       this._board.setupPlanned(this._cellsPerRow, row, column, this._bombAmount);
     }
-    if(this.cellsRevealed[row][column] == 'flagged') {
-      this._board.setCellsRevealed(row, column, 'facingDown');
+    if(this.cellsRevealed[row][column] == 'F') {
+      this._board.setCellsRevealed(row, column, 'C');
       this._gameStats.setRemainingFlags(this._remainingFlags+1);
-      if (this._cellsPlanned[row][column] == 'bomb') {
+      if (this._cellsPlanned[row][column] == 'M') {
         this._gameStats.setFlaggedBombs(this._flaggedBombs-1);
       }
       this._tokens.setHintStatus(0);
       if(!this._isFlagPermanently) {
         this._gameStats.setIsFlagMode(false);
       }
-    } else if( this.cellsRevealed[row][column] == 'facingDown' && this._remainingFlags > 0) {
-      this._board.setCellsRevealed(row, column, 'flagged');
+    } else if( this.cellsRevealed[row][column] == 'C' && this._remainingFlags > 0) {
+      this._board.setCellsRevealed(row, column, 'F');
       this._gameStats.setRemainingFlags(this._remainingFlags-1);
-      if(this._cellsPlanned[row][column] == 'bomb') {
+      if(this._cellsPlanned[row][column] == 'M') {
         this._gameStats.setFlaggedBombs(this._flaggedBombs+1);
       }
       this._tokens.setHintStatus(0);

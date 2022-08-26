@@ -39,7 +39,7 @@ export class BoardService {
         for (let i = 0; i < counter; i++) {
             let innerArray: string[] = [];
             for(let j = 0; j < counter; j++) {
-                innerArray.push('facingDown');
+                innerArray.push('C');
             }
             this._revealedArray.push(innerArray); 
         }
@@ -60,8 +60,8 @@ export class BoardService {
             let rowIndex = this.randomNumber(counter);
             let columnIndex = this.randomNumber(counter);
             if(!(rowIndex == row && columnIndex == column)) {
-                if(this._plannedArray[rowIndex][columnIndex] != 'bomb') {
-                    this._plannedArray[rowIndex][columnIndex] = 'bomb';
+                if(this._plannedArray[rowIndex][columnIndex] != 'M') {
+                    this._plannedArray[rowIndex][columnIndex] = 'M';
                     placedBombs++;
                 }
             }
@@ -81,12 +81,12 @@ export class BoardService {
     }
 
     updateCell(counter: number, row: number, column: number) { 
-        if(this._plannedArray[row][column] != 'bomb') {
+        if(this._plannedArray[row][column] != 'M') {
             let value = 0;
             for(let i = row-1; i <= row+1; i++) {
                 for(let j = column-1; j <= column+1; j++) {
                     if(i >= 0 && j >= 0 && i < counter && j < counter) {
-                        if(this._plannedArray[i][j] == 'bomb') {
+                        if(this._plannedArray[i][j] == 'M') {
                             value++;
                         }
                     }
@@ -100,7 +100,7 @@ export class BoardService {
         for(let i = row-1; i <= row+1; i++) {
             for(let j = column-1; j <= column+1; j++) {
                 if(i >= 0 && j >= 0 && i < counter && j < counter) {
-                    if(this._revealedArray[i][j] == 'facingDown') {
+                    if(this._revealedArray[i][j] == 'C') {
                         if(this._plannedArray[i][j] == '0') {
                             this._revealedArray[i][j] = this._plannedArray[i][j];
                             revealedCounter++;
