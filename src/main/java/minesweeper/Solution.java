@@ -9,7 +9,7 @@ import utils.Constants;
  *
  */
 public class Solution {
-	private boolean solveable;
+	private boolean solvability;
 	private String[] cells;
 	private String[] types;
 	
@@ -17,7 +17,7 @@ public class Solution {
 	 * Creates a empty solution for an incoming case.
 	 */
 	public Solution() {
-		setSolvable(false);
+		setSolvability(false);
 		setCells(new String[] {});
 		setTypes(new String[] {});
 	}
@@ -28,7 +28,7 @@ public class Solution {
 	 * @param solutionValues The solution values in the form of a string array
 	 */
 	public Solution(String[] solutionValues) {
-		setSolvable(solutionValues[0].equals("True"));
+		setSolvability(solutionValues[0].equals("True"));
 		setCells(solutionValues[1].split(Constants.SOLUTION_SEPERATOR));
 		setTypes(solutionValues[2].split(Constants.SOLUTION_SEPERATOR));
 	}
@@ -36,12 +36,12 @@ public class Solution {
 	/**
 	 * Creates the solution of a case consisting of the decisive cells and their type.
 	 * 
-	 * @param solveable The indication whether the case is solvable
+	 * @param solvability The indication whether the case is solvable
 	 * @param cells		The decisive cells
 	 * @param types		The types of decisive cells
 	 */
-	public Solution(boolean solveable, String[] cells, String[] types) {
-		setSolvable(solveable);
+	public Solution(boolean solvability, String[] cells, String[] types) {
+		setSolvability(solvability);
 		setCells(cells);
 		setTypes(types);
 	}
@@ -49,12 +49,12 @@ public class Solution {
 	/**
 	 * Creates the solution of a case consisting of the decisive cells and their type.
 	 * 
-	 * @param solveable The indication whether the case is solvable
+	 * @param solvability The indication whether the case is solvable
 	 * @param cells		The decisive cells
 	 * @param types		The types of decisive cells
 	 */
-	public Solution(boolean solveable, String cells, String types) {
-		setSolvable(solveable);
+	public Solution(boolean solvability, String cells, String types) {
+		setSolvability(solvability);
 		setCells(cells.split(Constants.SOLUTION_SEPERATOR));
 		setTypes(types.split(Constants.SOLUTION_SEPERATOR));
 	}
@@ -62,10 +62,10 @@ public class Solution {
 	/**
 	 * Sets the solvability information.
 	 * 
-	 * @param solveable	The solvability information
+	 * @param solvability	The solvability information
 	 */
-	private void setSolvable(boolean solveable) {
-		this.solveable = solveable;
+	private void setSolvability(boolean solvability) {
+		this.solvability = solvability;
 	}
 	
 	/**
@@ -91,8 +91,8 @@ public class Solution {
 	 *
 	 * @return	The solvability information
 	 */
-	public boolean getSolveable() {
-		return solveable;
+	public boolean getSolvability() {
+		return solvability;
 	}
 	
 	/**

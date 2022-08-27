@@ -172,7 +172,7 @@ public class CBRProject {
 		instance.addAttribute(attributes[22], newCase.getPattern().getOuterLeftBottom());
 		instance.addAttribute(attributes[23], newCase.getPattern().getOuterLeft());
 		instance.addAttribute(attributes[24], newCase.getPattern().getOuterLeftTop());
-		instance.addAttribute(attributes[25], newCase.getSolution().getSolveable() ? "True": "False");
+		instance.addAttribute(attributes[25], newCase.getSolution().getSolvability() ? "True": "False");
 		instance.addAttribute(attributes[26], Transform.stringArrayToSolutionString(newCase.getSolution().getCells()));
 		instance.addAttribute(attributes[27], Transform.stringArrayToSolutionString(newCase.getSolution().getTypes()));
 		casebase.addCase(instance);

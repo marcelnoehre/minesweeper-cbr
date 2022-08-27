@@ -25,7 +25,7 @@ public class RequestHandler {
 	public static void addCase(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---ADD CASE---");
 		String pattern = request.getParameter("pattern");
-		String solveable = request.getParameter("solveable");
+		String solvability = request.getParameter("solvability");
 		String solutionCells = request.getParameter("solutionCells");
 		String solutionTypes = request.getParameter("solutionTypes");
 		response.addHeader("Access-Control-Allow-Origin", "*");
@@ -33,14 +33,14 @@ public class RequestHandler {
 		System.out.print("Checking input...");
 		if(
 		RequestValidator.validatePattern(pattern) &&
-		RequestValidator.validateSolution(solveable, solutionCells, solutionTypes)
+		RequestValidator.validateSolution(solvability, solutionCells, solutionTypes)
 		) {
 			System.out.println(" Valid!");
 			if(!CBRAgent.checkForCase(pattern)) {
 				try {
 					System.out.print("Adding Case " + pattern + " to case base...");
 					CBRAgent.project();
-					Case newCase = Transform.apiInputToCase(pattern, solveable.equals("True"), solutionCells.split(Constants.SOLUTION_SEPERATOR), solutionTypes.split(Constants.SOLUTION_SEPERATOR));
+					Case newCase = Transform.apiInputToCase(pattern, solvability.equals("True"), solutionCells.split(Constants.SOLUTION_SEPERATOR), solutionTypes.split(Constants.SOLUTION_SEPERATOR));
 					CBRAgent.addCase(newCase);
 					System.out.println(" Success!");
 					try {

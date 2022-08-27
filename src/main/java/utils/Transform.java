@@ -43,7 +43,7 @@ public class Transform {
 		caseArray[22] = caseObject.getPattern().getOuterLeftBottom();
 		caseArray[23] = caseObject.getPattern().getOuterLeft();
 		caseArray[24] = caseObject.getPattern().getOuterLeftTop();
-		caseArray[25] = caseObject.getSolution().getSolveable() ? "True" : "False";
+		caseArray[25] = caseObject.getSolution().getSolvability() ? "True" : "False";
 		caseArray[26] = stringArrayToSolutionString(caseObject.getSolution().getCells());
 		caseArray[27] = stringArrayToSolutionString(caseObject.getSolution().getTypes());
 		return caseArray;
