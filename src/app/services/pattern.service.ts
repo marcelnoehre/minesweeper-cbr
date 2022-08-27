@@ -29,13 +29,6 @@ export class PatternService {
         });
     }
 
-    async createCase(x: number, y: number) {
-        this.getPatternByIndex(x,y);
-        for(let i = 1; i <= 8; i++) {
-
-        }
-    }
-
     async getSolution(): Promise<Object> {
         this.getCheckablePattern();
         let result: Object = {};
@@ -93,89 +86,97 @@ export class PatternService {
         return pattern;
     }
 
-    getSolutionIdentifier(x: number, y: number) {
-        //test for all identifiers
-        //if true add to list
-    }
-
-    testMinesRevealed(x: number, y: number) {
-        //dont check mid?
-        let value = Number(this.cellsRevealed[x][y]);
-        if(value != NaN) {
-            let minesCounter = 0;
-            for(let i = 1; i <= 8; i++) {
-                if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'M') {
-                    minesCounter++;
-                }
+    createCase(x: number, y: number) {
+        let pattern = this.getPatternByIndex(x,y);
+        let center = this.cellsRevealed[x][y];
+        let solutionCells = '';
+        let solutionTypes = '';
+        for(let i = 1; i <= 8; i++) {
+            let solutionKey = this.checkSolutionKey(center, x + this.patternOrder[i][0], y + this.patternOrder[i][1]);
+            if(solutionKey != '') {
+                let xSolution = 3 + this.patternOrder[i][0];
+                let ySolution = 3 + this.patternOrder[i][1];
+                solutionCells += xSolution + ySolution + '#';
+                solutionTypes += solutionKey;
             }
-            return minesCounter == value;
         }
-        return false;
+        console.log(pattern);
+        console.log(solutionCells.length > 0);
+        console.log(solutionCells.slice(0, -1));
+        console.log(solutionTypes.slice(0, -1));
     }
 
-    testMinesFlagged(x: number, y: number) {
-        //dont check mid?
+    checkSolutionKey(center: string, x: number, y: number) {
         let value = Number(this.cellsRevealed[x][y]);
         if(value != NaN) {
-            let minesCounter = 0;
-            let flag = false;
-            for(let i = 1; i <= 8; i++) {
-                if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'M') {
-                    minesCounter++;
-                } else if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'F') {
-                    minesCounter++;
-                    flag = true;
-                }
+            if(center == 'C') {
+                return this.checkCoveredCenter(value, x, y);
+            } else if(center == 'F') {
+                return this.checkFlagCenter(value, x, y);
             }
-            return (minesCounter == value && flag);
+            return '';
         }
-        return false;
+        return '';
     }
 
-    testWrongFlag(x: number, y: number) {
-        //dont check mid?
-        let value = Number(this.cellsRevealed[x][y]);
-        if(value != NaN) {
-            let minesCounter = 0;
-            for(let i = 1; i <= 8; i++) {
-                if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'M') {
+    checkCoveredCenter(value: number, x: number, y: number) {
+        let minesCounter = 0;
+        let flagCounter = 0;
+        let coveredCounter = 0;
+        for(let i = 1; i <= 8; i++) {
+            let surroundValue = this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]];
+            switch(surroundValue) {
+                case 'M': {
                     minesCounter++;
+                    break;
                 }
-            }
-            return minesCounter >= value;
-        }
-        return false;
-    }
-
-    testCoveredAmount(x: number, y: number) {
-        let value = Number(this.cellsRevealed[x][y]);
-        if(value != NaN) {
-            let coveredCounter = 0;
-            for(let i = 1; i <= 8; i++) {
-                if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'C') {
+                case 'F': {
+                    flagCounter++;
+                    break;
+                }
+                case 'C': {
                     coveredCounter++;
+                    break;
+                }
+                default: {
+                    break;
                 }
             }
-            return coveredCounter == value;
+            if(minesCounter == value) {
+                return 'MINES.REVEALED#';
+            } else if(minesCounter + flagCounter == value) {
+                return 'MINES.FLAGGED#';
+            } else if(coveredCounter == value) {
+                return 'COVERED.AMOUNT#';
+            }
         }
-        return false;
+        return '';
     }
 
-    testSuspiciousFlag(x: number, y: number) {
-        let value = Number(this.cellsRevealed[x][y]);
-        if(value != NaN) {
-            let minesCounter = 0;
-            let flag = false;
-            for(let i = 1; i <= 8; i++) {
-                if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'M') {
+    checkFlagCenter(value: number, x: number, y: number) {
+        let minesCounter = 0;
+        let flagCounter = 0;
+        for(let i = 1; i <= 8; i++) {
+            let surroundValue = this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]];
+            switch(surroundValue) {
+                case 'M': {
                     minesCounter++;
-                } else if(this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]] == 'F') {
-                    minesCounter++;
-                    flag = true;
+                    break;
+                }
+                case 'F': {
+                    flagCounter++;
+                    break;
+                }
+                default: {
+                    break;
                 }
             }
-            return minesCounter > value;
+            if(minesCounter == value) {
+                return 'WRONG.FLAG#';
+            } else if(minesCounter + flagCounter == value) {
+                return 'SUSPICIOUS.FLAG#';
+            }
         }
-        return false;
+        return '';
     }
 }
