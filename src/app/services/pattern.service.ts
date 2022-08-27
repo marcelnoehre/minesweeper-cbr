@@ -11,9 +11,9 @@ export class PatternService {
     private cellsRevealed!: string[][];
     private cellsPerRow!: number;
     private patternOrder: number[][] = [
-        [0,0],[-1,-1],[-1,0],[-1,1],[0,1],[-1,1],[0,1],[-1,1],[-1,0],
-        [-2,-2],[-2,-1],[-2,0],[-2,1],[-2,2],[-1,2],[0,2],[1,2],[2,2],
-        [2,1],[2,0],[2,-1],[2,-2],[1,-2],[0,-2],[-1,-2]
+        [0,0],[-1,-1],[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],
+        [-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[2,-1],[2,0],[2,1],
+        [2,2],[1,2],[0,2],[-1,2],[-2,2],[-2,1],[-2,0],[-2,-1]
     ];
 
     constructor(
@@ -74,14 +74,8 @@ export class PatternService {
     getPatternByIndex(x: number, y: number): string {
         let pattern = '';
         for(let i = 0; i < 25; i++) {
-            if(x + this.patternOrder[i][0] < 0 || 
-                y + this.patternOrder[i][1] < 0 || 
-                x + this.patternOrder[i][0] >= this.cellsPerRow || 
-                y + this.patternOrder[i][1] >= this.cellsPerRow) {
-                pattern += 'B';
-            } else {
-                pattern += this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]];
-            }
+            let cell = this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]];
+            pattern += cell == undefined ? 'B' : cell;
         }
         return pattern;
     }
@@ -125,6 +119,7 @@ export class PatternService {
         let coveredCounter = 0;
         for(let i = 1; i <= 8; i++) {
             let surroundValue = this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]];
+            surroundValue = surroundValue == undefined ? 'B' : surroundValue
             switch(surroundValue) {
                 case 'M': {
                     minesCounter++;
@@ -158,6 +153,7 @@ export class PatternService {
         let flagCounter = 0;
         for(let i = 1; i <= 8; i++) {
             let surroundValue = this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]];
+            surroundValue = surroundValue == undefined ? 'B' : surroundValue
             switch(surroundValue) {
                 case 'M': {
                     minesCounter++;
