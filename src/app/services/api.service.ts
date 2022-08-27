@@ -26,15 +26,12 @@ export class ApiService {
       const call = (await this.http
         .post(this.api + path, obj, options)
         .toPromise()) as any;
-      if (call.code == 401) {
-        console.log("Code 400");
+      if (call.code == 400) {
+        console.error('Bad request!');
       } else {
         return call;
       }
     } catch (err: any) {
-      if (err.status != 200) {
-        console.log(err.status);
-      }
     }
   }
 
