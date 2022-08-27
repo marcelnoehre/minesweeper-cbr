@@ -1,6 +1,6 @@
 export interface Case {
     pattern: string;
-    solvability: boolean;
+    solvability: string;
     solutionCells: string;
     solutionTypes: string;
 }

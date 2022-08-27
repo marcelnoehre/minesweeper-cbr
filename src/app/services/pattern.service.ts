@@ -35,6 +35,10 @@ export class PatternService {
         return this.caseCollection;
     }
 
+    resetCaseCollection() {
+        this.caseCollection = [];
+    }
+
     async getSolution(): Promise<Object> {
         this.getCheckablePattern();
         let result: Object = {};
@@ -102,15 +106,15 @@ export class PatternService {
             if(solutionKey != '') {
                 let xSolution = 2 + this.patternOrder[i][0];
                 let ySolution = 2 + this.patternOrder[i][1];
-                solutionCells += xSolution + '' + ySolution + '#';
+                solutionCells += xSolution + '' + ySolution + '%23';
                 solutionTypes += solutionKey;
             }
         }
         const caseObject: Case = {
             pattern: pattern, 
-            solvability: solutionCells.length > 0, 
-            solutionCells: solutionCells.slice(0, -1), 
-            solutionTypes: solutionTypes.slice(0, -1)
+            solvability: solutionCells.length > 0 ? "True" : "False", 
+            solutionCells: solutionCells.slice(0, -3),
+            solutionTypes: solutionTypes.slice(0, -3)
         };
         this.caseCollection.push(caseObject);
     }
@@ -169,13 +173,13 @@ export class PatternService {
                 }
             }
             if(minesCounter == value) {
-                return 'MINES.REVEALED#';
+                return 'MINES.REVEALED%23';
             } else if(minesCounter + flagCounter == value) {
-                return 'MINES.FLAGGED#';
+                return 'MINES.FLAGGED%23';
             }
         }
         if(coveredCounter == value) {
-            return 'COVERED.AMOUNT#';
+            return 'COVERED.AMOUNT%23';
         }
         return '';
     }
@@ -207,9 +211,9 @@ export class PatternService {
                 }
             }
             if(minesCounter == value) {
-                return 'WRONG.FLAG#';
+                return 'WRONG.FLAG%23';
             } else if(minesCounter + flagCounter == value) {
-                return 'SUSPICIOUS.FLAG#';
+                return 'SUSPICIOUS.FLAG%23';
             }
         }
         return '';

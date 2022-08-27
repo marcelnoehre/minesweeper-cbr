@@ -1,6 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActionService } from 'src/app/services/action-service';
+import { ApiService } from 'src/app/services/api.service';
 import { GameStatsService } from 'src/app/services/gamestats.service';
+import { PatternService } from 'src/app/services/pattern.service';
 import { TimerService } from 'src/app/services/timer.service';
 import { TokensService } from 'src/app/services/tokens.service';
 
@@ -28,10 +30,12 @@ export class DialogComponent implements OnInit, OnDestroy {
     private _gameStats: GameStatsService,
     private _tokens: TokensService,
     private _action: ActionService,
-    private _timer: TimerService
+    private _timer: TimerService,
+    private _api: ApiService,
+    private _pattern: PatternService
     ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this._timer.gameTime$.subscribe((gameTime: number) => {
       this.gameTime = gameTime;
       let minutes = Math.floor(this.gameTime / 60);
@@ -67,6 +71,8 @@ export class DialogComponent implements OnInit, OnDestroy {
     this._tokens.remainingTokens$.subscribe((remainingTokens: number) => {
       this.remainingTokens = remainingTokens;
     });
+    await this._api.addCaseCall(this._pattern.getCaseCollection);
+    this._pattern.resetCaseCollection();
   }
 
   ngOnDestroy(): void {
