@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Case } from '../interfaces/case';
 import { ApiService } from './api.service';
 import { BoardService } from './board.service';
 import { GameStatsService } from './gamestats.service';
@@ -15,6 +16,7 @@ export class PatternService {
         [-2,-2],[-2,-1],[-2,0],[-2,1],[-2,2],[-1,2],[0,2],[1,2],
         [2,2],[2,1],[2,0],[2,-1],[2,-2],[1,-2],[0,-2],[-1,-2]
     ];
+    private caseCollection: Case[] = [];
 
     constructor(
         private _board: BoardService,
@@ -27,6 +29,10 @@ export class PatternService {
         _gameStats.cellsPerRow$.subscribe((cellsPerRow: number) => {
             this.cellsPerRow = cellsPerRow;
         });
+    }
+
+    get getCaseCollection() {
+        return this.caseCollection;
     }
 
     async getSolution(): Promise<Object> {
@@ -100,10 +106,13 @@ export class PatternService {
                 solutionTypes += solutionKey;
             }
         }
-        console.log(pattern);
-        console.log(solutionCells.length > 0);
-        console.log(solutionCells.slice(0, -1));
-        console.log(solutionTypes.slice(0, -1));
+        const caseObject: Case = {
+            pattern: pattern, 
+            solvability: solutionCells.length > 0, 
+            solutionCells: solutionCells.slice(0, -1), 
+            solutionTypes: solutionTypes.slice(0, -1)
+        };
+        this.caseCollection.push(caseObject);
     }
 
     checkSolutionKey(center: string, row: number, column: number) {
