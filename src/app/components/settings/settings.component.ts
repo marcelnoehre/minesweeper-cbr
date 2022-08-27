@@ -3,8 +3,10 @@ import { filter, Observable, pluck } from 'rxjs';
 import { DifficultyEnum } from 'src/app/enum/difficulty';
 import { ResultEnum } from 'src/app/enum/result';
 import { ActionService } from 'src/app/services/action-service';
+import { ApiService } from 'src/app/services/api.service';
 import { BreakpointService } from 'src/app/services/breakpoint.service';
 import { GameStatsService } from 'src/app/services/gamestats.service';
+import { PatternService } from 'src/app/services/pattern.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { TimerService } from 'src/app/services/timer.service';
 
@@ -33,7 +35,9 @@ export class SettingsComponent implements OnInit {
     private _gameStats: GameStatsService,
     private _action: ActionService,
     private _timer: TimerService,
-    private _breakpoints: BreakpointService
+    private _breakpoints: BreakpointService,
+    private _pattern: PatternService,
+    private _api: ApiService
   ) {}
 
   ngOnInit(): void {
@@ -110,7 +114,9 @@ export class SettingsComponent implements OnInit {
     this._action.restartGame();
   }
 
-  restartGame() {
+  async restartGame() {
     this._action.restartGame();
+    await this._api.addCaseCall(this._pattern.getCaseCollection);
+    this._pattern.resetCaseCollection();
   }
 }
