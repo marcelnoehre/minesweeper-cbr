@@ -55,8 +55,13 @@ public class Solution {
 	 */
 	public Solution(boolean solvability, String cells, String types) {
 		setSolvability(solvability);
-		setCells(cells.split(Constants.SOLUTION_SEPERATOR));
-		setTypes(types.split(Constants.SOLUTION_SEPERATOR));
+		if(cells.equals("")) {
+			setCells(new String[]{});
+			setTypes(new String[]{});
+		} else {
+			setCells(cells.split(Constants.SOLUTION_SEPERATOR));
+			setTypes(types.split(Constants.SOLUTION_SEPERATOR));
+		}
 	}
 	
 	/**

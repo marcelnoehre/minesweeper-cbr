@@ -14,13 +14,28 @@ public class RequestValidator {
 	
 	protected static boolean validateSolution(String solveable, String solutionCells, String solutionTypes) {
 		if(solveable.equals("True") || solveable.equals("False")) {
-			for(String solutionCell: solutionCells.split(Constants.SOLUTION_SEPERATOR)) {
-				if(!Arrays.stream(Constants.SOLUTION_COORDINATES).anyMatch(solutionCell::equals)) {
-					return false;
+			if(!solutionCells.equals("")) {
+				if(solutionCells.length() == 2) {
+					if(!Arrays.stream(Constants.SOLUTION_COORDINATES).anyMatch(solutionCells::equals)) {
+						return false;
+					}
+					if(!Arrays.stream(Constants.SOLUTION_TYPES).anyMatch(solutionTypes::equals)) {
+						return false;
+					}
+				} else {
+					for(String solutionCell: solutionCells.split(Constants.SOLUTION_SEPERATOR)) {
+						if(!Arrays.stream(Constants.SOLUTION_COORDINATES).anyMatch(solutionCell::equals)) {
+							return false;
+						}
+					}
+					for(String solutionType : solutionTypes.split(Constants.SOLUTION_SEPERATOR)) {
+						if(!Arrays.stream(Constants.SOLUTION_TYPES).anyMatch(solutionType::equals)) {
+							return false;
+						}
+					}
 				}
-			}
-			for(String solutionType : solutionTypes.split(Constants.SOLUTION_SEPERATOR)) {
-				if(!Arrays.stream(Constants.SOLUTION_TYPES).anyMatch(solutionType::equals)) {
+			} else {
+				if(!solutionTypes.equals("")) {
 					return false;
 				}
 			}

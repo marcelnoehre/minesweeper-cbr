@@ -12,7 +12,7 @@ import minesweeper.Solution;
 
 public class Transform {
 	
-	public static Case apiInputToCase(String pattern, boolean solveable, String[] solutionCells, String[] solutionTypes) {
+	public static Case apiInputToCase(String pattern, boolean solveable, String solutionCells, String solutionTypes) {
 		return new Case(pattern, new Pattern(pattern.toCharArray()), new Solution(solveable, solutionCells, solutionTypes));
 	}
 	

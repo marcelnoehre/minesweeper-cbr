@@ -40,7 +40,7 @@ public class RequestHandler {
 				try {
 					System.out.print("Adding Case " + pattern + " to case base...");
 					CBRAgent.project();
-					Case newCase = Transform.apiInputToCase(pattern, solvability.equals("True"), solutionCells.split(Constants.SOLUTION_SEPERATOR), solutionTypes.split(Constants.SOLUTION_SEPERATOR));
+					Case newCase = Transform.apiInputToCase(pattern, solvability.equals("True"), solutionCells, solutionTypes);
 					CBRAgent.addCase(newCase);
 					System.out.println(" Success!");
 					try {
@@ -64,11 +64,12 @@ public class RequestHandler {
 				} catch (IOException e) {
 				}
 			}
-		}
-		System.out.println(" Invalid!\n");
-		try {
-			response.sendError(400, "Bad Request");
-		} catch (IOException e) {
+		} else {
+			System.out.println(" Invalid!\n");
+			try {
+				response.sendError(400, "Bad Request");
+			} catch (IOException e) {
+			}
 		}
 	}
 	
@@ -93,7 +94,7 @@ public class RequestHandler {
 					CBRAgent.project();
 					dataStorage = CBRAgent.getCase(pattern);
 					CBRAgent.removeCase(pattern);
-					Case newCase = Transform.apiInputToCase(pattern, solveable.equals("True"), solutionCells.split(Constants.SOLUTION_SEPERATOR), solutionTypes.split(Constants.SOLUTION_SEPERATOR));
+					Case newCase = Transform.apiInputToCase(pattern, solveable.equals("True"), solutionCells, solutionTypes);
 					CBRAgent.addCase(newCase);
 					System.out.println(" Success!");
 					try {
@@ -122,11 +123,12 @@ public class RequestHandler {
 				} catch (IOException e) {
 				}
 			}
-		}
-		System.out.println(" Invalid!\n");
-		try {
-			response.sendError(400, "Bad Request");
-		} catch (IOException e) {
+		} else {
+			System.out.println(" Invalid!\n");
+			try {
+				response.sendError(400, "Bad Request");
+			} catch (IOException e) {
+			}	
 		}
 	}
 	
@@ -165,11 +167,12 @@ public class RequestHandler {
 				} catch (IOException e) {
 				}
 			}
-		}
-		System.out.println(" Invalid!\n");
-		try {
-			response.sendError(400, "Bad Request");
-		} catch (IOException e) {
+		} else {
+			System.out.println(" Invalid!\n");
+			try {
+				response.sendError(400, "Bad Request");
+			} catch (IOException e) {
+			}
 		}
 	}
 	
