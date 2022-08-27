@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, Injectable, ɵɵtextInterpolate } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { BoardService } from './board.service';
 import { GameStatsService } from './gamestats.service';
@@ -11,9 +11,9 @@ export class PatternService {
     private cellsRevealed!: string[][];
     private cellsPerRow!: number;
     private patternOrder: number[][] = [
-        [0,0],[-1,-1],[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],
-        [-2,-2],[-1,-2],[0,-2],[1,-2],[2,-2],[2,-1],[2,0],[2,1],
-        [2,2],[1,2],[0,2],[-1,2],[-2,2],[-2,1],[-2,0],[-2,-1]
+        [0,0],[-1,-1],[-1, 0],[-1, 1],[0,1],[1,1],[1,0],[1,-1],[0,-1],
+        [-2,-2],[-2,-1],[-2,0],[-2,1],[-2,2],[-1,2],[0,2],[1,2],
+        [2,2],[2,1],[2,0],[2,-1],[2,-2],[1,-2],[0,-2],[-1,-2]
     ];
 
     constructor(
@@ -71,26 +71,32 @@ export class PatternService {
         }
     }
 
-    getPatternByIndex(x: number, y: number): string {
+    getPatternByIndex(row: number, column: number): string {
         let pattern = '';
         for(let i = 0; i < 25; i++) {
-            let cell = this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]];
-            pattern += cell == undefined ? 'B' : cell;
+            if(row + this.patternOrder[i][0] < 0 || 
+                column + this.patternOrder[i][1] < 0 || 
+                row + this.patternOrder[i][0] >= this.cellsPerRow || 
+                column + this.patternOrder[i][1] >= this.cellsPerRow) {
+                pattern += 'B';
+            } else {
+                pattern += this.cellsRevealed[row + this.patternOrder[i][0]][column + this.patternOrder[i][1]];
+            }
         }
         return pattern;
     }
 
-    createCase(x: number, y: number) {
-        let pattern = this.getPatternByIndex(x,y);
-        let center = this.cellsRevealed[x][y];
+    createCase(row: number, column: number) {
+        let pattern = this.getPatternByIndex(row, column);
+        let center = this.cellsRevealed[row][column];
         let solutionCells = '';
         let solutionTypes = '';
         for(let i = 1; i <= 8; i++) {
-            let solutionKey = this.checkSolutionKey(center, x + this.patternOrder[i][0], y + this.patternOrder[i][1]);
+            let solutionKey = this.checkSolutionKey(center, row + this.patternOrder[i][0], column + this.patternOrder[i][1]);
             if(solutionKey != '') {
-                let xSolution = 3 + this.patternOrder[i][0];
-                let ySolution = 3 + this.patternOrder[i][1];
-                solutionCells += xSolution + ySolution + '#';
+                let xSolution = 2 + this.patternOrder[i][0];
+                let ySolution = 2 + this.patternOrder[i][1];
+                solutionCells += xSolution + '' + ySolution + '#';
                 solutionTypes += solutionKey;
             }
         }
@@ -100,26 +106,42 @@ export class PatternService {
         console.log(solutionTypes.slice(0, -1));
     }
 
-    checkSolutionKey(center: string, x: number, y: number) {
-        let value = Number(this.cellsRevealed[x][y]);
-        if(value != NaN) {
+    checkSolutionKey(center: string, row: number, column: number) {
+        let value = '';
+        if(row < 0 || 
+            column < 0 || 
+            row >= this.cellsPerRow || 
+            column  >= this.cellsPerRow) {
+            value = 'B';
+        } else {
+            value = this.cellsRevealed[row][column];
+        }
+        let valueNumber = Number(value);
+        if(valueNumber != NaN) {
             if(center == 'C') {
-                return this.checkCoveredCenter(value, x, y);
+                return this.checkCoveredCenter(valueNumber, row, column);
             } else if(center == 'F') {
-                return this.checkFlagCenter(value, x, y);
+                return this.checkFlagCenter(valueNumber, row, column);
             }
             return '';
         }
         return '';
     }
 
-    checkCoveredCenter(value: number, x: number, y: number) {
+    checkCoveredCenter(value: number, row: number, column: number) {
         let minesCounter = 0;
         let flagCounter = 0;
         let coveredCounter = 0;
         for(let i = 1; i <= 8; i++) {
-            let surroundValue = this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]];
-            surroundValue = surroundValue == undefined ? 'B' : surroundValue
+            let surroundValue = '';
+            if(row + this.patternOrder[i][0] < 0 || 
+                column + this.patternOrder[i][1] < 0 || 
+                row + this.patternOrder[i][0] >= this.cellsPerRow || 
+                column + this.patternOrder[i][1] >= this.cellsPerRow) {
+                surroundValue = 'B';
+            } else {
+                surroundValue = this.cellsRevealed[row + this.patternOrder[i][0]][column + this.patternOrder[i][1]];
+            }
             switch(surroundValue) {
                 case 'M': {
                     minesCounter++;
@@ -141,19 +163,27 @@ export class PatternService {
                 return 'MINES.REVEALED#';
             } else if(minesCounter + flagCounter == value) {
                 return 'MINES.FLAGGED#';
-            } else if(coveredCounter == value) {
-                return 'COVERED.AMOUNT#';
             }
+        }
+        if(coveredCounter == value) {
+            return 'COVERED.AMOUNT#';
         }
         return '';
     }
 
-    checkFlagCenter(value: number, x: number, y: number) {
+    checkFlagCenter(value: number, row: number, column: number) {
         let minesCounter = 0;
         let flagCounter = 0;
         for(let i = 1; i <= 8; i++) {
-            let surroundValue = this.cellsRevealed[x + this.patternOrder[i][0]][y + this.patternOrder[i][1]];
-            surroundValue = surroundValue == undefined ? 'B' : surroundValue
+            let surroundValue = '';
+            if(row + this.patternOrder[i][0] < 0 || 
+                column + this.patternOrder[i][1] < 0 || 
+                row + this.patternOrder[i][0] >= this.cellsPerRow || 
+                column + this.patternOrder[i][1] >= this.cellsPerRow) {
+                surroundValue = 'B';
+            } else {
+                surroundValue = this.cellsRevealed[row + this.patternOrder[i][0]][column + this.patternOrder[i][1]];
+            }
             switch(surroundValue) {
                 case 'M': {
                     minesCounter++;
