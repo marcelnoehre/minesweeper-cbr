@@ -8,6 +8,7 @@ import { ResultEnum } from 'src/app/enum/result';
 import { TokensService } from 'src/app/services/tokens.service';
 import { TimerService } from 'src/app/services/timer.service';
 import { BreakpointService } from 'src/app/services/breakpoint.service';
+import { PatternService } from 'src/app/services/pattern.service';
 
 @Component({
   selector: 'app-board',
@@ -37,7 +38,8 @@ export class BoardComponent implements OnInit{
     private _timer: TimerService,
     private _tokens: TokensService,
     private _action: ActionService,
-    private _breakpoints: BreakpointService
+    private _breakpoints: BreakpointService,
+    private _pattern: PatternService
   ) { }
 
   ngOnInit(): void {
@@ -92,6 +94,7 @@ export class BoardComponent implements OnInit{
     }
     if(!this._isFlagMode) {
       if(this.cellsRevealed[row][column] == 'C') {
+        this._pattern.createCase(row, column);
         this._tokens.setHintStatus(0);
         this._board.revealCell(row, column);
         if(this._cellsPlanned[row][column] == 'M') {
@@ -115,6 +118,7 @@ export class BoardComponent implements OnInit{
       this._board.setupPlanned(this._cellsPerRow, row, column, this._bombAmount);
     }
     if(this.cellsRevealed[row][column] == 'F') {
+      this._pattern.createCase(row, column);
       this._board.setCellsRevealed(row, column, 'C');
       this._gameStats.setRemainingFlags(this._remainingFlags+1);
       if (this._cellsPlanned[row][column] == 'M') {
@@ -125,6 +129,7 @@ export class BoardComponent implements OnInit{
         this._gameStats.setIsFlagMode(false);
       }
     } else if( this.cellsRevealed[row][column] == 'C' && this._remainingFlags > 0) {
+      this._pattern.createCase(row, column);
       this._board.setCellsRevealed(row, column, 'F');
       this._gameStats.setRemainingFlags(this._remainingFlags-1);
       if(this._cellsPlanned[row][column] == 'M') {
