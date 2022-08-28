@@ -9,6 +9,7 @@ import { BreakpointService } from 'src/app/services/breakpoint.service';
 export class CellComponent implements OnInit {
   @Input() difficulty!: string; 
   @Input() value!: string;
+  @Input() color!: string;
   responsiveClass!: string;
 
 

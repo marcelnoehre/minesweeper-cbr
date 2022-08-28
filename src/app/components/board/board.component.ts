@@ -27,6 +27,7 @@ export class BoardComponent implements OnInit{
   private _isFlagMode!: boolean;
   private _isFlagPermanently!: boolean;
   cellsRevealed:string[][] = [];
+  cellsColored:string[][] = [];
   difficulty!: string;
   responsiveClass!: string;
 
@@ -59,6 +60,9 @@ export class BoardComponent implements OnInit{
     });
     this._board.cellsPlanned$.subscribe((cellsPlanned: string[][]) => {
       this._cellsPlanned = cellsPlanned;
+    });
+    this._board.cellsColored$.subscribe((cellsColored: string[][]) => {
+      this.cellsColored = cellsColored;
     });
     this._gameStats.gameRunning$.subscribe((gameRunning: boolean) => {
       this._gameRunning = gameRunning;
