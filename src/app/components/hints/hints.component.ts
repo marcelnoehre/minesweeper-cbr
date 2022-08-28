@@ -41,14 +41,38 @@ export class HintsComponent implements OnInit {
     });
   }
 
-  hintSelected(selectedHint: number) {
-    if(!this._tokens.activeHint) {
-      this._tokens.setActiveHint(true);
-      this._tokens.setupSolution();
-    }
+  async hintSelected(selectedHint: number) {
     if(this.hintStatus < selectedHint && this.remainingTokens >= selectedHint-this.hintStatus) {
       this._tokens.setRemainingTokens(this.remainingTokens-(selectedHint-this.hintStatus));
       this._tokens.setHintStatus(selectedHint);
+      switch(selectedHint) {
+        case 1: {
+          if(!this._tokens.activeHint) {
+            this._tokens.setActiveHint(true);
+            await this._tokens.setupSolution();
+          }
+          break;
+        }
+        case 2: {
+          if(!this._tokens.activeHint) {
+            this._tokens.setActiveHint(true);
+            await this._tokens.setupSolution();
+          }
+          if(!this._tokens.activeColorArea) {
+            this._tokens.setActiveColorArea(true);
+            await this._tokens.setupColoredArea();
+          }
+          break;
+        }
+        case 3: {
+          if(!this._tokens.activeHint) {
+            this._tokens.setActiveHint(true);
+            await this._tokens.setupSolution();
+          }
+          this._tokens.turnCell();
+          break;
+        }
+      }
     }
   }
 }

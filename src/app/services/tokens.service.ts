@@ -16,7 +16,7 @@ export class TokensService {
     private _hintStatus: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private _hintText: BehaviorSubject<string> = new BehaviorSubject<string>('');
     private _activeHint!: boolean;
-    private _solutionCase!: Case;
+    private _activeColorArea!: boolean;
     private _http!: HttpClient;
 
     constructor(
@@ -54,6 +54,7 @@ export class TokensService {
                 break;
         }
         this.setActiveHint(false);
+        this.setActiveColorArea(false);
     }
 
     setTotalTokens(totalTokens: number) {
@@ -76,6 +77,10 @@ export class TokensService {
         this._activeHint = active;
     }
 
+    setActiveColorArea(active: boolean) {
+        this._activeColorArea = active;
+    }
+
     get totalTokens$(): Observable<number> {
         return this._totalTokens.asObservable();
     }
@@ -96,8 +101,13 @@ export class TokensService {
         return this._activeHint;
     }
 
+    get activeColorArea(): boolean {
+        return this._activeColorArea;
+    }
+
     resetHintStatus() {
         this.setActiveHint(false);
+        this.setActiveColorArea(false);
         this.setHintText('');
         this.setHintStatus(0);
     }
@@ -107,7 +117,6 @@ export class TokensService {
         if(Object.keys(queryResult).length == 0) {
             this.setHintText('Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.');
         } else {
-            //TODO: handle solution object to display hint
             console.dir(Object.values(queryResult));
             let solutionCells: string[] = Object.values(queryResult)[26];
             let solutionTypes: string[] = Object.values(queryResult)[27];
@@ -122,5 +131,13 @@ export class TokensService {
             }
             this.setHintText(hintText);
         }
+    }
+
+    setupColoredArea() {
+        console.log('color area');
+    }
+
+    turnCell() {
+        console.log('turn cell');
     }
 }
