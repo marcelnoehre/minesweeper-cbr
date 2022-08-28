@@ -22,8 +22,8 @@ export class BoardComponent implements OnInit{
   private _revealedCells!: number;
   private _cellsPerRow!: number;
   private _remainingFlags!: number;
-  private _bombAmount!: number;
-  private _flaggedBombs!: number;
+  private _mineAmount!: number;
+  private _flaggedmines!: number;
   private _isFlagMode!: boolean;
   private _isFlagPermanently!: boolean;
   cellsRevealed:string[][] = [];
@@ -76,11 +76,11 @@ export class BoardComponent implements OnInit{
     this._gameStats.remainingFlags$.subscribe((remainingFlags: number) => {
       this._remainingFlags = remainingFlags;
     });
-    this._gameStats.bombAmount$.subscribe((bombAmount: number) => {
-      this._bombAmount = bombAmount;
+    this._gameStats.mineAmount$.subscribe((mineAmount: number) => {
+      this._mineAmount = mineAmount;
     });
-    this._gameStats.flaggedBombs$.subscribe((flaggedBombs: number) => {
-      this._flaggedBombs = flaggedBombs;
+    this._gameStats.flaggedmines$.subscribe((flaggedmines: number) => {
+      this._flaggedmines = flaggedmines;
     });
     this._gameStats.isFlagMode$.subscribe((isFlagMode: boolean) => {
       this._isFlagMode = isFlagMode;
@@ -94,7 +94,7 @@ export class BoardComponent implements OnInit{
   async cellClicked(row: number, column: number) {
     if(!this._gameRunning) {
       this._gameStats.setGameRunning(true);
-      this._board.setupPlanned(this._cellsPerRow, row, column, this._bombAmount);
+      this._board.setupPlanned(this._cellsPerRow, row, column, this._mineAmount);
     }
     if(!this._isFlagMode) {
       if(this.cellsRevealed[row][column] == 'C') {
@@ -119,14 +119,14 @@ export class BoardComponent implements OnInit{
   onRightClick(row: number, column: number) {
     if(!this._gameRunning) {
       this._gameStats.setGameRunning(true);
-      this._board.setupPlanned(this._cellsPerRow, row, column, this._bombAmount);
+      this._board.setupPlanned(this._cellsPerRow, row, column, this._mineAmount);
     }
     if(this.cellsRevealed[row][column] == 'F') {
       this._pattern.createCase(row, column);
       this._board.setCellsRevealed(row, column, 'C');
       this._gameStats.setRemainingFlags(this._remainingFlags+1);
       if (this._cellsPlanned[row][column] == 'M') {
-        this._gameStats.setFlaggedBombs(this._flaggedBombs-1);
+        this._gameStats.setFlaggedmines(this._flaggedmines-1);
       }
       this._tokens.resetHintStatus();
       if(!this._isFlagPermanently) {
@@ -137,7 +137,7 @@ export class BoardComponent implements OnInit{
       this._board.setCellsRevealed(row, column, 'F');
       this._gameStats.setRemainingFlags(this._remainingFlags-1);
       if(this._cellsPlanned[row][column] == 'M') {
-        this._gameStats.setFlaggedBombs(this._flaggedBombs+1);
+        this._gameStats.setFlaggedmines(this._flaggedmines+1);
       }
       this._tokens.resetHintStatus();
       if(!this._isFlagPermanently) {

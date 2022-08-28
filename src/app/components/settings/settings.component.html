@@ -12,7 +12,7 @@
                     <div class="time">{{minutes}}:{{seconds}}</div>
                 </div>
                 <div class="progress">
-                    <progress id="prgoress" [value]="revealedCells" [max]="totalCells - bombAmount"></progress>
+                    <progress id="prgoress" [value]="revealedCells" [max]="totalCells - mineAmount"></progress>
                 </div>
             </div>
             <div class="second-inner">
@@ -27,12 +27,12 @@
                 <div class="flag-toggle">
                     <mat-slide-toggle [checked]="isFlagPermanently" (change)="toggleSetFlagPermanently($event)"></mat-slide-toggle>
                 </div>
-                <div class="bombs ">
-                    <div class="bombs-inner ">
+                <div class="mines ">
+                    <div class="mines-inner ">
                         <div class="vertical-container ">
-                            <img src="assets/images/game_icons/bomb.png ">
+                            <img src="assets/images/game_icons/mine.png ">
                         </div>
-                        <div class="vertical-container">&nbsp;{{bombAmount}}</div>
+                        <div class="vertical-container">&nbsp;{{mineAmount}}</div>
                     </div>
                 </div>
             </div>

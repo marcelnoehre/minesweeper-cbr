@@ -18,8 +18,8 @@ export class DialogComponent implements OnInit, OnDestroy {
   totalCells!: number;
   flagAmount!: number;
   remainingFlags!: number;
-  bombAmount!: number;
-  flaggedBombs!: number;
+  mineAmount!: number;
+  flaggedmines!: number;
   totalTokens!: number;
   remainingTokens!: number;
   gameTime!: number;
@@ -59,11 +59,11 @@ export class DialogComponent implements OnInit, OnDestroy {
     this._gameStats.remainingFlags$.subscribe((remainingFlags: number) => {
       this.remainingFlags = remainingFlags;
     });
-    this._gameStats.bombAmount$.subscribe((bombAmount: number) => {
-      this.bombAmount = bombAmount;
+    this._gameStats.mineAmount$.subscribe((mineAmount: number) => {
+      this.mineAmount = mineAmount;
     });
-    this._gameStats.flaggedBombs$.subscribe((flaggedBombs: number) => {
-      this.flaggedBombs = flaggedBombs;
+    this._gameStats.flaggedmines$.subscribe((flaggedmines: number) => {
+      this.flaggedmines = flaggedmines;
     });
     this._tokens.totalTokens$.subscribe((totalTokens: number) => {
       this.totalTokens = totalTokens;

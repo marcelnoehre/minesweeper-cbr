@@ -62,7 +62,7 @@ export class BoardService {
         this._cellsColored.next(this._coloredArray);
     }
 
-    setupPlanned(counter: number, row: number, column: number, totalBombs: number) {
+    setupPlanned(counter: number, row: number, column: number, totalmines: number) {
         this._plannedArray = [];
         for (let i = 0; i < counter; i++) {
             let innerArray: string[] = [];
@@ -71,14 +71,14 @@ export class BoardService {
             }
             this._plannedArray.push(innerArray); 
         }
-        let placedBombs = 0;
-        while(placedBombs != totalBombs) {
+        let placedmines = 0;
+        while(placedmines != totalmines) {
             let rowIndex = this.randomNumber(counter);
             let columnIndex = this.randomNumber(counter);
             if(!(rowIndex == row && columnIndex == column)) {
                 if(this._plannedArray[rowIndex][columnIndex] != 'M') {
                     this._plannedArray[rowIndex][columnIndex] = 'M';
-                    placedBombs++;
+                    placedmines++;
                 }
             }
         }

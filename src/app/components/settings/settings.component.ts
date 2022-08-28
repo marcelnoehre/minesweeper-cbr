@@ -22,7 +22,7 @@ export class SettingsComponent implements OnInit {
   revealedCells!: number;
   totalCells!: number;
   remainingFlags!: number;
-  bombAmount!: number;
+  mineAmount!: number;
   isFlagMode!: boolean;
   isFlagPermanently!: boolean;
   difficulty!: string;
@@ -69,7 +69,7 @@ export class SettingsComponent implements OnInit {
       this.seconds = seconds < 10 ? '0' + seconds : '' + seconds; 
     });
     this._gameStats.revealedCells$.subscribe((revealedCells: number) => {
-      if(revealedCells == this.totalCells - this.bombAmount) {
+      if(revealedCells == this.totalCells - this.mineAmount) {
         this._gameStats.setGameRunning(false);
         this._action.openDialog(ResultEnum.win);
       }
@@ -81,8 +81,8 @@ export class SettingsComponent implements OnInit {
     this._gameStats.remainingFlags$.subscribe((remainingFlags: number) => {
       this.remainingFlags = remainingFlags;
     });
-    this._gameStats.bombAmount$.subscribe((bombAmount: number) => {
-      this.bombAmount = bombAmount;
+    this._gameStats.mineAmount$.subscribe((mineAmount: number) => {
+      this.mineAmount = mineAmount;
     });
     this._gameStats.isFlagMode$.subscribe((isFlagMode: boolean) => {
       this.isFlagMode = isFlagMode;

@@ -14,8 +14,8 @@ export class GameStatsService {
     private _cellsPerRow: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _flagAmount: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _remainingFlags: BehaviorSubject<number> = new BehaviorSubject<number>(10);
-    private _bombAmount: BehaviorSubject<number> = new BehaviorSubject<number>(10);
-    private _flaggedBombs: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    private _mineAmount: BehaviorSubject<number> = new BehaviorSubject<number>(10);
+    private _flaggedmines: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private _isFlagMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _isFlagPermanently: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -39,8 +39,8 @@ export class GameStatsService {
                 this.setCellsPerRow(10);
                 this.setFlagAmount(10);
                 this.setRemainingFlags(10);
-                this.setBombAmount(10);
-                this.setFlaggedBombs(0);
+                this.setmineAmount(10);
+                this.setFlaggedmines(0);
                 this.setIsFlagMode(false);
                 this.setisFlagPermanently(false);
                 break;
@@ -51,8 +51,8 @@ export class GameStatsService {
                 this.setCellsPerRow(15);
                 this.setFlagAmount(20);
                 this.setRemainingFlags(20);
-                this.setBombAmount(20);
-                this.setFlaggedBombs(0);
+                this.setmineAmount(20);
+                this.setFlaggedmines(0);
                 this.setIsFlagMode(false);
                 this.setisFlagPermanently(false);
                 break;
@@ -63,8 +63,8 @@ export class GameStatsService {
                 this.setCellsPerRow(20);
                 this.setFlagAmount(30);
                 this.setRemainingFlags(30);
-                this.setBombAmount(30);
-                this.setFlaggedBombs(0);
+                this.setmineAmount(30);
+                this.setFlaggedmines(0);
                 this.setIsFlagMode(false);
                 this.setisFlagPermanently(false);
                 break;
@@ -97,12 +97,12 @@ export class GameStatsService {
         this._remainingFlags.next(remainingFlags);
     }
 
-    setBombAmount(bombAmount: number) {
-        this._bombAmount.next(bombAmount);
+    setmineAmount(mineAmount: number) {
+        this._mineAmount.next(mineAmount);
     }
 
-    setFlaggedBombs(flaggedBombs: number) {
-        this._flaggedBombs.next(flaggedBombs);
+    setFlaggedmines(flaggedmines: number) {
+        this._flaggedmines.next(flaggedmines);
     }
 
     setIsFlagMode(isFlagMode: boolean) {
@@ -137,12 +137,12 @@ export class GameStatsService {
         return this._remainingFlags.asObservable();
     }
     
-    get bombAmount$() {
-        return this._bombAmount.asObservable();
+    get mineAmount$() {
+        return this._mineAmount.asObservable();
     }
     
-    get flaggedBombs$() {
-        return this._flaggedBombs.asObservable();
+    get flaggedmines$() {
+        return this._flaggedmines.asObservable();
     }
     
     get isFlagMode$() {
