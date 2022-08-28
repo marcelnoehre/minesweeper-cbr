@@ -5,6 +5,7 @@ import { DifficultyEnum } from '../enum/difficulty';
 import { Case } from '../interfaces/case';
 import { PatternService } from './pattern.service';
 import { StorageService } from './storage.service';
+import { BoardService } from './board.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -26,7 +27,8 @@ export class TokensService {
 
     constructor(
         private storage: StorageService,
-        private _pattern: PatternService
+        private _pattern: PatternService,
+        private _board: BoardService
         ) {
         this._difficultyChange$ = this.storage.storageChange$.pipe(
             filter(({ key }) => key === "difficulty"),
@@ -183,13 +185,13 @@ export class TokensService {
                 fieldRow: Object.values(queryResult)[29],
                 fieldColumn: Object.values(queryResult)[30]
             }
+            console.dir(this._solutionCase);
             let hintText = '';
             for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
                 // this._http.get<string>(`assets/solutions/${solutionTypes[i]}.json`).subscribe((value: string) => {
                 //     hintText += value + '\n';
                 // });
                 hintText += this._solutionCase.solutionTypes[i] + '\n';
-                console.log(this._solutionCase.solutionCells[i], this._solutionCase.solutionTypes[i]);
             }
             this.setHintQueryRunning(false);
             this.setHintText(hintText);
@@ -197,7 +199,7 @@ export class TokensService {
     }
 
     setupColoredArea() {
-        console.log('color area');
+        this._board.setCellsColored(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, 'lightgreen');
     }
 
     turnCell() {

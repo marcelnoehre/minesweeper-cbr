@@ -1,5 +1,5 @@
 <div [ngClass]="responsiveClass">
     <div class="cell-container" [ngClass]="difficulty" [ngStyle]="{'background-color' : color }">
-        <img src="assets/images/game_icons/{{value}}.png">
+        <img src="assets/images/game_icons/{{value}}.png" [ngStyle]="{'opacity' : color == 'transparent' ? '1' : '0.25'}">
     </div>
 </div>
