@@ -87,6 +87,11 @@ export class TokensService {
 
     async setupSolution() {
         let queryResult = await this._pattern.getSolution();
-        console.dir(queryResult);
+        console.dir(Object.keys(queryResult).length);
+        if(Object.keys(queryResult).length == 0) {
+            //no solution
+        } else {
+            //handle query result
+        }
     }
 }
