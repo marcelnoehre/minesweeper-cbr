@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Case } from '../interfaces/case';
 import { Solution } from '../interfaces/solution';
 import { ApiService } from './api.service';
 import { BoardService } from './board.service';
@@ -58,7 +59,40 @@ export class PatternService {
             for(let i = 0; Object.values(result)[0][i] != undefined; i++) {
                 if(Object.values(result)[0][i].Solvability == 'True') {
                     solutionFound = true
-                    return Object.values(result)[0][i];
+                    let solutionCase: Case = {
+                        center: Object.values(result)[0][i].Center,
+                        innerTopLeft: Object.values(result)[0][i].InnerTopLeft,
+                        innerTop: Object.values(result)[0][i].InnerTop,
+                        innerTopRight: Object.values(result)[0][i].InnerTopRight,
+                        innerRight: Object.values(result)[0][i].InnerRight,
+                        innerBottomRight: Object.values(result)[0][i].InnerBottomRight,
+                        innerBottom: Object.values(result)[0][i].InnerBottom,
+                        innerBottomLeft: Object.values(result)[0][i].InnerBottomLeft,
+                        innerLeft: Object.values(result)[0][i].InnerLeft,
+                        outerTopLeftCorner: Object.values(result)[0][i].OuterTopLeft,
+                        outerTopLeft: Object.values(result)[0][i].OuterTopLeft,
+                        outerTop: Object.values(result)[0][i].OuterTop,
+                        outerTopRight: Object.values(result)[0][i].OuterTopRight,
+                        outerTopRightCorner: Object.values(result)[0][i].OuterTopRightCorner,
+                        outerRightTop: Object.values(result)[0][i].OuterRightTop,
+                        outerRight: Object.values(result)[0][i].OuterRight,
+                        outerRightBottom: Object.values(result)[0][i].OuterRightBottom,
+                        outerBottomRightCorner: Object.values(result)[0][i].OuterBottomRightCorner,
+                        outerBottomRight: Object.values(result)[0][i].OuterBottomRight,
+                        outerBottom: Object.values(result)[0][i].OuterBottom,
+                        outerBottomLeft: Object.values(result)[0][i].OuterBottomLeft,
+                        outerBottomLeftCorner: Object.values(result)[0][i].OuterBottomLeftCorner,
+                        OuterLeftBottom: Object.values(result)[0][i].OuterLeftBottom,
+                        outerLeft: Object.values(result)[0][i].OuterLeft,
+                        outerLeftTop: Object.values(result)[0][i].OuterLeftTop,
+                        solvability: Object.values(result)[0][i].Solvability == "True",
+                        solutionCells: Object.values(result)[0][i].SolutionCells,
+                        solutionTypes: Object.values(result)[0][i].SolutionTypes,
+                        similarity: Object.values(result)[0][i].Similarity,
+                        fieldRow: this.predictableIndexes[index][0],
+                        fieldColumn: this.predictableIndexes[index][1]
+                    }
+                    return solutionCase;
                 }
             }
             if(!solutionFound) {
