@@ -17,6 +17,7 @@ export class HintsComponent implements OnInit {
   hintStatus!: number;
   cellsRevealed!: string[][];
   hintText!: string;
+  hintQueryRunning!: boolean;
 
   constructor(
     private _tokens: TokensService,
@@ -45,6 +46,10 @@ export class HintsComponent implements OnInit {
     this._tokens.hintText$.subscribe((hintText: string) => {
       this.hintText = hintText;
     });
+    this._tokens.hintQueryRunning$.subscribe((hintQueryRunning) => {
+      this.hintQueryRunning = hintQueryRunning;
+    });
+    
   }
 
   async hintSelected(selectedHint: number) {

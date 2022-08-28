@@ -33,3 +33,8 @@ mat-expansion-panel-header>* {
     font-size: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
     line-height: calc(10px + (40 - 10) * ((100vw - 100px) / (1600 - 100)));
 }
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+    stroke: lightgreen;
+}

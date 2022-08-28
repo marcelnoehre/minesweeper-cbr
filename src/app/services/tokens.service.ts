@@ -15,6 +15,7 @@ export class TokensService {
     private _totalTokens: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _hintStatus: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private _hintText: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    private _hintQueryRunning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _remainingTokensValue!: number;
     private _hintStatusValue!: number
     private _activeHint!: boolean;
@@ -82,6 +83,10 @@ export class TokensService {
         this._hintText.next(hintText);
     }
 
+    setHintQueryRunning(hintQueryRunning: boolean) {
+        this._hintQueryRunning.next(hintQueryRunning);
+    }
+
     setActiveHint(active: boolean) {
         this._activeHint = active;
     }
@@ -110,6 +115,10 @@ export class TokensService {
         return this._hintText.asObservable();
     }
 
+    get hintQueryRunning$(): Observable<boolean> {
+        return this._hintQueryRunning.asObservable();
+    }
+
     get activeHint(): boolean {
         return this._activeHint;
     }
@@ -123,6 +132,7 @@ export class TokensService {
     }
 
     resetHintStatus() {
+        this.setHintQueryRunning(false);
         this.setActiveHint(false);
         this.setActiveColorArea(false);
         this.setNoSolution(false);
@@ -131,10 +141,12 @@ export class TokensService {
     }
 
     async setupSolution() {
+        this.setHintQueryRunning(true);
         let queryResult = await this._pattern.getSolution();
         if(Object.keys(queryResult).length == 0) {
             this.setNoSolution(true);
             this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
+            this.setHintQueryRunning(false);
             this.setHintText('Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.');
         } else {
             console.dir(Object.values(queryResult));
@@ -149,6 +161,7 @@ export class TokensService {
                 hintText += solutionTypes[i] + '\n';
                 console.log(solutionCells[i], solutionTypes[i]);
             }
+            this.setHintQueryRunning(false);
             this.setHintText(hintText);
         }
     }

@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import { CellComponent } from './components/cell/cell.component';
@@ -24,7 +25,7 @@ import { HandbookComponent } from './components/handbook/handbook.component';
     HintsComponent,
     BoardComponent,
     DialogComponent,
-    HandbookComponent
+    HandbookComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +33,7 @@ import { HandbookComponent } from './components/handbook/handbook.component';
     MatDialogModule,
     MatSlideToggleModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
     HttpClientModule,
     BrowserAnimationsModule
   ],
