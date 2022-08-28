@@ -42,7 +42,6 @@ export class ApiService {
 
   async addCaseCall(caseCollection: Solution[]) {
     for(let i = 0; i < caseCollection.length; i++) {
-      console.dir(caseCollection[i]);
       await this.post('addCase?pattern=' + caseCollection[i].pattern + '&solvability=' + caseCollection[i].solvability + '&solutionCells=' + caseCollection[i].solutionCells + '&solutionTypes=' + caseCollection[i].solutionTypes, null);
     }
   }

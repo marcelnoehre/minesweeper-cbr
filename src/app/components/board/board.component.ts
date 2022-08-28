@@ -95,7 +95,7 @@ export class BoardComponent implements OnInit{
     if(!this._isFlagMode) {
       if(this.cellsRevealed[row][column] == 'C') {
         this._pattern.createCase(row, column);
-        this._tokens.setHintStatus(0);
+        this._tokens.resetHintStatus();
         this._board.revealCell(row, column);
         if(this._cellsPlanned[row][column] == 'M') {
           this._timer.stop();
@@ -124,7 +124,7 @@ export class BoardComponent implements OnInit{
       if (this._cellsPlanned[row][column] == 'M') {
         this._gameStats.setFlaggedBombs(this._flaggedBombs-1);
       }
-      this._tokens.setHintStatus(0);
+      this._tokens.resetHintStatus();
       if(!this._isFlagPermanently) {
         this._gameStats.setIsFlagMode(false);
       }
@@ -135,7 +135,7 @@ export class BoardComponent implements OnInit{
       if(this._cellsPlanned[row][column] == 'M') {
         this._gameStats.setFlaggedBombs(this._flaggedBombs+1);
       }
-      this._tokens.setHintStatus(0);
+      this._tokens.resetHintStatus();
       if(!this._isFlagPermanently) {
         this._gameStats.setIsFlagMode(false);
       }

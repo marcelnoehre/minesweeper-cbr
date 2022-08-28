@@ -13,6 +13,7 @@ export class TokensService {
     private _remainingTokens: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _totalTokens: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _hintStatus: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    private _hintText: BehaviorSubject<string> = new BehaviorSubject<string>('');
     private _activeHint!: boolean;
     private _solutionCase!: Case;
 
@@ -65,6 +66,10 @@ export class TokensService {
         this._hintStatus.next(hintStatus);
     }
 
+    setHintText(hintText: string) {
+        this._hintText.next(hintText);
+    }
+
     setActiveHint(active: boolean) {
         this._activeHint = active;
     }
@@ -81,17 +86,28 @@ export class TokensService {
         return this._hintStatus.asObservable();
     }
 
+    get hintText$(): Observable<string> {
+        return this._hintText.asObservable();
+    }
+
     get activeHint(): boolean {
         return this._activeHint;
     }
 
+    resetHintStatus() {
+        this.setActiveHint(false);
+        this.setHintText('');
+        this.setHintStatus(0);
+    }
+
     async setupSolution() {
         let queryResult = await this._pattern.getSolution();
-        console.dir(Object.keys(queryResult).length);
         if(Object.keys(queryResult).length == 0) {
-            //no solution
+            this.setHintText('Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.');
         } else {
-            //handle query result
+            //TODO: handle solution object to display hint
+            this.setHintText('Solution found D:');
+            console.dir(Object.keys(queryResult));
         }
     }
 }

@@ -14,6 +14,7 @@ export class HintsComponent implements OnInit {
   remainingTokens!: number;
   hintStatus!: number;
   cellsRevealed!: string[][];
+  hintText!: string;
 
   constructor(
     private _tokens: TokensService,
@@ -34,6 +35,9 @@ export class HintsComponent implements OnInit {
     });
     this._board.cellsRevealed$.subscribe((cellsRevealed: string[][]) => {
       this.cellsRevealed = cellsRevealed;
+    });
+    this._tokens.hintText$.subscribe((hintText: string) => {
+      this.hintText = hintText;
     });
   }
 
