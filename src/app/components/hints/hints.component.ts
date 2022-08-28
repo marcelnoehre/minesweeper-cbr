@@ -38,7 +38,10 @@ export class HintsComponent implements OnInit {
   }
 
   hintSelected(selectedHint: number) {
-    console.dir(this._pattern.getSolution());
+    if(!this._tokens.activeHint) {
+      this._tokens.setActiveHint(true);
+      this._tokens.setupSolution();
+    }
     if(this.hintStatus < selectedHint && this.remainingTokens >= selectedHint-this.hintStatus) {
       this._tokens.setRemainingTokens(this.remainingTokens-(selectedHint-this.hintStatus));
       this._tokens.setHintStatus(selectedHint);

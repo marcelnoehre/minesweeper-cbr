@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, filter, Observable, pluck } from 'rxjs';
 import { DifficultyEnum } from '../enum/difficulty';
+import { Case } from '../interfaces/case';
+import { PatternService } from './pattern.service';
 import { StorageService } from './storage.service';
 
 @Injectable({
@@ -11,8 +13,13 @@ export class TokensService {
     private _remainingTokens: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _totalTokens: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _hintStatus: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    private _activeHint!: boolean;
+    private _solutionCase!: Case;
 
-    constructor(private storage: StorageService) {
+    constructor(
+        private storage: StorageService,
+        private _pattern: PatternService
+        ) {
         this._difficultyChange$ = this.storage.storageChange$.pipe(
             filter(({ key }) => key === "difficulty"),
             pluck("id")
@@ -43,6 +50,7 @@ export class TokensService {
             default:
                 break;
         }
+        this.setActiveHint(false);
     }
 
     setTotalTokens(totalTokens: number) {
@@ -57,6 +65,10 @@ export class TokensService {
         this._hintStatus.next(hintStatus);
     }
 
+    setActiveHint(active: boolean) {
+        this._activeHint = active;
+    }
+
     get totalTokens$(): Observable<number> {
         return this._totalTokens.asObservable();
     }
@@ -67,5 +79,14 @@ export class TokensService {
 
     get hintStatus$(): Observable<number> {
         return this._hintStatus.asObservable();
+    }
+
+    get activeHint(): boolean {
+        return this._activeHint;
+    }
+
+    async setupSolution() {
+        let queryResult = await this._pattern.getSolution();
+        console.dir(queryResult);
     }
 }
