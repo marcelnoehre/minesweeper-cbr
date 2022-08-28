@@ -91,9 +91,9 @@ public class CBRProject {
 	private void initAttributes() throws Exception {
 		for(int i = 0; i < Constants.ATTRIBUTES_AMOUNT; i++) {
 			if(i == 0) {
-				attributes[i] = configureAttribute(Constants.ATTRIBUTE_NAMES[i], 153);
+				attributes[i] = configureAttribute(Constants.ATTRIBUTE_NAMES[i], 10);
 			} else if(i < 9) {
-				attributes[i] = configureAttribute(Constants.ATTRIBUTE_NAMES[i], 17);
+				attributes[i] = configureAttribute(Constants.ATTRIBUTE_NAMES[i], 5);
 			} else if (i >= 9 && i < 25) {
 				attributes[i] = configureAttribute(Constants.ATTRIBUTE_NAMES[i], 1);
 			} else {

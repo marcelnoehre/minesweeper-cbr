@@ -41,7 +41,7 @@ public class Constants {
 	/**
 	 * The minimum similarity to include the case in the query result.
 	 */
-	public static final double MINIMUM_SIMILARITY = 0.9;
+	public static final double MINIMUM_SIMILARITY = 0.925;
 	
 	/**
 	 * The set of attribute names that a case of the case base has.
