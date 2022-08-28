@@ -51,35 +51,37 @@ export class HintsComponent implements OnInit {
     if(!this.gameRunning) {
       this._tokens.setHintText('Vor dem ersten Spielzug können keine Hinweise gakauft werden!');
     } else {
-      if(this.hintStatus < selectedHint && this.remainingTokens >= selectedHint-this.hintStatus) {
-        this._tokens.setRemainingTokens(this.remainingTokens-(selectedHint-this.hintStatus));
-        this._tokens.setHintStatus(selectedHint);
-        switch(selectedHint) {
-          case 1: {
-            if(!this._tokens.activeHint) {
-              this._tokens.setActiveHint(true);
-              await this._tokens.setupSolution();
+      if(!this._tokens.noSolution) {
+        if(this.hintStatus < selectedHint && this.remainingTokens >= selectedHint-this.hintStatus) {
+          this._tokens.setRemainingTokens(this.remainingTokens-(selectedHint-this.hintStatus));
+          this._tokens.setHintStatus(selectedHint);
+          switch(selectedHint) {
+            case 1: {
+              if(!this._tokens.activeHint) {
+                this._tokens.setActiveHint(true);
+                await this._tokens.setupSolution();
+              }
+              break;
             }
-            break;
-          }
-          case 2: {
-            if(!this._tokens.activeHint) {
-              this._tokens.setActiveHint(true);
-              await this._tokens.setupSolution();
+            case 2: {
+              if(!this._tokens.activeHint) {
+                this._tokens.setActiveHint(true);
+                await this._tokens.setupSolution();
+              }
+              if(!this._tokens.activeColorArea) {
+                this._tokens.setActiveColorArea(true);
+                await this._tokens.setupColoredArea();
+              }
+              break;
             }
-            if(!this._tokens.activeColorArea) {
-              this._tokens.setActiveColorArea(true);
-              await this._tokens.setupColoredArea();
+            case 3: {
+              if(!this._tokens.activeHint) {
+                this._tokens.setActiveHint(true);
+                await this._tokens.setupSolution();
+              }
+              this._tokens.turnCell();
+              break;
             }
-            break;
-          }
-          case 3: {
-            if(!this._tokens.activeHint) {
-              this._tokens.setActiveHint(true);
-              await this._tokens.setupSolution();
-            }
-            this._tokens.turnCell();
-            break;
           }
         }
       }

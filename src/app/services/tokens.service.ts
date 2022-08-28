@@ -15,8 +15,11 @@ export class TokensService {
     private _totalTokens: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _hintStatus: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private _hintText: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    private _remainingTokensValue!: number;
+    private _hintStatusValue!: number
     private _activeHint!: boolean;
     private _activeColorArea!: boolean;
+    private _noSolution!: boolean;
     private _http!: HttpClient;
 
     constructor(
@@ -31,6 +34,12 @@ export class TokensService {
             this.setup(newDifficulty);
         });
         this.setup(this.storage.getSessionEntry('difficulty'));
+        this.remainingTokens$.subscribe((remainingTokens: number) => {
+            this._remainingTokensValue = remainingTokens;
+        });
+        this.hintStatus$.subscribe((hintStatus: number) => {
+            this._hintStatusValue = hintStatus;
+        });
     }
 
     setup(difficulty: string) {
@@ -81,6 +90,10 @@ export class TokensService {
         this._activeColorArea = active;
     }
 
+    setNoSolution(active: boolean) {
+        this._noSolution = active;
+    }
+
     get totalTokens$(): Observable<number> {
         return this._totalTokens.asObservable();
     }
@@ -105,9 +118,14 @@ export class TokensService {
         return this._activeColorArea;
     }
 
+    get noSolution(): boolean {
+        return this._noSolution;
+    }
+
     resetHintStatus() {
         this.setActiveHint(false);
         this.setActiveColorArea(false);
+        this.setNoSolution(false);
         this.setHintText('');
         this.setHintStatus(0);
     }
@@ -115,6 +133,8 @@ export class TokensService {
     async setupSolution() {
         let queryResult = await this._pattern.getSolution();
         if(Object.keys(queryResult).length == 0) {
+            this.setNoSolution(true);
+            this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
             this.setHintText('Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.');
         } else {
             console.dir(Object.values(queryResult));
