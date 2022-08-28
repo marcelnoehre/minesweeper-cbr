@@ -123,13 +123,12 @@ public class Constants {
 		try {
 		path = this.getClass().getClassLoader().getResource("").getPath();
         String encodedPath = URLDecoder.decode(path, "UTF-8");
-        String pathArr[] = encodedPath.split("classes/");
-        path = pathArr[0] + "resources/";
+        String pathArr[] = encodedPath.split(".metadata/");
+        path = pathArr[0] + "minesweeper-cbr-backend/src/main/webapp/WEB-INF/resources/";
         path = path.replace("/", "\\");
 		} catch(Exception e) {
 			System.err.println("Path Problem!");
 		}
 		return path;
 	}
-
 }
