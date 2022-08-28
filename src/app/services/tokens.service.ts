@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, filter, Observable, pluck } from 'rxjs';
 import { DifficultyEnum } from '../enum/difficulty';
 import { Case } from '../interfaces/case';
@@ -16,6 +17,7 @@ export class TokensService {
     private _hintText: BehaviorSubject<string> = new BehaviorSubject<string>('');
     private _activeHint!: boolean;
     private _solutionCase!: Case;
+    private _http!: HttpClient;
 
     constructor(
         private storage: StorageService,
@@ -106,8 +108,12 @@ export class TokensService {
             this.setHintText('Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.');
         } else {
             //TODO: handle solution object to display hint
-            this.setHintText('Solution found D:');
-            console.dir(Object.keys(queryResult));
+            let solutionKey = 'MINES.REVEALED';
+            const url = `assets/solutions/${solutionKey}.json`;
+            // this._http.get<string>(url).subscribe((hintText: string) => {
+            //     this.setHintText(hintText);
+            // });
+            console.dir(Object.keys(queryResult));           
         }
     }
 }
