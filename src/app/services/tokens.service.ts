@@ -199,7 +199,15 @@ export class TokensService {
     }
 
     setupColoredArea() {
-        this._board.setCellsColored(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, 'lightgreen');
+        if(!this.noSolution) {
+            this._board.setCellsColored(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, 'lightgreen');
+            for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
+                let tmp = this._solutionCase.solutionCells[i];
+                let row = this._solutionCase.fieldRow - 2 + Number(Array.from(tmp)[0]);
+                let column = this._solutionCase.fieldColumn - 2 + Number(Array.from(tmp)[1]);
+                this._board.setCellsColored(row, column, 'red')
+            }
+        }
     }
 
     turnCell() {
