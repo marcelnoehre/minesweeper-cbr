@@ -108,12 +108,19 @@ export class TokensService {
             this.setHintText('Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.');
         } else {
             //TODO: handle solution object to display hint
-            let solutionKey = 'MINES.REVEALED';
-            const url = `assets/solutions/${solutionKey}.json`;
-            // this._http.get<string>(url).subscribe((hintText: string) => {
-            //     this.setHintText(hintText);
-            // });
-            console.dir(Object.keys(queryResult));           
+            console.dir(Object.values(queryResult));
+            let solutionCells: string[] = Object.values(queryResult)[26];
+            let solutionTypes: string[] = Object.values(queryResult)[27];
+            let hintText = '';
+            
+            for(let i = 0; i < solutionCells.length; i++) {
+                // this._http.get<string>(`assets/solutions/${solutionTypes[i]}.json`).subscribe((value: string) => {
+                //     hintText += value + '\n';
+                // });
+                hintText += solutionTypes[i] + '\n';
+                console.log(solutionCells[i], solutionTypes[i]);
+            }
+            this.setHintText(hintText);
         }
     }
 }
