@@ -16,6 +16,7 @@ export class TokensService {
     private _hintStatus: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private _hintText: BehaviorSubject<string> = new BehaviorSubject<string>('');
     private _hintQueryRunning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _solutionCase!: Case; 
     private _remainingTokensValue!: number;
     private _hintStatusValue!: number
     private _activeHint!: boolean;
@@ -149,17 +150,46 @@ export class TokensService {
             this.setHintQueryRunning(false);
             this.setHintText('Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.');
         } else {
-            console.dir(Object.values(queryResult));
-            let solutionCells: string[] = Object.values(queryResult)[26];
-            let solutionTypes: string[] = Object.values(queryResult)[27];
+            this._solutionCase = {
+                center: Object.values(queryResult)[0],
+                innerTopLeft: Object.values(queryResult)[1],
+                innerTop: Object.values(queryResult)[2],
+                innerTopRight: Object.values(queryResult)[3],
+                innerRight: Object.values(queryResult)[4],
+                innerBottomRight: Object.values(queryResult)[5],
+                innerBottom: Object.values(queryResult)[6],
+                innerBottomLeft: Object.values(queryResult)[7],
+                innerLeft: Object.values(queryResult)[8],
+                outerTopLeftCorner: Object.values(queryResult)[9],
+                outerTopLeft: Object.values(queryResult)[10],
+                outerTop: Object.values(queryResult)[11],
+                outerTopRight: Object.values(queryResult)[12],
+                outerTopRightCorner: Object.values(queryResult)[13],
+                outerRightTop: Object.values(queryResult)[14],
+                outerRight: Object.values(queryResult)[15],
+                outerRightBottom: Object.values(queryResult)[16],
+                outerBottomRightCorner: Object.values(queryResult)[17],
+                outerBottomRight: Object.values(queryResult)[18],
+                outerBottom: Object.values(queryResult)[19],
+                outerBottomLeft: Object.values(queryResult)[20],
+                outerBottomLeftCorner: Object.values(queryResult)[21],
+                OuterLeftBottom: Object.values(queryResult)[22],
+                outerLeft: Object.values(queryResult)[23],
+                outerLeftTop: Object.values(queryResult)[24],
+                solvability: Object.values(queryResult)[25] == "True",
+                solutionCells: Object.values(queryResult)[26],
+                solutionTypes: Object.values(queryResult)[27],
+                similarity: Object.values(queryResult)[28],
+                fieldRow: Object.values(queryResult)[29],
+                fieldColumn: Object.values(queryResult)[30]
+            }
             let hintText = '';
-            
-            for(let i = 0; i < solutionCells.length; i++) {
+            for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
                 // this._http.get<string>(`assets/solutions/${solutionTypes[i]}.json`).subscribe((value: string) => {
                 //     hintText += value + '\n';
                 // });
-                hintText += solutionTypes[i] + '\n';
-                console.log(solutionCells[i], solutionTypes[i]);
+                hintText += this._solutionCase.solutionTypes[i] + '\n';
+                console.log(this._solutionCase.solutionCells[i], this._solutionCase.solutionTypes[i]);
             }
             this.setHintQueryRunning(false);
             this.setHintText(hintText);
