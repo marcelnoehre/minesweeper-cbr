@@ -1,6 +1,33 @@
 export interface Case {
-    pattern: string;
-    solvability: string;
-    solutionCells: string;
-    solutionTypes: string;
+    center: string,
+    innerBottom: string,
+    innerBottomLeft: string,
+    innerBottomRight: string,
+    innerLeft: string,
+    innerRight: string,
+    innerTop: string,
+    innerTopLeft: string,
+    innerTopRight: string,
+    outerBottom: string,
+    outerBottomLeft: string,
+    outerBottomLeftCorner: string,
+    outerBottomRight: string,
+    outerBottomRightCorner: string,
+    outerLeft: string,
+    OuterLeftBottom: string,
+    outerLeftTop: string,
+    outerRight: string,
+    outerRightBottom: string,
+    outerRightTop: string,
+    outerTop: string,
+    outerTopLeft: string,
+    outerTopLeftCorner: string,
+    outerTopRight: string,
+    outerTopRightCorner: string,
+    solvability: boolean,
+    solutionCells: string[],
+    solutionTypes: string[],
+    similarity: number,
+    fieldRow: number,
+    fieldColumn: number
 }

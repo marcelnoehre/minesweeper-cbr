@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Case } from '../interfaces/case';
+import { Solution } from '../interfaces/solution';
 import { ApiService } from './api.service';
 import { BoardService } from './board.service';
 import { GameStatsService } from './gamestats.service';
@@ -16,7 +16,7 @@ export class PatternService {
         [-2,-2],[-2,-1],[-2,0],[-2,1],[-2,2],[-1,2],[0,2],[1,2],
         [2,2],[2,1],[2,0],[2,-1],[2,-2],[1,-2],[0,-2],[-1,-2]
     ];
-    private caseCollection: Case[] = [];
+    private caseCollection: Solution[] = [];
 
     constructor(
         private _board: BoardService,
@@ -110,7 +110,7 @@ export class PatternService {
                 solutionTypes += solutionKey;
             }
         }
-        const caseObject: Case = {
+        const caseObject: Solution = {
             pattern: pattern, 
             solvability: solutionCells.length > 0 ? "True" : "False", 
             solutionCells: solutionCells.slice(0, -3),

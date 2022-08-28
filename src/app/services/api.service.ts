@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Case } from '../interfaces/case';
+import { Solution } from '../interfaces/solution';
 import { UrlService } from './url.service';
 
 @Injectable({
@@ -40,7 +40,7 @@ export class ApiService {
     return this.post('getSolution?pattern=' + pattern, null);
   }
 
-  async addCaseCall(caseCollection: Case[]) {
+  async addCaseCall(caseCollection: Solution[]) {
     for(let i = 0; i < caseCollection.length; i++) {
       console.dir(caseCollection[i]);
       await this.post('addCase?pattern=' + caseCollection[i].pattern + '&solvability=' + caseCollection[i].solvability + '&solutionCells=' + caseCollection[i].solutionCells + '&solutionTypes=' + caseCollection[i].solutionTypes, null);
