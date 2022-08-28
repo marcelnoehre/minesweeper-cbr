@@ -41,7 +41,6 @@ public class CBRAgent {
 	
 	public static String caseQuery(String queryString) {
 		Case problemCase = new Case(queryString, new Pattern(queryString.toCharArray()), new Solution());
-		String result = project.caseQuery(problemCase);
-		return result;
+		return project.caseQuery(problemCase);
 	}
 }

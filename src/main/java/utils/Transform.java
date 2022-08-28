@@ -80,6 +80,7 @@ public class Transform {
 				}
 				i++;
 			}
+			jsonCase.put("Similarity", caseElement.getSecond());
 			jsonCaseList.add(jsonCase);
 		}
 		jsonContainer.put("CaseList", jsonCaseList);
