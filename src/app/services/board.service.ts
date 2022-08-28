@@ -8,8 +8,10 @@ export class BoardService {
 
     private _cellsPlanned: BehaviorSubject<string[][]> = new BehaviorSubject<string[][]>([]);
     private _cellsRevealed: BehaviorSubject<string[][]> = new BehaviorSubject<string[][]>([]); 
+    private _cellsColored: BehaviorSubject<string[][]> = new BehaviorSubject<string[][]>([]);
     private _revealedArray: string[][] = [];
     private _plannedArray: string[][] = [];
+    private _coloredArray: string[][] = [];
 
     setCellsPlanned(row: number, column: number, value: string) {
         this._plannedArray[row][column] = value;
@@ -21,12 +23,21 @@ export class BoardService {
         this._cellsRevealed.next(this._revealedArray);
     }
 
+    setCellsColored(row: number, column: number, color: string) {
+        this._coloredArray[row][column] = color;
+        this._cellsColored.next(this._coloredArray);
+    }
+
     get cellsPlanned$() {
         return this._cellsPlanned.asObservable();
     }
 
     get cellsRevealed$() {
         return this._cellsRevealed.asObservable();
+    }
+
+    get cellsColored$() {
+        return this._cellsColored.asObservable();
     }
 
     revealCell(row: number, column: number) {
@@ -36,14 +47,19 @@ export class BoardService {
 
     setupRevealed(counter: number) {
         this._revealedArray = [];
+        this._coloredArray = [];
         for (let i = 0; i < counter; i++) {
             let innerArray: string[] = [];
+            let innerColor: string[] = [];
             for(let j = 0; j < counter; j++) {
                 innerArray.push('C');
+                innerColor.push('transparent');
             }
             this._revealedArray.push(innerArray); 
+            this._coloredArray.push(innerColor);
         }
         this._cellsRevealed.next(this._revealedArray);
+        this._cellsColored.next(this._coloredArray);
     }
 
     setupPlanned(counter: number, row: number, column: number, totalBombs: number) {
