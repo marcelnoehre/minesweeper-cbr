@@ -6,6 +6,7 @@ import { Case } from '../interfaces/case';
 import { PatternService } from './pattern.service';
 import { StorageService } from './storage.service';
 import { BoardService } from './board.service';
+import { GameStatsService } from './gamestats.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,6 +18,7 @@ export class TokensService {
     private _hintStatus: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private _hintText: BehaviorSubject<string> = new BehaviorSubject<string>('');
     private _hintQueryRunning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _cellsPerRow!: number;
     private _solutionCase!: Case; 
     private _remainingTokensValue!: number;
     private _hintStatusValue!: number
@@ -28,7 +30,8 @@ export class TokensService {
     constructor(
         private storage: StorageService,
         private _pattern: PatternService,
-        private _board: BoardService
+        private _board: BoardService,
+        private _gameStats: GameStatsService
         ) {
         this._difficultyChange$ = this.storage.storageChange$.pipe(
             filter(({ key }) => key === "difficulty"),
@@ -38,6 +41,9 @@ export class TokensService {
             this.setup(newDifficulty);
         });
         this.setup(this.storage.getSessionEntry('difficulty'));
+        this._gameStats.cellsPerRow$.subscribe((cellsPerRow) => {
+            this._cellsPerRow = cellsPerRow;
+        });
         this.remainingTokens$.subscribe((remainingTokens: number) => {
             this._remainingTokensValue = remainingTokens;
         });
@@ -141,6 +147,7 @@ export class TokensService {
         this.setNoSolution(false);
         this.setHintText('');
         this.setHintStatus(0);
+        this._board.resetColors(this._cellsPerRow);
     }
 
     async setupSolution() {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { GameStatsService } from './gamestats.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -59,6 +60,18 @@ export class BoardService {
             this._coloredArray.push(innerColor);
         }
         this._cellsRevealed.next(this._revealedArray);
+        this._cellsColored.next(this._coloredArray);
+    }
+
+    resetColors(counter: number) {
+        this._coloredArray = [];
+        for (let i = 0; i < counter; i++) {
+            let innerColor: string[] = [];
+            for(let j = 0; j < counter; j++) {
+                innerColor.push('transparent');
+            }
+            this._coloredArray.push(innerColor);
+        }
         this._cellsColored.next(this._coloredArray);
     }
 
