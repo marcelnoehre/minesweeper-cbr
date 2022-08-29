@@ -181,7 +181,6 @@ export class PatternService {
     }
 
     checkCoveredCenter(value: number, row: number, column: number) {
-        let minesCounter = 0;
         let flagCounter = 0;
         let coveredCounter = 0;
         for(let i = 1; i <= 8; i++) {
@@ -195,10 +194,6 @@ export class PatternService {
                 surroundValue = this.cellsRevealed[row + this.patternOrder[i][0]][column + this.patternOrder[i][1]];
             }
             switch(surroundValue) {
-                case 'M': {
-                    minesCounter++;
-                    break;
-                }
                 case 'F': {
                     flagCounter++;
                     break;
@@ -207,13 +202,8 @@ export class PatternService {
                     coveredCounter++;
                     break;
                 }
-                default: {
-                    break;
-                }
             }
-            if(minesCounter == value) {
-                return 'MINES.REVEALED%23';
-            } else if(minesCounter + flagCounter == value) {
+            if(flagCounter == value) {
                 return 'MINES.FLAGGED%23';
             }
         }
@@ -224,7 +214,6 @@ export class PatternService {
     }
 
     checkFlagCenter(value: number, row: number, column: number) {
-        let minesCounter = 0;
         let flagCounter = 0;
         for(let i = 1; i <= 8; i++) {
             let surroundValue = '';
@@ -237,22 +226,13 @@ export class PatternService {
                 surroundValue = this.cellsRevealed[row + this.patternOrder[i][0]][column + this.patternOrder[i][1]];
             }
             switch(surroundValue) {
-                case 'M': {
-                    minesCounter++;
-                    break;
-                }
                 case 'F': {
                     flagCounter++;
                     break;
                 }
-                default: {
-                    break;
-                }
             }
-            if(minesCounter == value) {
+            if(flagCounter > value) {
                 return 'WRONG.FLAG%23';
-            } else if(minesCounter + flagCounter == value) {
-                return 'SUSPICIOUS.FLAG%23';
             }
         }
         return '';

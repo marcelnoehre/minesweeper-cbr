@@ -20,6 +20,8 @@ export class TokensService {
     private _hintText: BehaviorSubject<string> = new BehaviorSubject<string>('');
     private _hintQueryRunning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _cellsPerRow!: number;
+    private _remainingFlags!: number;
+    private _revealedCells!: number;
     private _cellsRevealed!: string[][];
     private _cellsPlanned!: string[][];
     private _solutionCase!: Case; 
@@ -47,6 +49,12 @@ export class TokensService {
         this.setup(this.storage.getSessionEntry('difficulty'));
         this._gameStats.cellsPerRow$.subscribe((cellsPerRow) => {
             this._cellsPerRow = cellsPerRow;
+        });
+        this._gameStats.remainingFlags$.subscribe((remainingFlags) => {
+            this._remainingFlags = remainingFlags;
+        });
+        this._gameStats.revealedCells$.subscribe((revealedCells) => {
+            this._revealedCells = revealedCells;
         });
         this._board.cellsRevealed$.subscribe((cellsRevealed) => {
             this._cellsRevealed = cellsRevealed;
@@ -238,8 +246,7 @@ export class TokensService {
                 let value = Number(this._cellsRevealed[row][column]);
                 if(
                     this._solutionCase.solutionTypes[i] == 'COVERED.AMOUNT' ||
-                    this._solutionCase.solutionTypes[i] == 'MINES.FLAGGED' ||
-                    this._solutionCase.solutionTypes[i] == 'MINES.REVEALED'
+                    this._solutionCase.solutionTypes[i] == 'MINES.FLAGGED'
                 ) {
                     if(value != NaN) {
                         if(this._pattern.checkCoveredCenter(value, row, column).slice(0, -3) == this._solutionCase.solutionTypes[i]) {
@@ -250,7 +257,6 @@ export class TokensService {
                         }
                     }
                 } else if(
-                    this._solutionCase.solutionTypes[i] == 'SUSPICIOUS.FLAG' ||
                     this._solutionCase.solutionTypes[i] == 'WRONG.FLAG'
                 ) {
                     if(value != NaN) {
@@ -283,45 +289,32 @@ export class TokensService {
                     case 'COVERED.AMOUNT': {
                         if(this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn] == 'M') {
                             this._board.setCellsRevealed(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, 'F');
-                        }
-                        break;
-                    }
-                    case 'MINES.REVEALED': {
-                        if(this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn] != 'M') {
-                            this._board.setCellsRevealed(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn]);
+                            this._gameStats.setRemainingFlags(this._remainingFlags-1);
                         }
                         break;
                     }
                     case 'MINES.FLAGGED': {
                         if(this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn] != 'M') {
                             this._board.setCellsRevealed(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn]);
+                            this._gameStats.setRevealedCells(this._revealedCells+1);
                         } else {
                             for(let i = 1; i <= 8; i++) {
                                 if( this._cellsRevealed[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'F' &&
                                     this._cellsPlanned[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'M') {
                                     this._board.setCellsRevealed(this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1], 'C');
+                                    this._gameStats.setRemainingFlags(this._remainingFlags+1); 
                                     i = 9;
                                 }
-                            }
-                            //remove wrong flag
-                        }
-                        break;
-                    }
-                    case 'SUSPICIOUS.FLAG': {
-                        for(let i = 0; i <= 8; i++) {
-                            if( this._cellsRevealed[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'F' &&
-                                this._cellsPlanned[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'M') {
-                                this._board.setCellsRevealed(this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1], 'C');
-                                i = 9;
                             }
                         }
                         break;
                     }
                     case 'WRONG.FLAG': {
-                        for(let i = 1; i <= 8; i++) {
+                        for(let i = 0; i <= 8; i++) {
                             if( this._cellsRevealed[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'F' &&
                                 this._cellsPlanned[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'M') {
                                 this._board.setCellsRevealed(this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1], 'C');
+                                this._gameStats.setRemainingFlags(this._remainingFlags+1); 
                                 i = 9;
                             }
                         }
