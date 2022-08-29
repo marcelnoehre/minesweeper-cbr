@@ -216,7 +216,7 @@ export class TokensService {
 
     setupColoredArea() {
         if(!this.noSolution) {
-            this._board.setCellsColored(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, 'lightgreen');
+            this._board.setCellsColored(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, 'lime');
             for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
                 let tmp = this._solutionCase.solutionCells[i];
                 let row = this._solutionCase.fieldRow - 2 + Number(Array.from(tmp)[0]);
@@ -259,10 +259,18 @@ export class TokensService {
             }
             this._board.resetColors(this._cellsPerRow);
             if(validSolution) {
-                for(let i = 0; i <= 8; i++) {
-                    this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'lightgreen');
-                    //TODO: Execute next move for user
+                for(let i = 0; i < 25; i++) {
+                    if(i == 0) {
+                        this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'darkorange');
+                    }
+                    else if(i > 8) {
+                        this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'lime');
+                    }
+                    else {
+                        this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'yellow');
+                    }
                 }
+                //TODO: Execute next move for user
             } else {
                 if(this._solutionCase.similarity == 1) {
                     if(Object.values(this._api.updateCaseCall(this._pattern.createCase(this._solutionCase.fieldRow, this._solutionCase.fieldColumn)))[0] == 'False') {

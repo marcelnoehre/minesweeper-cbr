@@ -13,6 +13,15 @@ export class BoardService {
     private _revealedArray: string[][] = [];
     private _plannedArray: string[][] = [];
     private _coloredArray: string[][] = [];
+    private _cellsPerRow!: number;
+
+    constructor(
+        private _gameStats: GameStatsService
+    ) {
+        this._gameStats.cellsPerRow$.subscribe((cellsPerRow) => {
+            this._cellsPerRow = cellsPerRow;
+        });
+    }
 
     setCellsPlanned(row: number, column: number, value: string) {
         this._plannedArray[row][column] = value;
@@ -25,8 +34,14 @@ export class BoardService {
     }
 
     setCellsColored(row: number, column: number, color: string) {
-        this._coloredArray[row][column] = color;
-        this._cellsColored.next(this._coloredArray);
+        if(row >= 0 && 
+            column >= 0 && 
+            row < this._cellsPerRow && 
+            column < this._cellsPerRow) {
+                this._coloredArray[row][column] = color;
+                this._cellsColored.next(this._coloredArray);
+        }
+
     }
 
     get cellsPlanned$() {
