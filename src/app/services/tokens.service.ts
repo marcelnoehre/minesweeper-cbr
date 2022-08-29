@@ -19,6 +19,7 @@ export class TokensService {
     private _hintText: BehaviorSubject<string> = new BehaviorSubject<string>('');
     private _hintQueryRunning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _cellsPerRow!: number;
+    private _cellsPlanned!: string[][];
     private _solutionCase!: Case; 
     private _remainingTokensValue!: number;
     private _hintStatusValue!: number
@@ -43,6 +44,9 @@ export class TokensService {
         this.setup(this.storage.getSessionEntry('difficulty'));
         this._gameStats.cellsPerRow$.subscribe((cellsPerRow) => {
             this._cellsPerRow = cellsPerRow;
+        });
+        this._board.cellsPlanned$.subscribe((cellsPlanned: string[][]) => {
+            this._cellsPlanned = cellsPlanned;
         });
         this.remainingTokens$.subscribe((remainingTokens: number) => {
             this._remainingTokensValue = remainingTokens;
@@ -218,6 +222,43 @@ export class TokensService {
     }
 
     turnCell() {
-        console.log('turn cell');
+        if(!this.noSolution) {
+            let validSolution = false;
+            for(let i = 0; i < this._solutionCase.solutionTypes.length; i++) {
+                switch(this._solutionCase.solutionTypes[i]) {
+                    case 'COVERED.AMOUNT': {
+                        //check if valid
+                        //end loop if valid
+                        break;
+                    }
+                    case 'MINES.FLAGGED': {
+                        //check if valid
+                        //end loop if valid
+                        break;
+                    } 
+                    case 'MINES.REVEALED': {
+                        //check if valid
+                        //end loop if valid
+                        break;
+                    }
+                    case 'SUSPICIOUS.FLAG': {
+                        //check if valid
+                        //end loop if valid
+                        break;
+                    }
+                    case 'WRONG.FLAG': {
+                        //check if valid
+                        //end loop if valid
+                        break;
+                    }
+                }
+            }
+            if(validSolution) {
+                //show solution
+            } else {
+                //if similarity == 1 -> delete
+                //if similarity != 1 -> create new case
+            }
+        }
     }
 }
