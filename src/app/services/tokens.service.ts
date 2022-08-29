@@ -230,33 +230,32 @@ export class TokensService {
     turnCell() {
         if(!this.noSolution) {
             let validSolution = false;
-            for(let i = 0; i < this._solutionCase.solutionTypes.length; i++) {
-                switch(this._solutionCase.solutionTypes[i]) {
-                    case 'COVERED.AMOUNT': {
-                        //check if valid
-                        //end loop if valid
-                        break;
+            for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
+                let row = this._solutionCase.fieldRow - 2 + Number(this._solutionCase.solutionCells[i][0]);
+                let column = this._solutionCase.fieldColumn - 2 + Number(this._solutionCase.solutionCells[i][1]);
+                let value = Number(this._cellsRevealed[this._solutionCase.fieldRow][this._solutionCase.fieldColumn]);
+                if(
+                    this._solutionCase.solutionTypes[i] == 'COVERED.AMOUNT' ||
+                    this._solutionCase.solutionTypes[i] == 'MINES.FLAGGED' ||
+                    this._solutionCase.solutionTypes[i] == 'MINES.REVEALED'
+                ) {
+                    if(value != NaN) {
+                        if(this._pattern.checkCoveredCenter(value, row, column) == this._solutionCase.solutionTypes[i]) {
+                            validSolution = true;
+                        }
                     }
-                    case 'MINES.FLAGGED': {
-                        //check if valid
-                        //end loop if valid
-                        break;
-                    } 
-                    case 'MINES.REVEALED': {
-                        //check if valid
-                        //end loop if valid
-                        break;
+                } else if(
+                    this._solutionCase.solutionTypes[i] == 'SUSPICIOUS.FLAG' ||
+                    this._solutionCase.solutionTypes[i] == 'WRONG.FLAG'
+                ) {
+                    if(value != NaN) {
+                        if(this._pattern.checkFlagCenter(value, row, column) == this._solutionCase.solutionTypes[i]) {
+                            validSolution = true;
+                        }
                     }
-                    case 'SUSPICIOUS.FLAG': {
-                        //check if valid
-                        //end loop if valid
-                        break;
-                    }
-                    case 'WRONG.FLAG': {
-                        //check if valid
-                        //end loop if valid
-                        break;
-                    }
+                }
+                if(validSolution) {
+                    i = this._solutionCase.solutionCells.length;
                 }
             }
             if(validSolution) {
