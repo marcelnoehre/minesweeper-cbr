@@ -9,8 +9,6 @@ import { UrlService } from './url.service';
 export class ApiService {
   private api = this.urlService.getUrl('minesweeper-CBR-backend');
 
-  asdf: any = [[0, 0],[0, 1],[0, 2],[0, 8],[0, 9], [1, 0]];
-
   constructor(
     private http: HttpClient,
     private urlService: UrlService,
