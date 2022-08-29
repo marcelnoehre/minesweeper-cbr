@@ -229,6 +229,9 @@ export class TokensService {
     turnCell() {
         if(!this.noSolution) {
             let validSolution = false;
+            let validRow: number;
+            let validColumn: number;
+            let validType: string = '';
             for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
                 let row = this._solutionCase.fieldRow - 2 + Number(this._solutionCase.solutionCells[i][0]);
                 let column = this._solutionCase.fieldColumn - 2 + Number(this._solutionCase.solutionCells[i][1]);
@@ -241,6 +244,9 @@ export class TokensService {
                     if(value != NaN) {
                         if(this._pattern.checkCoveredCenter(value, row, column).slice(0, -3) == this._solutionCase.solutionTypes[i]) {
                             validSolution = true;
+                            validRow = row;
+                            validColumn = column;
+                            validType = this._solutionCase.solutionTypes[i];
                         }
                     }
                 } else if(
@@ -250,6 +256,9 @@ export class TokensService {
                     if(value != NaN) {
                         if(this._pattern.checkFlagCenter(value, row, column).slice(0, -3) == this._solutionCase.solutionTypes[i]) {
                             validSolution = true;
+                            validRow = row;
+                            validColumn = column;
+                            validType = this._solutionCase.solutionTypes[i];
                         }
                     }
                 }
@@ -270,7 +279,55 @@ export class TokensService {
                         this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'yellow');
                     }
                 }
-                //TODO: Execute next move for user
+                switch(validType) {
+                    case 'COVERED.AMOUNT': {
+                        if(this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn] == 'M') {
+                            this._board.setCellsRevealed(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, 'F');
+                        }
+                        break;
+                    }
+                    case 'MINES.REVEALED': {
+                        if(this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn] != 'M') {
+                            this._board.setCellsRevealed(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn]);
+                        }
+                        break;
+                    }
+                    case 'MINES.FLAGGED': {
+                        if(this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn] != 'M') {
+                            this._board.setCellsRevealed(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn]);
+                        } else {
+                            for(let i = 1; i <= 8; i++) {
+                                if( this._cellsRevealed[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'F' &&
+                                    this._cellsPlanned[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'M') {
+                                    this._board.setCellsRevealed(this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1], 'C');
+                                    i = 9;
+                                }
+                            }
+                            //remove wrong flag
+                        }
+                        break;
+                    }
+                    case 'SUSPICIOUS.FLAG': {
+                        for(let i = 0; i <= 8; i++) {
+                            if( this._cellsRevealed[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'F' &&
+                                this._cellsPlanned[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'M') {
+                                this._board.setCellsRevealed(this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1], 'C');
+                                i = 9;
+                            }
+                        }
+                        break;
+                    }
+                    case 'WRONG.FLAG': {
+                        for(let i = 1; i <= 8; i++) {
+                            if( this._cellsRevealed[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'F' &&
+                                this._cellsPlanned[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'M') {
+                                this._board.setCellsRevealed(this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1], 'C');
+                                i = 9;
+                            }
+                        }
+                        break;
+                    }
+                }
             } else {
                 if(this._solutionCase.similarity == 1) {
                     if(Object.values(this._api.updateCaseCall(this._pattern.createCase(this._solutionCase.fieldRow, this._solutionCase.fieldColumn)))[0] == 'False') {
