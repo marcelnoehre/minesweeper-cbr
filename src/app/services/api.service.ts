@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Case } from '../interfaces/case';
 import { Solution } from '../interfaces/solution';
 import { UrlService } from './url.service';
 
@@ -42,5 +43,13 @@ export class ApiService {
     for(let i = 0; i < caseCollection.length; i++) {
       await this.post('addCase?pattern=' + caseCollection[i].pattern + '&solvability=' + caseCollection[i].solvability + '&solutionCells=' + caseCollection[i].solutionCells + '&solutionTypes=' + caseCollection[i].solutionTypes, null);
     }
+  }
+
+  async removeCaseCall(pattern: string) {
+    await this.post('removeCase?pattern='+pattern, null);
+  }
+
+  async updateCaseCall(newCase: Solution) {
+    await this.post('addCase?pattern=' + newCase.pattern + '&solvability=' + newCase.solvability + '&solutionCells=' + newCase.solutionCells + '&solutionTypes=' + newCase.solutionTypes, null);
   }
 }
