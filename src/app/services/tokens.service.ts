@@ -268,8 +268,12 @@ export class TokensService {
                     }, 1000);
                 }
             } else {
-                //if similarity == 1 -> delete
-                //if similarity != 1 -> create new case
+                if(this._solutionCase.similarity == 1) {
+                    //update case in casebase
+                    //if no changes -> remove case
+                } else {
+                    this._pattern.createCase(this._solutionCase.fieldRow, this._solutionCase.fieldColumn);
+                }
             }
         }
     }
