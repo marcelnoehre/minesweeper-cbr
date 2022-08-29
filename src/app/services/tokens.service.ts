@@ -19,6 +19,7 @@ export class TokensService {
     private _hintText: BehaviorSubject<string> = new BehaviorSubject<string>('');
     private _hintQueryRunning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _cellsPerRow!: number;
+    private _cellsRevealed!: string[][];
     private _cellsPlanned!: string[][];
     private _solutionCase!: Case; 
     private _remainingTokensValue!: number;
@@ -44,6 +45,9 @@ export class TokensService {
         this.setup(this.storage.getSessionEntry('difficulty'));
         this._gameStats.cellsPerRow$.subscribe((cellsPerRow) => {
             this._cellsPerRow = cellsPerRow;
+        });
+        this._board.cellsRevealed$.subscribe((cellsRevealed) => {
+            this._cellsRevealed = cellsRevealed;
         });
         this._board.cellsPlanned$.subscribe((cellsPlanned: string[][]) => {
             this._cellsPlanned = cellsPlanned;
@@ -254,7 +258,15 @@ export class TokensService {
                 }
             }
             if(validSolution) {
-                //show solution
+                for(let i = 0; i <= 8; i++) {
+                    this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'lightgreen');
+                    setTimeout(() => {
+                        this._board.setCellsPlanned(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, this._cellsRevealed[this._solutionCase.fieldRow][this._solutionCase.fieldColumn]);
+                    }, 500);
+                    setTimeout(() => { 
+                        this._board.resetColors(this._cellsPerRow);
+                    }, 1000);
+                }
             } else {
                 //if similarity == 1 -> delete
                 //if similarity != 1 -> create new case

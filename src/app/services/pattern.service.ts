@@ -12,7 +12,7 @@ export class PatternService {
     private predictableIndexes: number[][] = [];
     private cellsRevealed!: string[][];
     private cellsPerRow!: number;
-    private patternOrder: number[][] = [
+    private _patternOrder: number[][] = [
         [0,0],[-1,-1],[-1, 0],[-1, 1],[0,1],[1,1],[1,0],[1,-1],[0,-1],
         [-2,-2],[-2,-1],[-2,0],[-2,1],[-2,2],[-1,2],[0,2],[1,2],
         [2,2],[2,1],[2,0],[2,-1],[2,-2],[1,-2],[0,-2],[-1,-2]
@@ -34,6 +34,10 @@ export class PatternService {
 
     get getCaseCollection() {
         return this.caseCollection;
+    }
+
+    get patternOrder() {
+        return this._patternOrder;
     }
 
     resetCaseCollection() {
