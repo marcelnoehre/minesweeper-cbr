@@ -134,7 +134,7 @@ export class PatternService {
         return pattern;
     }
 
-    createCase(row: number, column: number) {
+    createCase(row: number, column: number): Solution {
         let pattern = this.getPatternByIndex(row, column);
         let center = this.cellsRevealed[row][column];
         let solutionCells = '';
@@ -155,6 +155,7 @@ export class PatternService {
             solutionTypes: solutionTypes.slice(0, -3)
         };
         this.caseCollection.push(caseObject);
+        return caseObject;
     }
 
     checkSolutionKey(center: string, row: number, column: number) {

@@ -7,6 +7,7 @@ import { PatternService } from './pattern.service';
 import { StorageService } from './storage.service';
 import { BoardService } from './board.service';
 import { GameStatsService } from './gamestats.service';
+import { ApiService } from './api.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -33,7 +34,8 @@ export class TokensService {
         private storage: StorageService,
         private _pattern: PatternService,
         private _board: BoardService,
-        private _gameStats: GameStatsService
+        private _gameStats: GameStatsService,
+        private _api: ApiService
         ) {
         this._difficultyChange$ = this.storage.storageChange$.pipe(
             filter(({ key }) => key === "difficulty"),
@@ -269,8 +271,9 @@ export class TokensService {
                 }
             } else {
                 if(this._solutionCase.similarity == 1) {
-                    //update case in casebase
-                    //if no changes -> remove case
+                    if(Object.values(this._api.updateCaseCall(this._pattern.createCase(this._solutionCase.fieldRow, this._solutionCase.fieldColumn)))[0] == 'False') {
+                        this._api.removeCaseCall(this._pattern.getPatternByIndex(this._solutionCase.fieldRow, this._solutionCase.fieldColumn));
+                    }
                 } else {
                     this._pattern.createCase(this._solutionCase.fieldRow, this._solutionCase.fieldColumn);
                 }
