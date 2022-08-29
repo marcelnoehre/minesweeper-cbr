@@ -88,13 +88,14 @@ public class RequestHandler {
 		) {
 			System.out.println(" Valid!");
 			Case dataStorage = null;
+			Case newCase = null;
 			if(CBRAgent.checkForCase(pattern)) {
 				try {
 					System.out.print("Updating Case " + pattern + " in the case base...");
 					CBRAgent.project();
 					dataStorage = CBRAgent.getCase(pattern);
 					CBRAgent.removeCase(pattern);
-					Case newCase = Transform.apiInputToCase(pattern, solveable.equals("True"), solutionCells, solutionTypes);
+					newCase = Transform.apiInputToCase(pattern, solveable.equals("True"), solutionCells, solutionTypes);
 					CBRAgent.addCase(newCase);
 					System.out.println(" Success!");
 					try {
@@ -113,7 +114,7 @@ public class RequestHandler {
 					System.out.println(" Failed!\n");
 				}
 				try {
-					response.getOutputStream().println("{}");
+					response.getOutputStream().print(Transform.differenceToJson(newCase.equals(dataStorage)));
 				} catch (IOException e) {
 				}
 			} else {

@@ -86,4 +86,11 @@ public class Transform {
 		jsonContainer.put("CaseList", jsonCaseList);
 		return jsonContainer.toJSONString();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static String differenceToJson(boolean isDifferent) {
+		JSONObject jsonContainer = new JSONObject();
+		jsonContainer.put("Difference", isDifferent? "True" : "False");
+		return jsonContainer.toString();
+	}
 }
