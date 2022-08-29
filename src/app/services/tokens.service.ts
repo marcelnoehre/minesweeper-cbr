@@ -202,7 +202,6 @@ export class TokensService {
                 fieldRow: Object.values(queryResult)[29],
                 fieldColumn: Object.values(queryResult)[30]
             }
-            console.dir(this._solutionCase);
             let hintText = '';
             for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
                 // this._http.get<string>(`assets/solutions/${solutionTypes[i]}.json`).subscribe((value: string) => {
@@ -233,14 +232,14 @@ export class TokensService {
             for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
                 let row = this._solutionCase.fieldRow - 2 + Number(this._solutionCase.solutionCells[i][0]);
                 let column = this._solutionCase.fieldColumn - 2 + Number(this._solutionCase.solutionCells[i][1]);
-                let value = Number(this._cellsRevealed[this._solutionCase.fieldRow][this._solutionCase.fieldColumn]);
+                let value = Number(this._cellsRevealed[row][column]);
                 if(
                     this._solutionCase.solutionTypes[i] == 'COVERED.AMOUNT' ||
                     this._solutionCase.solutionTypes[i] == 'MINES.FLAGGED' ||
                     this._solutionCase.solutionTypes[i] == 'MINES.REVEALED'
                 ) {
                     if(value != NaN) {
-                        if(this._pattern.checkCoveredCenter(value, row, column) == this._solutionCase.solutionTypes[i]) {
+                        if(this._pattern.checkCoveredCenter(value, row, column).slice(0, -3) == this._solutionCase.solutionTypes[i]) {
                             validSolution = true;
                         }
                     }
@@ -249,7 +248,7 @@ export class TokensService {
                     this._solutionCase.solutionTypes[i] == 'WRONG.FLAG'
                 ) {
                     if(value != NaN) {
-                        if(this._pattern.checkFlagCenter(value, row, column) == this._solutionCase.solutionTypes[i]) {
+                        if(this._pattern.checkFlagCenter(value, row, column).slice(0, -3) == this._solutionCase.solutionTypes[i]) {
                             validSolution = true;
                         }
                     }
@@ -258,15 +257,11 @@ export class TokensService {
                     i = this._solutionCase.solutionCells.length;
                 }
             }
+            this._board.resetColors(this._cellsPerRow);
             if(validSolution) {
                 for(let i = 0; i <= 8; i++) {
                     this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'lightgreen');
-                    setTimeout(() => {
-                        this._board.setCellsPlanned(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, this._cellsRevealed[this._solutionCase.fieldRow][this._solutionCase.fieldColumn]);
-                    }, 500);
-                    setTimeout(() => { 
-                        this._board.resetColors(this._cellsPerRow);
-                    }, 1000);
+                    //TODO: Execute next move for user
                 }
             } else {
                 if(this._solutionCase.similarity == 1) {
