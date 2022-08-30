@@ -1,0 +1,9 @@
+{
+    "MINES.FLAGGED": "",
+    "COVERED.AMOUNT": "",
+    "COVERED.FLAGGED": "",
+    "WRONG.FLAG": "",
+    "WRONG.SURROUND": "",
+    "NO.SOLUTION": "Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.",
+    "NO.GAME": "Vor dem ersten Spielzug können keine Hinweise gakauft werden!"
+}

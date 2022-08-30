@@ -53,7 +53,7 @@ export class HintsComponent implements OnInit {
   }
 
   async hintSelected(selectedHint: number) {
-    if(!this.gameRunning) {
+    if(!this.gameRunning) {//TODO load from json by key
       this._tokens.setHintText('Vor dem ersten Spielzug können keine Hinweise gakauft werden!');
     } else {
       if(!this._tokens.noSolution) {

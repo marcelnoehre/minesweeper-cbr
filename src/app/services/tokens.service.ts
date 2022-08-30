@@ -175,6 +175,7 @@ export class TokensService {
             this.setNoSolution(true);
             this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
             this.setHintQueryRunning(false);
+            //TODO: load from json by key
             this.setHintText('Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.');
         } else {
             this._solutionCase = {
@@ -218,6 +219,7 @@ export class TokensService {
                 hintText += this._solutionCase.solutionTypes[i] + '\n';
             }
             this.setHintQueryRunning(false);
+            //TODO load from json by key
             this.setHintText(hintText);
         }
     }
