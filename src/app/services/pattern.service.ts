@@ -203,12 +203,15 @@ export class PatternService {
                     break;
                 }
             }
-            if(flagCounter == value) {
-                return 'MINES.FLAGGED%23';
-            }
         }
-        if(coveredCounter == value) {
+        if(coveredCounter == value && flagCounter == 0) {
             return 'COVERED.AMOUNT%23';
+        } else if(coveredCounter + flagCounter == value) {
+            return 'COVERED.FLAGGED%23';
+        } else if(flagCounter == value) {
+            return 'MINES.FLAGGED%23';
+        } else if(flagCounter > value) {
+            return 'WRONG.SURROUND';
         }
         return '';
     }
