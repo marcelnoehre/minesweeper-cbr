@@ -248,7 +248,9 @@ export class TokensService {
                 let value = Number(this._cellsRevealed[row][column]);
                 if(
                     this._solutionCase.solutionTypes[i] == 'COVERED.AMOUNT' ||
-                    this._solutionCase.solutionTypes[i] == 'MINES.FLAGGED'
+                    this._solutionCase.solutionTypes[i] == 'MINES.FLAGGED' ||
+                    this._solutionCase.solutionTypes[i] == 'COVERED.FLAGGED' ||
+                    this._solutionCase.solutionTypes[i] == 'WRONG.SURROUND'
                 ) {
                     if(value != NaN) {
                         if(this._pattern.checkCoveredCenter(value, row, column).slice(0, -3) == this._solutionCase.solutionTypes[i]) {
@@ -276,17 +278,6 @@ export class TokensService {
             }
             this._board.resetColors(this._cellsPerRow);
             if(validSolution) {
-                for(let i = 0; i < 25; i++) {
-                    if(i == 0) {
-                        this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'darkorange');
-                    }
-                    else if(i > 8) {
-                        this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'lime');
-                    }
-                    else {
-                        this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'yellow');
-                    }
-                }
                 switch(validType) {
                     case 'COVERED.AMOUNT': {
                         if(this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn] == 'M') {
@@ -311,9 +302,32 @@ export class TokensService {
                         }
                         break;
                     }
+                    case 'COVERED.FLAGGED': {
+                        if(this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn] != 'M') {
+                            this._board.setCellsRevealed(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn]);
+                            this._gameStats.setRevealedCells(this._revealedCells+1);
+                        } 
+                        break;
+                    }
+                    case 'WRONG.SURROUND': {
+                        for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
+                            if(this._solutionCase.solutionTypes[i] == 'WRONG.SURROUND') {
+                                let solutionRow = this._solutionCase.fieldRow - 2 + Number(this._solutionCase.solutionCells[i].charAt(0))
+                                let solutionColumn = this._solutionCase.fieldColumn - 2 + Number(this._solutionCase.solutionCells[i].charAt(1))
+                                for(let i = 0; i <= 8; i++) {
+                                    if( this._cellsRevealed[solutionRow - 2 + this._pattern.patternOrder[i][0]][solutionColumn - 2 + this._pattern.patternOrder[i][1]] == 'F' &&
+                                    this._cellsPlanned[solutionRow - 2 + this._pattern.patternOrder[i][0]][solutionColumn - 2 + this._pattern.patternOrder[i][1]] != 'M') {
+                                        this._board.setCellsRevealed(solutionRow - 2 + this._pattern.patternOrder[i][0], solutionColumn - 2 + this._pattern.patternOrder[i][1], 'C');
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    }
+
                     case 'WRONG.FLAG': {
                         for(let i = 0; i <= 8; i++) {
-                            if( this._cellsRevealed[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'F' &&
+                            if( this._cellsRevealed[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] == 'F' &&
                                 this._cellsPlanned[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] != 'M') {
                                 this._board.setCellsRevealed(this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1], 'C');
                                 this._gameStats.setRemainingFlags(this._remainingFlags+1); 
@@ -321,6 +335,17 @@ export class TokensService {
                             }
                         }
                         break;
+                    }
+                }
+                for(let i = 0; i < 25; i++) {
+                    if(i == 0) {
+                        this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'darkorange');
+                    }
+                    else if(i > 8) {
+                        this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'lime');
+                    }
+                    else {
+                        this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'yellow');
                     }
                 }
             } else {
