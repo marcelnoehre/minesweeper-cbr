@@ -278,11 +278,13 @@ export class TokensService {
             }
             this._board.resetColors(this._cellsPerRow);
             if(validSolution) {
+                let colorCenter: number[] = []
                 switch(validType) {
                     case 'COVERED.AMOUNT': {
                         if(this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn] == 'M') {
                             this._board.setCellsRevealed(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, 'F');
                             this._gameStats.setRemainingFlags(this._remainingFlags-1);
+                            colorCenter = [this._solutionCase.fieldRow, this._solutionCase.fieldColumn];
                         }
                         break;
                     }
@@ -297,6 +299,7 @@ export class TokensService {
                                     this._board.setCellsRevealed(this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1], 'C');
                                     this._gameStats.setRemainingFlags(this._remainingFlags+1); 
                                     i = 9;
+                                    colorCenter = [this._solutionCase.fieldRow, this._solutionCase.fieldColumn];
                                 }
                             }
                         }
@@ -306,6 +309,7 @@ export class TokensService {
                         if(this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn] != 'M') {
                             this._board.setCellsRevealed(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn]);
                             this._gameStats.setRevealedCells(this._revealedCells+1);
+                            colorCenter = [this._solutionCase.fieldRow, this._solutionCase.fieldColumn];
                         } 
                         break;
                     }
@@ -318,13 +322,14 @@ export class TokensService {
                                     if( this._cellsRevealed[solutionRow - 2 + this._pattern.patternOrder[i][0]][solutionColumn - 2 + this._pattern.patternOrder[i][1]] == 'F' &&
                                     this._cellsPlanned[solutionRow - 2 + this._pattern.patternOrder[i][0]][solutionColumn - 2 + this._pattern.patternOrder[i][1]] != 'M') {
                                         this._board.setCellsRevealed(solutionRow - 2 + this._pattern.patternOrder[i][0], solutionColumn - 2 + this._pattern.patternOrder[i][1], 'C');
+                                        this._gameStats.setRemainingFlags(this._remainingFlags+1); 
+                                        colorCenter = [solutionRow - 2 + this._pattern.patternOrder[i][0] , solutionColumn - 2 + this._pattern.patternOrder[i][1]];
                                     }
                                 }
                             }
                         }
                         break;
                     }
-
                     case 'WRONG.FLAG': {
                         for(let i = 0; i <= 8; i++) {
                             if( this._cellsRevealed[this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]] == 'F' &&
@@ -332,6 +337,7 @@ export class TokensService {
                                 this._board.setCellsRevealed(this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1], 'C');
                                 this._gameStats.setRemainingFlags(this._remainingFlags+1); 
                                 i = 9;
+                                colorCenter = [this._solutionCase.fieldRow - 2 + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn - 2 + this._pattern.patternOrder[i][1]]
                             }
                         }
                         break;
@@ -339,13 +345,13 @@ export class TokensService {
                 }
                 for(let i = 0; i < 25; i++) {
                     if(i == 0) {
-                        this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'darkorange');
+                        this._board.setCellsColored(colorCenter[0], colorCenter[1], 'darkorange');
                     }
                     else if(i > 8) {
-                        this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'lime');
+                        this._board.setCellsColored(colorCenter[0], colorCenter[1], 'lime');
                     }
                     else {
-                        this._board.setCellsColored(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'yellow');
+                        this._board.setCellsColored(colorCenter[0], colorCenter[1], 'yellow');
                     }
                 }
             } else {
