@@ -82,11 +82,11 @@ public class Constants {
 	};
 	
 	public static final String[] SOLUTION_TYPES = new String[] {
-			"MINES.REVEALED",
 			"MINES.FLAGGED",
+			"COVERED.AMOUNT",
+			"COVERED.FLAGGED",
 			"WRONG.FLAG",
-			"SUSPICIOUS.FLAG",
-			"COVERED.AMOUNT"
+			"WRONG.SURROUND"
 	};
 	
 	public static final String[] SOLUTION_COORDINATES = new String[] {
