@@ -294,6 +294,11 @@ export class TokensService {
                     }
                 }
             } else {
+                this.setNoSolution(true);
+                this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
+                this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
+                    this.setHintText(value['SOLUTION.INVALID']);
+                });
                 if(this._solutionCase.similarity == 1) {
                     if(Object.values(this._api.updateCaseCall(this._pattern.createCase(this._solutionCase.fieldRow, this._solutionCase.fieldColumn)))[0] == 'False') {
                         this._api.removeCaseCall(this._pattern.getPatternByIndex(this._solutionCase.fieldRow, this._solutionCase.fieldColumn));
