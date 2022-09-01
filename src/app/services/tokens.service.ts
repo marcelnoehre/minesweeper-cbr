@@ -30,9 +30,9 @@ export class TokensService {
     private _activeHint!: boolean;
     private _activeColorArea!: boolean;
     private _noSolution!: boolean;
-    private _http!: HttpClient;
 
     constructor(
+        private _http: HttpClient,
         private storage: StorageService,
         private _pattern: PatternService,
         private _board: BoardService,
@@ -213,9 +213,9 @@ export class TokensService {
             }
             let hintText = '';
             for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
-                // this._http.get<string>(`assets/solutions/${solutionTypes[i]}.json`).subscribe((value: string) => {
-                //     hintText += value + '\n';
-                // });
+                this._http.get<Object>(`assets/solutions/solution-keys.json`).subscribe((value: Object) => {
+                    hintText += value + '\n';
+                });
                 hintText += this._solutionCase.solutionTypes[i] + '\n';
             }
             this.setHintQueryRunning(false);
