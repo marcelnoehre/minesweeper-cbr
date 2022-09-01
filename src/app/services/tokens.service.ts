@@ -175,8 +175,9 @@ export class TokensService {
             this.setNoSolution(true);
             this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
             this.setHintQueryRunning(false);
-            //TODO: load from json by key
-            this.setHintText('Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.');
+            this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
+                this.setHintText(value['NO.SOLUTION']);
+            });
         } else {
             this._solutionCase = {
                 center: Object.values(queryResult)[0],
@@ -213,14 +214,12 @@ export class TokensService {
             }
             let hintText = '';
             for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
-                this._http.get<Object>(`assets/solutions/solution-keys.json`).subscribe((value: Object) => {
-                    hintText += value + '\n';
+                this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
+                    hintText += value[this._solutionCase.solutionTypes[i]] + '\n';
+                    this.setHintText(hintText);
                 });
-                hintText += this._solutionCase.solutionTypes[i] + '\n';
             }
             this.setHintQueryRunning(false);
-            //TODO load from json by key
-            this.setHintText(hintText);
         }
     }
 
@@ -328,7 +327,9 @@ export class TokensService {
         }
         else {
             this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
-            this.setHintText('Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.');
+            this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
+                this.setHintText(value['NO.SOLUTION']);
+            });
         }
     }
 
@@ -351,8 +352,9 @@ export class TokensService {
             }
             if(!valid) {
             this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
-            this.setHintText('Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.');
-            }
+            this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
+                this.setHintText(value['NO.SOLUTION']);
+            });            }
         }
     }
 
@@ -370,7 +372,9 @@ export class TokensService {
         }
         if(!valid) {
             this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
-            this.setHintText('Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.');
+            this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
+                this.setHintText(value['NO.SOLUTION']);
+            });        
         }
     }
 }
