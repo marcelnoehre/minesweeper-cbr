@@ -211,7 +211,7 @@ export class PatternService {
         } else if(flagCounter == value) {
             return 'MINES.FLAGGED%23';
         } else if(flagCounter > value) {
-            return 'WRONG.SURROUND';
+            return 'WRONG.SURROUND%23';
         }
         return '';
     }

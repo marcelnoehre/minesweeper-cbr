@@ -308,13 +308,13 @@ export class TokensService {
     colourSolutionArea(row: number, column: number) {
         for(let i = 0; i < 25; i++) {
             if(i == 0) {
-                this._board.setCellsColored(row, column, 'darkorange');
+                this._board.setCellsColored(row + this._pattern.patternOrder[i][0], column + this._pattern.patternOrder[i][1], 'darkorange');
             }
             else if(i > 8) {
-                this._board.setCellsColored(row, column, 'lime');
+                this._board.setCellsColored(row + this._pattern.patternOrder[i][0], column + this._pattern.patternOrder[i][1], 'lime');
             }
             else {
-                this._board.setCellsColored(row, column, 'yellow');
+                this._board.setCellsColored(row + this._pattern.patternOrder[i][0], column + this._pattern.patternOrder[i][1], 'yellow');
             }
         }
     }

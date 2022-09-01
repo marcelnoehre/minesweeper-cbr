@@ -55,7 +55,7 @@ export class HintsComponent implements OnInit {
   }
 
   async hintSelected(selectedHint: number) {
-    if (!this.gameRunning) {//TODO load from json by key
+    if (!this.gameRunning) {
       this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
         this._tokens.setHintText(value['NO.GAME']);
       });
