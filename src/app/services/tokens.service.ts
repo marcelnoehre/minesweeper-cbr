@@ -222,7 +222,7 @@ export class TokensService {
             let hintText = '';
             for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
                 this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
-                    hintText += value[this._solutionCase.solutionTypes[i]] + '\n';
+                    hintText += value[this._solutionCase.solutionTypes[i]] + '\n\n';
                     this.setHintText(hintText);
                 });
             }
