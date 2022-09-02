@@ -28,8 +28,6 @@ export class ApiService {
         .toPromise()) as any;
       if (call.code == 400) {
         console.error('Bad request!');
-      } else if(call.code == 0) {
-        console.log('jk');
       } else {
         return call;
       }
