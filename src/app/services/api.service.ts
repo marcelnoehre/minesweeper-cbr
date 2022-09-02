@@ -32,7 +32,9 @@ export class ApiService {
         return call;
       }
     } catch (err: any) {
-      throw(err);
+      if(err.status == 0) {
+        throw(err);
+      }
     }
   }
 
