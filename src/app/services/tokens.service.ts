@@ -8,11 +8,13 @@ import { StorageService } from './storage.service';
 import { BoardService } from './board.service';
 import { GameStatsService } from './gamestats.service';
 import { ApiService } from './api.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class TokensService {
+    private _prodMode: boolean;
     private _difficultyChange$!: Observable<string>;
     private _remainingTokens: BehaviorSubject<number> = new BehaviorSubject<number>(10);
     private _totalTokens: BehaviorSubject<number> = new BehaviorSubject<number>(10);
@@ -39,6 +41,7 @@ export class TokensService {
         private _gameStats: GameStatsService,
         private _api: ApiService
         ) {
+        this._prodMode = environment.production;
         this._difficultyChange$ = this.storage.storageChange$.pipe(
             filter(({ key }) => key === "difficulty"),
             pluck("id")
@@ -233,14 +236,27 @@ export class TokensService {
         }
     }
 
+    colorDevArea() {
+        this._board.setCellsColored(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, 'lime');
+        for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
+            let tmp = this._solutionCase.solutionCells[i];
+            let row = this._solutionCase.fieldRow - 2 + Number(Array.from(tmp)[0]);
+            let column = this._solutionCase.fieldColumn - 2 + Number(Array.from(tmp)[1]);
+            this._board.setCellsColored(row, column, 'red');
+        }
+    }
+
     setupColoredArea() {
         if(!this.noSolution) {
-            this._board.setCellsColored(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, 'lime');
-            for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
-                let tmp = this._solutionCase.solutionCells[i];
-                let row = this._solutionCase.fieldRow - 2 + Number(Array.from(tmp)[0]);
-                let column = this._solutionCase.fieldColumn - 2 + Number(Array.from(tmp)[1]);
-                this._board.setCellsColored(row, column, 'red')
+            if(!this._prodMode) {
+                this.colorDevArea();
+            } else {
+                console.log(this._solutionCase.fieldRow, this._solutionCase.fieldColumn);
+                let random: number[] = this._pattern.patternOrder[Math.floor(Math.random() * (24 - 0 + 1) + 0)];
+                let randomCenter: number[] = [this._solutionCase.fieldRow + random[0], this._solutionCase.fieldColumn + random[1]];
+                for(let i = 0; i < 25; i++) {
+                    this._board.setCellsColored(randomCenter[0] + this._pattern.patternOrder[i][0], randomCenter[1] + this._pattern.patternOrder[i][1], 'lime');
+                }
             }
         }
     }
@@ -321,15 +337,19 @@ export class TokensService {
     }
 
     colourSolutionArea(row: number, column: number) {
-        for(let i = 0; i < 25; i++) {
-            if(i == 0) {
-                this._board.setCellsColored(row + this._pattern.patternOrder[i][0], column + this._pattern.patternOrder[i][1], 'darkorange');
-            }
-            else if(i > 8) {
-                this._board.setCellsColored(row + this._pattern.patternOrder[i][0], column + this._pattern.patternOrder[i][1], 'lime');
-            }
-            else {
-                this._board.setCellsColored(row + this._pattern.patternOrder[i][0], column + this._pattern.patternOrder[i][1], 'yellow');
+        if(!this._prodMode) {
+            this.colorDevArea();
+        } else {
+            for(let i = 0; i < 25; i++) {
+                if(i == 0) {
+                    this._board.setCellsColored(row + this._pattern.patternOrder[i][0], column + this._pattern.patternOrder[i][1], 'darkorange');
+                }
+                else if(i > 8) {
+                    this._board.setCellsColored(row + this._pattern.patternOrder[i][0], column + this._pattern.patternOrder[i][1], 'lime');
+                }
+                else {
+                    this._board.setCellsColored(row + this._pattern.patternOrder[i][0], column + this._pattern.patternOrder[i][1], 'yellow');
+                }
             }
         }
     }
