@@ -59,7 +59,11 @@ export class PatternService {
                     newIndex = true;
                 }
             }
-            result = await this._apiService.getSolutionCall(this.getPatternByIndex(this.predictableIndexes[index][0], this.predictableIndexes[index][1]));
+            try {
+                result = await this._apiService.getSolutionCall(this.getPatternByIndex(this.predictableIndexes[index][0], this.predictableIndexes[index][1]));
+            } catch(err: any) {
+                return {"SERVER": "OFFLINE"};
+            }
             for(let i = 0; Object.values(result)[0][i] != undefined; i++) {
                 if(Object.values(result)[0][i].Solvability == 'True') {
                     solutionFound = true

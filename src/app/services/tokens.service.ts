@@ -178,6 +178,13 @@ export class TokensService {
             this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
                 this.setHintText(value['NO.SOLUTION']);
             });
+        } else if(Object.keys(queryResult).length == 1) {
+            this.setNoSolution(true);
+            this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
+            this.setHintQueryRunning(false);
+            this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
+                this.setHintText(value['BACKEND.OFFLINE']);
+            });
         } else {
             this._solutionCase = {
                 center: Object.values(queryResult)[0],

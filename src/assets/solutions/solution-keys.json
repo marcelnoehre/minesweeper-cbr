@@ -7,5 +7,5 @@
     "NO.SOLUTION": "Für die aktuell vorliegende Situation kann kein zielführender Tipp gegeben werden. Die genutzten Diamanten werden zurückgezahlt.",
     "SOLUTION.INVALID": "Die berechnete Aktion kann nicht mit 100% Sicherheit auf die aktuelle Situation angewendet werden. Die genutzten Diamanten werden zurückgezahlt.",
     "NO.GAME": "Vor dem ersten Spielzug können keine Hinweise gekauft werden!",
-    "NO.BACKEND": "Der Service für die Erstellung eines Hinweises steht derzeit nicht zur Verfügung!"
+    "BACKEND.OFFLINE": "Der Service für die Erstellung eines Hinweises steht derzeit nicht zur Verfügung!"
 }
