@@ -220,9 +220,12 @@ export class TokensService {
                 fieldColumn: Object.values(queryResult)[30]
             }
             let hintText = '';
-            for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
+            let withoutDuplitcates: string[] = this._solutionCase.solutionTypes.filter(function(element, index, self) {
+                return index == self.indexOf(element);
+            });
+            for(let i = 0; i < withoutDuplitcates.length; i++) {
                 this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
-                    hintText += value[this._solutionCase.solutionTypes[i]] + '\n\n';
+                    hintText += value[withoutDuplitcates[i]] + '\n\n';
                     this.setHintText(hintText);
                 });
             }
