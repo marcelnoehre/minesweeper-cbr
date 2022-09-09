@@ -16,6 +16,9 @@ export class HintsComponent implements OnInit {
   remainingTokens!: number;
   gameRunning!: boolean;
   hintStatus!: number;
+  colorFirstHint!:string;
+  colorSecondHint!:string;
+  colorThirdHint!:string;
   cellsRevealed!: string[][];
   hintText!: string;
   hintQueryRunning!: boolean;
@@ -51,11 +54,22 @@ export class HintsComponent implements OnInit {
     this._tokens.hintQueryRunning$.subscribe((hintQueryRunning) => {
       this.hintQueryRunning = hintQueryRunning;
     });
-
+    this._tokens.colorFirstHint$.subscribe((color:string)=> {
+      this.colorFirstHint = color;
+    });
+    this._tokens.colorSecondHint$.subscribe((color:string)=> {
+      this.colorSecondHint = color;
+    });
+    this._tokens.colorThirdHint$.subscribe((color:string)=> {
+      this.colorThirdHint = color;
+    });  
   }
 
   async hintSelected(selectedHint: number) {
     if (!this.gameRunning) {
+      this._tokens.setColorFirstHint('red');
+      this._tokens.setColorSecondHint('red');
+      this._tokens.setColorThirdHint('red');
       this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
         this._tokens.setHintText(value['NO.GAME']);
       });
@@ -66,6 +80,7 @@ export class HintsComponent implements OnInit {
           this._tokens.setHintStatus(selectedHint);
           switch (selectedHint) {
             case 1: {
+              this._tokens.setColorFirstHint('lightgreen');
               if (!this._tokens.activeHint) {
                 this._tokens.setActiveHint(true);
                 await this._tokens.setupSolution();
@@ -73,6 +88,8 @@ export class HintsComponent implements OnInit {
               break;
             }
             case 2: {
+              this._tokens.setColorFirstHint('lightgreen');
+              this._tokens.setColorSecondHint('lightgreen');
               if (!this._tokens.activeHint) {
                 this._tokens.setActiveHint(true);
                 await this._tokens.setupSolution();
@@ -84,6 +101,9 @@ export class HintsComponent implements OnInit {
               break;
             }
             case 3: {
+              this._tokens.setColorFirstHint('lightgreen');
+              this._tokens.setColorSecondHint('lightgreen');
+              this._tokens.setColorThirdHint('lightgreen');
               if (!this._tokens.activeHint) {
                 this._tokens.setActiveHint(true);
                 await this._tokens.setupSolution();

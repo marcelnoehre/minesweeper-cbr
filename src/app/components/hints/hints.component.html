@@ -8,15 +8,15 @@
             </div>
         </div>
         <div class="select-hint">
-            <div [ngClass]="hintStatus >= 1? 'selected' : ''" (click)="hintSelected(1)">
+            <div [ngStyle]="{'background-color' : colorFirstHint, 'pointer-events' : colorFirstHint != ''? 'none':'', 'color' : colorFirstHint == 'lightgreen'? 'black':'', 'font-weight': colorFirstHint != ''? 'bolder' :''}" (click)="hintSelected(1)">
                 <img src="assets/images/icons/token.png" />
                 <p>&nbsp;1</p>
             </div>
-            <div [ngClass]="hintStatus >= 2? 'selected' : ''" (click)="hintSelected(2)">
+            <div [ngStyle]="{'background-color' : colorSecondHint, 'pointer-events' : colorSecondHint == 'red'? 'none':'', 'color' : colorSecondHint == 'lightgreen'? 'black':'', 'font-weight': colorSecondHint != ''? 'bolder' :''}" (click)="hintSelected(2)">
                 <img src="assets/images/icons/token.png" />
                 <p>&nbsp;2</p>
             </div>
-            <div [ngClass]="hintStatus >= 3? 'selected' : ''" (click)="hintSelected(3)">
+            <div [ngStyle]="{'background-color' : colorThirdHint, 'pointer-events' : colorThirdHint == 'red'? 'none':'', 'color' : colorThirdHint == 'lightgreen'? 'black':'', 'font-weight': colorThirdHint != ''? 'bolder' :''}" (click)="hintSelected(3)">
                 <img src="assets/images/icons/token.png" />
                 <p>&nbsp;3</p>
             </div>

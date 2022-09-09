@@ -21,6 +21,9 @@ export class TokensService {
     private _hintStatus: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private _hintText: BehaviorSubject<string> = new BehaviorSubject<string>('');
     private _hintQueryRunning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _colorFirstHint: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    private _colorSecondHint: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    private _colorThirdHint: BehaviorSubject<string> = new BehaviorSubject<string>('');
     private _cellsPerRow!: number;
     private _remainingFlags!: number;
     private _revealedCells!: number;
@@ -129,6 +132,16 @@ export class TokensService {
         this._noSolution = active;
     }
 
+    setColorFirstHint(color:string) {
+        this._colorFirstHint.next(color);
+    }
+    setColorSecondHint(color:string) {
+        this._colorSecondHint.next(color);
+    }
+    setColorThirdHint(color:string) {
+        this._colorThirdHint.next(color);
+    }
+
     get totalTokens$(): Observable<number> {
         return this._totalTokens.asObservable();
     }
@@ -147,6 +160,18 @@ export class TokensService {
 
     get hintQueryRunning$(): Observable<boolean> {
         return this._hintQueryRunning.asObservable();
+    }
+    
+    get colorFirstHint$(): Observable<string> {
+        return this._colorFirstHint.asObservable();
+    }
+
+    get colorSecondHint$(): Observable<string> {
+        return this._colorSecondHint.asObservable();
+    }
+
+    get colorThirdHint$(): Observable<string> {
+        return this._colorThirdHint.asObservable();
     }
 
     get activeHint(): boolean {
@@ -168,6 +193,9 @@ export class TokensService {
         this.setNoSolution(false);
         this.setHintText('');
         this.setHintStatus(0);
+        this.setColorFirstHint('');
+        this.setColorSecondHint('');
+        this.setColorThirdHint('');
         this._board.resetColors(this._cellsPerRow);
     }
 
@@ -181,6 +209,9 @@ export class TokensService {
             this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
                 this.setHintText(value['NO.SOLUTION']);
             });
+            this.setColorFirstHint('red');
+            this.setColorSecondHint('red');
+            this.setColorThirdHint('red');
         } else if(Object.keys(queryResult).length == 1) {
             this.setNoSolution(true);
             this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
@@ -188,6 +219,9 @@ export class TokensService {
             this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
                 this.setHintText(value['BACKEND.OFFLINE']);
             });
+            this.setColorFirstHint('red');
+            this.setColorSecondHint('red');
+            this.setColorThirdHint('red');
         } else {
             this._solutionCase = {
                 center: Object.values(queryResult)[0],
