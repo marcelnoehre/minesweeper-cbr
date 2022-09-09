@@ -263,68 +263,47 @@ export class TokensService {
 
     turnCell() {
         if(!this.noSolution) {
-            let validSolution = false;
-            let validType: string = '';
+            let validSolution: boolean = false;
             for(let i = 0; i < this._solutionCase.solutionCells.length; i++) {
-                let row = this._solutionCase.fieldRow - 2 + Number(this._solutionCase.solutionCells[i][0]);
-                let column = this._solutionCase.fieldColumn - 2 + Number(this._solutionCase.solutionCells[i][1]);
-                let value = Number(this._cellsRevealed[row][column]);
-                if(
-                    this._solutionCase.solutionTypes[i] == 'COVERED.AMOUNT' ||
-                    this._solutionCase.solutionTypes[i] == 'MINES.FLAGGED' ||
-                    this._solutionCase.solutionTypes[i] == 'COVERED.FLAGGED' ||
-                    this._solutionCase.solutionTypes[i] == 'WRONG.SURROUND'
-                ) {
-                    if(value != NaN) {
-                        if(this._pattern.checkCoveredCenter(value, row, column).slice(0, -3) == this._solutionCase.solutionTypes[i]) {
-                            validSolution = true;
-                            validType = this._solutionCase.solutionTypes[i];
-                        }
-                    }
-                } else if(
-                    this._solutionCase.solutionTypes[i] == 'WRONG.FLAG'
-                ) {
-                    if(value != NaN) {
-                        if(this._pattern.checkFlagCenter(value, row, column).slice(0, -3) == this._solutionCase.solutionTypes[i]) {
-                            validSolution = true;
-                            validType = this._solutionCase.solutionTypes[i];
-                        }
-                    }
-                }
-                if(validSolution) {
-                    i = this._solutionCase.solutionCells.length;
-                }
-            }
-            this._board.resetColors(this._cellsPerRow);
-            if(validSolution) {
-                switch(validType) {
+                switch(this._solutionCase.solutionTypes[i]) {
                     case 'COVERED.AMOUNT': {
-                        this.setFlagAutomatically();
+                        if(this.setFlagAutomatically()) {
+                            validSolution = true;
+                        }
                         break;
                     }
                     case 'MINES.FLAGGED': {
-                        this.setPossibleFlagAutomatically();
+                        if(this.setPossibleFlagAutomatically()) {
+                            validSolution = true;
+                        }
                         break;
                     }
                     case 'COVERED.FLAGGED': {
-                        this.setPossibleFlagAutomatically();
+                        if(this.setPossibleFlagAutomatically()) {
+                            validSolution = true
+                        }
                         break;
                     }
                     case 'WRONG.SURROUND': {
-                        this.removeFlagAutomatically();
+                        if(this.removeFlagAutomatically()) {
+                            validSolution = true;
+                        }
                         break;
                     }
                     case 'WRONG.FLAG': {
-                        this.removeFlagAutomatically();
+                        if(this.removeFlagAutomatically()) {
+                            validSolution = true;
+                        }
                         break;
                     }
                 }
-            } else {
-                this.setNoSolution(true);
+            }
+            if(!validSolution) {
                 this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
                 this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
-                    this.setHintText(value['SOLUTION.INVALID']);
-                });
+                    this.setHintText(value['NO.SOLUTION']);
+                });        
+                this.setNoSolution(true);
                 if(this._solutionCase.similarity == 1) {
                     if(Object.values(this._api.updateCaseCall(this._pattern.createCase(this._solutionCase.fieldRow, this._solutionCase.fieldColumn)))[0] == 'False') {
                         this._api.removeCaseCall(this._pattern.getPatternByIndex(this._solutionCase.fieldRow, this._solutionCase.fieldColumn));
@@ -335,6 +314,10 @@ export class TokensService {
             }
         }
     }
+
+
+
+
 
     colourSolutionArea(row: number, column: number) {
         if(!this._prodMode) {
@@ -359,12 +342,10 @@ export class TokensService {
             this._board.setCellsRevealed(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, 'F');
             this._gameStats.setRemainingFlags(this._remainingFlags-1);
             this.colourSolutionArea(this._solutionCase.fieldRow, this._solutionCase.fieldColumn);
+            return true;
         }
         else {
-            this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
-            this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
-                this.setHintText(value['NO.SOLUTION']);
-            });
+            return false;
         }
     }
 
@@ -373,43 +354,31 @@ export class TokensService {
             this._board.setCellsRevealed(this._solutionCase.fieldRow, this._solutionCase.fieldColumn, this._cellsPlanned[this._solutionCase.fieldRow][this._solutionCase.fieldColumn]);
             this._gameStats.setRevealedCells(this._revealedCells+1);
             this.colourSolutionArea(this._solutionCase.fieldRow, this._solutionCase.fieldColumn);
+            return true;
         } else {
-            let valid = false;
             for(let i = 1; i <= 8; i++) {
                 if( this._cellsRevealed[this._solutionCase.fieldRow + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1]] == 'F' &&
                     this._cellsPlanned[this._solutionCase.fieldRow + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1]] != 'M') {
                     this._board.setCellsRevealed(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'C');
                     this._gameStats.setRemainingFlags(this._remainingFlags+1); 
                     this.colourSolutionArea(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1]);
-                    valid = true
-                    break;
+                    return true;
                 }
             }
-            if(!valid) {
-            this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
-            this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
-                this.setHintText(value['NO.SOLUTION']);
-            });            }
+            return false;
         }
     }
 
     removeFlagAutomatically() {
-        let valid = false;
         for(let i = 0; i <= 24; i++) {
             if(this._cellsRevealed[this._solutionCase.fieldRow + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1]] == 'F' &&
                 this._cellsPlanned[this._solutionCase.fieldRow + this._pattern.patternOrder[i][0]][this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1]] != 'M') {
                 this._board.setCellsRevealed(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1], 'C');
                 this._gameStats.setRemainingFlags(this._remainingFlags+1); 
                 this.colourSolutionArea(this._solutionCase.fieldRow + this._pattern.patternOrder[i][0], this._solutionCase.fieldColumn + this._pattern.patternOrder[i][1]);
-                valid = true;
-                break;
+                return true;
             }
         }
-        if(!valid) {
-            this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
-            this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
-                this.setHintText(value['NO.SOLUTION']);
-            });        
-        }
+        return false;
     }
 }
