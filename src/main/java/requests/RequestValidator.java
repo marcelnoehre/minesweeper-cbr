@@ -4,6 +4,13 @@ import java.util.Arrays;
 
 import utils.Constants;
 
+/**
+*
+* Validate API inputs.
+*
+* @author Marcel N&ouml;hre, 357775
+*
+*/
 public class RequestValidator {
 	
 	/**

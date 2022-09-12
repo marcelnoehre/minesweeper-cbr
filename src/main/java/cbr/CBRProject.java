@@ -23,6 +23,13 @@ import utils.Exports;
 import utils.Imports;
 import utils.Transform;
 
+/**
+*
+* Collection of CBR actions.
+*
+* @author Marcel N&ouml;hre, 357775
+*
+*/
 public class CBRProject {
 	private Project project;
 	private Concept minesweeperPatternConcept;
@@ -30,6 +37,9 @@ public class CBRProject {
 	private ICaseBase casebase;
 	private StringDesc[] attributes = new StringDesc[Constants.ATTRIBUTES_AMOUNT];
 	
+	/**
+	 * Imports a project or creates a new one.
+	 */
 	protected CBRProject() {
 		try {
 			System.out.println("Importing Project...");
@@ -53,6 +63,11 @@ public class CBRProject {
 		}
 	}
 	
+	/**
+	 * Import a existing project.
+	 * 
+	 * @throws Exception
+	 */
 	protected void importProject() throws Exception {
 		project = Imports.importProject();
 		minesweeperPatternConcept = project.getConceptByID("MinesweeperPatternConcept");
@@ -61,18 +76,33 @@ public class CBRProject {
 		casebase = project.getCB("MinesweeperPatternCasebase");
 	}
 	
+	/**
+	 * Import attributes for a case instance.
+	 * 
+	 * @throws Exception
+	 */
 	private void importAttributes() throws Exception {
 		for(int i = 0; i < Constants.ATTRIBUTES_AMOUNT; i++) {
 			attributes[i] = (StringDesc) project.getAttDescsByName(Constants.ATTRIBUTE_NAMES[i]).getFirst();
 		}
 	}
 	
+	/**
+	 * Initialize the project information.
+	 * 
+	 * @throws Exception
+	 */
 	private void initProjectInformation() throws Exception {
 		project = new Project();
 		project.setName("MinesweeperBackend");
 		project.setAuthor("Jannis Kehrhahn 275136 and Marcel Nöhre 357775");
 	}
 	
+	/**
+	 * Initialize special similarity.
+	 * 
+	 * @throws Exception
+	 */
 	private void initSpecialSimilarity() throws Exception {
 		SymbolFct sym = project.getSpecialFct();
 		sym.setSimilarity("_unknown_", "_undefined_", 1);
@@ -83,11 +113,21 @@ public class CBRProject {
 		sym.setSimilarity("_undefined_", "_others_", 0);
 	}
 	
+	/**
+	 * Initialize the concept and amalgamation function.
+	 * 
+	 * @throws Exception
+	 */
 	private void initConceptAndAmalgation() throws Exception {
 		minesweeperPatternConcept = project.createTopConcept("MinesweeperPatternConcept");
 		minesweeperPatternSim = minesweeperPatternConcept.addAmalgamationFct(AmalgamationConfig.WEIGHTED_SUM, "MinesweeperPatternSimFct", true);
 	}
 	
+	/**
+	 * Initialize case attributes.
+	 * 
+	 * @throws Exception
+	 */
 	private void initAttributes() throws Exception {
 		for(int i = 0; i < Constants.ATTRIBUTES_AMOUNT; i++) {
 			if(i == 0) {
@@ -103,10 +143,18 @@ public class CBRProject {
 		}
 	}
 	
+	/**
+	 * Initialize the case base.
+	 * 
+	 * @throws Exception
+	 */
 	private void initCaseBase() throws Exception {
 		casebase = project.createDefaultCB("MinesweeperPatternCasebase");
 	}
 	
+	/**
+	 * Configure the case attributes.
+	 */
 	private StringDesc configureAttribute(String descName, int weight) throws Exception {
 		StringDesc attribute = new StringDesc(minesweeperPatternConcept, descName);
 		attribute.addStringFct(StringConfig.LEVENSHTEIN, descName + "Fct", true);
@@ -114,6 +162,12 @@ public class CBRProject {
 		return attribute;
 	}
 	
+	/**
+	 * Extract the case from a instance object.
+	 * 
+	 * @param instance The instance object containing a case
+	 * @return	The extracted case
+	 */
 	private Case getCaseFromInstance(Instance instance) {
 		int attributeCounter = 0;
 		String[] caseValues = new String[Constants.ATTRIBUTES_AMOUNT];
@@ -125,10 +179,21 @@ public class CBRProject {
 		
 	}
 	
+	/**
+	 * Get a case from the case base.
+	 * 
+	 * @param pattern The pattern to search for.
+	 * @return	The case with the given pattern
+	 */
 	protected Case getCase(String pattern) {
 		return getCaseFromInstance(casebase.containsCase(pattern));
 	}
 	
+	/**
+	 * Add a list of cases to the case base.
+	 * 
+	 * @param caseList The list of cases
+	 */
 	protected void addCaseList(ArrayList<Case> caseList) {
 		for(Case newCase : caseList) {
 			try {
@@ -145,6 +210,12 @@ public class CBRProject {
 		System.out.println("");
 	}
 	
+	/**
+	 * Add a case to the case base.
+	 * 
+	 * @param newCase	The new case
+	 * @throws Exception
+	 */
 	protected void addCase(Case newCase) throws Exception {
 		Instance instance = minesweeperPatternConcept.addInstance(newCase.getName());
 		instance.addAttribute(attributes[0], newCase.getPattern().getCenter());
@@ -178,23 +249,41 @@ public class CBRProject {
 		casebase.addCase(instance);
 	}
 	
-	protected boolean removeCase(String name) {
-		if(checkForCase(name)) {
-			casebase.removeCase(name);
+	/**
+	 * Remove a case from the case base.
+	 * 
+	 * @param pattern	THe pattern of the case
+	 * @return	Wether the case was removed
+	 */
+	protected boolean removeCase(String pattern) {
+		if(checkForCase(pattern)) {
+			casebase.removeCase(pattern);
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	protected boolean checkForCase(String name) {
+	/**
+	 * Check wether a case exists in the case base.
+	 * 
+	 * @param pattern	The pattern of the case
+	 * @return	Wether the case exists in the case base
+	 */
+	protected boolean checkForCase(String pattern) {
 		boolean available = false;
-		if(casebase.containsCase(name) != null) {
+		if(casebase.containsCase(pattern) != null) {
 			available = true;
 		};
 		return available;
 	}
 	
+	/**
+	 * Find the most similar case for a given problem.
+	 * 
+	 * @param problemCase	The active problem
+	 * @return	The most similar case found for the given problem
+	 */
 	protected String caseQuery(Case problemCase) {
 		System.out.println("Query starts... ");
 		System.out.println("Input: " + problemCase.getName());

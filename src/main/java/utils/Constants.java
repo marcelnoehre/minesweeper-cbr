@@ -6,6 +6,13 @@ import minesweeper.Case;
 import minesweeper.Pattern;
 import minesweeper.Solution;
 
+/**
+*
+* Collection of constants.
+*
+* @author Marcel N&ouml;hre, 357775
+*
+*/
 public class Constants {
 	
 	/**

@@ -10,6 +10,13 @@ import utils.Constants;
 import utils.Exports;
 import utils.Transform;
 
+/**
+*
+* Handle incoming requests.
+*
+* @author Marcel N&ouml;hre, 357775
+*
+*/
 public class RequestHandler {
 	
 	/**
