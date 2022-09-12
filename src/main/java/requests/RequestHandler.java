@@ -11,6 +11,10 @@ import utils.Exports;
 import utils.Transform;
 
 public class RequestHandler {
+	
+	/**
+	 * Initialize the CBR project and the case base.
+	 */
 	public static void initializeBackend() {
 		System.out.println("\n---INITIALIZE BACKEND---");
 		try {
@@ -22,6 +26,12 @@ public class RequestHandler {
 		}
 	}
 	
+	/**
+	 * Add a case to the case base.
+	 * 
+	 * @param request	The incoming request
+	 * @param response	The outgoing response
+	 */
 	public static void addCase(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---ADD CASE---");
 		String pattern = request.getParameter("pattern");
@@ -73,6 +83,12 @@ public class RequestHandler {
 		}
 	}
 	
+	/**
+	 * Update a case in the case base.
+	 * 
+	 * @param request	The incoming request
+	 * @param response	The outgoing response
+	 */
 	public static void updateCase(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---UPDATE CASE---");
 		String pattern = request.getParameter("pattern");
@@ -133,6 +149,12 @@ public class RequestHandler {
 		}
 	}
 	
+	/**
+	 * Remove a case from the case base.
+	 * 
+	 * @param request	The incoming request
+	 * @param response	The outgoing response
+	 */
 	public static void removeCase(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---REMOVE CASE---");
 		String pattern = request.getParameter("pattern");
@@ -177,6 +199,12 @@ public class RequestHandler {
 		}
 	}
 	
+	/**
+	 * Get solution calculated by the CBR retrieval process.
+	 * 
+	 * @param request	The incoming request
+	 * @param response	The outgoing response
+	 */
 	public static void getSolution(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("---GET SOLUTION---");
 		String pattern = request.getParameter("pattern");
