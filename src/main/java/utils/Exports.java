@@ -14,11 +14,32 @@ import de.dfki.mycbr.core.Project;
 import de.dfki.mycbr.io.XMLExporter;
 import minesweeper.Case;
 
+/**
+*
+* Collection of export functionalities.
+*
+* @author Marcel N&ouml;hre, 357775
+*
+*/
 public class Exports {
+	
+	/**
+	 * Export the CBR project as prj file.
+	 * 
+	 * @param project The CBR project
+	 * @throws IOException
+	 */
 	public static void exportProject(Project project) throws IOException {
 		XMLExporter.save(project, new Constants().getPath() + Constants.PROJECT_NAME);
 	}
 	
+	/**
+	 * Export a list of cases as csv file.
+	 * 
+	 * @param caseList 	The list of case instances
+	 * @param path		The location to save the csv file
+	 * @throws IOException
+	 */
 	public static void exportCasesAsCsv(ArrayList<Case> caseList, String path) throws IOException {
 		ArrayList<String[]> cases = new ArrayList<String[]>();
 		for(Case caseElement : caseList) {
@@ -33,6 +54,13 @@ public class Exports {
         csvWriter.close();
 	}
 	
+	/**
+	 * Add one case to a existing csv file.
+	 * 
+	 * @param newCase	The case instance to add
+	 * @param path		The location to save the csv file
+	 * @throws IOException
+	 */
 	public static void addCaseToCSV(String[] newCase, String path) throws IOException {
 		FileWriter fileWriter = new FileWriter(path, true);
 		@SuppressWarnings("deprecation")
@@ -41,6 +69,14 @@ public class Exports {
 		csvWriter.close();
 	} 
 	
+	/**
+	 * Remove one case from a csv file.
+	 * 
+	 * @param pattern	The pattern of the case instance
+	 * @param path		The location to save the csv file
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	public static void removeCaseFromCSV(String pattern, String path) throws FileNotFoundException, IOException {
 		ArrayList<Case> caseList = Imports.importCasesFromCsv(path);
 		for(Case caseElement : caseList) {

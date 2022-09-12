@@ -10,12 +10,34 @@ import minesweeper.Case;
 import minesweeper.Pattern;
 import minesweeper.Solution;
 
+/**
+*
+* Collection of transform functionalities.
+*
+* @author Marcel N&ouml;hre, 357775
+*
+*/
 public class Transform {
 	
+	/**
+	 * Transform the input (frontend) to a case instance.
+	 * 
+	 * @param pattern		The pattern of the case instance
+	 * @param solveable		Wether the case is solveable
+	 * @param solutionCells	The cell position for the solution keys
+	 * @param solutionTypes	The solution keys
+	 * @return	The created case instance
+	 */
 	public static Case apiInputToCase(String pattern, boolean solveable, String solutionCells, String solutionTypes) {
 		return new Case(pattern, new Pattern(pattern.toCharArray()), new Solution(solveable, solutionCells, solutionTypes));
 	}
 	
+	/**
+	 * Transform a case instance to a string array.
+	 * 
+	 * @param caseObject The case instance
+	 * @return	The created string array
+	 */
 	public static String[] caseToStringArray(Case caseObject) {
 		String[] caseArray = new String[Constants.ATTRIBUTES_AMOUNT];
 		caseArray[0] = caseObject.getPattern().getCenter();
@@ -49,6 +71,12 @@ public class Transform {
 		return caseArray;
 	}
 	
+	/**
+	 * Transform a string array to a solution string.
+	 * 
+	 * @param arr The string array
+	 * @return	The created solution string
+	 */
 	public static String stringArrayToSolutionString(String[] arr) {
         String solution = "";
         if(arr.length > 0) {
@@ -60,6 +88,12 @@ public class Transform {
         return solution;
 	}
 	
+	/**
+	 * Transform a case list to a JSON file.
+	 * 
+	 * @param caseList The case list
+	 * @return	The created JSON file
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static String caseListToJson(ArrayList<Pair<Case, Double>> caseList) {
 		JSONObject jsonContainer = new JSONObject();
@@ -87,6 +121,12 @@ public class Transform {
 		return jsonContainer.toJSONString();
 	}
 	
+	/**
+	 * Transform wether a case is different to another one as a JSON file.
+	 * 
+	 * @param isDifferent Wether the case is different
+	 * @return	The created JSON file
+	 */
 	@SuppressWarnings("unchecked")
 	public static String differenceToJson(boolean isDifferent) {
 		JSONObject jsonContainer = new JSONObject();
