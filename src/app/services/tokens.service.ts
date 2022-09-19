@@ -331,6 +331,9 @@ export class TokensService {
                         break;
                     }
                 }
+                if(validSolution) {
+                    i = this._solutionCase.solutionCells.length;
+                }
             }
             if(!validSolution) {
                 this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
