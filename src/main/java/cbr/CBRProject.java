@@ -38,7 +38,7 @@ public class CBRProject {
 	private AmalgamationFct minesweeperPatternSim;
 	private ICaseBase casebase;
 	private StringDesc[] attributes = new StringDesc[Constants.ATTRIBUTES_AMOUNT];
-	private ExecutorService executor = Executors.newFixedThreadPool(5);
+	private ExecutorService executor = Executors.newFixedThreadPool(50);
 	
 	/**
 	 * Imports a project or creates a new one.
