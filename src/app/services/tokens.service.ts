@@ -335,12 +335,12 @@ export class TokensService {
                 if(validSolution) {
                     i = this._solutionCase.solutionCells.length;
                 }
-            }
+            }            
             if(!validSolution) {
                 this.setRemainingTokens(this._remainingTokensValue + this._hintStatusValue);
                 this._http.get<any>(`assets/solutions/solution-keys.json`).subscribe((value: any) => {
                     this.setHintText(value['NO.SOLUTION']);
-                });        
+                });
                 this.setNoSolution(true);
                 if(this._solutionCase.similarity == 1) {
                     if(Object.values(this._api.updateCaseCall(this._pattern.createCase(this._solutionCase.fieldRow, this._solutionCase.fieldColumn)))[0] == 'False') {
@@ -353,11 +353,7 @@ export class TokensService {
         }
     }
 
-
-
-
-
-    colourSolutionArea(row: number, column: number) {
+    async colourSolutionArea(row: number, column: number) {
         this._board.resetColors(this._cellsPerRow);
         if(!this._prodMode) {
             this.colorDevArea();
@@ -374,6 +370,9 @@ export class TokensService {
                 }
             }
         }
+        await new Promise(f => setTimeout(f, 1000));
+        this._board.resetColors(this._cellsPerRow);
+        this.resetHintStatus();
     }
 
     setFlagAutomatically() {
