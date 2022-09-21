@@ -1,6 +1,6 @@
 {
     "MINES.FLAGGED": "Achte auf bereits aufgedeckte Ziffern in deren Umkreis bereits die passende Anzahl an Minen mit Fähnchen markiert ist.",
-    "COVERED.AMOUNT": "Achte auf bereits aufgedeckte Ziffern in deren Umkreis nur noch die Menge an Feldern verdeckt ist, wleche durche jene angegeben wird.",
+    "COVERED.AMOUNT": "Achte auf bereits aufgedeckte Ziffern in deren Umkreis nur noch die Menge an Feldern verdeckt ist, wleche durch jene angegeben wird.",
     "COVERED.FLAGGED": "Achte auf bereits aufgedeckte Ziffern in deren Umkreis aus der Kombination aus Flaggen und verdeckten Feldern auf weitere Minen geschlossen werden kann.",
     "WRONG.FLAG": "Achte auf bereits aufgeckte Ziffern in deren Umkreis mehr Minen markiert sind als durch jene angegeben.",
     "WRONG.SURROUND": "Achte auf bereits aufgeckte Ziffern in deren Umkreis mehr Minen markiert sind als durch jene angegeben.",
