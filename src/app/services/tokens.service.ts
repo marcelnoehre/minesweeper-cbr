@@ -282,6 +282,7 @@ export class TokensService {
 
     setupColoredArea() {
         if(!this.noSolution) {
+            this._board.resetColors(this._cellsPerRow);
             if(!this._prodMode) {
                 this.colorDevArea();
             } else {
@@ -357,6 +358,7 @@ export class TokensService {
 
 
     colourSolutionArea(row: number, column: number) {
+        this._board.resetColors(this._cellsPerRow);
         if(!this._prodMode) {
             this.colorDevArea();
         } else {
