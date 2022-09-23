@@ -3,8 +3,6 @@ package cbr;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import de.dfki.mycbr.core.ICaseBase;
 import de.dfki.mycbr.core.Project;
@@ -38,7 +36,6 @@ public class CBRProject {
 	private AmalgamationFct minesweeperPatternSim;
 	private ICaseBase casebase;
 	private StringDesc[] attributes = new StringDesc[Constants.ATTRIBUTES_AMOUNT];
-	private ExecutorService executor = Executors.newFixedThreadPool(50);
 	
 	/**
 	 * Imports a project or creates a new one.
@@ -199,21 +196,17 @@ public class CBRProject {
 	 */
 	protected void addCaseList(ArrayList<Case> caseList) {
 		for(Case newCase : caseList) {
-			executor.execute(new Runnable() {
-                public void run() {
-        			try {
-        				if(!checkForCase(newCase.getName())) {
-        					addCase(newCase);
-        					System.out.println("Case " + newCase.getName() + " added to casebase!");
-        				} else {
-        					System.out.println("Case " + newCase.getName() + " already exists!");	
-        				}
-        			} catch (Exception e) {
-        				System.out.println("Invalid Case " + newCase.getName() + " detected!");
-        			}
-                }
-            });
-		}
+			try {
+				if(!checkForCase(newCase.getName())) {
+					addCase(newCase);
+					System.out.println("Case " + newCase.getName() + " added to casebase!");
+				} else {
+					System.out.println("Case " + newCase.getName() + " already exists!");	
+				}
+			} catch (Exception e) {
+				System.out.println("Invalid Case " + newCase.getName() + " detected!");
+			}
+        }
 		System.out.println("");
 	}
 	
