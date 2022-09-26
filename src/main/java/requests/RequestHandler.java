@@ -27,6 +27,8 @@ public class RequestHandler {
 		try {
 			if(CBRAgent.project()) {
 				System.out.println("Already initialized!\n");
+			} else {
+				System.out.println("Backend running at port 8080!\n");
 			}
 		} catch(Exception e) {
 			System.out.println("Initializing project failed... restart minesweeper-cbr-backend!\n");
