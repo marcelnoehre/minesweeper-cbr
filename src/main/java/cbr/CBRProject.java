@@ -217,36 +217,38 @@ public class CBRProject {
 	 * @throws Exception
 	 */
 	protected void addCase(Case newCase) throws Exception {
-		Instance instance = minesweeperPatternConcept.addInstance(newCase.getName());
-		instance.addAttribute(attributes[0], newCase.getPattern().getCenter());
-		instance.addAttribute(attributes[1], newCase.getPattern().getInnerTopLeft());
-		instance.addAttribute(attributes[2], newCase.getPattern().getInnerTop());
-		instance.addAttribute(attributes[3], newCase.getPattern().getInnerTopRight());
-		instance.addAttribute(attributes[4], newCase.getPattern().getInnerRight());
-		instance.addAttribute(attributes[5], newCase.getPattern().getInnerBottomRight());
-		instance.addAttribute(attributes[6], newCase.getPattern().getInnerBottom());
-		instance.addAttribute(attributes[7], newCase.getPattern().getInnerBottomLeft());
-		instance.addAttribute(attributes[8], newCase.getPattern().getInnerLeft());
-		instance.addAttribute(attributes[9], newCase.getPattern().getOuterTopLeftCorner());
-		instance.addAttribute(attributes[10], newCase.getPattern().getOuterTopLeft());
-		instance.addAttribute(attributes[11], newCase.getPattern().getOuterTop());
-		instance.addAttribute(attributes[12], newCase.getPattern().getOuterTopRight());
-		instance.addAttribute(attributes[13], newCase.getPattern().getOuterTopRightCorner());
-		instance.addAttribute(attributes[14], newCase.getPattern().getOuterRightTop());
-		instance.addAttribute(attributes[15], newCase.getPattern().getOuterRight());
-		instance.addAttribute(attributes[16], newCase.getPattern().getOuterRightBottom());
-		instance.addAttribute(attributes[17], newCase.getPattern().getOuterBottomRightCorner());
-		instance.addAttribute(attributes[18], newCase.getPattern().getOuterBottomRight());
-		instance.addAttribute(attributes[19], newCase.getPattern().getOuterBottom());
-		instance.addAttribute(attributes[20], newCase.getPattern().getOuterBottomLeft());
-		instance.addAttribute(attributes[21], newCase.getPattern().getOuterBottomLeftCorner());
-		instance.addAttribute(attributes[22], newCase.getPattern().getOuterLeftBottom());
-		instance.addAttribute(attributes[23], newCase.getPattern().getOuterLeft());
-		instance.addAttribute(attributes[24], newCase.getPattern().getOuterLeftTop());
-		instance.addAttribute(attributes[25], newCase.getSolution().getSolvability() ? "True": "False");
-		instance.addAttribute(attributes[26], Transform.stringArrayToSolutionString(newCase.getSolution().getCells()));
-		instance.addAttribute(attributes[27], Transform.stringArrayToSolutionString(newCase.getSolution().getTypes()));
-		casebase.addCase(instance);
+		if(newCase.getSolution().getSolvability()) {	
+			Instance instance = minesweeperPatternConcept.addInstance(newCase.getName());
+			instance.addAttribute(attributes[0], newCase.getPattern().getCenter());
+			instance.addAttribute(attributes[1], newCase.getPattern().getInnerTopLeft());
+			instance.addAttribute(attributes[2], newCase.getPattern().getInnerTop());
+			instance.addAttribute(attributes[3], newCase.getPattern().getInnerTopRight());
+			instance.addAttribute(attributes[4], newCase.getPattern().getInnerRight());
+			instance.addAttribute(attributes[5], newCase.getPattern().getInnerBottomRight());
+			instance.addAttribute(attributes[6], newCase.getPattern().getInnerBottom());
+			instance.addAttribute(attributes[7], newCase.getPattern().getInnerBottomLeft());
+			instance.addAttribute(attributes[8], newCase.getPattern().getInnerLeft());
+			instance.addAttribute(attributes[9], newCase.getPattern().getOuterTopLeftCorner());
+			instance.addAttribute(attributes[10], newCase.getPattern().getOuterTopLeft());
+			instance.addAttribute(attributes[11], newCase.getPattern().getOuterTop());
+			instance.addAttribute(attributes[12], newCase.getPattern().getOuterTopRight());
+			instance.addAttribute(attributes[13], newCase.getPattern().getOuterTopRightCorner());
+			instance.addAttribute(attributes[14], newCase.getPattern().getOuterRightTop());
+			instance.addAttribute(attributes[15], newCase.getPattern().getOuterRight());
+			instance.addAttribute(attributes[16], newCase.getPattern().getOuterRightBottom());
+			instance.addAttribute(attributes[17], newCase.getPattern().getOuterBottomRightCorner());
+			instance.addAttribute(attributes[18], newCase.getPattern().getOuterBottomRight());
+			instance.addAttribute(attributes[19], newCase.getPattern().getOuterBottom());
+			instance.addAttribute(attributes[20], newCase.getPattern().getOuterBottomLeft());
+			instance.addAttribute(attributes[21], newCase.getPattern().getOuterBottomLeftCorner());
+			instance.addAttribute(attributes[22], newCase.getPattern().getOuterLeftBottom());
+			instance.addAttribute(attributes[23], newCase.getPattern().getOuterLeft());
+			instance.addAttribute(attributes[24], newCase.getPattern().getOuterLeftTop());
+			instance.addAttribute(attributes[25], newCase.getSolution().getSolvability() ? "True": "False");
+			instance.addAttribute(attributes[26], Transform.stringArrayToSolutionString(newCase.getSolution().getCells()));
+			instance.addAttribute(attributes[27], Transform.stringArrayToSolutionString(newCase.getSolution().getTypes()));
+			casebase.addCase(instance);
+		}
 	}
 	
 	/**
