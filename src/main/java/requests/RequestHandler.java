@@ -61,11 +61,16 @@ public class RequestHandler {
 					CBRAgent.project();
 					Case newCase = Transform.apiInputToCase(pattern, solvability.equals("True"), solutionCells, solutionTypes);
 					CBRAgent.addCase(newCase);
-					System.out.println(" Success!");
 					try {
-						System.out.print("Adding Case " + pattern + " to CaseBase.csv...");
-						Exports.addCaseToCSV(Transform.caseToStringArray(newCase), new Constants().getPath() + "CaseBase.csv");
-						System.out.println(" Success!\n");
+						if (newCase.getSolution().getSolvability()) {
+							System.out.println(" Success!");
+							System.out.print("Adding Case " + pattern + " to CaseBase.csv...");
+							Exports.addCaseToCSV(Transform.caseToStringArray(newCase), new Constants().getPath() + "CaseBase.csv");
+							System.out.println(" Success!\n");
+						} else {
+							System.out.println(" Failed!");
+							System.out.println("Case not solvable!\n");
+						}
 					} catch(Exception e) {
 						System.out.println(" Failed!\n");
 					}
