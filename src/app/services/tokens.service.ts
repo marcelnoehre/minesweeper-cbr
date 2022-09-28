@@ -370,7 +370,7 @@ export class TokensService {
                 }
             }
         }
-        await new Promise(f => setTimeout(f, 1000));
+        await new Promise(f => setTimeout(f, 2000));
         this._board.resetColors(this._cellsPerRow);
         this.resetHintStatus();
     }
