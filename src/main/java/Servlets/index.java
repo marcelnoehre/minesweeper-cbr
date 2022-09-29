@@ -28,7 +28,7 @@ public class index extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestHandler.initializeBackend();
-		response.getWriter().append("Minesweeper CBR Backend running at Port 8080");
+		response.getWriter().append("Minesweeper-CBR-Backend running at Port:8080");
 	}
 
 	/**
