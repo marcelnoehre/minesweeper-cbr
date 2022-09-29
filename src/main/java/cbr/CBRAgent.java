@@ -76,8 +76,8 @@ public class CBRAgent {
 	 * 
 	 * @param pattern The pattern of the case to remove
 	 */
-	public static void removeCase(String pattern) {
-		project.removeCase(pattern);
+	public static boolean removeCase(String pattern) {
+		return project.removeCase(pattern);
 	}
 	
 	/**

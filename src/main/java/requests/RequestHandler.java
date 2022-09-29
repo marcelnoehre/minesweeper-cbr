@@ -124,17 +124,27 @@ public class RequestHandler {
 					System.out.print("Updating Case " + pattern + " in the case base...");
 					CBRAgent.project();
 					dataStorage = CBRAgent.getCase(pattern);
-					CBRAgent.removeCase(pattern);
-					newCase = Transform.apiInputToCase(pattern, solveable.equals("True"), solutionCells, solutionTypes);
-					CBRAgent.addCase(newCase);
-					System.out.println(" Success!");
-					try {
-						System.out.print("Updating Case " + pattern + " at CaseBase.csv...");
-						Exports.removeCaseFromCSV(pattern, new Constants().getPath() + "CaseBase.csv");
-						Exports.addCaseToCSV(Transform.caseToStringArray(newCase), new Constants().getPath() + "CaseBase.csv");
-						System.out.println(" Success!\n");
-					} catch(Exception e) {
-						System.out.println(" Failed!\n");
+					if(CBRAgent.removeCase(pattern)) {
+						newCase = Transform.apiInputToCase(pattern, solveable.equals("True"), solutionCells, solutionTypes);
+						CBRAgent.addCase(newCase);
+						try {
+							if(newCase.getSolution().getSolvability()) {
+								System.out.println(" Success!");
+								System.out.print("Updating Case " + pattern + " at CaseBase.csv...");
+								Exports.removeCaseFromCSV(pattern, new Constants().getPath() + "CaseBase.csv");
+								Exports.addCaseToCSV(Transform.caseToStringArray(newCase), new Constants().getPath() + "CaseBase.csv");
+								System.out.println(" Success!\n");
+							} else {
+								System.out.println(" Failed!");
+								System.out.println("Case not solvable!\n");
+							}
+							
+						} catch(Exception e) {
+							System.out.println(" Failed!\n");
+						}
+					} else {
+						System.out.println(" Failed!");
+						System.out.println("Case does not exist!\n");
 					}
 				} catch(Exception e) {
 					try {
