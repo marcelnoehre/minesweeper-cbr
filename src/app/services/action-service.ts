@@ -66,5 +66,6 @@ export class ActionService {
         this._tokens.setup(this._difficulty);
         this._timer.stop();
         this._timer.reset();
+        this._tokens.resetHintStatus();
     }
 }
