@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Project name="MinesweeperBackend" author="Jannis Kehrhahn 275136 and Marcel N&#246;hre 357775" >
+<instances name="MinesweeperPatternConcept">
+  <instance id="CCCCCCCCCCCCCCCCCCCCCCCCC" >
+    <att name="OuterLeftTop" value="C" />
+    <att name="OuterRightTop" value="C" />
+    <att name="InnerRight" value="C" />
+    <att name="OuterTopRightCorner" value="C" />
+    <att name="InnerTop" value="C" />
+    <att name="InnerTopRight" value="C" />
+    <att name="InnerBottom" value="C" />
+    <att name="Solvability" value="False" />
+    <att name="OuterBottomLeftCorner" value="C" />
+    <att name="InnerLeft" value="C" />
+    <att name="OuterBottomRight" value="C" />
+    <att name="Center" value="C" />
+    <att name="OuterLeftBottom" value="C" />
+    <att name="OuterTopLeft" value="C" />
+    <att name="OuterTop" value="C" />
+    <att name="InnerTopLeft" value="C" />
+    <att name="InnerBottomLeft" value="C" />
+    <att name="OuterBottomRightCorner" value="C" />
+    <att name="OuterRightBottom" value="C" />
+    <att name="OuterBottomLeft" value="C" />
+    <att name="OuterTopRight" value="C" />
+    <att name="OuterLeft" value="C" />
+    <att name="SolutionCells" value="" />
+    <att name="SolutionTypes" value="" />
+    <att name="OuterBottom" value="C" />
+    <att name="InnerBottomRight" value="C" />
+    <att name="OuterTopLeftCorner" value="C" />
+    <att name="OuterRight" value="C" />
+  </instance>
+</instances>
+<cb name="MinesweeperPatternCasebase">
+     <case name="CCCCCCCCCCCCCCCCCCCCCCCCC" />
+</cb>
+</Project>
